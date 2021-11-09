@@ -2,7 +2,7 @@
 
 [Go](https://golang.org/) SDK for **Cells Enterprise** REST API. Please check [Cells SDK GO](https://github.com/pydio/cells-sdk-go/tree/master/v3) for accessing the core APIs of Pydio Cells (home edition).
 
-For more information, please visit [https://pydio.com/en/docs/developer-guide/cells-sdk-go](https://pydio.com)
+For more information, please visit [https://pydio.com/en/docs/developer-guide](https://pydio.com)
 
 This SDK is generated automatically using [go-swagger](https://github.com/go-swagger/go-swagger) from the OpenAPI specification of Cells Enterprise Rest API. 
 
