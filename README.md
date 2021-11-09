@@ -1,12 +1,10 @@
-# Cells Enterprise distribution API client
+# Cells Enterprise SDK for Go
 
-[Go](https://golang.org/) SDK for **Cells Enterprise** REST API. Please check [Cells SDK GO](https://github.com/pydio/cells-sdk-go) for accessing the core APIs of Pydio Cells (home edition).
+[Go](https://golang.org/) SDK for **Cells Enterprise** REST API. Please check [Cells SDK GO](https://github.com/pydio/cells-sdk-go/tree/master/v3) for accessing the core APIs of Pydio Cells (home edition).
 
 For more information, please visit [https://pydio.com/en/docs/developer-guide/cells-sdk-go](https://pydio.com)
 
 This SDK is generated automatically using [go-swagger](https://github.com/go-swagger/go-swagger) from the OpenAPI specification of Cells Enterprise Rest API. 
-
-Last updated for version 3.0.1 of the Cells Enterprise API.
 
 ## Usage
 
@@ -24,8 +22,8 @@ As this library only adds Enterprise Specific endpoints to the core Cells API, y
 
 To workaround the obligation of adding v2, v3, ...  subfolders at each new major version, we stay at version 1 in this (very stable) repository.
 
-For better compatibility, the minor version of the SDK you are using should match the major version of your running Cells instance.  
-For instance use Sdk Go v1.3.x with a recent v3 server. 
+For better compatibility, the _minor_ version of the SDK you are using should match the _major_ version of your running Cells instance.  
+For instance, use Sdk Go v1.3.x with a recent v3 Cells server. 
 
 ## License
 
