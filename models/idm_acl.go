@@ -58,6 +58,8 @@ func (m *IdmACL) validateAction(formats strfmt.Registry) error {
 		if err := m.Action.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}
@@ -86,6 +88,8 @@ func (m *IdmACL) contextValidateAction(ctx context.Context, formats strfmt.Regis
 		if err := m.Action.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}

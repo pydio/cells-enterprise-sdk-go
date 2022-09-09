@@ -54,7 +54,14 @@ func (o *DeleteSelectorTemplateReader) ReadResponse(response runtime.ClientRespo
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDeleteSelectorTemplateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewDeleteSelectorTemplateOK() *DeleteSelectorTemplateOK {
 	return &DeleteSelectorTemplateOK{}
 }
 
-/* DeleteSelectorTemplateOK describes a response with status code 200, with default header values.
+/*
+DeleteSelectorTemplateOK describes a response with status code 200, with default header values.
 
-DeleteSelectorTemplateOK delete selector template o k
+A successful response.
 */
 type DeleteSelectorTemplateOK struct {
 	Payload *models.EntDeleteSelectorTemplateResponse
 }
 
+// IsSuccess returns true when this delete selector template o k response has a 2xx status code
+func (o *DeleteSelectorTemplateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete selector template o k response has a 3xx status code
+func (o *DeleteSelectorTemplateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete selector template o k response has a 4xx status code
+func (o *DeleteSelectorTemplateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete selector template o k response has a 5xx status code
+func (o *DeleteSelectorTemplateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete selector template o k response a status code equal to that given
+func (o *DeleteSelectorTemplateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteSelectorTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteSelectorTemplateOK) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteSelectorTemplateOK) GetPayload() *models.EntDeleteSelectorTemplateResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewDeleteSelectorTemplateUnauthorized() *DeleteSelectorTemplateUnauthorized
 	return &DeleteSelectorTemplateUnauthorized{}
 }
 
-/* DeleteSelectorTemplateUnauthorized describes a response with status code 401, with default header values.
+/*
+DeleteSelectorTemplateUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type DeleteSelectorTemplateUnauthorized struct {
 }
 
+// IsSuccess returns true when this delete selector template unauthorized response has a 2xx status code
+func (o *DeleteSelectorTemplateUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete selector template unauthorized response has a 3xx status code
+func (o *DeleteSelectorTemplateUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete selector template unauthorized response has a 4xx status code
+func (o *DeleteSelectorTemplateUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete selector template unauthorized response has a 5xx status code
+func (o *DeleteSelectorTemplateUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete selector template unauthorized response a status code equal to that given
+func (o *DeleteSelectorTemplateUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *DeleteSelectorTemplateUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateUnauthorized ", 401)
+}
+
+func (o *DeleteSelectorTemplateUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewDeleteSelectorTemplateForbidden() *DeleteSelectorTemplateForbidden {
 	return &DeleteSelectorTemplateForbidden{}
 }
 
-/* DeleteSelectorTemplateForbidden describes a response with status code 403, with default header values.
+/*
+DeleteSelectorTemplateForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type DeleteSelectorTemplateForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete selector template forbidden response has a 2xx status code
+func (o *DeleteSelectorTemplateForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete selector template forbidden response has a 3xx status code
+func (o *DeleteSelectorTemplateForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete selector template forbidden response has a 4xx status code
+func (o *DeleteSelectorTemplateForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete selector template forbidden response has a 5xx status code
+func (o *DeleteSelectorTemplateForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete selector template forbidden response a status code equal to that given
+func (o *DeleteSelectorTemplateForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *DeleteSelectorTemplateForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateForbidden  %+v", 403, o.Payload)
 }
+
+func (o *DeleteSelectorTemplateForbidden) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateForbidden  %+v", 403, o.Payload)
+}
+
 func (o *DeleteSelectorTemplateForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewDeleteSelectorTemplateNotFound() *DeleteSelectorTemplateNotFound {
 	return &DeleteSelectorTemplateNotFound{}
 }
 
-/* DeleteSelectorTemplateNotFound describes a response with status code 404, with default header values.
+/*
+DeleteSelectorTemplateNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type DeleteSelectorTemplateNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete selector template not found response has a 2xx status code
+func (o *DeleteSelectorTemplateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete selector template not found response has a 3xx status code
+func (o *DeleteSelectorTemplateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete selector template not found response has a 4xx status code
+func (o *DeleteSelectorTemplateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete selector template not found response has a 5xx status code
+func (o *DeleteSelectorTemplateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete selector template not found response a status code equal to that given
+func (o *DeleteSelectorTemplateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *DeleteSelectorTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteSelectorTemplateNotFound) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteSelectorTemplateNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewDeleteSelectorTemplateInternalServerError() *DeleteSelectorTemplateInter
 	return &DeleteSelectorTemplateInternalServerError{}
 }
 
-/* DeleteSelectorTemplateInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteSelectorTemplateInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type DeleteSelectorTemplateInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete selector template internal server error response has a 2xx status code
+func (o *DeleteSelectorTemplateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete selector template internal server error response has a 3xx status code
+func (o *DeleteSelectorTemplateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete selector template internal server error response has a 4xx status code
+func (o *DeleteSelectorTemplateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete selector template internal server error response has a 5xx status code
+func (o *DeleteSelectorTemplateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete selector template internal server error response a status code equal to that given
+func (o *DeleteSelectorTemplateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *DeleteSelectorTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteSelectorTemplateInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteSelectorTemplateInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *DeleteSelectorTemplateInternalServerError) GetPayload() *models.RestErr
 func (o *DeleteSelectorTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSelectorTemplateDefault creates a DeleteSelectorTemplateDefault with default headers values
+func NewDeleteSelectorTemplateDefault(code int) *DeleteSelectorTemplateDefault {
+	return &DeleteSelectorTemplateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DeleteSelectorTemplateDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type DeleteSelectorTemplateDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the delete selector template default response
+func (o *DeleteSelectorTemplateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this delete selector template default response has a 2xx status code
+func (o *DeleteSelectorTemplateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete selector template default response has a 3xx status code
+func (o *DeleteSelectorTemplateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete selector template default response has a 4xx status code
+func (o *DeleteSelectorTemplateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete selector template default response has a 5xx status code
+func (o *DeleteSelectorTemplateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete selector template default response a status code equal to that given
+func (o *DeleteSelectorTemplateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DeleteSelectorTemplateDefault) Error() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] DeleteSelectorTemplate default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteSelectorTemplateDefault) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] DeleteSelectorTemplate default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteSelectorTemplateDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *DeleteSelectorTemplateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

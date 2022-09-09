@@ -20,8 +20,12 @@ import (
 type NodeChangeEventEventType string
 
 func NewNodeChangeEventEventType(value NodeChangeEventEventType) *NodeChangeEventEventType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated NodeChangeEventEventType.
+func (m NodeChangeEventEventType) Pointer() *NodeChangeEventEventType {
+	return &m
 }
 
 const (

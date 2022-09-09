@@ -54,10 +54,12 @@ func NewListPersonalAccessTokensParamsWithHTTPClient(client *http.Client) *ListP
 	}
 }
 
-/* ListPersonalAccessTokensParams contains all the parameters to send to the API endpoint
-   for the list personal access tokens operation.
+/*
+ListPersonalAccessTokensParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list personal access tokens operation.
+
+	Typically these are written to a http.Request.
 */
 type ListPersonalAccessTokensParams struct {
 

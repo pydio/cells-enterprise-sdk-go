@@ -20,8 +20,12 @@ import (
 type JobsIdmSelectorType string
 
 func NewJobsIdmSelectorType(value JobsIdmSelectorType) *JobsIdmSelectorType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated JobsIdmSelectorType.
+func (m JobsIdmSelectorType) Pointer() *JobsIdmSelectorType {
+	return &m
 }
 
 const (

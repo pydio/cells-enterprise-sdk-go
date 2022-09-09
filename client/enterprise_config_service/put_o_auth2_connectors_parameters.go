@@ -54,10 +54,12 @@ func NewPutOAuth2ConnectorsParamsWithHTTPClient(client *http.Client) *PutOAuth2C
 	}
 }
 
-/* PutOAuth2ConnectorsParams contains all the parameters to send to the API endpoint
-   for the put o auth2 connectors operation.
+/*
+PutOAuth2ConnectorsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put o auth2 connectors operation.
+
+	Typically these are written to a http.Request.
 */
 type PutOAuth2ConnectorsParams struct {
 

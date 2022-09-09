@@ -74,6 +74,8 @@ func (m *InstallProxyConfig) validateCertificate(formats strfmt.Registry) error 
 		if err := m.Certificate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Certificate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Certificate")
 			}
 			return err
 		}
@@ -91,6 +93,8 @@ func (m *InstallProxyConfig) validateLetsEncrypt(formats strfmt.Registry) error 
 		if err := m.LetsEncrypt.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LetsEncrypt")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("LetsEncrypt")
 			}
 			return err
 		}
@@ -108,6 +112,8 @@ func (m *InstallProxyConfig) validateSelfSigned(formats strfmt.Registry) error {
 		if err := m.SelfSigned.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("SelfSigned")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("SelfSigned")
 			}
 			return err
 		}
@@ -144,6 +150,8 @@ func (m *InstallProxyConfig) contextValidateCertificate(ctx context.Context, for
 		if err := m.Certificate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Certificate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Certificate")
 			}
 			return err
 		}
@@ -158,6 +166,8 @@ func (m *InstallProxyConfig) contextValidateLetsEncrypt(ctx context.Context, for
 		if err := m.LetsEncrypt.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("LetsEncrypt")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("LetsEncrypt")
 			}
 			return err
 		}
@@ -172,6 +182,8 @@ func (m *InstallProxyConfig) contextValidateSelfSigned(ctx context.Context, form
 		if err := m.SelfSigned.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("SelfSigned")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("SelfSigned")
 			}
 			return err
 		}

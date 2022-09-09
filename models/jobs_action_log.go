@@ -59,6 +59,8 @@ func (m *JobsActionLog) validateAction(formats strfmt.Registry) error {
 		if err := m.Action.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}
@@ -76,6 +78,8 @@ func (m *JobsActionLog) validateInputMessage(formats strfmt.Registry) error {
 		if err := m.InputMessage.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("InputMessage")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("InputMessage")
 			}
 			return err
 		}
@@ -93,6 +97,8 @@ func (m *JobsActionLog) validateOutputMessage(formats strfmt.Registry) error {
 		if err := m.OutputMessage.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("OutputMessage")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("OutputMessage")
 			}
 			return err
 		}
@@ -129,6 +135,8 @@ func (m *JobsActionLog) contextValidateAction(ctx context.Context, formats strfm
 		if err := m.Action.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}
@@ -143,6 +151,8 @@ func (m *JobsActionLog) contextValidateInputMessage(ctx context.Context, formats
 		if err := m.InputMessage.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("InputMessage")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("InputMessage")
 			}
 			return err
 		}
@@ -157,6 +167,8 @@ func (m *JobsActionLog) contextValidateOutputMessage(ctx context.Context, format
 		if err := m.OutputMessage.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("OutputMessage")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("OutputMessage")
 			}
 			return err
 		}

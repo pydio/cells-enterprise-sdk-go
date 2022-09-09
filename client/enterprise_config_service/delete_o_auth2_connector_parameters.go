@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeleteOAuth2ConnectorParams creates a new DeleteOAuth2ConnectorParams object,
@@ -52,15 +53,325 @@ func NewDeleteOAuth2ConnectorParamsWithHTTPClient(client *http.Client) *DeleteOA
 	}
 }
 
-/* DeleteOAuth2ConnectorParams contains all the parameters to send to the API endpoint
-   for the delete o auth2 connector operation.
+/*
+DeleteOAuth2ConnectorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete o auth2 connector operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteOAuth2ConnectorParams struct {
 
+	// ConfigbitbucketClientID.
+	ConfigbitbucketClientID *string
+
+	// ConfigbitbucketClientSecret.
+	ConfigbitbucketClientSecret *string
+
+	// ConfigbitbucketRedirectURI.
+	ConfigbitbucketRedirectURI *string
+
+	// ConfigbitbucketTeams.
+	ConfigbitbucketTeams []string
+
+	// ConfiggithubClientID.
+	ConfiggithubClientID *string
+
+	// ConfiggithubClientSecret.
+	ConfiggithubClientSecret *string
+
+	/* ConfiggithubHostName.
+
+	   For GitHub enterprise.
+	*/
+	ConfiggithubHostName *string
+
+	// ConfiggithubLoadAllGroups.
+	ConfiggithubLoadAllGroups *bool
+
+	// ConfiggithubRedirectURI.
+	ConfiggithubRedirectURI *string
+
+	// ConfiggithubRootCA.
+	ConfiggithubRootCA *string
+
+	// ConfiggithubTeamNameField.
+	ConfiggithubTeamNameField *string
+
+	// ConfiggithubUseLoginAsID.
+	ConfiggithubUseLoginAsID *bool
+
+	// ConfiggitlabBaseURL.
+	ConfiggitlabBaseURL *string
+
+	// ConfiggitlabClientID.
+	ConfiggitlabClientID *string
+
+	// ConfiggitlabClientSecret.
+	ConfiggitlabClientSecret *string
+
+	// ConfiggitlabGroups.
+	ConfiggitlabGroups []string
+
+	// ConfiggitlabRedirectURI.
+	ConfiggitlabRedirectURI *string
+
+	// ConfiggitlabUserLoginAsID.
+	ConfiggitlabUserLoginAsID *bool
+
+	// ConfigldapBindAnonymous.
+	ConfigldapBindAnonymous *bool
+
+	// ConfigldapBindDN.
+	ConfigldapBindDN *string
+
+	// ConfigldapBindPW.
+	ConfigldapBindPW *string
+
+	// ConfigldapConfigID.
+	ConfigldapConfigID *string
+
+	// ConfigldapConnection.
+	ConfigldapConnection *string
+
+	// ConfigldapDomainName.
+	ConfigldapDomainName *string
+
+	// ConfigldapHost.
+	ConfigldapHost *string
+
+	// ConfigldapMemberOfMappingGroupFilterDNs.
+	ConfigldapMemberOfMappingGroupFilterDNs []string
+
+	// ConfigldapMemberOfMappingGroupFilterDisplayAttribute.
+	ConfigldapMemberOfMappingGroupFilterDisplayAttribute *string
+
+	// ConfigldapMemberOfMappingGroupFilterFilter.
+	ConfigldapMemberOfMappingGroupFilterFilter *string
+
+	// ConfigldapMemberOfMappingGroupFilterIDAttribute.
+	ConfigldapMemberOfMappingGroupFilterIDAttribute *string
+
+	// ConfigldapMemberOfMappingGroupFilterScope.
+	ConfigldapMemberOfMappingGroupFilterScope *string
+
+	// ConfigldapMemberOfMappingMappingLeftAttribute.
+	ConfigldapMemberOfMappingMappingLeftAttribute *string
+
+	// ConfigldapMemberOfMappingMappingRightAttribute.
+	ConfigldapMemberOfMappingMappingRightAttribute *string
+
+	// ConfigldapMemberOfMappingMappingRolePrefix.
+	ConfigldapMemberOfMappingMappingRolePrefix *string
+
+	// ConfigldapMemberOfMappingMappingRuleString.
+	ConfigldapMemberOfMappingMappingRuleString *string
+
+	// ConfigldapMemberOfMappingPydioMemberOfAttribute.
+	ConfigldapMemberOfMappingPydioMemberOfAttribute *string
+
+	// ConfigldapMemberOfMappingPydioMemberOfValueFormat.
+	ConfigldapMemberOfMappingPydioMemberOfValueFormat *string
+
+	// ConfigldapMemberOfMappingRealMemberOf.
+	ConfigldapMemberOfMappingRealMemberOf *bool
+
+	// ConfigldapMemberOfMappingRealMemberOfAttribute.
+	ConfigldapMemberOfMappingRealMemberOfAttribute *string
+
+	// ConfigldapMemberOfMappingRealMemberOfValueFormat.
+	ConfigldapMemberOfMappingRealMemberOfValueFormat *string
+
+	// ConfigldapMemberOfMappingSupportNestedGroup.
+	ConfigldapMemberOfMappingSupportNestedGroup *bool
+
+	// ConfigldapPageSize.
+	//
+	// Format: int32
+	ConfigldapPageSize *int32
+
+	// ConfigldapRolePrefix.
+	ConfigldapRolePrefix *string
+
+	// ConfigldapRootCA.
+	ConfigldapRootCA *string
+
+	/* ConfigldapRootCAData.
+
+	   To be converted to []byte.
+	*/
+	ConfigldapRootCAData *string
+
+	// ConfigldapSchedule.
+	ConfigldapSchedule *string
+
+	// ConfigldapSchedulerDetails.
+	ConfigldapSchedulerDetails *string
+
+	// ConfigldapSkipVerifyCertificate.
+	ConfigldapSkipVerifyCertificate *bool
+
+	// ConfigldapSyncOnly.
+	ConfigldapSyncOnly *bool
+
+	// ConfigldapUserDNs.
+	ConfigldapUserDNs []string
+
+	// ConfigldapUserDisplayAttribute.
+	ConfigldapUserDisplayAttribute *string
+
+	// ConfigldapUserFilter.
+	ConfigldapUserFilter *string
+
+	// ConfigldapUserIDAttribute.
+	ConfigldapUserIDAttribute *string
+
+	// ConfigldapUserScope.
+	ConfigldapUserScope *string
+
+	// ConfiglinkedinClientID.
+	ConfiglinkedinClientID *string
+
+	// ConfiglinkedinClientSecret.
+	ConfiglinkedinClientSecret *string
+
+	// ConfiglinkedinRedirectURI.
+	ConfiglinkedinRedirectURI *string
+
+	// ConfigmicrosoftClientID.
+	ConfigmicrosoftClientID *string
+
+	// ConfigmicrosoftClientSecret.
+	ConfigmicrosoftClientSecret *string
+
+	// ConfigmicrosoftGroupNameFormat.
+	ConfigmicrosoftGroupNameFormat *string
+
+	// ConfigmicrosoftGroups.
+	ConfigmicrosoftGroups []string
+
+	// ConfigmicrosoftOnlySecurityGroups.
+	ConfigmicrosoftOnlySecurityGroups *bool
+
+	// ConfigmicrosoftRedirectURI.
+	ConfigmicrosoftRedirectURI *string
+
+	// ConfigmicrosoftTenant.
+	ConfigmicrosoftTenant *string
+
+	// ConfigmicrosoftUseGroupsAsWhitelist.
+	ConfigmicrosoftUseGroupsAsWhitelist *bool
+
+	// ConfigoauthAuthorizeURL.
+	ConfigoauthAuthorizeURL *string
+
+	// ConfigoauthBaseURL.
+	ConfigoauthBaseURL *string
+
+	// ConfigoauthClientID.
+	ConfigoauthClientID *string
+
+	// ConfigoauthClientSecret.
+	ConfigoauthClientSecret *string
+
+	// ConfigoauthGroups.
+	ConfigoauthGroups []string
+
+	// ConfigoauthRedirectURI.
+	ConfigoauthRedirectURI *string
+
+	// ConfigoauthTokenURL.
+	ConfigoauthTokenURL *string
+
+	// ConfigoauthUseBrokenAuthHeaderProvider.
+	ConfigoauthUseBrokenAuthHeaderProvider *bool
+
+	// ConfigoauthUseLoginAsID.
+	ConfigoauthUseLoginAsID *bool
+
+	// ConfigoauthUserInfoURL.
+	ConfigoauthUserInfoURL *string
+
+	// ConfigoidcBasicAuthUnsupported.
+	ConfigoidcBasicAuthUnsupported *bool
+
+	// ConfigoidcClientID.
+	ConfigoidcClientID *string
+
+	// ConfigoidcClientSecret.
+	ConfigoidcClientSecret *string
+
+	// ConfigoidcGetUserInfo.
+	ConfigoidcGetUserInfo *bool
+
+	// ConfigoidcHostedDomains.
+	ConfigoidcHostedDomains []string
+
+	// ConfigoidcInsecureSkipEmailVerified.
+	ConfigoidcInsecureSkipEmailVerified *bool
+
+	// ConfigoidcIssuer.
+	ConfigoidcIssuer *string
+
+	// ConfigoidcRedirectURI.
+	ConfigoidcRedirectURI *string
+
+	// ConfigoidcScopes.
+	ConfigoidcScopes []string
+
+	// ConfigoidcUserIDKey.
+	ConfigoidcUserIDKey *string
+
+	// ConfigoidcUserNameKey.
+	ConfigoidcUserNameKey *string
+
+	// ConfigsamlCa.
+	ConfigsamlCa *string
+
+	// ConfigsamlCaData.
+	ConfigsamlCaData *string
+
+	// ConfigsamlEmailAttr.
+	ConfigsamlEmailAttr *string
+
+	// ConfigsamlEntityIssuer.
+	ConfigsamlEntityIssuer *string
+
+	// ConfigsamlGroupsAttr.
+	ConfigsamlGroupsAttr *string
+
+	// ConfigsamlGroupsDelim.
+	ConfigsamlGroupsDelim *string
+
+	// ConfigsamlInsecureSkipSignatureValidation.
+	ConfigsamlInsecureSkipSignatureValidation *bool
+
+	// ConfigsamlNameIDPolicyFormat.
+	ConfigsamlNameIDPolicyFormat *string
+
+	// ConfigsamlRedirectURI.
+	ConfigsamlRedirectURI *string
+
+	// ConfigsamlSsoIssuer.
+	ConfigsamlSsoIssuer *string
+
+	// ConfigsamlSsoURL.
+	ConfigsamlSsoURL *string
+
+	// ConfigsamlUsernameAttr.
+	ConfigsamlUsernameAttr *string
+
 	// ID.
 	ID string
+
+	// Name.
+	Name *string
+
+	// Sites.
+	Sites []string
+
+	// Type.
+	Type *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -115,6 +426,1073 @@ func (o *DeleteOAuth2ConnectorParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithConfigbitbucketClientID adds the configbitbucketClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigbitbucketClientID(configbitbucketClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigbitbucketClientID(configbitbucketClientID)
+	return o
+}
+
+// SetConfigbitbucketClientID adds the configbitbucketClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigbitbucketClientID(configbitbucketClientID *string) {
+	o.ConfigbitbucketClientID = configbitbucketClientID
+}
+
+// WithConfigbitbucketClientSecret adds the configbitbucketClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigbitbucketClientSecret(configbitbucketClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigbitbucketClientSecret(configbitbucketClientSecret)
+	return o
+}
+
+// SetConfigbitbucketClientSecret adds the configbitbucketClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigbitbucketClientSecret(configbitbucketClientSecret *string) {
+	o.ConfigbitbucketClientSecret = configbitbucketClientSecret
+}
+
+// WithConfigbitbucketRedirectURI adds the configbitbucketRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigbitbucketRedirectURI(configbitbucketRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigbitbucketRedirectURI(configbitbucketRedirectURI)
+	return o
+}
+
+// SetConfigbitbucketRedirectURI adds the configbitbucketRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigbitbucketRedirectURI(configbitbucketRedirectURI *string) {
+	o.ConfigbitbucketRedirectURI = configbitbucketRedirectURI
+}
+
+// WithConfigbitbucketTeams adds the configbitbucketTeams to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigbitbucketTeams(configbitbucketTeams []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigbitbucketTeams(configbitbucketTeams)
+	return o
+}
+
+// SetConfigbitbucketTeams adds the configbitbucketTeams to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigbitbucketTeams(configbitbucketTeams []string) {
+	o.ConfigbitbucketTeams = configbitbucketTeams
+}
+
+// WithConfiggithubClientID adds the configgithubClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubClientID(configgithubClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubClientID(configgithubClientID)
+	return o
+}
+
+// SetConfiggithubClientID adds the configgithubClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubClientID(configgithubClientID *string) {
+	o.ConfiggithubClientID = configgithubClientID
+}
+
+// WithConfiggithubClientSecret adds the configgithubClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubClientSecret(configgithubClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubClientSecret(configgithubClientSecret)
+	return o
+}
+
+// SetConfiggithubClientSecret adds the configgithubClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubClientSecret(configgithubClientSecret *string) {
+	o.ConfiggithubClientSecret = configgithubClientSecret
+}
+
+// WithConfiggithubHostName adds the configgithubHostName to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubHostName(configgithubHostName *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubHostName(configgithubHostName)
+	return o
+}
+
+// SetConfiggithubHostName adds the configgithubHostName to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubHostName(configgithubHostName *string) {
+	o.ConfiggithubHostName = configgithubHostName
+}
+
+// WithConfiggithubLoadAllGroups adds the configgithubLoadAllGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubLoadAllGroups(configgithubLoadAllGroups *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubLoadAllGroups(configgithubLoadAllGroups)
+	return o
+}
+
+// SetConfiggithubLoadAllGroups adds the configgithubLoadAllGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubLoadAllGroups(configgithubLoadAllGroups *bool) {
+	o.ConfiggithubLoadAllGroups = configgithubLoadAllGroups
+}
+
+// WithConfiggithubRedirectURI adds the configgithubRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubRedirectURI(configgithubRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubRedirectURI(configgithubRedirectURI)
+	return o
+}
+
+// SetConfiggithubRedirectURI adds the configgithubRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubRedirectURI(configgithubRedirectURI *string) {
+	o.ConfiggithubRedirectURI = configgithubRedirectURI
+}
+
+// WithConfiggithubRootCA adds the configgithubRootCA to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubRootCA(configgithubRootCA *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubRootCA(configgithubRootCA)
+	return o
+}
+
+// SetConfiggithubRootCA adds the configgithubRootCA to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubRootCA(configgithubRootCA *string) {
+	o.ConfiggithubRootCA = configgithubRootCA
+}
+
+// WithConfiggithubTeamNameField adds the configgithubTeamNameField to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubTeamNameField(configgithubTeamNameField *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubTeamNameField(configgithubTeamNameField)
+	return o
+}
+
+// SetConfiggithubTeamNameField adds the configgithubTeamNameField to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubTeamNameField(configgithubTeamNameField *string) {
+	o.ConfiggithubTeamNameField = configgithubTeamNameField
+}
+
+// WithConfiggithubUseLoginAsID adds the configgithubUseLoginAsID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggithubUseLoginAsID(configgithubUseLoginAsID *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggithubUseLoginAsID(configgithubUseLoginAsID)
+	return o
+}
+
+// SetConfiggithubUseLoginAsID adds the configgithubUseLoginAsId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggithubUseLoginAsID(configgithubUseLoginAsID *bool) {
+	o.ConfiggithubUseLoginAsID = configgithubUseLoginAsID
+}
+
+// WithConfiggitlabBaseURL adds the configgitlabBaseURL to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggitlabBaseURL(configgitlabBaseURL *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggitlabBaseURL(configgitlabBaseURL)
+	return o
+}
+
+// SetConfiggitlabBaseURL adds the configgitlabBaseUrl to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggitlabBaseURL(configgitlabBaseURL *string) {
+	o.ConfiggitlabBaseURL = configgitlabBaseURL
+}
+
+// WithConfiggitlabClientID adds the configgitlabClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggitlabClientID(configgitlabClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggitlabClientID(configgitlabClientID)
+	return o
+}
+
+// SetConfiggitlabClientID adds the configgitlabClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggitlabClientID(configgitlabClientID *string) {
+	o.ConfiggitlabClientID = configgitlabClientID
+}
+
+// WithConfiggitlabClientSecret adds the configgitlabClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggitlabClientSecret(configgitlabClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggitlabClientSecret(configgitlabClientSecret)
+	return o
+}
+
+// SetConfiggitlabClientSecret adds the configgitlabClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggitlabClientSecret(configgitlabClientSecret *string) {
+	o.ConfiggitlabClientSecret = configgitlabClientSecret
+}
+
+// WithConfiggitlabGroups adds the configgitlabGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggitlabGroups(configgitlabGroups []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggitlabGroups(configgitlabGroups)
+	return o
+}
+
+// SetConfiggitlabGroups adds the configgitlabGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggitlabGroups(configgitlabGroups []string) {
+	o.ConfiggitlabGroups = configgitlabGroups
+}
+
+// WithConfiggitlabRedirectURI adds the configgitlabRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggitlabRedirectURI(configgitlabRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggitlabRedirectURI(configgitlabRedirectURI)
+	return o
+}
+
+// SetConfiggitlabRedirectURI adds the configgitlabRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggitlabRedirectURI(configgitlabRedirectURI *string) {
+	o.ConfiggitlabRedirectURI = configgitlabRedirectURI
+}
+
+// WithConfiggitlabUserLoginAsID adds the configgitlabUserLoginAsID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiggitlabUserLoginAsID(configgitlabUserLoginAsID *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfiggitlabUserLoginAsID(configgitlabUserLoginAsID)
+	return o
+}
+
+// SetConfiggitlabUserLoginAsID adds the configgitlabUserLoginAsId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiggitlabUserLoginAsID(configgitlabUserLoginAsID *bool) {
+	o.ConfiggitlabUserLoginAsID = configgitlabUserLoginAsID
+}
+
+// WithConfigldapBindAnonymous adds the configldapBindAnonymous to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapBindAnonymous(configldapBindAnonymous *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapBindAnonymous(configldapBindAnonymous)
+	return o
+}
+
+// SetConfigldapBindAnonymous adds the configldapBindAnonymous to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapBindAnonymous(configldapBindAnonymous *bool) {
+	o.ConfigldapBindAnonymous = configldapBindAnonymous
+}
+
+// WithConfigldapBindDN adds the configldapBindDN to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapBindDN(configldapBindDN *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapBindDN(configldapBindDN)
+	return o
+}
+
+// SetConfigldapBindDN adds the configldapBindDN to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapBindDN(configldapBindDN *string) {
+	o.ConfigldapBindDN = configldapBindDN
+}
+
+// WithConfigldapBindPW adds the configldapBindPW to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapBindPW(configldapBindPW *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapBindPW(configldapBindPW)
+	return o
+}
+
+// SetConfigldapBindPW adds the configldapBindPW to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapBindPW(configldapBindPW *string) {
+	o.ConfigldapBindPW = configldapBindPW
+}
+
+// WithConfigldapConfigID adds the configldapConfigID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapConfigID(configldapConfigID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapConfigID(configldapConfigID)
+	return o
+}
+
+// SetConfigldapConfigID adds the configldapConfigId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapConfigID(configldapConfigID *string) {
+	o.ConfigldapConfigID = configldapConfigID
+}
+
+// WithConfigldapConnection adds the configldapConnection to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapConnection(configldapConnection *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapConnection(configldapConnection)
+	return o
+}
+
+// SetConfigldapConnection adds the configldapConnection to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapConnection(configldapConnection *string) {
+	o.ConfigldapConnection = configldapConnection
+}
+
+// WithConfigldapDomainName adds the configldapDomainName to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapDomainName(configldapDomainName *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapDomainName(configldapDomainName)
+	return o
+}
+
+// SetConfigldapDomainName adds the configldapDomainName to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapDomainName(configldapDomainName *string) {
+	o.ConfigldapDomainName = configldapDomainName
+}
+
+// WithConfigldapHost adds the configldapHost to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapHost(configldapHost *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapHost(configldapHost)
+	return o
+}
+
+// SetConfigldapHost adds the configldapHost to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapHost(configldapHost *string) {
+	o.ConfigldapHost = configldapHost
+}
+
+// WithConfigldapMemberOfMappingGroupFilterDNs adds the configldapMemberOfMappingGroupFilterDNs to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingGroupFilterDNs(configldapMemberOfMappingGroupFilterDNs []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingGroupFilterDNs(configldapMemberOfMappingGroupFilterDNs)
+	return o
+}
+
+// SetConfigldapMemberOfMappingGroupFilterDNs adds the configldapMemberOfMappingGroupFilterDNs to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingGroupFilterDNs(configldapMemberOfMappingGroupFilterDNs []string) {
+	o.ConfigldapMemberOfMappingGroupFilterDNs = configldapMemberOfMappingGroupFilterDNs
+}
+
+// WithConfigldapMemberOfMappingGroupFilterDisplayAttribute adds the configldapMemberOfMappingGroupFilterDisplayAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingGroupFilterDisplayAttribute(configldapMemberOfMappingGroupFilterDisplayAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingGroupFilterDisplayAttribute(configldapMemberOfMappingGroupFilterDisplayAttribute)
+	return o
+}
+
+// SetConfigldapMemberOfMappingGroupFilterDisplayAttribute adds the configldapMemberOfMappingGroupFilterDisplayAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingGroupFilterDisplayAttribute(configldapMemberOfMappingGroupFilterDisplayAttribute *string) {
+	o.ConfigldapMemberOfMappingGroupFilterDisplayAttribute = configldapMemberOfMappingGroupFilterDisplayAttribute
+}
+
+// WithConfigldapMemberOfMappingGroupFilterFilter adds the configldapMemberOfMappingGroupFilterFilter to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingGroupFilterFilter(configldapMemberOfMappingGroupFilterFilter *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingGroupFilterFilter(configldapMemberOfMappingGroupFilterFilter)
+	return o
+}
+
+// SetConfigldapMemberOfMappingGroupFilterFilter adds the configldapMemberOfMappingGroupFilterFilter to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingGroupFilterFilter(configldapMemberOfMappingGroupFilterFilter *string) {
+	o.ConfigldapMemberOfMappingGroupFilterFilter = configldapMemberOfMappingGroupFilterFilter
+}
+
+// WithConfigldapMemberOfMappingGroupFilterIDAttribute adds the configldapMemberOfMappingGroupFilterIDAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingGroupFilterIDAttribute(configldapMemberOfMappingGroupFilterIDAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingGroupFilterIDAttribute(configldapMemberOfMappingGroupFilterIDAttribute)
+	return o
+}
+
+// SetConfigldapMemberOfMappingGroupFilterIDAttribute adds the configldapMemberOfMappingGroupFilterIdAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingGroupFilterIDAttribute(configldapMemberOfMappingGroupFilterIDAttribute *string) {
+	o.ConfigldapMemberOfMappingGroupFilterIDAttribute = configldapMemberOfMappingGroupFilterIDAttribute
+}
+
+// WithConfigldapMemberOfMappingGroupFilterScope adds the configldapMemberOfMappingGroupFilterScope to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingGroupFilterScope(configldapMemberOfMappingGroupFilterScope *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingGroupFilterScope(configldapMemberOfMappingGroupFilterScope)
+	return o
+}
+
+// SetConfigldapMemberOfMappingGroupFilterScope adds the configldapMemberOfMappingGroupFilterScope to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingGroupFilterScope(configldapMemberOfMappingGroupFilterScope *string) {
+	o.ConfigldapMemberOfMappingGroupFilterScope = configldapMemberOfMappingGroupFilterScope
+}
+
+// WithConfigldapMemberOfMappingMappingLeftAttribute adds the configldapMemberOfMappingMappingLeftAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingMappingLeftAttribute(configldapMemberOfMappingMappingLeftAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingMappingLeftAttribute(configldapMemberOfMappingMappingLeftAttribute)
+	return o
+}
+
+// SetConfigldapMemberOfMappingMappingLeftAttribute adds the configldapMemberOfMappingMappingLeftAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingMappingLeftAttribute(configldapMemberOfMappingMappingLeftAttribute *string) {
+	o.ConfigldapMemberOfMappingMappingLeftAttribute = configldapMemberOfMappingMappingLeftAttribute
+}
+
+// WithConfigldapMemberOfMappingMappingRightAttribute adds the configldapMemberOfMappingMappingRightAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingMappingRightAttribute(configldapMemberOfMappingMappingRightAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingMappingRightAttribute(configldapMemberOfMappingMappingRightAttribute)
+	return o
+}
+
+// SetConfigldapMemberOfMappingMappingRightAttribute adds the configldapMemberOfMappingMappingRightAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingMappingRightAttribute(configldapMemberOfMappingMappingRightAttribute *string) {
+	o.ConfigldapMemberOfMappingMappingRightAttribute = configldapMemberOfMappingMappingRightAttribute
+}
+
+// WithConfigldapMemberOfMappingMappingRolePrefix adds the configldapMemberOfMappingMappingRolePrefix to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingMappingRolePrefix(configldapMemberOfMappingMappingRolePrefix *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingMappingRolePrefix(configldapMemberOfMappingMappingRolePrefix)
+	return o
+}
+
+// SetConfigldapMemberOfMappingMappingRolePrefix adds the configldapMemberOfMappingMappingRolePrefix to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingMappingRolePrefix(configldapMemberOfMappingMappingRolePrefix *string) {
+	o.ConfigldapMemberOfMappingMappingRolePrefix = configldapMemberOfMappingMappingRolePrefix
+}
+
+// WithConfigldapMemberOfMappingMappingRuleString adds the configldapMemberOfMappingMappingRuleString to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingMappingRuleString(configldapMemberOfMappingMappingRuleString *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingMappingRuleString(configldapMemberOfMappingMappingRuleString)
+	return o
+}
+
+// SetConfigldapMemberOfMappingMappingRuleString adds the configldapMemberOfMappingMappingRuleString to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingMappingRuleString(configldapMemberOfMappingMappingRuleString *string) {
+	o.ConfigldapMemberOfMappingMappingRuleString = configldapMemberOfMappingMappingRuleString
+}
+
+// WithConfigldapMemberOfMappingPydioMemberOfAttribute adds the configldapMemberOfMappingPydioMemberOfAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingPydioMemberOfAttribute(configldapMemberOfMappingPydioMemberOfAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingPydioMemberOfAttribute(configldapMemberOfMappingPydioMemberOfAttribute)
+	return o
+}
+
+// SetConfigldapMemberOfMappingPydioMemberOfAttribute adds the configldapMemberOfMappingPydioMemberOfAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingPydioMemberOfAttribute(configldapMemberOfMappingPydioMemberOfAttribute *string) {
+	o.ConfigldapMemberOfMappingPydioMemberOfAttribute = configldapMemberOfMappingPydioMemberOfAttribute
+}
+
+// WithConfigldapMemberOfMappingPydioMemberOfValueFormat adds the configldapMemberOfMappingPydioMemberOfValueFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingPydioMemberOfValueFormat(configldapMemberOfMappingPydioMemberOfValueFormat *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingPydioMemberOfValueFormat(configldapMemberOfMappingPydioMemberOfValueFormat)
+	return o
+}
+
+// SetConfigldapMemberOfMappingPydioMemberOfValueFormat adds the configldapMemberOfMappingPydioMemberOfValueFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingPydioMemberOfValueFormat(configldapMemberOfMappingPydioMemberOfValueFormat *string) {
+	o.ConfigldapMemberOfMappingPydioMemberOfValueFormat = configldapMemberOfMappingPydioMemberOfValueFormat
+}
+
+// WithConfigldapMemberOfMappingRealMemberOf adds the configldapMemberOfMappingRealMemberOf to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingRealMemberOf(configldapMemberOfMappingRealMemberOf *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingRealMemberOf(configldapMemberOfMappingRealMemberOf)
+	return o
+}
+
+// SetConfigldapMemberOfMappingRealMemberOf adds the configldapMemberOfMappingRealMemberOf to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingRealMemberOf(configldapMemberOfMappingRealMemberOf *bool) {
+	o.ConfigldapMemberOfMappingRealMemberOf = configldapMemberOfMappingRealMemberOf
+}
+
+// WithConfigldapMemberOfMappingRealMemberOfAttribute adds the configldapMemberOfMappingRealMemberOfAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingRealMemberOfAttribute(configldapMemberOfMappingRealMemberOfAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingRealMemberOfAttribute(configldapMemberOfMappingRealMemberOfAttribute)
+	return o
+}
+
+// SetConfigldapMemberOfMappingRealMemberOfAttribute adds the configldapMemberOfMappingRealMemberOfAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingRealMemberOfAttribute(configldapMemberOfMappingRealMemberOfAttribute *string) {
+	o.ConfigldapMemberOfMappingRealMemberOfAttribute = configldapMemberOfMappingRealMemberOfAttribute
+}
+
+// WithConfigldapMemberOfMappingRealMemberOfValueFormat adds the configldapMemberOfMappingRealMemberOfValueFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingRealMemberOfValueFormat(configldapMemberOfMappingRealMemberOfValueFormat *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingRealMemberOfValueFormat(configldapMemberOfMappingRealMemberOfValueFormat)
+	return o
+}
+
+// SetConfigldapMemberOfMappingRealMemberOfValueFormat adds the configldapMemberOfMappingRealMemberOfValueFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingRealMemberOfValueFormat(configldapMemberOfMappingRealMemberOfValueFormat *string) {
+	o.ConfigldapMemberOfMappingRealMemberOfValueFormat = configldapMemberOfMappingRealMemberOfValueFormat
+}
+
+// WithConfigldapMemberOfMappingSupportNestedGroup adds the configldapMemberOfMappingSupportNestedGroup to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapMemberOfMappingSupportNestedGroup(configldapMemberOfMappingSupportNestedGroup *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapMemberOfMappingSupportNestedGroup(configldapMemberOfMappingSupportNestedGroup)
+	return o
+}
+
+// SetConfigldapMemberOfMappingSupportNestedGroup adds the configldapMemberOfMappingSupportNestedGroup to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapMemberOfMappingSupportNestedGroup(configldapMemberOfMappingSupportNestedGroup *bool) {
+	o.ConfigldapMemberOfMappingSupportNestedGroup = configldapMemberOfMappingSupportNestedGroup
+}
+
+// WithConfigldapPageSize adds the configldapPageSize to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapPageSize(configldapPageSize *int32) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapPageSize(configldapPageSize)
+	return o
+}
+
+// SetConfigldapPageSize adds the configldapPageSize to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapPageSize(configldapPageSize *int32) {
+	o.ConfigldapPageSize = configldapPageSize
+}
+
+// WithConfigldapRolePrefix adds the configldapRolePrefix to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapRolePrefix(configldapRolePrefix *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapRolePrefix(configldapRolePrefix)
+	return o
+}
+
+// SetConfigldapRolePrefix adds the configldapRolePrefix to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapRolePrefix(configldapRolePrefix *string) {
+	o.ConfigldapRolePrefix = configldapRolePrefix
+}
+
+// WithConfigldapRootCA adds the configldapRootCA to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapRootCA(configldapRootCA *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapRootCA(configldapRootCA)
+	return o
+}
+
+// SetConfigldapRootCA adds the configldapRootCA to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapRootCA(configldapRootCA *string) {
+	o.ConfigldapRootCA = configldapRootCA
+}
+
+// WithConfigldapRootCAData adds the configldapRootCAData to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapRootCAData(configldapRootCAData *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapRootCAData(configldapRootCAData)
+	return o
+}
+
+// SetConfigldapRootCAData adds the configldapRootCAData to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapRootCAData(configldapRootCAData *string) {
+	o.ConfigldapRootCAData = configldapRootCAData
+}
+
+// WithConfigldapSchedule adds the configldapSchedule to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapSchedule(configldapSchedule *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapSchedule(configldapSchedule)
+	return o
+}
+
+// SetConfigldapSchedule adds the configldapSchedule to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapSchedule(configldapSchedule *string) {
+	o.ConfigldapSchedule = configldapSchedule
+}
+
+// WithConfigldapSchedulerDetails adds the configldapSchedulerDetails to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapSchedulerDetails(configldapSchedulerDetails *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapSchedulerDetails(configldapSchedulerDetails)
+	return o
+}
+
+// SetConfigldapSchedulerDetails adds the configldapSchedulerDetails to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapSchedulerDetails(configldapSchedulerDetails *string) {
+	o.ConfigldapSchedulerDetails = configldapSchedulerDetails
+}
+
+// WithConfigldapSkipVerifyCertificate adds the configldapSkipVerifyCertificate to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapSkipVerifyCertificate(configldapSkipVerifyCertificate *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapSkipVerifyCertificate(configldapSkipVerifyCertificate)
+	return o
+}
+
+// SetConfigldapSkipVerifyCertificate adds the configldapSkipVerifyCertificate to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapSkipVerifyCertificate(configldapSkipVerifyCertificate *bool) {
+	o.ConfigldapSkipVerifyCertificate = configldapSkipVerifyCertificate
+}
+
+// WithConfigldapSyncOnly adds the configldapSyncOnly to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapSyncOnly(configldapSyncOnly *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapSyncOnly(configldapSyncOnly)
+	return o
+}
+
+// SetConfigldapSyncOnly adds the configldapSyncOnly to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapSyncOnly(configldapSyncOnly *bool) {
+	o.ConfigldapSyncOnly = configldapSyncOnly
+}
+
+// WithConfigldapUserDNs adds the configldapUserDNs to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapUserDNs(configldapUserDNs []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapUserDNs(configldapUserDNs)
+	return o
+}
+
+// SetConfigldapUserDNs adds the configldapUserDNs to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapUserDNs(configldapUserDNs []string) {
+	o.ConfigldapUserDNs = configldapUserDNs
+}
+
+// WithConfigldapUserDisplayAttribute adds the configldapUserDisplayAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapUserDisplayAttribute(configldapUserDisplayAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapUserDisplayAttribute(configldapUserDisplayAttribute)
+	return o
+}
+
+// SetConfigldapUserDisplayAttribute adds the configldapUserDisplayAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapUserDisplayAttribute(configldapUserDisplayAttribute *string) {
+	o.ConfigldapUserDisplayAttribute = configldapUserDisplayAttribute
+}
+
+// WithConfigldapUserFilter adds the configldapUserFilter to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapUserFilter(configldapUserFilter *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapUserFilter(configldapUserFilter)
+	return o
+}
+
+// SetConfigldapUserFilter adds the configldapUserFilter to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapUserFilter(configldapUserFilter *string) {
+	o.ConfigldapUserFilter = configldapUserFilter
+}
+
+// WithConfigldapUserIDAttribute adds the configldapUserIDAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapUserIDAttribute(configldapUserIDAttribute *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapUserIDAttribute(configldapUserIDAttribute)
+	return o
+}
+
+// SetConfigldapUserIDAttribute adds the configldapUserIdAttribute to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapUserIDAttribute(configldapUserIDAttribute *string) {
+	o.ConfigldapUserIDAttribute = configldapUserIDAttribute
+}
+
+// WithConfigldapUserScope adds the configldapUserScope to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigldapUserScope(configldapUserScope *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigldapUserScope(configldapUserScope)
+	return o
+}
+
+// SetConfigldapUserScope adds the configldapUserScope to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigldapUserScope(configldapUserScope *string) {
+	o.ConfigldapUserScope = configldapUserScope
+}
+
+// WithConfiglinkedinClientID adds the configlinkedinClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiglinkedinClientID(configlinkedinClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiglinkedinClientID(configlinkedinClientID)
+	return o
+}
+
+// SetConfiglinkedinClientID adds the configlinkedinClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiglinkedinClientID(configlinkedinClientID *string) {
+	o.ConfiglinkedinClientID = configlinkedinClientID
+}
+
+// WithConfiglinkedinClientSecret adds the configlinkedinClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiglinkedinClientSecret(configlinkedinClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiglinkedinClientSecret(configlinkedinClientSecret)
+	return o
+}
+
+// SetConfiglinkedinClientSecret adds the configlinkedinClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiglinkedinClientSecret(configlinkedinClientSecret *string) {
+	o.ConfiglinkedinClientSecret = configlinkedinClientSecret
+}
+
+// WithConfiglinkedinRedirectURI adds the configlinkedinRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfiglinkedinRedirectURI(configlinkedinRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfiglinkedinRedirectURI(configlinkedinRedirectURI)
+	return o
+}
+
+// SetConfiglinkedinRedirectURI adds the configlinkedinRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfiglinkedinRedirectURI(configlinkedinRedirectURI *string) {
+	o.ConfiglinkedinRedirectURI = configlinkedinRedirectURI
+}
+
+// WithConfigmicrosoftClientID adds the configmicrosoftClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftClientID(configmicrosoftClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftClientID(configmicrosoftClientID)
+	return o
+}
+
+// SetConfigmicrosoftClientID adds the configmicrosoftClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftClientID(configmicrosoftClientID *string) {
+	o.ConfigmicrosoftClientID = configmicrosoftClientID
+}
+
+// WithConfigmicrosoftClientSecret adds the configmicrosoftClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftClientSecret(configmicrosoftClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftClientSecret(configmicrosoftClientSecret)
+	return o
+}
+
+// SetConfigmicrosoftClientSecret adds the configmicrosoftClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftClientSecret(configmicrosoftClientSecret *string) {
+	o.ConfigmicrosoftClientSecret = configmicrosoftClientSecret
+}
+
+// WithConfigmicrosoftGroupNameFormat adds the configmicrosoftGroupNameFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftGroupNameFormat(configmicrosoftGroupNameFormat *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftGroupNameFormat(configmicrosoftGroupNameFormat)
+	return o
+}
+
+// SetConfigmicrosoftGroupNameFormat adds the configmicrosoftGroupNameFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftGroupNameFormat(configmicrosoftGroupNameFormat *string) {
+	o.ConfigmicrosoftGroupNameFormat = configmicrosoftGroupNameFormat
+}
+
+// WithConfigmicrosoftGroups adds the configmicrosoftGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftGroups(configmicrosoftGroups []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftGroups(configmicrosoftGroups)
+	return o
+}
+
+// SetConfigmicrosoftGroups adds the configmicrosoftGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftGroups(configmicrosoftGroups []string) {
+	o.ConfigmicrosoftGroups = configmicrosoftGroups
+}
+
+// WithConfigmicrosoftOnlySecurityGroups adds the configmicrosoftOnlySecurityGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftOnlySecurityGroups(configmicrosoftOnlySecurityGroups *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftOnlySecurityGroups(configmicrosoftOnlySecurityGroups)
+	return o
+}
+
+// SetConfigmicrosoftOnlySecurityGroups adds the configmicrosoftOnlySecurityGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftOnlySecurityGroups(configmicrosoftOnlySecurityGroups *bool) {
+	o.ConfigmicrosoftOnlySecurityGroups = configmicrosoftOnlySecurityGroups
+}
+
+// WithConfigmicrosoftRedirectURI adds the configmicrosoftRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftRedirectURI(configmicrosoftRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftRedirectURI(configmicrosoftRedirectURI)
+	return o
+}
+
+// SetConfigmicrosoftRedirectURI adds the configmicrosoftRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftRedirectURI(configmicrosoftRedirectURI *string) {
+	o.ConfigmicrosoftRedirectURI = configmicrosoftRedirectURI
+}
+
+// WithConfigmicrosoftTenant adds the configmicrosoftTenant to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftTenant(configmicrosoftTenant *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftTenant(configmicrosoftTenant)
+	return o
+}
+
+// SetConfigmicrosoftTenant adds the configmicrosoftTenant to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftTenant(configmicrosoftTenant *string) {
+	o.ConfigmicrosoftTenant = configmicrosoftTenant
+}
+
+// WithConfigmicrosoftUseGroupsAsWhitelist adds the configmicrosoftUseGroupsAsWhitelist to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftUseGroupsAsWhitelist(configmicrosoftUseGroupsAsWhitelist *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmicrosoftUseGroupsAsWhitelist(configmicrosoftUseGroupsAsWhitelist)
+	return o
+}
+
+// SetConfigmicrosoftUseGroupsAsWhitelist adds the configmicrosoftUseGroupsAsWhitelist to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftUseGroupsAsWhitelist(configmicrosoftUseGroupsAsWhitelist *bool) {
+	o.ConfigmicrosoftUseGroupsAsWhitelist = configmicrosoftUseGroupsAsWhitelist
+}
+
+// WithConfigoauthAuthorizeURL adds the configoauthAuthorizeURL to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthAuthorizeURL(configoauthAuthorizeURL *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthAuthorizeURL(configoauthAuthorizeURL)
+	return o
+}
+
+// SetConfigoauthAuthorizeURL adds the configoauthAuthorizeUrl to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthAuthorizeURL(configoauthAuthorizeURL *string) {
+	o.ConfigoauthAuthorizeURL = configoauthAuthorizeURL
+}
+
+// WithConfigoauthBaseURL adds the configoauthBaseURL to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthBaseURL(configoauthBaseURL *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthBaseURL(configoauthBaseURL)
+	return o
+}
+
+// SetConfigoauthBaseURL adds the configoauthBaseUrl to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthBaseURL(configoauthBaseURL *string) {
+	o.ConfigoauthBaseURL = configoauthBaseURL
+}
+
+// WithConfigoauthClientID adds the configoauthClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthClientID(configoauthClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthClientID(configoauthClientID)
+	return o
+}
+
+// SetConfigoauthClientID adds the configoauthClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthClientID(configoauthClientID *string) {
+	o.ConfigoauthClientID = configoauthClientID
+}
+
+// WithConfigoauthClientSecret adds the configoauthClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthClientSecret(configoauthClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthClientSecret(configoauthClientSecret)
+	return o
+}
+
+// SetConfigoauthClientSecret adds the configoauthClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthClientSecret(configoauthClientSecret *string) {
+	o.ConfigoauthClientSecret = configoauthClientSecret
+}
+
+// WithConfigoauthGroups adds the configoauthGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthGroups(configoauthGroups []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthGroups(configoauthGroups)
+	return o
+}
+
+// SetConfigoauthGroups adds the configoauthGroups to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthGroups(configoauthGroups []string) {
+	o.ConfigoauthGroups = configoauthGroups
+}
+
+// WithConfigoauthRedirectURI adds the configoauthRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthRedirectURI(configoauthRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthRedirectURI(configoauthRedirectURI)
+	return o
+}
+
+// SetConfigoauthRedirectURI adds the configoauthRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthRedirectURI(configoauthRedirectURI *string) {
+	o.ConfigoauthRedirectURI = configoauthRedirectURI
+}
+
+// WithConfigoauthTokenURL adds the configoauthTokenURL to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthTokenURL(configoauthTokenURL *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthTokenURL(configoauthTokenURL)
+	return o
+}
+
+// SetConfigoauthTokenURL adds the configoauthTokenUrl to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthTokenURL(configoauthTokenURL *string) {
+	o.ConfigoauthTokenURL = configoauthTokenURL
+}
+
+// WithConfigoauthUseBrokenAuthHeaderProvider adds the configoauthUseBrokenAuthHeaderProvider to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthUseBrokenAuthHeaderProvider(configoauthUseBrokenAuthHeaderProvider *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthUseBrokenAuthHeaderProvider(configoauthUseBrokenAuthHeaderProvider)
+	return o
+}
+
+// SetConfigoauthUseBrokenAuthHeaderProvider adds the configoauthUseBrokenAuthHeaderProvider to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthUseBrokenAuthHeaderProvider(configoauthUseBrokenAuthHeaderProvider *bool) {
+	o.ConfigoauthUseBrokenAuthHeaderProvider = configoauthUseBrokenAuthHeaderProvider
+}
+
+// WithConfigoauthUseLoginAsID adds the configoauthUseLoginAsID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthUseLoginAsID(configoauthUseLoginAsID *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthUseLoginAsID(configoauthUseLoginAsID)
+	return o
+}
+
+// SetConfigoauthUseLoginAsID adds the configoauthUseLoginAsId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthUseLoginAsID(configoauthUseLoginAsID *bool) {
+	o.ConfigoauthUseLoginAsID = configoauthUseLoginAsID
+}
+
+// WithConfigoauthUserInfoURL adds the configoauthUserInfoURL to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoauthUserInfoURL(configoauthUserInfoURL *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoauthUserInfoURL(configoauthUserInfoURL)
+	return o
+}
+
+// SetConfigoauthUserInfoURL adds the configoauthUserInfoUrl to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoauthUserInfoURL(configoauthUserInfoURL *string) {
+	o.ConfigoauthUserInfoURL = configoauthUserInfoURL
+}
+
+// WithConfigoidcBasicAuthUnsupported adds the configoidcBasicAuthUnsupported to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcBasicAuthUnsupported(configoidcBasicAuthUnsupported *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcBasicAuthUnsupported(configoidcBasicAuthUnsupported)
+	return o
+}
+
+// SetConfigoidcBasicAuthUnsupported adds the configoidcBasicAuthUnsupported to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcBasicAuthUnsupported(configoidcBasicAuthUnsupported *bool) {
+	o.ConfigoidcBasicAuthUnsupported = configoidcBasicAuthUnsupported
+}
+
+// WithConfigoidcClientID adds the configoidcClientID to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcClientID(configoidcClientID *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcClientID(configoidcClientID)
+	return o
+}
+
+// SetConfigoidcClientID adds the configoidcClientId to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcClientID(configoidcClientID *string) {
+	o.ConfigoidcClientID = configoidcClientID
+}
+
+// WithConfigoidcClientSecret adds the configoidcClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcClientSecret(configoidcClientSecret *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcClientSecret(configoidcClientSecret)
+	return o
+}
+
+// SetConfigoidcClientSecret adds the configoidcClientSecret to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcClientSecret(configoidcClientSecret *string) {
+	o.ConfigoidcClientSecret = configoidcClientSecret
+}
+
+// WithConfigoidcGetUserInfo adds the configoidcGetUserInfo to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcGetUserInfo(configoidcGetUserInfo *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcGetUserInfo(configoidcGetUserInfo)
+	return o
+}
+
+// SetConfigoidcGetUserInfo adds the configoidcGetUserInfo to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcGetUserInfo(configoidcGetUserInfo *bool) {
+	o.ConfigoidcGetUserInfo = configoidcGetUserInfo
+}
+
+// WithConfigoidcHostedDomains adds the configoidcHostedDomains to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcHostedDomains(configoidcHostedDomains []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcHostedDomains(configoidcHostedDomains)
+	return o
+}
+
+// SetConfigoidcHostedDomains adds the configoidcHostedDomains to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcHostedDomains(configoidcHostedDomains []string) {
+	o.ConfigoidcHostedDomains = configoidcHostedDomains
+}
+
+// WithConfigoidcInsecureSkipEmailVerified adds the configoidcInsecureSkipEmailVerified to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcInsecureSkipEmailVerified(configoidcInsecureSkipEmailVerified *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcInsecureSkipEmailVerified(configoidcInsecureSkipEmailVerified)
+	return o
+}
+
+// SetConfigoidcInsecureSkipEmailVerified adds the configoidcInsecureSkipEmailVerified to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcInsecureSkipEmailVerified(configoidcInsecureSkipEmailVerified *bool) {
+	o.ConfigoidcInsecureSkipEmailVerified = configoidcInsecureSkipEmailVerified
+}
+
+// WithConfigoidcIssuer adds the configoidcIssuer to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcIssuer(configoidcIssuer *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcIssuer(configoidcIssuer)
+	return o
+}
+
+// SetConfigoidcIssuer adds the configoidcIssuer to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcIssuer(configoidcIssuer *string) {
+	o.ConfigoidcIssuer = configoidcIssuer
+}
+
+// WithConfigoidcRedirectURI adds the configoidcRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcRedirectURI(configoidcRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcRedirectURI(configoidcRedirectURI)
+	return o
+}
+
+// SetConfigoidcRedirectURI adds the configoidcRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcRedirectURI(configoidcRedirectURI *string) {
+	o.ConfigoidcRedirectURI = configoidcRedirectURI
+}
+
+// WithConfigoidcScopes adds the configoidcScopes to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcScopes(configoidcScopes []string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcScopes(configoidcScopes)
+	return o
+}
+
+// SetConfigoidcScopes adds the configoidcScopes to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcScopes(configoidcScopes []string) {
+	o.ConfigoidcScopes = configoidcScopes
+}
+
+// WithConfigoidcUserIDKey adds the configoidcUserIDKey to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcUserIDKey(configoidcUserIDKey *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcUserIDKey(configoidcUserIDKey)
+	return o
+}
+
+// SetConfigoidcUserIDKey adds the configoidcUserIdKey to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcUserIDKey(configoidcUserIDKey *string) {
+	o.ConfigoidcUserIDKey = configoidcUserIDKey
+}
+
+// WithConfigoidcUserNameKey adds the configoidcUserNameKey to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigoidcUserNameKey(configoidcUserNameKey *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigoidcUserNameKey(configoidcUserNameKey)
+	return o
+}
+
+// SetConfigoidcUserNameKey adds the configoidcUserNameKey to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigoidcUserNameKey(configoidcUserNameKey *string) {
+	o.ConfigoidcUserNameKey = configoidcUserNameKey
+}
+
+// WithConfigsamlCa adds the configsamlCa to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlCa(configsamlCa *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlCa(configsamlCa)
+	return o
+}
+
+// SetConfigsamlCa adds the configsamlCa to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlCa(configsamlCa *string) {
+	o.ConfigsamlCa = configsamlCa
+}
+
+// WithConfigsamlCaData adds the configsamlCaData to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlCaData(configsamlCaData *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlCaData(configsamlCaData)
+	return o
+}
+
+// SetConfigsamlCaData adds the configsamlCaData to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlCaData(configsamlCaData *string) {
+	o.ConfigsamlCaData = configsamlCaData
+}
+
+// WithConfigsamlEmailAttr adds the configsamlEmailAttr to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlEmailAttr(configsamlEmailAttr *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlEmailAttr(configsamlEmailAttr)
+	return o
+}
+
+// SetConfigsamlEmailAttr adds the configsamlEmailAttr to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlEmailAttr(configsamlEmailAttr *string) {
+	o.ConfigsamlEmailAttr = configsamlEmailAttr
+}
+
+// WithConfigsamlEntityIssuer adds the configsamlEntityIssuer to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlEntityIssuer(configsamlEntityIssuer *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlEntityIssuer(configsamlEntityIssuer)
+	return o
+}
+
+// SetConfigsamlEntityIssuer adds the configsamlEntityIssuer to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlEntityIssuer(configsamlEntityIssuer *string) {
+	o.ConfigsamlEntityIssuer = configsamlEntityIssuer
+}
+
+// WithConfigsamlGroupsAttr adds the configsamlGroupsAttr to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlGroupsAttr(configsamlGroupsAttr *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlGroupsAttr(configsamlGroupsAttr)
+	return o
+}
+
+// SetConfigsamlGroupsAttr adds the configsamlGroupsAttr to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlGroupsAttr(configsamlGroupsAttr *string) {
+	o.ConfigsamlGroupsAttr = configsamlGroupsAttr
+}
+
+// WithConfigsamlGroupsDelim adds the configsamlGroupsDelim to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlGroupsDelim(configsamlGroupsDelim *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlGroupsDelim(configsamlGroupsDelim)
+	return o
+}
+
+// SetConfigsamlGroupsDelim adds the configsamlGroupsDelim to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlGroupsDelim(configsamlGroupsDelim *string) {
+	o.ConfigsamlGroupsDelim = configsamlGroupsDelim
+}
+
+// WithConfigsamlInsecureSkipSignatureValidation adds the configsamlInsecureSkipSignatureValidation to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlInsecureSkipSignatureValidation(configsamlInsecureSkipSignatureValidation *bool) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlInsecureSkipSignatureValidation(configsamlInsecureSkipSignatureValidation)
+	return o
+}
+
+// SetConfigsamlInsecureSkipSignatureValidation adds the configsamlInsecureSkipSignatureValidation to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlInsecureSkipSignatureValidation(configsamlInsecureSkipSignatureValidation *bool) {
+	o.ConfigsamlInsecureSkipSignatureValidation = configsamlInsecureSkipSignatureValidation
+}
+
+// WithConfigsamlNameIDPolicyFormat adds the configsamlNameIDPolicyFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlNameIDPolicyFormat(configsamlNameIDPolicyFormat *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlNameIDPolicyFormat(configsamlNameIDPolicyFormat)
+	return o
+}
+
+// SetConfigsamlNameIDPolicyFormat adds the configsamlNameIdPolicyFormat to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlNameIDPolicyFormat(configsamlNameIDPolicyFormat *string) {
+	o.ConfigsamlNameIDPolicyFormat = configsamlNameIDPolicyFormat
+}
+
+// WithConfigsamlRedirectURI adds the configsamlRedirectURI to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlRedirectURI(configsamlRedirectURI *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlRedirectURI(configsamlRedirectURI)
+	return o
+}
+
+// SetConfigsamlRedirectURI adds the configsamlRedirectUri to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlRedirectURI(configsamlRedirectURI *string) {
+	o.ConfigsamlRedirectURI = configsamlRedirectURI
+}
+
+// WithConfigsamlSsoIssuer adds the configsamlSsoIssuer to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlSsoIssuer(configsamlSsoIssuer *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlSsoIssuer(configsamlSsoIssuer)
+	return o
+}
+
+// SetConfigsamlSsoIssuer adds the configsamlSsoIssuer to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlSsoIssuer(configsamlSsoIssuer *string) {
+	o.ConfigsamlSsoIssuer = configsamlSsoIssuer
+}
+
+// WithConfigsamlSsoURL adds the configsamlSsoURL to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlSsoURL(configsamlSsoURL *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlSsoURL(configsamlSsoURL)
+	return o
+}
+
+// SetConfigsamlSsoURL adds the configsamlSsoUrl to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlSsoURL(configsamlSsoURL *string) {
+	o.ConfigsamlSsoURL = configsamlSsoURL
+}
+
+// WithConfigsamlUsernameAttr adds the configsamlUsernameAttr to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigsamlUsernameAttr(configsamlUsernameAttr *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigsamlUsernameAttr(configsamlUsernameAttr)
+	return o
+}
+
+// SetConfigsamlUsernameAttr adds the configsamlUsernameAttr to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigsamlUsernameAttr(configsamlUsernameAttr *string) {
+	o.ConfigsamlUsernameAttr = configsamlUsernameAttr
+}
+
 // WithID adds the id to the delete o auth2 connector params
 func (o *DeleteOAuth2ConnectorParams) WithID(id string) *DeleteOAuth2ConnectorParams {
 	o.SetID(id)
@@ -126,6 +1504,39 @@ func (o *DeleteOAuth2ConnectorParams) SetID(id string) {
 	o.ID = id
 }
 
+// WithName adds the name to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithName(name *string) *DeleteOAuth2ConnectorParams {
+	o.SetName(name)
+	return o
+}
+
+// SetName adds the name to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetName(name *string) {
+	o.Name = name
+}
+
+// WithSites adds the sites to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithSites(sites []string) *DeleteOAuth2ConnectorParams {
+	o.SetSites(sites)
+	return o
+}
+
+// SetSites adds the sites to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetSites(sites []string) {
+	o.Sites = sites
+}
+
+// WithType adds the typeVar to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithType(typeVar *string) *DeleteOAuth2ConnectorParams {
+	o.SetType(typeVar)
+	return o
+}
+
+// SetType adds the type to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetType(typeVar *string) {
+	o.Type = typeVar
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteOAuth2ConnectorParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -134,13 +1545,1812 @@ func (o *DeleteOAuth2ConnectorParams) WriteToRequest(r runtime.ClientRequest, re
 	}
 	var res []error
 
+	if o.ConfigbitbucketClientID != nil {
+
+		// query param configbitbucket.clientID
+		var qrConfigbitbucketClientID string
+
+		if o.ConfigbitbucketClientID != nil {
+			qrConfigbitbucketClientID = *o.ConfigbitbucketClientID
+		}
+		qConfigbitbucketClientID := qrConfigbitbucketClientID
+		if qConfigbitbucketClientID != "" {
+
+			if err := r.SetQueryParam("configbitbucket.clientID", qConfigbitbucketClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigbitbucketClientSecret != nil {
+
+		// query param configbitbucket.clientSecret
+		var qrConfigbitbucketClientSecret string
+
+		if o.ConfigbitbucketClientSecret != nil {
+			qrConfigbitbucketClientSecret = *o.ConfigbitbucketClientSecret
+		}
+		qConfigbitbucketClientSecret := qrConfigbitbucketClientSecret
+		if qConfigbitbucketClientSecret != "" {
+
+			if err := r.SetQueryParam("configbitbucket.clientSecret", qConfigbitbucketClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigbitbucketRedirectURI != nil {
+
+		// query param configbitbucket.redirectURI
+		var qrConfigbitbucketRedirectURI string
+
+		if o.ConfigbitbucketRedirectURI != nil {
+			qrConfigbitbucketRedirectURI = *o.ConfigbitbucketRedirectURI
+		}
+		qConfigbitbucketRedirectURI := qrConfigbitbucketRedirectURI
+		if qConfigbitbucketRedirectURI != "" {
+
+			if err := r.SetQueryParam("configbitbucket.redirectURI", qConfigbitbucketRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigbitbucketTeams != nil {
+
+		// binding items for configbitbucket.teams
+		joinedConfigbitbucketTeams := o.bindParamConfigbitbucketTeams(reg)
+
+		// query array param configbitbucket.teams
+		if err := r.SetQueryParam("configbitbucket.teams", joinedConfigbitbucketTeams...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfiggithubClientID != nil {
+
+		// query param configgithub.clientID
+		var qrConfiggithubClientID string
+
+		if o.ConfiggithubClientID != nil {
+			qrConfiggithubClientID = *o.ConfiggithubClientID
+		}
+		qConfiggithubClientID := qrConfiggithubClientID
+		if qConfiggithubClientID != "" {
+
+			if err := r.SetQueryParam("configgithub.clientID", qConfiggithubClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubClientSecret != nil {
+
+		// query param configgithub.clientSecret
+		var qrConfiggithubClientSecret string
+
+		if o.ConfiggithubClientSecret != nil {
+			qrConfiggithubClientSecret = *o.ConfiggithubClientSecret
+		}
+		qConfiggithubClientSecret := qrConfiggithubClientSecret
+		if qConfiggithubClientSecret != "" {
+
+			if err := r.SetQueryParam("configgithub.clientSecret", qConfiggithubClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubHostName != nil {
+
+		// query param configgithub.hostName
+		var qrConfiggithubHostName string
+
+		if o.ConfiggithubHostName != nil {
+			qrConfiggithubHostName = *o.ConfiggithubHostName
+		}
+		qConfiggithubHostName := qrConfiggithubHostName
+		if qConfiggithubHostName != "" {
+
+			if err := r.SetQueryParam("configgithub.hostName", qConfiggithubHostName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubLoadAllGroups != nil {
+
+		// query param configgithub.loadAllGroups
+		var qrConfiggithubLoadAllGroups bool
+
+		if o.ConfiggithubLoadAllGroups != nil {
+			qrConfiggithubLoadAllGroups = *o.ConfiggithubLoadAllGroups
+		}
+		qConfiggithubLoadAllGroups := swag.FormatBool(qrConfiggithubLoadAllGroups)
+		if qConfiggithubLoadAllGroups != "" {
+
+			if err := r.SetQueryParam("configgithub.loadAllGroups", qConfiggithubLoadAllGroups); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubRedirectURI != nil {
+
+		// query param configgithub.redirectURI
+		var qrConfiggithubRedirectURI string
+
+		if o.ConfiggithubRedirectURI != nil {
+			qrConfiggithubRedirectURI = *o.ConfiggithubRedirectURI
+		}
+		qConfiggithubRedirectURI := qrConfiggithubRedirectURI
+		if qConfiggithubRedirectURI != "" {
+
+			if err := r.SetQueryParam("configgithub.redirectURI", qConfiggithubRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubRootCA != nil {
+
+		// query param configgithub.rootCA
+		var qrConfiggithubRootCA string
+
+		if o.ConfiggithubRootCA != nil {
+			qrConfiggithubRootCA = *o.ConfiggithubRootCA
+		}
+		qConfiggithubRootCA := qrConfiggithubRootCA
+		if qConfiggithubRootCA != "" {
+
+			if err := r.SetQueryParam("configgithub.rootCA", qConfiggithubRootCA); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubTeamNameField != nil {
+
+		// query param configgithub.teamNameField
+		var qrConfiggithubTeamNameField string
+
+		if o.ConfiggithubTeamNameField != nil {
+			qrConfiggithubTeamNameField = *o.ConfiggithubTeamNameField
+		}
+		qConfiggithubTeamNameField := qrConfiggithubTeamNameField
+		if qConfiggithubTeamNameField != "" {
+
+			if err := r.SetQueryParam("configgithub.teamNameField", qConfiggithubTeamNameField); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggithubUseLoginAsID != nil {
+
+		// query param configgithub.useLoginAsID
+		var qrConfiggithubUseLoginAsID bool
+
+		if o.ConfiggithubUseLoginAsID != nil {
+			qrConfiggithubUseLoginAsID = *o.ConfiggithubUseLoginAsID
+		}
+		qConfiggithubUseLoginAsID := swag.FormatBool(qrConfiggithubUseLoginAsID)
+		if qConfiggithubUseLoginAsID != "" {
+
+			if err := r.SetQueryParam("configgithub.useLoginAsID", qConfiggithubUseLoginAsID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggitlabBaseURL != nil {
+
+		// query param configgitlab.baseURL
+		var qrConfiggitlabBaseURL string
+
+		if o.ConfiggitlabBaseURL != nil {
+			qrConfiggitlabBaseURL = *o.ConfiggitlabBaseURL
+		}
+		qConfiggitlabBaseURL := qrConfiggitlabBaseURL
+		if qConfiggitlabBaseURL != "" {
+
+			if err := r.SetQueryParam("configgitlab.baseURL", qConfiggitlabBaseURL); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggitlabClientID != nil {
+
+		// query param configgitlab.clientID
+		var qrConfiggitlabClientID string
+
+		if o.ConfiggitlabClientID != nil {
+			qrConfiggitlabClientID = *o.ConfiggitlabClientID
+		}
+		qConfiggitlabClientID := qrConfiggitlabClientID
+		if qConfiggitlabClientID != "" {
+
+			if err := r.SetQueryParam("configgitlab.clientID", qConfiggitlabClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggitlabClientSecret != nil {
+
+		// query param configgitlab.clientSecret
+		var qrConfiggitlabClientSecret string
+
+		if o.ConfiggitlabClientSecret != nil {
+			qrConfiggitlabClientSecret = *o.ConfiggitlabClientSecret
+		}
+		qConfiggitlabClientSecret := qrConfiggitlabClientSecret
+		if qConfiggitlabClientSecret != "" {
+
+			if err := r.SetQueryParam("configgitlab.clientSecret", qConfiggitlabClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggitlabGroups != nil {
+
+		// binding items for configgitlab.groups
+		joinedConfiggitlabGroups := o.bindParamConfiggitlabGroups(reg)
+
+		// query array param configgitlab.groups
+		if err := r.SetQueryParam("configgitlab.groups", joinedConfiggitlabGroups...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfiggitlabRedirectURI != nil {
+
+		// query param configgitlab.redirectURI
+		var qrConfiggitlabRedirectURI string
+
+		if o.ConfiggitlabRedirectURI != nil {
+			qrConfiggitlabRedirectURI = *o.ConfiggitlabRedirectURI
+		}
+		qConfiggitlabRedirectURI := qrConfiggitlabRedirectURI
+		if qConfiggitlabRedirectURI != "" {
+
+			if err := r.SetQueryParam("configgitlab.redirectURI", qConfiggitlabRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiggitlabUserLoginAsID != nil {
+
+		// query param configgitlab.userLoginAsID
+		var qrConfiggitlabUserLoginAsID bool
+
+		if o.ConfiggitlabUserLoginAsID != nil {
+			qrConfiggitlabUserLoginAsID = *o.ConfiggitlabUserLoginAsID
+		}
+		qConfiggitlabUserLoginAsID := swag.FormatBool(qrConfiggitlabUserLoginAsID)
+		if qConfiggitlabUserLoginAsID != "" {
+
+			if err := r.SetQueryParam("configgitlab.userLoginAsID", qConfiggitlabUserLoginAsID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapBindAnonymous != nil {
+
+		// query param configldap.BindAnonymous
+		var qrConfigldapBindAnonymous bool
+
+		if o.ConfigldapBindAnonymous != nil {
+			qrConfigldapBindAnonymous = *o.ConfigldapBindAnonymous
+		}
+		qConfigldapBindAnonymous := swag.FormatBool(qrConfigldapBindAnonymous)
+		if qConfigldapBindAnonymous != "" {
+
+			if err := r.SetQueryParam("configldap.BindAnonymous", qConfigldapBindAnonymous); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapBindDN != nil {
+
+		// query param configldap.BindDN
+		var qrConfigldapBindDN string
+
+		if o.ConfigldapBindDN != nil {
+			qrConfigldapBindDN = *o.ConfigldapBindDN
+		}
+		qConfigldapBindDN := qrConfigldapBindDN
+		if qConfigldapBindDN != "" {
+
+			if err := r.SetQueryParam("configldap.BindDN", qConfigldapBindDN); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapBindPW != nil {
+
+		// query param configldap.BindPW
+		var qrConfigldapBindPW string
+
+		if o.ConfigldapBindPW != nil {
+			qrConfigldapBindPW = *o.ConfigldapBindPW
+		}
+		qConfigldapBindPW := qrConfigldapBindPW
+		if qConfigldapBindPW != "" {
+
+			if err := r.SetQueryParam("configldap.BindPW", qConfigldapBindPW); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapConfigID != nil {
+
+		// query param configldap.ConfigId
+		var qrConfigldapConfigID string
+
+		if o.ConfigldapConfigID != nil {
+			qrConfigldapConfigID = *o.ConfigldapConfigID
+		}
+		qConfigldapConfigID := qrConfigldapConfigID
+		if qConfigldapConfigID != "" {
+
+			if err := r.SetQueryParam("configldap.ConfigId", qConfigldapConfigID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapConnection != nil {
+
+		// query param configldap.Connection
+		var qrConfigldapConnection string
+
+		if o.ConfigldapConnection != nil {
+			qrConfigldapConnection = *o.ConfigldapConnection
+		}
+		qConfigldapConnection := qrConfigldapConnection
+		if qConfigldapConnection != "" {
+
+			if err := r.SetQueryParam("configldap.Connection", qConfigldapConnection); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapDomainName != nil {
+
+		// query param configldap.DomainName
+		var qrConfigldapDomainName string
+
+		if o.ConfigldapDomainName != nil {
+			qrConfigldapDomainName = *o.ConfigldapDomainName
+		}
+		qConfigldapDomainName := qrConfigldapDomainName
+		if qConfigldapDomainName != "" {
+
+			if err := r.SetQueryParam("configldap.DomainName", qConfigldapDomainName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapHost != nil {
+
+		// query param configldap.Host
+		var qrConfigldapHost string
+
+		if o.ConfigldapHost != nil {
+			qrConfigldapHost = *o.ConfigldapHost
+		}
+		qConfigldapHost := qrConfigldapHost
+		if qConfigldapHost != "" {
+
+			if err := r.SetQueryParam("configldap.Host", qConfigldapHost); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingGroupFilterDNs != nil {
+
+		// binding items for configldap.MemberOfMapping.GroupFilter.DNs
+		joinedConfigldapMemberOfMappingGroupFilterDNs := o.bindParamConfigldapMemberOfMappingGroupFilterDNs(reg)
+
+		// query array param configldap.MemberOfMapping.GroupFilter.DNs
+		if err := r.SetQueryParam("configldap.MemberOfMapping.GroupFilter.DNs", joinedConfigldapMemberOfMappingGroupFilterDNs...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingGroupFilterDisplayAttribute != nil {
+
+		// query param configldap.MemberOfMapping.GroupFilter.DisplayAttribute
+		var qrConfigldapMemberOfMappingGroupFilterDisplayAttribute string
+
+		if o.ConfigldapMemberOfMappingGroupFilterDisplayAttribute != nil {
+			qrConfigldapMemberOfMappingGroupFilterDisplayAttribute = *o.ConfigldapMemberOfMappingGroupFilterDisplayAttribute
+		}
+		qConfigldapMemberOfMappingGroupFilterDisplayAttribute := qrConfigldapMemberOfMappingGroupFilterDisplayAttribute
+		if qConfigldapMemberOfMappingGroupFilterDisplayAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.GroupFilter.DisplayAttribute", qConfigldapMemberOfMappingGroupFilterDisplayAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingGroupFilterFilter != nil {
+
+		// query param configldap.MemberOfMapping.GroupFilter.Filter
+		var qrConfigldapMemberOfMappingGroupFilterFilter string
+
+		if o.ConfigldapMemberOfMappingGroupFilterFilter != nil {
+			qrConfigldapMemberOfMappingGroupFilterFilter = *o.ConfigldapMemberOfMappingGroupFilterFilter
+		}
+		qConfigldapMemberOfMappingGroupFilterFilter := qrConfigldapMemberOfMappingGroupFilterFilter
+		if qConfigldapMemberOfMappingGroupFilterFilter != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.GroupFilter.Filter", qConfigldapMemberOfMappingGroupFilterFilter); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingGroupFilterIDAttribute != nil {
+
+		// query param configldap.MemberOfMapping.GroupFilter.IDAttribute
+		var qrConfigldapMemberOfMappingGroupFilterIDAttribute string
+
+		if o.ConfigldapMemberOfMappingGroupFilterIDAttribute != nil {
+			qrConfigldapMemberOfMappingGroupFilterIDAttribute = *o.ConfigldapMemberOfMappingGroupFilterIDAttribute
+		}
+		qConfigldapMemberOfMappingGroupFilterIDAttribute := qrConfigldapMemberOfMappingGroupFilterIDAttribute
+		if qConfigldapMemberOfMappingGroupFilterIDAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.GroupFilter.IDAttribute", qConfigldapMemberOfMappingGroupFilterIDAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingGroupFilterScope != nil {
+
+		// query param configldap.MemberOfMapping.GroupFilter.Scope
+		var qrConfigldapMemberOfMappingGroupFilterScope string
+
+		if o.ConfigldapMemberOfMappingGroupFilterScope != nil {
+			qrConfigldapMemberOfMappingGroupFilterScope = *o.ConfigldapMemberOfMappingGroupFilterScope
+		}
+		qConfigldapMemberOfMappingGroupFilterScope := qrConfigldapMemberOfMappingGroupFilterScope
+		if qConfigldapMemberOfMappingGroupFilterScope != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.GroupFilter.Scope", qConfigldapMemberOfMappingGroupFilterScope); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingMappingLeftAttribute != nil {
+
+		// query param configldap.MemberOfMapping.Mapping.LeftAttribute
+		var qrConfigldapMemberOfMappingMappingLeftAttribute string
+
+		if o.ConfigldapMemberOfMappingMappingLeftAttribute != nil {
+			qrConfigldapMemberOfMappingMappingLeftAttribute = *o.ConfigldapMemberOfMappingMappingLeftAttribute
+		}
+		qConfigldapMemberOfMappingMappingLeftAttribute := qrConfigldapMemberOfMappingMappingLeftAttribute
+		if qConfigldapMemberOfMappingMappingLeftAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.Mapping.LeftAttribute", qConfigldapMemberOfMappingMappingLeftAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingMappingRightAttribute != nil {
+
+		// query param configldap.MemberOfMapping.Mapping.RightAttribute
+		var qrConfigldapMemberOfMappingMappingRightAttribute string
+
+		if o.ConfigldapMemberOfMappingMappingRightAttribute != nil {
+			qrConfigldapMemberOfMappingMappingRightAttribute = *o.ConfigldapMemberOfMappingMappingRightAttribute
+		}
+		qConfigldapMemberOfMappingMappingRightAttribute := qrConfigldapMemberOfMappingMappingRightAttribute
+		if qConfigldapMemberOfMappingMappingRightAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.Mapping.RightAttribute", qConfigldapMemberOfMappingMappingRightAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingMappingRolePrefix != nil {
+
+		// query param configldap.MemberOfMapping.Mapping.RolePrefix
+		var qrConfigldapMemberOfMappingMappingRolePrefix string
+
+		if o.ConfigldapMemberOfMappingMappingRolePrefix != nil {
+			qrConfigldapMemberOfMappingMappingRolePrefix = *o.ConfigldapMemberOfMappingMappingRolePrefix
+		}
+		qConfigldapMemberOfMappingMappingRolePrefix := qrConfigldapMemberOfMappingMappingRolePrefix
+		if qConfigldapMemberOfMappingMappingRolePrefix != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.Mapping.RolePrefix", qConfigldapMemberOfMappingMappingRolePrefix); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingMappingRuleString != nil {
+
+		// query param configldap.MemberOfMapping.Mapping.RuleString
+		var qrConfigldapMemberOfMappingMappingRuleString string
+
+		if o.ConfigldapMemberOfMappingMappingRuleString != nil {
+			qrConfigldapMemberOfMappingMappingRuleString = *o.ConfigldapMemberOfMappingMappingRuleString
+		}
+		qConfigldapMemberOfMappingMappingRuleString := qrConfigldapMemberOfMappingMappingRuleString
+		if qConfigldapMemberOfMappingMappingRuleString != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.Mapping.RuleString", qConfigldapMemberOfMappingMappingRuleString); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingPydioMemberOfAttribute != nil {
+
+		// query param configldap.MemberOfMapping.PydioMemberOfAttribute
+		var qrConfigldapMemberOfMappingPydioMemberOfAttribute string
+
+		if o.ConfigldapMemberOfMappingPydioMemberOfAttribute != nil {
+			qrConfigldapMemberOfMappingPydioMemberOfAttribute = *o.ConfigldapMemberOfMappingPydioMemberOfAttribute
+		}
+		qConfigldapMemberOfMappingPydioMemberOfAttribute := qrConfigldapMemberOfMappingPydioMemberOfAttribute
+		if qConfigldapMemberOfMappingPydioMemberOfAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.PydioMemberOfAttribute", qConfigldapMemberOfMappingPydioMemberOfAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingPydioMemberOfValueFormat != nil {
+
+		// query param configldap.MemberOfMapping.PydioMemberOfValueFormat
+		var qrConfigldapMemberOfMappingPydioMemberOfValueFormat string
+
+		if o.ConfigldapMemberOfMappingPydioMemberOfValueFormat != nil {
+			qrConfigldapMemberOfMappingPydioMemberOfValueFormat = *o.ConfigldapMemberOfMappingPydioMemberOfValueFormat
+		}
+		qConfigldapMemberOfMappingPydioMemberOfValueFormat := qrConfigldapMemberOfMappingPydioMemberOfValueFormat
+		if qConfigldapMemberOfMappingPydioMemberOfValueFormat != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.PydioMemberOfValueFormat", qConfigldapMemberOfMappingPydioMemberOfValueFormat); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingRealMemberOf != nil {
+
+		// query param configldap.MemberOfMapping.RealMemberOf
+		var qrConfigldapMemberOfMappingRealMemberOf bool
+
+		if o.ConfigldapMemberOfMappingRealMemberOf != nil {
+			qrConfigldapMemberOfMappingRealMemberOf = *o.ConfigldapMemberOfMappingRealMemberOf
+		}
+		qConfigldapMemberOfMappingRealMemberOf := swag.FormatBool(qrConfigldapMemberOfMappingRealMemberOf)
+		if qConfigldapMemberOfMappingRealMemberOf != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.RealMemberOf", qConfigldapMemberOfMappingRealMemberOf); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingRealMemberOfAttribute != nil {
+
+		// query param configldap.MemberOfMapping.RealMemberOfAttribute
+		var qrConfigldapMemberOfMappingRealMemberOfAttribute string
+
+		if o.ConfigldapMemberOfMappingRealMemberOfAttribute != nil {
+			qrConfigldapMemberOfMappingRealMemberOfAttribute = *o.ConfigldapMemberOfMappingRealMemberOfAttribute
+		}
+		qConfigldapMemberOfMappingRealMemberOfAttribute := qrConfigldapMemberOfMappingRealMemberOfAttribute
+		if qConfigldapMemberOfMappingRealMemberOfAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.RealMemberOfAttribute", qConfigldapMemberOfMappingRealMemberOfAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingRealMemberOfValueFormat != nil {
+
+		// query param configldap.MemberOfMapping.RealMemberOfValueFormat
+		var qrConfigldapMemberOfMappingRealMemberOfValueFormat string
+
+		if o.ConfigldapMemberOfMappingRealMemberOfValueFormat != nil {
+			qrConfigldapMemberOfMappingRealMemberOfValueFormat = *o.ConfigldapMemberOfMappingRealMemberOfValueFormat
+		}
+		qConfigldapMemberOfMappingRealMemberOfValueFormat := qrConfigldapMemberOfMappingRealMemberOfValueFormat
+		if qConfigldapMemberOfMappingRealMemberOfValueFormat != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.RealMemberOfValueFormat", qConfigldapMemberOfMappingRealMemberOfValueFormat); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapMemberOfMappingSupportNestedGroup != nil {
+
+		// query param configldap.MemberOfMapping.SupportNestedGroup
+		var qrConfigldapMemberOfMappingSupportNestedGroup bool
+
+		if o.ConfigldapMemberOfMappingSupportNestedGroup != nil {
+			qrConfigldapMemberOfMappingSupportNestedGroup = *o.ConfigldapMemberOfMappingSupportNestedGroup
+		}
+		qConfigldapMemberOfMappingSupportNestedGroup := swag.FormatBool(qrConfigldapMemberOfMappingSupportNestedGroup)
+		if qConfigldapMemberOfMappingSupportNestedGroup != "" {
+
+			if err := r.SetQueryParam("configldap.MemberOfMapping.SupportNestedGroup", qConfigldapMemberOfMappingSupportNestedGroup); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapPageSize != nil {
+
+		// query param configldap.PageSize
+		var qrConfigldapPageSize int32
+
+		if o.ConfigldapPageSize != nil {
+			qrConfigldapPageSize = *o.ConfigldapPageSize
+		}
+		qConfigldapPageSize := swag.FormatInt32(qrConfigldapPageSize)
+		if qConfigldapPageSize != "" {
+
+			if err := r.SetQueryParam("configldap.PageSize", qConfigldapPageSize); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapRolePrefix != nil {
+
+		// query param configldap.RolePrefix
+		var qrConfigldapRolePrefix string
+
+		if o.ConfigldapRolePrefix != nil {
+			qrConfigldapRolePrefix = *o.ConfigldapRolePrefix
+		}
+		qConfigldapRolePrefix := qrConfigldapRolePrefix
+		if qConfigldapRolePrefix != "" {
+
+			if err := r.SetQueryParam("configldap.RolePrefix", qConfigldapRolePrefix); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapRootCA != nil {
+
+		// query param configldap.RootCA
+		var qrConfigldapRootCA string
+
+		if o.ConfigldapRootCA != nil {
+			qrConfigldapRootCA = *o.ConfigldapRootCA
+		}
+		qConfigldapRootCA := qrConfigldapRootCA
+		if qConfigldapRootCA != "" {
+
+			if err := r.SetQueryParam("configldap.RootCA", qConfigldapRootCA); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapRootCAData != nil {
+
+		// query param configldap.RootCAData
+		var qrConfigldapRootCAData string
+
+		if o.ConfigldapRootCAData != nil {
+			qrConfigldapRootCAData = *o.ConfigldapRootCAData
+		}
+		qConfigldapRootCAData := qrConfigldapRootCAData
+		if qConfigldapRootCAData != "" {
+
+			if err := r.SetQueryParam("configldap.RootCAData", qConfigldapRootCAData); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapSchedule != nil {
+
+		// query param configldap.Schedule
+		var qrConfigldapSchedule string
+
+		if o.ConfigldapSchedule != nil {
+			qrConfigldapSchedule = *o.ConfigldapSchedule
+		}
+		qConfigldapSchedule := qrConfigldapSchedule
+		if qConfigldapSchedule != "" {
+
+			if err := r.SetQueryParam("configldap.Schedule", qConfigldapSchedule); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapSchedulerDetails != nil {
+
+		// query param configldap.SchedulerDetails
+		var qrConfigldapSchedulerDetails string
+
+		if o.ConfigldapSchedulerDetails != nil {
+			qrConfigldapSchedulerDetails = *o.ConfigldapSchedulerDetails
+		}
+		qConfigldapSchedulerDetails := qrConfigldapSchedulerDetails
+		if qConfigldapSchedulerDetails != "" {
+
+			if err := r.SetQueryParam("configldap.SchedulerDetails", qConfigldapSchedulerDetails); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapSkipVerifyCertificate != nil {
+
+		// query param configldap.SkipVerifyCertificate
+		var qrConfigldapSkipVerifyCertificate bool
+
+		if o.ConfigldapSkipVerifyCertificate != nil {
+			qrConfigldapSkipVerifyCertificate = *o.ConfigldapSkipVerifyCertificate
+		}
+		qConfigldapSkipVerifyCertificate := swag.FormatBool(qrConfigldapSkipVerifyCertificate)
+		if qConfigldapSkipVerifyCertificate != "" {
+
+			if err := r.SetQueryParam("configldap.SkipVerifyCertificate", qConfigldapSkipVerifyCertificate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapSyncOnly != nil {
+
+		// query param configldap.SyncOnly
+		var qrConfigldapSyncOnly bool
+
+		if o.ConfigldapSyncOnly != nil {
+			qrConfigldapSyncOnly = *o.ConfigldapSyncOnly
+		}
+		qConfigldapSyncOnly := swag.FormatBool(qrConfigldapSyncOnly)
+		if qConfigldapSyncOnly != "" {
+
+			if err := r.SetQueryParam("configldap.SyncOnly", qConfigldapSyncOnly); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapUserDNs != nil {
+
+		// binding items for configldap.User.DNs
+		joinedConfigldapUserDNs := o.bindParamConfigldapUserDNs(reg)
+
+		// query array param configldap.User.DNs
+		if err := r.SetQueryParam("configldap.User.DNs", joinedConfigldapUserDNs...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigldapUserDisplayAttribute != nil {
+
+		// query param configldap.User.DisplayAttribute
+		var qrConfigldapUserDisplayAttribute string
+
+		if o.ConfigldapUserDisplayAttribute != nil {
+			qrConfigldapUserDisplayAttribute = *o.ConfigldapUserDisplayAttribute
+		}
+		qConfigldapUserDisplayAttribute := qrConfigldapUserDisplayAttribute
+		if qConfigldapUserDisplayAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.User.DisplayAttribute", qConfigldapUserDisplayAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapUserFilter != nil {
+
+		// query param configldap.User.Filter
+		var qrConfigldapUserFilter string
+
+		if o.ConfigldapUserFilter != nil {
+			qrConfigldapUserFilter = *o.ConfigldapUserFilter
+		}
+		qConfigldapUserFilter := qrConfigldapUserFilter
+		if qConfigldapUserFilter != "" {
+
+			if err := r.SetQueryParam("configldap.User.Filter", qConfigldapUserFilter); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapUserIDAttribute != nil {
+
+		// query param configldap.User.IDAttribute
+		var qrConfigldapUserIDAttribute string
+
+		if o.ConfigldapUserIDAttribute != nil {
+			qrConfigldapUserIDAttribute = *o.ConfigldapUserIDAttribute
+		}
+		qConfigldapUserIDAttribute := qrConfigldapUserIDAttribute
+		if qConfigldapUserIDAttribute != "" {
+
+			if err := r.SetQueryParam("configldap.User.IDAttribute", qConfigldapUserIDAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigldapUserScope != nil {
+
+		// query param configldap.User.Scope
+		var qrConfigldapUserScope string
+
+		if o.ConfigldapUserScope != nil {
+			qrConfigldapUserScope = *o.ConfigldapUserScope
+		}
+		qConfigldapUserScope := qrConfigldapUserScope
+		if qConfigldapUserScope != "" {
+
+			if err := r.SetQueryParam("configldap.User.Scope", qConfigldapUserScope); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiglinkedinClientID != nil {
+
+		// query param configlinkedin.clientID
+		var qrConfiglinkedinClientID string
+
+		if o.ConfiglinkedinClientID != nil {
+			qrConfiglinkedinClientID = *o.ConfiglinkedinClientID
+		}
+		qConfiglinkedinClientID := qrConfiglinkedinClientID
+		if qConfiglinkedinClientID != "" {
+
+			if err := r.SetQueryParam("configlinkedin.clientID", qConfiglinkedinClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiglinkedinClientSecret != nil {
+
+		// query param configlinkedin.clientSecret
+		var qrConfiglinkedinClientSecret string
+
+		if o.ConfiglinkedinClientSecret != nil {
+			qrConfiglinkedinClientSecret = *o.ConfiglinkedinClientSecret
+		}
+		qConfiglinkedinClientSecret := qrConfiglinkedinClientSecret
+		if qConfiglinkedinClientSecret != "" {
+
+			if err := r.SetQueryParam("configlinkedin.clientSecret", qConfiglinkedinClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfiglinkedinRedirectURI != nil {
+
+		// query param configlinkedin.redirectURI
+		var qrConfiglinkedinRedirectURI string
+
+		if o.ConfiglinkedinRedirectURI != nil {
+			qrConfiglinkedinRedirectURI = *o.ConfiglinkedinRedirectURI
+		}
+		qConfiglinkedinRedirectURI := qrConfiglinkedinRedirectURI
+		if qConfiglinkedinRedirectURI != "" {
+
+			if err := r.SetQueryParam("configlinkedin.redirectURI", qConfiglinkedinRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftClientID != nil {
+
+		// query param configmicrosoft.clientID
+		var qrConfigmicrosoftClientID string
+
+		if o.ConfigmicrosoftClientID != nil {
+			qrConfigmicrosoftClientID = *o.ConfigmicrosoftClientID
+		}
+		qConfigmicrosoftClientID := qrConfigmicrosoftClientID
+		if qConfigmicrosoftClientID != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.clientID", qConfigmicrosoftClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftClientSecret != nil {
+
+		// query param configmicrosoft.clientSecret
+		var qrConfigmicrosoftClientSecret string
+
+		if o.ConfigmicrosoftClientSecret != nil {
+			qrConfigmicrosoftClientSecret = *o.ConfigmicrosoftClientSecret
+		}
+		qConfigmicrosoftClientSecret := qrConfigmicrosoftClientSecret
+		if qConfigmicrosoftClientSecret != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.clientSecret", qConfigmicrosoftClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftGroupNameFormat != nil {
+
+		// query param configmicrosoft.groupNameFormat
+		var qrConfigmicrosoftGroupNameFormat string
+
+		if o.ConfigmicrosoftGroupNameFormat != nil {
+			qrConfigmicrosoftGroupNameFormat = *o.ConfigmicrosoftGroupNameFormat
+		}
+		qConfigmicrosoftGroupNameFormat := qrConfigmicrosoftGroupNameFormat
+		if qConfigmicrosoftGroupNameFormat != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.groupNameFormat", qConfigmicrosoftGroupNameFormat); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftGroups != nil {
+
+		// binding items for configmicrosoft.groups
+		joinedConfigmicrosoftGroups := o.bindParamConfigmicrosoftGroups(reg)
+
+		// query array param configmicrosoft.groups
+		if err := r.SetQueryParam("configmicrosoft.groups", joinedConfigmicrosoftGroups...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigmicrosoftOnlySecurityGroups != nil {
+
+		// query param configmicrosoft.onlySecurityGroups
+		var qrConfigmicrosoftOnlySecurityGroups bool
+
+		if o.ConfigmicrosoftOnlySecurityGroups != nil {
+			qrConfigmicrosoftOnlySecurityGroups = *o.ConfigmicrosoftOnlySecurityGroups
+		}
+		qConfigmicrosoftOnlySecurityGroups := swag.FormatBool(qrConfigmicrosoftOnlySecurityGroups)
+		if qConfigmicrosoftOnlySecurityGroups != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.onlySecurityGroups", qConfigmicrosoftOnlySecurityGroups); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftRedirectURI != nil {
+
+		// query param configmicrosoft.redirectURI
+		var qrConfigmicrosoftRedirectURI string
+
+		if o.ConfigmicrosoftRedirectURI != nil {
+			qrConfigmicrosoftRedirectURI = *o.ConfigmicrosoftRedirectURI
+		}
+		qConfigmicrosoftRedirectURI := qrConfigmicrosoftRedirectURI
+		if qConfigmicrosoftRedirectURI != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.redirectURI", qConfigmicrosoftRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftTenant != nil {
+
+		// query param configmicrosoft.tenant
+		var qrConfigmicrosoftTenant string
+
+		if o.ConfigmicrosoftTenant != nil {
+			qrConfigmicrosoftTenant = *o.ConfigmicrosoftTenant
+		}
+		qConfigmicrosoftTenant := qrConfigmicrosoftTenant
+		if qConfigmicrosoftTenant != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.tenant", qConfigmicrosoftTenant); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmicrosoftUseGroupsAsWhitelist != nil {
+
+		// query param configmicrosoft.useGroupsAsWhitelist
+		var qrConfigmicrosoftUseGroupsAsWhitelist bool
+
+		if o.ConfigmicrosoftUseGroupsAsWhitelist != nil {
+			qrConfigmicrosoftUseGroupsAsWhitelist = *o.ConfigmicrosoftUseGroupsAsWhitelist
+		}
+		qConfigmicrosoftUseGroupsAsWhitelist := swag.FormatBool(qrConfigmicrosoftUseGroupsAsWhitelist)
+		if qConfigmicrosoftUseGroupsAsWhitelist != "" {
+
+			if err := r.SetQueryParam("configmicrosoft.useGroupsAsWhitelist", qConfigmicrosoftUseGroupsAsWhitelist); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthAuthorizeURL != nil {
+
+		// query param configoauth.authorizeURL
+		var qrConfigoauthAuthorizeURL string
+
+		if o.ConfigoauthAuthorizeURL != nil {
+			qrConfigoauthAuthorizeURL = *o.ConfigoauthAuthorizeURL
+		}
+		qConfigoauthAuthorizeURL := qrConfigoauthAuthorizeURL
+		if qConfigoauthAuthorizeURL != "" {
+
+			if err := r.SetQueryParam("configoauth.authorizeURL", qConfigoauthAuthorizeURL); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthBaseURL != nil {
+
+		// query param configoauth.baseURL
+		var qrConfigoauthBaseURL string
+
+		if o.ConfigoauthBaseURL != nil {
+			qrConfigoauthBaseURL = *o.ConfigoauthBaseURL
+		}
+		qConfigoauthBaseURL := qrConfigoauthBaseURL
+		if qConfigoauthBaseURL != "" {
+
+			if err := r.SetQueryParam("configoauth.baseURL", qConfigoauthBaseURL); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthClientID != nil {
+
+		// query param configoauth.clientID
+		var qrConfigoauthClientID string
+
+		if o.ConfigoauthClientID != nil {
+			qrConfigoauthClientID = *o.ConfigoauthClientID
+		}
+		qConfigoauthClientID := qrConfigoauthClientID
+		if qConfigoauthClientID != "" {
+
+			if err := r.SetQueryParam("configoauth.clientID", qConfigoauthClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthClientSecret != nil {
+
+		// query param configoauth.clientSecret
+		var qrConfigoauthClientSecret string
+
+		if o.ConfigoauthClientSecret != nil {
+			qrConfigoauthClientSecret = *o.ConfigoauthClientSecret
+		}
+		qConfigoauthClientSecret := qrConfigoauthClientSecret
+		if qConfigoauthClientSecret != "" {
+
+			if err := r.SetQueryParam("configoauth.clientSecret", qConfigoauthClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthGroups != nil {
+
+		// binding items for configoauth.groups
+		joinedConfigoauthGroups := o.bindParamConfigoauthGroups(reg)
+
+		// query array param configoauth.groups
+		if err := r.SetQueryParam("configoauth.groups", joinedConfigoauthGroups...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigoauthRedirectURI != nil {
+
+		// query param configoauth.redirectURI
+		var qrConfigoauthRedirectURI string
+
+		if o.ConfigoauthRedirectURI != nil {
+			qrConfigoauthRedirectURI = *o.ConfigoauthRedirectURI
+		}
+		qConfigoauthRedirectURI := qrConfigoauthRedirectURI
+		if qConfigoauthRedirectURI != "" {
+
+			if err := r.SetQueryParam("configoauth.redirectURI", qConfigoauthRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthTokenURL != nil {
+
+		// query param configoauth.tokenURL
+		var qrConfigoauthTokenURL string
+
+		if o.ConfigoauthTokenURL != nil {
+			qrConfigoauthTokenURL = *o.ConfigoauthTokenURL
+		}
+		qConfigoauthTokenURL := qrConfigoauthTokenURL
+		if qConfigoauthTokenURL != "" {
+
+			if err := r.SetQueryParam("configoauth.tokenURL", qConfigoauthTokenURL); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthUseBrokenAuthHeaderProvider != nil {
+
+		// query param configoauth.useBrokenAuthHeaderProvider
+		var qrConfigoauthUseBrokenAuthHeaderProvider bool
+
+		if o.ConfigoauthUseBrokenAuthHeaderProvider != nil {
+			qrConfigoauthUseBrokenAuthHeaderProvider = *o.ConfigoauthUseBrokenAuthHeaderProvider
+		}
+		qConfigoauthUseBrokenAuthHeaderProvider := swag.FormatBool(qrConfigoauthUseBrokenAuthHeaderProvider)
+		if qConfigoauthUseBrokenAuthHeaderProvider != "" {
+
+			if err := r.SetQueryParam("configoauth.useBrokenAuthHeaderProvider", qConfigoauthUseBrokenAuthHeaderProvider); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthUseLoginAsID != nil {
+
+		// query param configoauth.useLoginAsID
+		var qrConfigoauthUseLoginAsID bool
+
+		if o.ConfigoauthUseLoginAsID != nil {
+			qrConfigoauthUseLoginAsID = *o.ConfigoauthUseLoginAsID
+		}
+		qConfigoauthUseLoginAsID := swag.FormatBool(qrConfigoauthUseLoginAsID)
+		if qConfigoauthUseLoginAsID != "" {
+
+			if err := r.SetQueryParam("configoauth.useLoginAsID", qConfigoauthUseLoginAsID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoauthUserInfoURL != nil {
+
+		// query param configoauth.userInfoURL
+		var qrConfigoauthUserInfoURL string
+
+		if o.ConfigoauthUserInfoURL != nil {
+			qrConfigoauthUserInfoURL = *o.ConfigoauthUserInfoURL
+		}
+		qConfigoauthUserInfoURL := qrConfigoauthUserInfoURL
+		if qConfigoauthUserInfoURL != "" {
+
+			if err := r.SetQueryParam("configoauth.userInfoURL", qConfigoauthUserInfoURL); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcBasicAuthUnsupported != nil {
+
+		// query param configoidc.basicAuthUnsupported
+		var qrConfigoidcBasicAuthUnsupported bool
+
+		if o.ConfigoidcBasicAuthUnsupported != nil {
+			qrConfigoidcBasicAuthUnsupported = *o.ConfigoidcBasicAuthUnsupported
+		}
+		qConfigoidcBasicAuthUnsupported := swag.FormatBool(qrConfigoidcBasicAuthUnsupported)
+		if qConfigoidcBasicAuthUnsupported != "" {
+
+			if err := r.SetQueryParam("configoidc.basicAuthUnsupported", qConfigoidcBasicAuthUnsupported); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcClientID != nil {
+
+		// query param configoidc.clientID
+		var qrConfigoidcClientID string
+
+		if o.ConfigoidcClientID != nil {
+			qrConfigoidcClientID = *o.ConfigoidcClientID
+		}
+		qConfigoidcClientID := qrConfigoidcClientID
+		if qConfigoidcClientID != "" {
+
+			if err := r.SetQueryParam("configoidc.clientID", qConfigoidcClientID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcClientSecret != nil {
+
+		// query param configoidc.clientSecret
+		var qrConfigoidcClientSecret string
+
+		if o.ConfigoidcClientSecret != nil {
+			qrConfigoidcClientSecret = *o.ConfigoidcClientSecret
+		}
+		qConfigoidcClientSecret := qrConfigoidcClientSecret
+		if qConfigoidcClientSecret != "" {
+
+			if err := r.SetQueryParam("configoidc.clientSecret", qConfigoidcClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcGetUserInfo != nil {
+
+		// query param configoidc.getUserInfo
+		var qrConfigoidcGetUserInfo bool
+
+		if o.ConfigoidcGetUserInfo != nil {
+			qrConfigoidcGetUserInfo = *o.ConfigoidcGetUserInfo
+		}
+		qConfigoidcGetUserInfo := swag.FormatBool(qrConfigoidcGetUserInfo)
+		if qConfigoidcGetUserInfo != "" {
+
+			if err := r.SetQueryParam("configoidc.getUserInfo", qConfigoidcGetUserInfo); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcHostedDomains != nil {
+
+		// binding items for configoidc.hostedDomains
+		joinedConfigoidcHostedDomains := o.bindParamConfigoidcHostedDomains(reg)
+
+		// query array param configoidc.hostedDomains
+		if err := r.SetQueryParam("configoidc.hostedDomains", joinedConfigoidcHostedDomains...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigoidcInsecureSkipEmailVerified != nil {
+
+		// query param configoidc.insecureSkipEmailVerified
+		var qrConfigoidcInsecureSkipEmailVerified bool
+
+		if o.ConfigoidcInsecureSkipEmailVerified != nil {
+			qrConfigoidcInsecureSkipEmailVerified = *o.ConfigoidcInsecureSkipEmailVerified
+		}
+		qConfigoidcInsecureSkipEmailVerified := swag.FormatBool(qrConfigoidcInsecureSkipEmailVerified)
+		if qConfigoidcInsecureSkipEmailVerified != "" {
+
+			if err := r.SetQueryParam("configoidc.insecureSkipEmailVerified", qConfigoidcInsecureSkipEmailVerified); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcIssuer != nil {
+
+		// query param configoidc.issuer
+		var qrConfigoidcIssuer string
+
+		if o.ConfigoidcIssuer != nil {
+			qrConfigoidcIssuer = *o.ConfigoidcIssuer
+		}
+		qConfigoidcIssuer := qrConfigoidcIssuer
+		if qConfigoidcIssuer != "" {
+
+			if err := r.SetQueryParam("configoidc.issuer", qConfigoidcIssuer); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcRedirectURI != nil {
+
+		// query param configoidc.redirectURI
+		var qrConfigoidcRedirectURI string
+
+		if o.ConfigoidcRedirectURI != nil {
+			qrConfigoidcRedirectURI = *o.ConfigoidcRedirectURI
+		}
+		qConfigoidcRedirectURI := qrConfigoidcRedirectURI
+		if qConfigoidcRedirectURI != "" {
+
+			if err := r.SetQueryParam("configoidc.redirectURI", qConfigoidcRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcScopes != nil {
+
+		// binding items for configoidc.scopes
+		joinedConfigoidcScopes := o.bindParamConfigoidcScopes(reg)
+
+		// query array param configoidc.scopes
+		if err := r.SetQueryParam("configoidc.scopes", joinedConfigoidcScopes...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigoidcUserIDKey != nil {
+
+		// query param configoidc.userIDKey
+		var qrConfigoidcUserIDKey string
+
+		if o.ConfigoidcUserIDKey != nil {
+			qrConfigoidcUserIDKey = *o.ConfigoidcUserIDKey
+		}
+		qConfigoidcUserIDKey := qrConfigoidcUserIDKey
+		if qConfigoidcUserIDKey != "" {
+
+			if err := r.SetQueryParam("configoidc.userIDKey", qConfigoidcUserIDKey); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigoidcUserNameKey != nil {
+
+		// query param configoidc.userNameKey
+		var qrConfigoidcUserNameKey string
+
+		if o.ConfigoidcUserNameKey != nil {
+			qrConfigoidcUserNameKey = *o.ConfigoidcUserNameKey
+		}
+		qConfigoidcUserNameKey := qrConfigoidcUserNameKey
+		if qConfigoidcUserNameKey != "" {
+
+			if err := r.SetQueryParam("configoidc.userNameKey", qConfigoidcUserNameKey); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlCa != nil {
+
+		// query param configsaml.ca
+		var qrConfigsamlCa string
+
+		if o.ConfigsamlCa != nil {
+			qrConfigsamlCa = *o.ConfigsamlCa
+		}
+		qConfigsamlCa := qrConfigsamlCa
+		if qConfigsamlCa != "" {
+
+			if err := r.SetQueryParam("configsaml.ca", qConfigsamlCa); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlCaData != nil {
+
+		// query param configsaml.caData
+		var qrConfigsamlCaData string
+
+		if o.ConfigsamlCaData != nil {
+			qrConfigsamlCaData = *o.ConfigsamlCaData
+		}
+		qConfigsamlCaData := qrConfigsamlCaData
+		if qConfigsamlCaData != "" {
+
+			if err := r.SetQueryParam("configsaml.caData", qConfigsamlCaData); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlEmailAttr != nil {
+
+		// query param configsaml.emailAttr
+		var qrConfigsamlEmailAttr string
+
+		if o.ConfigsamlEmailAttr != nil {
+			qrConfigsamlEmailAttr = *o.ConfigsamlEmailAttr
+		}
+		qConfigsamlEmailAttr := qrConfigsamlEmailAttr
+		if qConfigsamlEmailAttr != "" {
+
+			if err := r.SetQueryParam("configsaml.emailAttr", qConfigsamlEmailAttr); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlEntityIssuer != nil {
+
+		// query param configsaml.entityIssuer
+		var qrConfigsamlEntityIssuer string
+
+		if o.ConfigsamlEntityIssuer != nil {
+			qrConfigsamlEntityIssuer = *o.ConfigsamlEntityIssuer
+		}
+		qConfigsamlEntityIssuer := qrConfigsamlEntityIssuer
+		if qConfigsamlEntityIssuer != "" {
+
+			if err := r.SetQueryParam("configsaml.entityIssuer", qConfigsamlEntityIssuer); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlGroupsAttr != nil {
+
+		// query param configsaml.groupsAttr
+		var qrConfigsamlGroupsAttr string
+
+		if o.ConfigsamlGroupsAttr != nil {
+			qrConfigsamlGroupsAttr = *o.ConfigsamlGroupsAttr
+		}
+		qConfigsamlGroupsAttr := qrConfigsamlGroupsAttr
+		if qConfigsamlGroupsAttr != "" {
+
+			if err := r.SetQueryParam("configsaml.groupsAttr", qConfigsamlGroupsAttr); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlGroupsDelim != nil {
+
+		// query param configsaml.groupsDelim
+		var qrConfigsamlGroupsDelim string
+
+		if o.ConfigsamlGroupsDelim != nil {
+			qrConfigsamlGroupsDelim = *o.ConfigsamlGroupsDelim
+		}
+		qConfigsamlGroupsDelim := qrConfigsamlGroupsDelim
+		if qConfigsamlGroupsDelim != "" {
+
+			if err := r.SetQueryParam("configsaml.groupsDelim", qConfigsamlGroupsDelim); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlInsecureSkipSignatureValidation != nil {
+
+		// query param configsaml.insecureSkipSignatureValidation
+		var qrConfigsamlInsecureSkipSignatureValidation bool
+
+		if o.ConfigsamlInsecureSkipSignatureValidation != nil {
+			qrConfigsamlInsecureSkipSignatureValidation = *o.ConfigsamlInsecureSkipSignatureValidation
+		}
+		qConfigsamlInsecureSkipSignatureValidation := swag.FormatBool(qrConfigsamlInsecureSkipSignatureValidation)
+		if qConfigsamlInsecureSkipSignatureValidation != "" {
+
+			if err := r.SetQueryParam("configsaml.insecureSkipSignatureValidation", qConfigsamlInsecureSkipSignatureValidation); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlNameIDPolicyFormat != nil {
+
+		// query param configsaml.nameIDPolicyFormat
+		var qrConfigsamlNameIDPolicyFormat string
+
+		if o.ConfigsamlNameIDPolicyFormat != nil {
+			qrConfigsamlNameIDPolicyFormat = *o.ConfigsamlNameIDPolicyFormat
+		}
+		qConfigsamlNameIDPolicyFormat := qrConfigsamlNameIDPolicyFormat
+		if qConfigsamlNameIDPolicyFormat != "" {
+
+			if err := r.SetQueryParam("configsaml.nameIDPolicyFormat", qConfigsamlNameIDPolicyFormat); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlRedirectURI != nil {
+
+		// query param configsaml.redirectURI
+		var qrConfigsamlRedirectURI string
+
+		if o.ConfigsamlRedirectURI != nil {
+			qrConfigsamlRedirectURI = *o.ConfigsamlRedirectURI
+		}
+		qConfigsamlRedirectURI := qrConfigsamlRedirectURI
+		if qConfigsamlRedirectURI != "" {
+
+			if err := r.SetQueryParam("configsaml.redirectURI", qConfigsamlRedirectURI); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlSsoIssuer != nil {
+
+		// query param configsaml.ssoIssuer
+		var qrConfigsamlSsoIssuer string
+
+		if o.ConfigsamlSsoIssuer != nil {
+			qrConfigsamlSsoIssuer = *o.ConfigsamlSsoIssuer
+		}
+		qConfigsamlSsoIssuer := qrConfigsamlSsoIssuer
+		if qConfigsamlSsoIssuer != "" {
+
+			if err := r.SetQueryParam("configsaml.ssoIssuer", qConfigsamlSsoIssuer); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlSsoURL != nil {
+
+		// query param configsaml.ssoURL
+		var qrConfigsamlSsoURL string
+
+		if o.ConfigsamlSsoURL != nil {
+			qrConfigsamlSsoURL = *o.ConfigsamlSsoURL
+		}
+		qConfigsamlSsoURL := qrConfigsamlSsoURL
+		if qConfigsamlSsoURL != "" {
+
+			if err := r.SetQueryParam("configsaml.ssoURL", qConfigsamlSsoURL); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigsamlUsernameAttr != nil {
+
+		// query param configsaml.usernameAttr
+		var qrConfigsamlUsernameAttr string
+
+		if o.ConfigsamlUsernameAttr != nil {
+			qrConfigsamlUsernameAttr = *o.ConfigsamlUsernameAttr
+		}
+		qConfigsamlUsernameAttr := qrConfigsamlUsernameAttr
+		if qConfigsamlUsernameAttr != "" {
+
+			if err := r.SetQueryParam("configsaml.usernameAttr", qConfigsamlUsernameAttr); err != nil {
+				return err
+			}
+		}
+	}
+
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {
 		return err
+	}
+
+	if o.Name != nil {
+
+		// query param name
+		var qrName string
+
+		if o.Name != nil {
+			qrName = *o.Name
+		}
+		qName := qrName
+		if qName != "" {
+
+			if err := r.SetQueryParam("name", qName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Sites != nil {
+
+		// binding items for sites
+		joinedSites := o.bindParamSites(reg)
+
+		// query array param sites
+		if err := r.SetQueryParam("sites", joinedSites...); err != nil {
+			return err
+		}
+	}
+
+	if o.Type != nil {
+
+		// query param type
+		var qrType string
+
+		if o.Type != nil {
+			qrType = *o.Type
+		}
+		qType := qrType
+		if qType != "" {
+
+			if err := r.SetQueryParam("type", qType); err != nil {
+				return err
+			}
+		}
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configbitbucket.teams
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigbitbucketTeams(formats strfmt.Registry) []string {
+	configbitbucketTeamsIR := o.ConfigbitbucketTeams
+
+	var configbitbucketTeamsIC []string
+	for _, configbitbucketTeamsIIR := range configbitbucketTeamsIR { // explode []string
+
+		configbitbucketTeamsIIV := configbitbucketTeamsIIR // string as string
+		configbitbucketTeamsIC = append(configbitbucketTeamsIC, configbitbucketTeamsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configbitbucketTeamsIS := swag.JoinByFormat(configbitbucketTeamsIC, "multi")
+
+	return configbitbucketTeamsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configgitlab.groups
+func (o *DeleteOAuth2ConnectorParams) bindParamConfiggitlabGroups(formats strfmt.Registry) []string {
+	configgitlabGroupsIR := o.ConfiggitlabGroups
+
+	var configgitlabGroupsIC []string
+	for _, configgitlabGroupsIIR := range configgitlabGroupsIR { // explode []string
+
+		configgitlabGroupsIIV := configgitlabGroupsIIR // string as string
+		configgitlabGroupsIC = append(configgitlabGroupsIC, configgitlabGroupsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configgitlabGroupsIS := swag.JoinByFormat(configgitlabGroupsIC, "multi")
+
+	return configgitlabGroupsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configldap.MemberOfMapping.GroupFilter.DNs
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigldapMemberOfMappingGroupFilterDNs(formats strfmt.Registry) []string {
+	configldapMemberOfMappingGroupFilterDNsIR := o.ConfigldapMemberOfMappingGroupFilterDNs
+
+	var configldapMemberOfMappingGroupFilterDNsIC []string
+	for _, configldapMemberOfMappingGroupFilterDNsIIR := range configldapMemberOfMappingGroupFilterDNsIR { // explode []string
+
+		configldapMemberOfMappingGroupFilterDNsIIV := configldapMemberOfMappingGroupFilterDNsIIR // string as string
+		configldapMemberOfMappingGroupFilterDNsIC = append(configldapMemberOfMappingGroupFilterDNsIC, configldapMemberOfMappingGroupFilterDNsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configldapMemberOfMappingGroupFilterDNsIS := swag.JoinByFormat(configldapMemberOfMappingGroupFilterDNsIC, "multi")
+
+	return configldapMemberOfMappingGroupFilterDNsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configldap.User.DNs
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigldapUserDNs(formats strfmt.Registry) []string {
+	configldapUserDNsIR := o.ConfigldapUserDNs
+
+	var configldapUserDNsIC []string
+	for _, configldapUserDNsIIR := range configldapUserDNsIR { // explode []string
+
+		configldapUserDNsIIV := configldapUserDNsIIR // string as string
+		configldapUserDNsIC = append(configldapUserDNsIC, configldapUserDNsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configldapUserDNsIS := swag.JoinByFormat(configldapUserDNsIC, "multi")
+
+	return configldapUserDNsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configmicrosoft.groups
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigmicrosoftGroups(formats strfmt.Registry) []string {
+	configmicrosoftGroupsIR := o.ConfigmicrosoftGroups
+
+	var configmicrosoftGroupsIC []string
+	for _, configmicrosoftGroupsIIR := range configmicrosoftGroupsIR { // explode []string
+
+		configmicrosoftGroupsIIV := configmicrosoftGroupsIIR // string as string
+		configmicrosoftGroupsIC = append(configmicrosoftGroupsIC, configmicrosoftGroupsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configmicrosoftGroupsIS := swag.JoinByFormat(configmicrosoftGroupsIC, "multi")
+
+	return configmicrosoftGroupsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configoauth.groups
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigoauthGroups(formats strfmt.Registry) []string {
+	configoauthGroupsIR := o.ConfigoauthGroups
+
+	var configoauthGroupsIC []string
+	for _, configoauthGroupsIIR := range configoauthGroupsIR { // explode []string
+
+		configoauthGroupsIIV := configoauthGroupsIIR // string as string
+		configoauthGroupsIC = append(configoauthGroupsIC, configoauthGroupsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configoauthGroupsIS := swag.JoinByFormat(configoauthGroupsIC, "multi")
+
+	return configoauthGroupsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configoidc.hostedDomains
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigoidcHostedDomains(formats strfmt.Registry) []string {
+	configoidcHostedDomainsIR := o.ConfigoidcHostedDomains
+
+	var configoidcHostedDomainsIC []string
+	for _, configoidcHostedDomainsIIR := range configoidcHostedDomainsIR { // explode []string
+
+		configoidcHostedDomainsIIV := configoidcHostedDomainsIIR // string as string
+		configoidcHostedDomainsIC = append(configoidcHostedDomainsIC, configoidcHostedDomainsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configoidcHostedDomainsIS := swag.JoinByFormat(configoidcHostedDomainsIC, "multi")
+
+	return configoidcHostedDomainsIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter configoidc.scopes
+func (o *DeleteOAuth2ConnectorParams) bindParamConfigoidcScopes(formats strfmt.Registry) []string {
+	configoidcScopesIR := o.ConfigoidcScopes
+
+	var configoidcScopesIC []string
+	for _, configoidcScopesIIR := range configoidcScopesIR { // explode []string
+
+		configoidcScopesIIV := configoidcScopesIIR // string as string
+		configoidcScopesIC = append(configoidcScopesIC, configoidcScopesIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configoidcScopesIS := swag.JoinByFormat(configoidcScopesIC, "multi")
+
+	return configoidcScopesIS
+}
+
+// bindParamDeleteOAuth2Connector binds the parameter sites
+func (o *DeleteOAuth2ConnectorParams) bindParamSites(formats strfmt.Registry) []string {
+	sitesIR := o.Sites
+
+	var sitesIC []string
+	for _, sitesIIR := range sitesIR { // explode []string
+
+		sitesIIV := sitesIIR // string as string
+		sitesIC = append(sitesIC, sitesIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	sitesIS := swag.JoinByFormat(sitesIC, "multi")
+
+	return sitesIS
 }

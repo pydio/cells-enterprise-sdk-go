@@ -22,8 +22,12 @@ import (
 type JobsTaskStatus string
 
 func NewJobsTaskStatus(value JobsTaskStatus) *JobsTaskStatus {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated JobsTaskStatus.
+func (m JobsTaskStatus) Pointer() *JobsTaskStatus {
+	return &m
 }
 
 const (

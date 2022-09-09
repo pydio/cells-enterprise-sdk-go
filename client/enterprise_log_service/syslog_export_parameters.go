@@ -54,10 +54,12 @@ func NewSyslogExportParamsWithHTTPClient(client *http.Client) *SyslogExportParam
 	}
 }
 
-/* SyslogExportParams contains all the parameters to send to the API endpoint
-   for the syslog export operation.
+/*
+SyslogExportParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the syslog export operation.
+
+	Typically these are written to a http.Request.
 */
 type SyslogExportParams struct {
 

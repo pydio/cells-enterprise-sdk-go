@@ -54,10 +54,12 @@ func NewUnbanParamsWithHTTPClient(client *http.Client) *UnbanParams {
 	}
 }
 
-/* UnbanParams contains all the parameters to send to the API endpoint
-   for the unban operation.
+/*
+UnbanParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the unban operation.
+
+	Typically these are written to a http.Request.
 */
 type UnbanParams struct {
 

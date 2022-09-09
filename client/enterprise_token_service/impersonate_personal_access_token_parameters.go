@@ -54,10 +54,12 @@ func NewImpersonatePersonalAccessTokenParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* ImpersonatePersonalAccessTokenParams contains all the parameters to send to the API endpoint
-   for the impersonate personal access token operation.
+/*
+ImpersonatePersonalAccessTokenParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the impersonate personal access token operation.
+
+	Typically these are written to a http.Request.
 */
 type ImpersonatePersonalAccessTokenParams struct {
 

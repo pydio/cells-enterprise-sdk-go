@@ -109,6 +109,8 @@ func (m *ObjectDataSource) validateEncryptionMode(formats strfmt.Registry) error
 		if err := m.EncryptionMode.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EncryptionMode")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("EncryptionMode")
 			}
 			return err
 		}
@@ -126,6 +128,8 @@ func (m *ObjectDataSource) validateStorageType(formats strfmt.Registry) error {
 		if err := m.StorageType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("StorageType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("StorageType")
 			}
 			return err
 		}
@@ -158,6 +162,8 @@ func (m *ObjectDataSource) contextValidateEncryptionMode(ctx context.Context, fo
 		if err := m.EncryptionMode.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("EncryptionMode")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("EncryptionMode")
 			}
 			return err
 		}
@@ -172,6 +178,8 @@ func (m *ObjectDataSource) contextValidateStorageType(ctx context.Context, forma
 		if err := m.StorageType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("StorageType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("StorageType")
 			}
 			return err
 		}

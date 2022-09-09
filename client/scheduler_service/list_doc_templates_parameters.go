@@ -52,10 +52,12 @@ func NewListDocTemplatesParamsWithHTTPClient(client *http.Client) *ListDocTempla
 	}
 }
 
-/* ListDocTemplatesParams contains all the parameters to send to the API endpoint
-   for the list doc templates operation.
+/*
+ListDocTemplatesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list doc templates operation.
+
+	Typically these are written to a http.Request.
 */
 type ListDocTemplatesParams struct {
 

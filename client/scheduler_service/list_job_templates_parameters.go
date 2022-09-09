@@ -54,15 +54,17 @@ func NewListJobTemplatesParamsWithHTTPClient(client *http.Client) *ListJobTempla
 	}
 }
 
-/* ListJobTemplatesParams contains all the parameters to send to the API endpoint
-   for the list job templates operation.
+/*
+ListJobTemplatesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list job templates operation.
+
+	Typically these are written to a http.Request.
 */
 type ListJobTemplatesParams struct {
 
 	// Body.
-	Body models.EntListJobTemplatesRequest
+	Body *models.EntListJobTemplatesRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -118,13 +120,13 @@ func (o *ListJobTemplatesParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the list job templates params
-func (o *ListJobTemplatesParams) WithBody(body models.EntListJobTemplatesRequest) *ListJobTemplatesParams {
+func (o *ListJobTemplatesParams) WithBody(body *models.EntListJobTemplatesRequest) *ListJobTemplatesParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the list job templates params
-func (o *ListJobTemplatesParams) SetBody(body models.EntListJobTemplatesRequest) {
+func (o *ListJobTemplatesParams) SetBody(body *models.EntListJobTemplatesRequest) {
 	o.Body = body
 }
 

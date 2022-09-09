@@ -69,6 +69,8 @@ func (m *ServiceQuery) validateOperation(formats strfmt.Registry) error {
 		if err := m.Operation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Operation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Operation")
 			}
 			return err
 		}
@@ -86,6 +88,8 @@ func (m *ServiceQuery) validateResourcePolicyQuery(formats strfmt.Registry) erro
 		if err := m.ResourcePolicyQuery.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourcePolicyQuery")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ResourcePolicyQuery")
 			}
 			return err
 		}
@@ -108,6 +112,8 @@ func (m *ServiceQuery) validateSubQueries(formats strfmt.Registry) error {
 			if err := m.SubQueries[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SubQueries" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("SubQueries" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -146,6 +152,8 @@ func (m *ServiceQuery) contextValidateOperation(ctx context.Context, formats str
 		if err := m.Operation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Operation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Operation")
 			}
 			return err
 		}
@@ -160,6 +168,8 @@ func (m *ServiceQuery) contextValidateResourcePolicyQuery(ctx context.Context, f
 		if err := m.ResourcePolicyQuery.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourcePolicyQuery")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ResourcePolicyQuery")
 			}
 			return err
 		}
@@ -176,6 +186,8 @@ func (m *ServiceQuery) contextValidateSubQueries(ctx context.Context, formats st
 			if err := m.SubQueries[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("SubQueries" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("SubQueries" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

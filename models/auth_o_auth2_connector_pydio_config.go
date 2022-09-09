@@ -51,6 +51,8 @@ func (m *AuthOAuth2ConnectorPydioConfig) validatePydioconnectors(formats strfmt.
 			if err := m.Pydioconnectors[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("pydioconnectors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("pydioconnectors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -83,6 +85,8 @@ func (m *AuthOAuth2ConnectorPydioConfig) contextValidatePydioconnectors(ctx cont
 			if err := m.Pydioconnectors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("pydioconnectors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("pydioconnectors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

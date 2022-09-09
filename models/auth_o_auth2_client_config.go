@@ -18,28 +18,28 @@ import (
 type AuthOAuth2ClientConfig struct {
 
 	// audience
-	Audience []string `json:"Audience"`
+	Audience []string `json:"audience"`
 
-	// client ID
-	ClientID string `json:"ClientID,omitempty"`
+	// client id
+	ClientID string `json:"client_id,omitempty"`
+
+	// client name
+	ClientName string `json:"client_name,omitempty"`
+
+	// client secret
+	ClientSecret string `json:"client_secret,omitempty"`
 
 	// grant types
-	GrantTypes []string `json:"GrantTypes"`
+	GrantTypes []string `json:"grant_types"`
 
-	// name
-	Name string `json:"Name,omitempty"`
-
-	// redirect u r is
-	RedirectURIs []string `json:"RedirectURIs"`
+	// redirect uris
+	RedirectUris []string `json:"redirect_uris"`
 
 	// response types
-	ResponseTypes []string `json:"ResponseTypes"`
+	ResponseTypes []string `json:"response_types"`
 
 	// scope
-	Scope string `json:"Scope,omitempty"`
-
-	// secret
-	Secret string `json:"Secret,omitempty"`
+	Scope string `json:"scope,omitempty"`
 }
 
 // Validate validates this auth o auth2 client config

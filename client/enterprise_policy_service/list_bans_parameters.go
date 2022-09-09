@@ -52,10 +52,12 @@ func NewListBansParamsWithHTTPClient(client *http.Client) *ListBansParams {
 	}
 }
 
-/* ListBansParams contains all the parameters to send to the API endpoint
-   for the list bans operation.
+/*
+ListBansParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list bans operation.
+
+	Typically these are written to a http.Request.
 */
 type ListBansParams struct {
 	timeout    time.Duration

@@ -20,8 +20,17 @@ type AuthOAuth2MappingRule struct {
 	// left attribute
 	LeftAttribute string `json:"LeftAttribute,omitempty"`
 
+	// left split
+	LeftSplit string `json:"LeftSplit,omitempty"`
+
+	// no update
+	NoUpdate bool `json:"NoUpdate,omitempty"`
+
 	// right attribute
 	RightAttribute string `json:"RightAttribute,omitempty"`
+
+	// right value template
+	RightValueTemplate string `json:"RightValueTemplate,omitempty"`
 
 	// rule string
 	RuleString string `json:"RuleString,omitempty"`

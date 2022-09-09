@@ -52,10 +52,12 @@ func NewDeleteActionTemplateParamsWithHTTPClient(client *http.Client) *DeleteAct
 	}
 }
 
-/* DeleteActionTemplateParams contains all the parameters to send to the API endpoint
-   for the delete action template operation.
+/*
+DeleteActionTemplateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete action template operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteActionTemplateParams struct {
 

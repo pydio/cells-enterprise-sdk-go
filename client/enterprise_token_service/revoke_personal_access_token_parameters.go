@@ -52,14 +52,19 @@ func NewRevokePersonalAccessTokenParamsWithHTTPClient(client *http.Client) *Revo
 	}
 }
 
-/* RevokePersonalAccessTokenParams contains all the parameters to send to the API endpoint
-   for the revoke personal access token operation.
+/*
+RevokePersonalAccessTokenParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the revoke personal access token operation.
+
+	Typically these are written to a http.Request.
 */
 type RevokePersonalAccessTokenParams struct {
 
-	// TokenID.
+	/* TokenID.
+
+	   Pass a specific Token ID to be revoked. If empty, request will use current JWT
+	*/
 	TokenID string
 
 	timeout    time.Duration

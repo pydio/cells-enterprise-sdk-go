@@ -54,7 +54,14 @@ func (o *ListSitesReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewListSitesDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewListSitesOK() *ListSitesOK {
 	return &ListSitesOK{}
 }
 
-/* ListSitesOK describes a response with status code 200, with default header values.
+/*
+ListSitesOK describes a response with status code 200, with default header values.
 
-ListSitesOK list sites o k
+A successful response.
 */
 type ListSitesOK struct {
 	Payload *models.EntListSitesResponse
 }
 
+// IsSuccess returns true when this list sites o k response has a 2xx status code
+func (o *ListSitesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list sites o k response has a 3xx status code
+func (o *ListSitesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list sites o k response has a 4xx status code
+func (o *ListSitesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list sites o k response has a 5xx status code
+func (o *ListSitesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list sites o k response a status code equal to that given
+func (o *ListSitesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListSitesOK) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListSitesOK) String() string {
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListSitesOK) GetPayload() *models.EntListSitesResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewListSitesUnauthorized() *ListSitesUnauthorized {
 	return &ListSitesUnauthorized{}
 }
 
-/* ListSitesUnauthorized describes a response with status code 401, with default header values.
+/*
+ListSitesUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type ListSitesUnauthorized struct {
 }
 
+// IsSuccess returns true when this list sites unauthorized response has a 2xx status code
+func (o *ListSitesUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list sites unauthorized response has a 3xx status code
+func (o *ListSitesUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list sites unauthorized response has a 4xx status code
+func (o *ListSitesUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list sites unauthorized response has a 5xx status code
+func (o *ListSitesUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list sites unauthorized response a status code equal to that given
+func (o *ListSitesUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *ListSitesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesUnauthorized ", 401)
+}
+
+func (o *ListSitesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewListSitesForbidden() *ListSitesForbidden {
 	return &ListSitesForbidden{}
 }
 
-/* ListSitesForbidden describes a response with status code 403, with default header values.
+/*
+ListSitesForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type ListSitesForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list sites forbidden response has a 2xx status code
+func (o *ListSitesForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list sites forbidden response has a 3xx status code
+func (o *ListSitesForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list sites forbidden response has a 4xx status code
+func (o *ListSitesForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list sites forbidden response has a 5xx status code
+func (o *ListSitesForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list sites forbidden response a status code equal to that given
+func (o *ListSitesForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ListSitesForbidden) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ListSitesForbidden) String() string {
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ListSitesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewListSitesNotFound() *ListSitesNotFound {
 	return &ListSitesNotFound{}
 }
 
-/* ListSitesNotFound describes a response with status code 404, with default header values.
+/*
+ListSitesNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type ListSitesNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list sites not found response has a 2xx status code
+func (o *ListSitesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list sites not found response has a 3xx status code
+func (o *ListSitesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list sites not found response has a 4xx status code
+func (o *ListSitesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list sites not found response has a 5xx status code
+func (o *ListSitesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list sites not found response a status code equal to that given
+func (o *ListSitesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ListSitesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListSitesNotFound) String() string {
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListSitesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewListSitesInternalServerError() *ListSitesInternalServerError {
 	return &ListSitesInternalServerError{}
 }
 
-/* ListSitesInternalServerError describes a response with status code 500, with default header values.
+/*
+ListSitesInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type ListSitesInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list sites internal server error response has a 2xx status code
+func (o *ListSitesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list sites internal server error response has a 3xx status code
+func (o *ListSitesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list sites internal server error response has a 4xx status code
+func (o *ListSitesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list sites internal server error response has a 5xx status code
+func (o *ListSitesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this list sites internal server error response a status code equal to that given
+func (o *ListSitesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ListSitesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ListSitesInternalServerError) String() string {
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ListSitesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *ListSitesInternalServerError) GetPayload() *models.RestError {
 func (o *ListSitesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListSitesDefault creates a ListSitesDefault with default headers values
+func NewListSitesDefault(code int) *ListSitesDefault {
+	return &ListSitesDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ListSitesDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type ListSitesDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the list sites default response
+func (o *ListSitesDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this list sites default response has a 2xx status code
+func (o *ListSitesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list sites default response has a 3xx status code
+func (o *ListSitesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list sites default response has a 4xx status code
+func (o *ListSitesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list sites default response has a 5xx status code
+func (o *ListSitesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list sites default response a status code equal to that given
+func (o *ListSitesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ListSitesDefault) Error() string {
+	return fmt.Sprintf("[GET /config/sites][%d] ListSites default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListSitesDefault) String() string {
+	return fmt.Sprintf("[GET /config/sites][%d] ListSites default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListSitesDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *ListSitesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

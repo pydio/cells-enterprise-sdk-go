@@ -54,7 +54,14 @@ func (o *DeleteOAuth2ConnectorReader) ReadResponse(response runtime.ClientRespon
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDeleteOAuth2ConnectorDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewDeleteOAuth2ConnectorOK() *DeleteOAuth2ConnectorOK {
 	return &DeleteOAuth2ConnectorOK{}
 }
 
-/* DeleteOAuth2ConnectorOK describes a response with status code 200, with default header values.
+/*
+DeleteOAuth2ConnectorOK describes a response with status code 200, with default header values.
 
-DeleteOAuth2ConnectorOK delete o auth2 connector o k
+A successful response.
 */
 type DeleteOAuth2ConnectorOK struct {
 	Payload *models.EntOAuth2ConnectorResponse
 }
 
+// IsSuccess returns true when this delete o auth2 connector o k response has a 2xx status code
+func (o *DeleteOAuth2ConnectorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete o auth2 connector o k response has a 3xx status code
+func (o *DeleteOAuth2ConnectorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete o auth2 connector o k response has a 4xx status code
+func (o *DeleteOAuth2ConnectorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete o auth2 connector o k response has a 5xx status code
+func (o *DeleteOAuth2ConnectorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete o auth2 connector o k response a status code equal to that given
+func (o *DeleteOAuth2ConnectorOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteOAuth2ConnectorOK) Error() string {
 	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteOAuth2ConnectorOK) String() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteOAuth2ConnectorOK) GetPayload() *models.EntOAuth2ConnectorResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewDeleteOAuth2ConnectorUnauthorized() *DeleteOAuth2ConnectorUnauthorized {
 	return &DeleteOAuth2ConnectorUnauthorized{}
 }
 
-/* DeleteOAuth2ConnectorUnauthorized describes a response with status code 401, with default header values.
+/*
+DeleteOAuth2ConnectorUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type DeleteOAuth2ConnectorUnauthorized struct {
 }
 
+// IsSuccess returns true when this delete o auth2 connector unauthorized response has a 2xx status code
+func (o *DeleteOAuth2ConnectorUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete o auth2 connector unauthorized response has a 3xx status code
+func (o *DeleteOAuth2ConnectorUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete o auth2 connector unauthorized response has a 4xx status code
+func (o *DeleteOAuth2ConnectorUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete o auth2 connector unauthorized response has a 5xx status code
+func (o *DeleteOAuth2ConnectorUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete o auth2 connector unauthorized response a status code equal to that given
+func (o *DeleteOAuth2ConnectorUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *DeleteOAuth2ConnectorUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorUnauthorized ", 401)
+}
+
+func (o *DeleteOAuth2ConnectorUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewDeleteOAuth2ConnectorForbidden() *DeleteOAuth2ConnectorForbidden {
 	return &DeleteOAuth2ConnectorForbidden{}
 }
 
-/* DeleteOAuth2ConnectorForbidden describes a response with status code 403, with default header values.
+/*
+DeleteOAuth2ConnectorForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type DeleteOAuth2ConnectorForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete o auth2 connector forbidden response has a 2xx status code
+func (o *DeleteOAuth2ConnectorForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete o auth2 connector forbidden response has a 3xx status code
+func (o *DeleteOAuth2ConnectorForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete o auth2 connector forbidden response has a 4xx status code
+func (o *DeleteOAuth2ConnectorForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete o auth2 connector forbidden response has a 5xx status code
+func (o *DeleteOAuth2ConnectorForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete o auth2 connector forbidden response a status code equal to that given
+func (o *DeleteOAuth2ConnectorForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *DeleteOAuth2ConnectorForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorForbidden  %+v", 403, o.Payload)
 }
+
+func (o *DeleteOAuth2ConnectorForbidden) String() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorForbidden  %+v", 403, o.Payload)
+}
+
 func (o *DeleteOAuth2ConnectorForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewDeleteOAuth2ConnectorNotFound() *DeleteOAuth2ConnectorNotFound {
 	return &DeleteOAuth2ConnectorNotFound{}
 }
 
-/* DeleteOAuth2ConnectorNotFound describes a response with status code 404, with default header values.
+/*
+DeleteOAuth2ConnectorNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type DeleteOAuth2ConnectorNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete o auth2 connector not found response has a 2xx status code
+func (o *DeleteOAuth2ConnectorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete o auth2 connector not found response has a 3xx status code
+func (o *DeleteOAuth2ConnectorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete o auth2 connector not found response has a 4xx status code
+func (o *DeleteOAuth2ConnectorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete o auth2 connector not found response has a 5xx status code
+func (o *DeleteOAuth2ConnectorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete o auth2 connector not found response a status code equal to that given
+func (o *DeleteOAuth2ConnectorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *DeleteOAuth2ConnectorNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteOAuth2ConnectorNotFound) String() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteOAuth2ConnectorNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewDeleteOAuth2ConnectorInternalServerError() *DeleteOAuth2ConnectorInterna
 	return &DeleteOAuth2ConnectorInternalServerError{}
 }
 
-/* DeleteOAuth2ConnectorInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteOAuth2ConnectorInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type DeleteOAuth2ConnectorInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete o auth2 connector internal server error response has a 2xx status code
+func (o *DeleteOAuth2ConnectorInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete o auth2 connector internal server error response has a 3xx status code
+func (o *DeleteOAuth2ConnectorInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete o auth2 connector internal server error response has a 4xx status code
+func (o *DeleteOAuth2ConnectorInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete o auth2 connector internal server error response has a 5xx status code
+func (o *DeleteOAuth2ConnectorInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete o auth2 connector internal server error response a status code equal to that given
+func (o *DeleteOAuth2ConnectorInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *DeleteOAuth2ConnectorInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteOAuth2ConnectorInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] deleteOAuth2ConnectorInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteOAuth2ConnectorInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *DeleteOAuth2ConnectorInternalServerError) GetPayload() *models.RestErro
 func (o *DeleteOAuth2ConnectorInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteOAuth2ConnectorDefault creates a DeleteOAuth2ConnectorDefault with default headers values
+func NewDeleteOAuth2ConnectorDefault(code int) *DeleteOAuth2ConnectorDefault {
+	return &DeleteOAuth2ConnectorDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DeleteOAuth2ConnectorDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type DeleteOAuth2ConnectorDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the delete o auth2 connector default response
+func (o *DeleteOAuth2ConnectorDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this delete o auth2 connector default response has a 2xx status code
+func (o *DeleteOAuth2ConnectorDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete o auth2 connector default response has a 3xx status code
+func (o *DeleteOAuth2ConnectorDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete o auth2 connector default response has a 4xx status code
+func (o *DeleteOAuth2ConnectorDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete o auth2 connector default response has a 5xx status code
+func (o *DeleteOAuth2ConnectorDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete o auth2 connector default response a status code equal to that given
+func (o *DeleteOAuth2ConnectorDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DeleteOAuth2ConnectorDefault) Error() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] DeleteOAuth2Connector default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteOAuth2ConnectorDefault) String() string {
+	return fmt.Sprintf("[DELETE /config/oauth2connectors/{id}][%d] DeleteOAuth2Connector default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteOAuth2ConnectorDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *DeleteOAuth2ConnectorDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

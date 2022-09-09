@@ -54,7 +54,14 @@ func (o *ListExternalDirectoriesReader) ReadResponse(response runtime.ClientResp
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewListExternalDirectoriesDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewListExternalDirectoriesOK() *ListExternalDirectoriesOK {
 	return &ListExternalDirectoriesOK{}
 }
 
-/* ListExternalDirectoriesOK describes a response with status code 200, with default header values.
+/*
+ListExternalDirectoriesOK describes a response with status code 200, with default header values.
 
-ListExternalDirectoriesOK list external directories o k
+A successful response.
 */
 type ListExternalDirectoriesOK struct {
 	Payload *models.EntExternalDirectoryCollection
 }
 
+// IsSuccess returns true when this list external directories o k response has a 2xx status code
+func (o *ListExternalDirectoriesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list external directories o k response has a 3xx status code
+func (o *ListExternalDirectoriesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list external directories o k response has a 4xx status code
+func (o *ListExternalDirectoriesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list external directories o k response has a 5xx status code
+func (o *ListExternalDirectoriesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list external directories o k response a status code equal to that given
+func (o *ListExternalDirectoriesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListExternalDirectoriesOK) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListExternalDirectoriesOK) String() string {
+	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListExternalDirectoriesOK) GetPayload() *models.EntExternalDirectoryCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewListExternalDirectoriesUnauthorized() *ListExternalDirectoriesUnauthoriz
 	return &ListExternalDirectoriesUnauthorized{}
 }
 
-/* ListExternalDirectoriesUnauthorized describes a response with status code 401, with default header values.
+/*
+ListExternalDirectoriesUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type ListExternalDirectoriesUnauthorized struct {
 }
 
+// IsSuccess returns true when this list external directories unauthorized response has a 2xx status code
+func (o *ListExternalDirectoriesUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list external directories unauthorized response has a 3xx status code
+func (o *ListExternalDirectoriesUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list external directories unauthorized response has a 4xx status code
+func (o *ListExternalDirectoriesUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list external directories unauthorized response has a 5xx status code
+func (o *ListExternalDirectoriesUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list external directories unauthorized response a status code equal to that given
+func (o *ListExternalDirectoriesUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *ListExternalDirectoriesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesUnauthorized ", 401)
+}
+
+func (o *ListExternalDirectoriesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewListExternalDirectoriesForbidden() *ListExternalDirectoriesForbidden {
 	return &ListExternalDirectoriesForbidden{}
 }
 
-/* ListExternalDirectoriesForbidden describes a response with status code 403, with default header values.
+/*
+ListExternalDirectoriesForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type ListExternalDirectoriesForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list external directories forbidden response has a 2xx status code
+func (o *ListExternalDirectoriesForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list external directories forbidden response has a 3xx status code
+func (o *ListExternalDirectoriesForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list external directories forbidden response has a 4xx status code
+func (o *ListExternalDirectoriesForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list external directories forbidden response has a 5xx status code
+func (o *ListExternalDirectoriesForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list external directories forbidden response a status code equal to that given
+func (o *ListExternalDirectoriesForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ListExternalDirectoriesForbidden) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ListExternalDirectoriesForbidden) String() string {
+	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ListExternalDirectoriesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewListExternalDirectoriesNotFound() *ListExternalDirectoriesNotFound {
 	return &ListExternalDirectoriesNotFound{}
 }
 
-/* ListExternalDirectoriesNotFound describes a response with status code 404, with default header values.
+/*
+ListExternalDirectoriesNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type ListExternalDirectoriesNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list external directories not found response has a 2xx status code
+func (o *ListExternalDirectoriesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list external directories not found response has a 3xx status code
+func (o *ListExternalDirectoriesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list external directories not found response has a 4xx status code
+func (o *ListExternalDirectoriesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list external directories not found response has a 5xx status code
+func (o *ListExternalDirectoriesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list external directories not found response a status code equal to that given
+func (o *ListExternalDirectoriesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ListExternalDirectoriesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListExternalDirectoriesNotFound) String() string {
+	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListExternalDirectoriesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewListExternalDirectoriesInternalServerError() *ListExternalDirectoriesInt
 	return &ListExternalDirectoriesInternalServerError{}
 }
 
-/* ListExternalDirectoriesInternalServerError describes a response with status code 500, with default header values.
+/*
+ListExternalDirectoriesInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type ListExternalDirectoriesInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list external directories internal server error response has a 2xx status code
+func (o *ListExternalDirectoriesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list external directories internal server error response has a 3xx status code
+func (o *ListExternalDirectoriesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list external directories internal server error response has a 4xx status code
+func (o *ListExternalDirectoriesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list external directories internal server error response has a 5xx status code
+func (o *ListExternalDirectoriesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this list external directories internal server error response a status code equal to that given
+func (o *ListExternalDirectoriesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ListExternalDirectoriesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ListExternalDirectoriesInternalServerError) String() string {
+	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ListExternalDirectoriesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *ListExternalDirectoriesInternalServerError) GetPayload() *models.RestEr
 func (o *ListExternalDirectoriesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListExternalDirectoriesDefault creates a ListExternalDirectoriesDefault with default headers values
+func NewListExternalDirectoriesDefault(code int) *ListExternalDirectoriesDefault {
+	return &ListExternalDirectoriesDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ListExternalDirectoriesDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type ListExternalDirectoriesDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the list external directories default response
+func (o *ListExternalDirectoriesDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this list external directories default response has a 2xx status code
+func (o *ListExternalDirectoriesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list external directories default response has a 3xx status code
+func (o *ListExternalDirectoriesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list external directories default response has a 4xx status code
+func (o *ListExternalDirectoriesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list external directories default response has a 5xx status code
+func (o *ListExternalDirectoriesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list external directories default response a status code equal to that given
+func (o *ListExternalDirectoriesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ListExternalDirectoriesDefault) Error() string {
+	return fmt.Sprintf("[GET /config/directories][%d] ListExternalDirectories default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListExternalDirectoriesDefault) String() string {
+	return fmt.Sprintf("[GET /config/directories][%d] ListExternalDirectories default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListExternalDirectoriesDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *ListExternalDirectoriesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

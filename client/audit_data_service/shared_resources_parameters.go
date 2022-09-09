@@ -54,10 +54,12 @@ func NewSharedResourcesParamsWithHTTPClient(client *http.Client) *SharedResource
 	}
 }
 
-/* SharedResourcesParams contains all the parameters to send to the API endpoint
-   for the shared resources operation.
+/*
+SharedResourcesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the shared resources operation.
+
+	Typically these are written to a http.Request.
 */
 type SharedResourcesParams struct {
 

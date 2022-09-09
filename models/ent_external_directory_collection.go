@@ -51,6 +51,8 @@ func (m *EntExternalDirectoryCollection) validateDirectories(formats strfmt.Regi
 			if err := m.Directories[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Directories" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Directories" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -83,6 +85,8 @@ func (m *EntExternalDirectoryCollection) contextValidateDirectories(ctx context.
 			if err := m.Directories[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Directories" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Directories" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

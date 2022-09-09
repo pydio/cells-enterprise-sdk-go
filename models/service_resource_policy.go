@@ -64,6 +64,8 @@ func (m *ServiceResourcePolicy) validateAction(formats strfmt.Registry) error {
 		if err := m.Action.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}
@@ -81,6 +83,8 @@ func (m *ServiceResourcePolicy) validateEffect(formats strfmt.Registry) error {
 		if err := m.Effect.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Effect")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Effect")
 			}
 			return err
 		}
@@ -113,6 +117,8 @@ func (m *ServiceResourcePolicy) contextValidateAction(ctx context.Context, forma
 		if err := m.Action.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}
@@ -127,6 +133,8 @@ func (m *ServiceResourcePolicy) contextValidateEffect(ctx context.Context, forma
 		if err := m.Effect.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Effect")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Effect")
 			}
 			return err
 		}

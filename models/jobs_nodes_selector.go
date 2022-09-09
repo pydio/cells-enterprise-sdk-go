@@ -38,6 +38,9 @@ type JobsNodesSelector struct {
 
 	// Query to apply to select users (or filter a given node passed by event)
 	Query *ServiceQuery `json:"Query,omitempty"`
+
+	// Optional Timeout for this selector
+	Timeout string `json:"Timeout,omitempty"`
 }
 
 // Validate validates this jobs nodes selector
@@ -63,6 +66,8 @@ func (m *JobsNodesSelector) validateQuery(formats strfmt.Registry) error {
 		if err := m.Query.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
 			}
 			return err
 		}
@@ -91,6 +96,8 @@ func (m *JobsNodesSelector) contextValidateQuery(ctx context.Context, formats st
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
 			}
 			return err
 		}

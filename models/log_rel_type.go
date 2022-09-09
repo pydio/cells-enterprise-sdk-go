@@ -22,8 +22,12 @@ import (
 type LogRelType string
 
 func NewLogRelType(value LogRelType) *LogRelType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated LogRelType.
+func (m LogRelType) Pointer() *LogRelType {
+	return &m
 }
 
 const (

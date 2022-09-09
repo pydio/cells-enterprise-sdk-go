@@ -54,6 +54,8 @@ func (m *EntDocTemplatesResponse) validateDocs(formats strfmt.Registry) error {
 			if err := m.Docs[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Docs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Docs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -86,6 +88,8 @@ func (m *EntDocTemplatesResponse) contextValidateDocs(ctx context.Context, forma
 			if err := m.Docs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Docs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Docs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -6,8 +6,6 @@ package license_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 )
@@ -38,7 +36,7 @@ type ClientService interface {
 }
 
 /*
-  LicenseStats enterprises only display statistics about licenses usage
+LicenseStats enterprises only display statistics about licenses usage
 */
 func (a *Client) LicenseStats(params *LicenseStatsParams, opts ...ClientOption) (*LicenseStatsOK, error) {
 	// TODO: Validate the params before sending
@@ -70,13 +68,12 @@ func (a *Client) LicenseStats(params *LicenseStatsParams, opts ...ClientOption) 
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for LicenseStats: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*LicenseStatsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutLicenseInfo enterprises only update license string
+PutLicenseInfo enterprises only update license string
 */
 func (a *Client) PutLicenseInfo(params *PutLicenseInfoParams, opts ...ClientOption) (*PutLicenseInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -108,9 +105,8 @@ func (a *Client) PutLicenseInfo(params *PutLicenseInfoParams, opts ...ClientOpti
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutLicenseInfo: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutLicenseInfoDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

@@ -54,15 +54,17 @@ func NewListActionTemplatesParamsWithHTTPClient(client *http.Client) *ListAction
 	}
 }
 
-/* ListActionTemplatesParams contains all the parameters to send to the API endpoint
-   for the list action templates operation.
+/*
+ListActionTemplatesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list action templates operation.
+
+	Typically these are written to a http.Request.
 */
 type ListActionTemplatesParams struct {
 
 	// Body.
-	Body models.EntListActionTemplatesRequest
+	Body *models.EntListActionTemplatesRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -118,13 +120,13 @@ func (o *ListActionTemplatesParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the list action templates params
-func (o *ListActionTemplatesParams) WithBody(body models.EntListActionTemplatesRequest) *ListActionTemplatesParams {
+func (o *ListActionTemplatesParams) WithBody(body *models.EntListActionTemplatesRequest) *ListActionTemplatesParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the list action templates params
-func (o *ListActionTemplatesParams) SetBody(body models.EntListActionTemplatesRequest) {
+func (o *ListActionTemplatesParams) SetBody(body *models.EntListActionTemplatesRequest) {
 	o.Body = body
 }
 

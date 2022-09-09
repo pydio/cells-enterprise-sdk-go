@@ -128,6 +128,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigbitbucket(formats strfmt.Regis
 		if err := m.Configbitbucket.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configbitbucket")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configbitbucket")
 			}
 			return err
 		}
@@ -145,6 +147,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfiggithub(formats strfmt.Registry
 		if err := m.Configgithub.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configgithub")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configgithub")
 			}
 			return err
 		}
@@ -162,6 +166,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfiggitlab(formats strfmt.Registry
 		if err := m.Configgitlab.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configgitlab")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configgitlab")
 			}
 			return err
 		}
@@ -179,6 +185,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigldap(formats strfmt.Registry) 
 		if err := m.Configldap.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configldap")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configldap")
 			}
 			return err
 		}
@@ -196,6 +204,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfiglinkedin(formats strfmt.Regist
 		if err := m.Configlinkedin.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configlinkedin")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configlinkedin")
 			}
 			return err
 		}
@@ -213,6 +223,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigmicrosoft(formats strfmt.Regis
 		if err := m.Configmicrosoft.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configmicrosoft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configmicrosoft")
 			}
 			return err
 		}
@@ -230,6 +242,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigoauth(formats strfmt.Registry)
 		if err := m.Configoauth.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configoauth")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configoauth")
 			}
 			return err
 		}
@@ -247,6 +261,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigoidc(formats strfmt.Registry) 
 		if err := m.Configoidc.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configoidc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configoidc")
 			}
 			return err
 		}
@@ -264,6 +280,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigpydio(formats strfmt.Registry)
 		if err := m.Configpydio.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configpydio")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configpydio")
 			}
 			return err
 		}
@@ -281,6 +299,8 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigsaml(formats strfmt.Registry) 
 		if err := m.Configsaml.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configsaml")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configsaml")
 			}
 			return err
 		}
@@ -303,6 +323,8 @@ func (m *AuthOAuth2ConnectorConfig) validateMappingRules(formats strfmt.Registry
 			if err := m.MappingRules[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("mappingRules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("mappingRules" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -373,6 +395,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigbitbucket(ctx context.C
 		if err := m.Configbitbucket.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configbitbucket")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configbitbucket")
 			}
 			return err
 		}
@@ -387,6 +411,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfiggithub(ctx context.Cont
 		if err := m.Configgithub.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configgithub")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configgithub")
 			}
 			return err
 		}
@@ -401,6 +427,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfiggitlab(ctx context.Cont
 		if err := m.Configgitlab.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configgitlab")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configgitlab")
 			}
 			return err
 		}
@@ -415,6 +443,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigldap(ctx context.Contex
 		if err := m.Configldap.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configldap")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configldap")
 			}
 			return err
 		}
@@ -429,6 +459,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfiglinkedin(ctx context.Co
 		if err := m.Configlinkedin.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configlinkedin")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configlinkedin")
 			}
 			return err
 		}
@@ -443,6 +475,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigmicrosoft(ctx context.C
 		if err := m.Configmicrosoft.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configmicrosoft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configmicrosoft")
 			}
 			return err
 		}
@@ -457,6 +491,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigoauth(ctx context.Conte
 		if err := m.Configoauth.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configoauth")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configoauth")
 			}
 			return err
 		}
@@ -471,6 +507,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigoidc(ctx context.Contex
 		if err := m.Configoidc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configoidc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configoidc")
 			}
 			return err
 		}
@@ -485,6 +523,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigpydio(ctx context.Conte
 		if err := m.Configpydio.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configpydio")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configpydio")
 			}
 			return err
 		}
@@ -499,6 +539,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigsaml(ctx context.Contex
 		if err := m.Configsaml.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configsaml")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configsaml")
 			}
 			return err
 		}
@@ -515,6 +557,8 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateMappingRules(ctx context.Cont
 			if err := m.MappingRules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("mappingRules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("mappingRules" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

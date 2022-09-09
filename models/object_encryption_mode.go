@@ -20,8 +20,12 @@ import (
 type ObjectEncryptionMode string
 
 func NewObjectEncryptionMode(value ObjectEncryptionMode) *ObjectEncryptionMode {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated ObjectEncryptionMode.
+func (m ObjectEncryptionMode) Pointer() *ObjectEncryptionMode {
+	return &m
 }
 
 const (

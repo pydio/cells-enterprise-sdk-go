@@ -59,6 +59,8 @@ func (m *RestTimeRangeResultCollection) validateLinks(formats strfmt.Registry) e
 			if err := m.Links[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -83,6 +85,8 @@ func (m *RestTimeRangeResultCollection) validateResults(formats strfmt.Registry)
 			if err := m.Results[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Results" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Results" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -119,6 +123,8 @@ func (m *RestTimeRangeResultCollection) contextValidateLinks(ctx context.Context
 			if err := m.Links[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -137,6 +143,8 @@ func (m *RestTimeRangeResultCollection) contextValidateResults(ctx context.Conte
 			if err := m.Results[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Results" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Results" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

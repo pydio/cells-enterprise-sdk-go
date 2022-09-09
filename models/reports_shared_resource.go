@@ -25,6 +25,9 @@ type ReportsSharedResource struct {
 	// node
 	Node *TreeNode `json:"Node,omitempty"`
 
+	// report date
+	ReportDate int32 `json:"ReportDate,omitempty"`
+
 	// workspaces
 	Workspaces []*ReportsAuditedWorkspace `json:"Workspaces"`
 }
@@ -56,6 +59,8 @@ func (m *ReportsSharedResource) validateNode(formats strfmt.Registry) error {
 		if err := m.Node.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Node")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Node")
 			}
 			return err
 		}
@@ -78,6 +83,8 @@ func (m *ReportsSharedResource) validateWorkspaces(formats strfmt.Registry) erro
 			if err := m.Workspaces[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Workspaces" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Workspaces" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -112,6 +119,8 @@ func (m *ReportsSharedResource) contextValidateNode(ctx context.Context, formats
 		if err := m.Node.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Node")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Node")
 			}
 			return err
 		}
@@ -128,6 +137,8 @@ func (m *ReportsSharedResource) contextValidateWorkspaces(ctx context.Context, f
 			if err := m.Workspaces[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Workspaces" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Workspaces" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

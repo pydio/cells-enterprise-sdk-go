@@ -20,8 +20,12 @@ import (
 type ReportsSharedResourceShareType string
 
 func NewReportsSharedResourceShareType(value ReportsSharedResourceShareType) *ReportsSharedResourceShareType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated ReportsSharedResourceShareType.
+func (m ReportsSharedResourceShareType) Pointer() *ReportsSharedResourceShareType {
+	return &m
 }
 
 const (

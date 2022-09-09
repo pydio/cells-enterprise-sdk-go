@@ -54,7 +54,14 @@ func (o *DeleteJobTemplateReader) ReadResponse(response runtime.ClientResponse, 
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDeleteJobTemplateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewDeleteJobTemplateOK() *DeleteJobTemplateOK {
 	return &DeleteJobTemplateOK{}
 }
 
-/* DeleteJobTemplateOK describes a response with status code 200, with default header values.
+/*
+DeleteJobTemplateOK describes a response with status code 200, with default header values.
 
-DeleteJobTemplateOK delete job template o k
+A successful response.
 */
 type DeleteJobTemplateOK struct {
 	Payload *models.EntDeleteJobTemplateResponse
 }
 
+// IsSuccess returns true when this delete job template o k response has a 2xx status code
+func (o *DeleteJobTemplateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete job template o k response has a 3xx status code
+func (o *DeleteJobTemplateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete job template o k response has a 4xx status code
+func (o *DeleteJobTemplateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete job template o k response has a 5xx status code
+func (o *DeleteJobTemplateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete job template o k response a status code equal to that given
+func (o *DeleteJobTemplateOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteJobTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteJobTemplateOK) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteJobTemplateOK) GetPayload() *models.EntDeleteJobTemplateResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewDeleteJobTemplateUnauthorized() *DeleteJobTemplateUnauthorized {
 	return &DeleteJobTemplateUnauthorized{}
 }
 
-/* DeleteJobTemplateUnauthorized describes a response with status code 401, with default header values.
+/*
+DeleteJobTemplateUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type DeleteJobTemplateUnauthorized struct {
 }
 
+// IsSuccess returns true when this delete job template unauthorized response has a 2xx status code
+func (o *DeleteJobTemplateUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete job template unauthorized response has a 3xx status code
+func (o *DeleteJobTemplateUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete job template unauthorized response has a 4xx status code
+func (o *DeleteJobTemplateUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete job template unauthorized response has a 5xx status code
+func (o *DeleteJobTemplateUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete job template unauthorized response a status code equal to that given
+func (o *DeleteJobTemplateUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *DeleteJobTemplateUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateUnauthorized ", 401)
+}
+
+func (o *DeleteJobTemplateUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewDeleteJobTemplateForbidden() *DeleteJobTemplateForbidden {
 	return &DeleteJobTemplateForbidden{}
 }
 
-/* DeleteJobTemplateForbidden describes a response with status code 403, with default header values.
+/*
+DeleteJobTemplateForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type DeleteJobTemplateForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete job template forbidden response has a 2xx status code
+func (o *DeleteJobTemplateForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete job template forbidden response has a 3xx status code
+func (o *DeleteJobTemplateForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete job template forbidden response has a 4xx status code
+func (o *DeleteJobTemplateForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete job template forbidden response has a 5xx status code
+func (o *DeleteJobTemplateForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete job template forbidden response a status code equal to that given
+func (o *DeleteJobTemplateForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *DeleteJobTemplateForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateForbidden  %+v", 403, o.Payload)
 }
+
+func (o *DeleteJobTemplateForbidden) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateForbidden  %+v", 403, o.Payload)
+}
+
 func (o *DeleteJobTemplateForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewDeleteJobTemplateNotFound() *DeleteJobTemplateNotFound {
 	return &DeleteJobTemplateNotFound{}
 }
 
-/* DeleteJobTemplateNotFound describes a response with status code 404, with default header values.
+/*
+DeleteJobTemplateNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type DeleteJobTemplateNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete job template not found response has a 2xx status code
+func (o *DeleteJobTemplateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete job template not found response has a 3xx status code
+func (o *DeleteJobTemplateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete job template not found response has a 4xx status code
+func (o *DeleteJobTemplateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete job template not found response has a 5xx status code
+func (o *DeleteJobTemplateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete job template not found response a status code equal to that given
+func (o *DeleteJobTemplateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *DeleteJobTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteJobTemplateNotFound) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteJobTemplateNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewDeleteJobTemplateInternalServerError() *DeleteJobTemplateInternalServerE
 	return &DeleteJobTemplateInternalServerError{}
 }
 
-/* DeleteJobTemplateInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteJobTemplateInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type DeleteJobTemplateInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete job template internal server error response has a 2xx status code
+func (o *DeleteJobTemplateInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete job template internal server error response has a 3xx status code
+func (o *DeleteJobTemplateInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete job template internal server error response has a 4xx status code
+func (o *DeleteJobTemplateInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete job template internal server error response has a 5xx status code
+func (o *DeleteJobTemplateInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete job template internal server error response a status code equal to that given
+func (o *DeleteJobTemplateInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *DeleteJobTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteJobTemplateInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteJobTemplateInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *DeleteJobTemplateInternalServerError) GetPayload() *models.RestError {
 func (o *DeleteJobTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteJobTemplateDefault creates a DeleteJobTemplateDefault with default headers values
+func NewDeleteJobTemplateDefault(code int) *DeleteJobTemplateDefault {
+	return &DeleteJobTemplateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DeleteJobTemplateDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type DeleteJobTemplateDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the delete job template default response
+func (o *DeleteJobTemplateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this delete job template default response has a 2xx status code
+func (o *DeleteJobTemplateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete job template default response has a 3xx status code
+func (o *DeleteJobTemplateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete job template default response has a 4xx status code
+func (o *DeleteJobTemplateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete job template default response has a 5xx status code
+func (o *DeleteJobTemplateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete job template default response a status code equal to that given
+func (o *DeleteJobTemplateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DeleteJobTemplateDefault) Error() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] DeleteJobTemplate default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteJobTemplateDefault) String() string {
+	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] DeleteJobTemplate default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteJobTemplateDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *DeleteJobTemplateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

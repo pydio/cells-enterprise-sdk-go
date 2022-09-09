@@ -54,7 +54,14 @@ func (o *UpdateIPsReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewUpdateIPsDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewUpdateIPsOK() *UpdateIPsOK {
 	return &UpdateIPsOK{}
 }
 
-/* UpdateIPsOK describes a response with status code 200, with default header values.
+/*
+UpdateIPsOK describes a response with status code 200, with default header values.
 
-UpdateIPsOK update i ps o k
+A successful response.
 */
 type UpdateIPsOK struct {
 	Payload *models.IpbanIPsCollection
 }
 
+// IsSuccess returns true when this update i ps o k response has a 2xx status code
+func (o *UpdateIPsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update i ps o k response has a 3xx status code
+func (o *UpdateIPsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update i ps o k response has a 4xx status code
+func (o *UpdateIPsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update i ps o k response has a 5xx status code
+func (o *UpdateIPsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update i ps o k response a status code equal to that given
+func (o *UpdateIPsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UpdateIPsOK) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateIPsOK) String() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateIPsOK) GetPayload() *models.IpbanIPsCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewUpdateIPsUnauthorized() *UpdateIPsUnauthorized {
 	return &UpdateIPsUnauthorized{}
 }
 
-/* UpdateIPsUnauthorized describes a response with status code 401, with default header values.
+/*
+UpdateIPsUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type UpdateIPsUnauthorized struct {
 }
 
+// IsSuccess returns true when this update i ps unauthorized response has a 2xx status code
+func (o *UpdateIPsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update i ps unauthorized response has a 3xx status code
+func (o *UpdateIPsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update i ps unauthorized response has a 4xx status code
+func (o *UpdateIPsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update i ps unauthorized response has a 5xx status code
+func (o *UpdateIPsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update i ps unauthorized response a status code equal to that given
+func (o *UpdateIPsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *UpdateIPsUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsUnauthorized ", 401)
+}
+
+func (o *UpdateIPsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewUpdateIPsForbidden() *UpdateIPsForbidden {
 	return &UpdateIPsForbidden{}
 }
 
-/* UpdateIPsForbidden describes a response with status code 403, with default header values.
+/*
+UpdateIPsForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type UpdateIPsForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this update i ps forbidden response has a 2xx status code
+func (o *UpdateIPsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update i ps forbidden response has a 3xx status code
+func (o *UpdateIPsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update i ps forbidden response has a 4xx status code
+func (o *UpdateIPsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update i ps forbidden response has a 5xx status code
+func (o *UpdateIPsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update i ps forbidden response a status code equal to that given
+func (o *UpdateIPsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *UpdateIPsForbidden) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *UpdateIPsForbidden) String() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *UpdateIPsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewUpdateIPsNotFound() *UpdateIPsNotFound {
 	return &UpdateIPsNotFound{}
 }
 
-/* UpdateIPsNotFound describes a response with status code 404, with default header values.
+/*
+UpdateIPsNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type UpdateIPsNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this update i ps not found response has a 2xx status code
+func (o *UpdateIPsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update i ps not found response has a 3xx status code
+func (o *UpdateIPsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update i ps not found response has a 4xx status code
+func (o *UpdateIPsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update i ps not found response has a 5xx status code
+func (o *UpdateIPsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update i ps not found response a status code equal to that given
+func (o *UpdateIPsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *UpdateIPsNotFound) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateIPsNotFound) String() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateIPsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewUpdateIPsInternalServerError() *UpdateIPsInternalServerError {
 	return &UpdateIPsInternalServerError{}
 }
 
-/* UpdateIPsInternalServerError describes a response with status code 500, with default header values.
+/*
+UpdateIPsInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type UpdateIPsInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this update i ps internal server error response has a 2xx status code
+func (o *UpdateIPsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update i ps internal server error response has a 3xx status code
+func (o *UpdateIPsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update i ps internal server error response has a 4xx status code
+func (o *UpdateIPsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update i ps internal server error response has a 5xx status code
+func (o *UpdateIPsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this update i ps internal server error response a status code equal to that given
+func (o *UpdateIPsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *UpdateIPsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *UpdateIPsInternalServerError) String() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *UpdateIPsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *UpdateIPsInternalServerError) GetPayload() *models.RestError {
 func (o *UpdateIPsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateIPsDefault creates a UpdateIPsDefault with default headers values
+func NewUpdateIPsDefault(code int) *UpdateIPsDefault {
+	return &UpdateIPsDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+UpdateIPsDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type UpdateIPsDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the update i ps default response
+func (o *UpdateIPsDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this update i ps default response has a 2xx status code
+func (o *UpdateIPsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this update i ps default response has a 3xx status code
+func (o *UpdateIPsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this update i ps default response has a 4xx status code
+func (o *UpdateIPsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this update i ps default response has a 5xx status code
+func (o *UpdateIPsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this update i ps default response a status code equal to that given
+func (o *UpdateIPsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *UpdateIPsDefault) Error() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] UpdateIPs default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateIPsDefault) String() string {
+	return fmt.Sprintf("[POST /policy/iplists][%d] UpdateIPs default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UpdateIPsDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *UpdateIPsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

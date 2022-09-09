@@ -71,6 +71,8 @@ func (m *TreeChangeLog) validateEvent(formats strfmt.Registry) error {
 		if err := m.Event.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Event")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Event")
 			}
 			return err
 		}
@@ -88,6 +90,8 @@ func (m *TreeChangeLog) validateLocation(formats strfmt.Registry) error {
 		if err := m.Location.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Location")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Location")
 			}
 			return err
 		}
@@ -120,6 +124,8 @@ func (m *TreeChangeLog) contextValidateEvent(ctx context.Context, formats strfmt
 		if err := m.Event.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Event")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Event")
 			}
 			return err
 		}
@@ -134,6 +140,8 @@ func (m *TreeChangeLog) contextValidateLocation(ctx context.Context, formats str
 		if err := m.Location.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Location")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Location")
 			}
 			return err
 		}

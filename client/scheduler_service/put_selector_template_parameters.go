@@ -54,10 +54,12 @@ func NewPutSelectorTemplateParamsWithHTTPClient(client *http.Client) *PutSelecto
 	}
 }
 
-/* PutSelectorTemplateParams contains all the parameters to send to the API endpoint
-   for the put selector template operation.
+/*
+PutSelectorTemplateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put selector template operation.
+
+	Typically these are written to a http.Request.
 */
 type PutSelectorTemplateParams struct {
 

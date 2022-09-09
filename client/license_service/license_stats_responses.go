@@ -54,7 +54,14 @@ func (o *LicenseStatsReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewLicenseStatsDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewLicenseStatsOK() *LicenseStatsOK {
 	return &LicenseStatsOK{}
 }
 
-/* LicenseStatsOK describes a response with status code 200, with default header values.
+/*
+LicenseStatsOK describes a response with status code 200, with default header values.
 
-LicenseStatsOK license stats o k
+A successful response.
 */
 type LicenseStatsOK struct {
 	Payload *models.CertLicenseStatsResponse
 }
 
+// IsSuccess returns true when this license stats o k response has a 2xx status code
+func (o *LicenseStatsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this license stats o k response has a 3xx status code
+func (o *LicenseStatsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this license stats o k response has a 4xx status code
+func (o *LicenseStatsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this license stats o k response has a 5xx status code
+func (o *LicenseStatsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this license stats o k response a status code equal to that given
+func (o *LicenseStatsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *LicenseStatsOK) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK  %+v", 200, o.Payload)
 }
+
+func (o *LicenseStatsOK) String() string {
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK  %+v", 200, o.Payload)
+}
+
 func (o *LicenseStatsOK) GetPayload() *models.CertLicenseStatsResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewLicenseStatsUnauthorized() *LicenseStatsUnauthorized {
 	return &LicenseStatsUnauthorized{}
 }
 
-/* LicenseStatsUnauthorized describes a response with status code 401, with default header values.
+/*
+LicenseStatsUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type LicenseStatsUnauthorized struct {
 }
 
+// IsSuccess returns true when this license stats unauthorized response has a 2xx status code
+func (o *LicenseStatsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this license stats unauthorized response has a 3xx status code
+func (o *LicenseStatsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this license stats unauthorized response has a 4xx status code
+func (o *LicenseStatsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this license stats unauthorized response has a 5xx status code
+func (o *LicenseStatsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this license stats unauthorized response a status code equal to that given
+func (o *LicenseStatsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *LicenseStatsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsUnauthorized ", 401)
+}
+
+func (o *LicenseStatsUnauthorized) String() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewLicenseStatsForbidden() *LicenseStatsForbidden {
 	return &LicenseStatsForbidden{}
 }
 
-/* LicenseStatsForbidden describes a response with status code 403, with default header values.
+/*
+LicenseStatsForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type LicenseStatsForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this license stats forbidden response has a 2xx status code
+func (o *LicenseStatsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this license stats forbidden response has a 3xx status code
+func (o *LicenseStatsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this license stats forbidden response has a 4xx status code
+func (o *LicenseStatsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this license stats forbidden response has a 5xx status code
+func (o *LicenseStatsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this license stats forbidden response a status code equal to that given
+func (o *LicenseStatsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *LicenseStatsForbidden) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *LicenseStatsForbidden) String() string {
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *LicenseStatsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewLicenseStatsNotFound() *LicenseStatsNotFound {
 	return &LicenseStatsNotFound{}
 }
 
-/* LicenseStatsNotFound describes a response with status code 404, with default header values.
+/*
+LicenseStatsNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type LicenseStatsNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this license stats not found response has a 2xx status code
+func (o *LicenseStatsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this license stats not found response has a 3xx status code
+func (o *LicenseStatsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this license stats not found response has a 4xx status code
+func (o *LicenseStatsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this license stats not found response has a 5xx status code
+func (o *LicenseStatsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this license stats not found response a status code equal to that given
+func (o *LicenseStatsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *LicenseStatsNotFound) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *LicenseStatsNotFound) String() string {
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *LicenseStatsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewLicenseStatsInternalServerError() *LicenseStatsInternalServerError {
 	return &LicenseStatsInternalServerError{}
 }
 
-/* LicenseStatsInternalServerError describes a response with status code 500, with default header values.
+/*
+LicenseStatsInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type LicenseStatsInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this license stats internal server error response has a 2xx status code
+func (o *LicenseStatsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this license stats internal server error response has a 3xx status code
+func (o *LicenseStatsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this license stats internal server error response has a 4xx status code
+func (o *LicenseStatsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this license stats internal server error response has a 5xx status code
+func (o *LicenseStatsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this license stats internal server error response a status code equal to that given
+func (o *LicenseStatsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *LicenseStatsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *LicenseStatsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *LicenseStatsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *LicenseStatsInternalServerError) GetPayload() *models.RestError {
 func (o *LicenseStatsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewLicenseStatsDefault creates a LicenseStatsDefault with default headers values
+func NewLicenseStatsDefault(code int) *LicenseStatsDefault {
+	return &LicenseStatsDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+LicenseStatsDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type LicenseStatsDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the license stats default response
+func (o *LicenseStatsDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this license stats default response has a 2xx status code
+func (o *LicenseStatsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this license stats default response has a 3xx status code
+func (o *LicenseStatsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this license stats default response has a 4xx status code
+func (o *LicenseStatsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this license stats default response has a 5xx status code
+func (o *LicenseStatsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this license stats default response a status code equal to that given
+func (o *LicenseStatsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *LicenseStatsDefault) Error() string {
+	return fmt.Sprintf("[GET /license/stats][%d] LicenseStats default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *LicenseStatsDefault) String() string {
+	return fmt.Sprintf("[GET /license/stats][%d] LicenseStats default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *LicenseStatsDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *LicenseStatsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

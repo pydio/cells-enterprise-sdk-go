@@ -20,6 +20,50 @@
     "version": "2.0"
   },
   "paths": {
+    "/audit/data/reports": {
+      "get": {
+        "tags": [
+          "AuditDataService"
+        ],
+        "summary": "[Enterprise Only] Audit all shares across the application",
+        "operationId": "ListReports",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/reportsListReportsResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
     "/audit/data/shares": {
       "post": {
         "tags": [
@@ -39,7 +83,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/reportsSharedResourcesResponse"
             }
@@ -64,6 +108,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -87,7 +137,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entPersonalAccessTokenResponse"
             }
@@ -111,6 +161,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -135,7 +191,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entPersonalAccessTokenResponse"
             }
@@ -160,6 +216,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -183,7 +245,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/authPatListResponse"
             }
@@ -208,6 +270,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -222,6 +290,7 @@
         "parameters": [
           {
             "type": "string",
+            "description": "Pass a specific Token ID to be revoked. If empty, request will use current JWT",
             "name": "TokenId",
             "in": "path",
             "required": true
@@ -229,7 +298,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/restRevokeResponse"
             }
@@ -254,6 +323,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -267,7 +342,7 @@
         "operationId": "ListExternalDirectories",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entExternalDirectoryCollection"
             }
@@ -292,6 +367,120 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/config/directories-test/ping": {
+      "post": {
+        "tags": [
+          "EnterpriseConfigService"
+        ],
+        "summary": "[Enterprise Only] Sends an arbitrary config and try to ping the server and bind",
+        "operationId": "PingExternalDirectory",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entExternalDirectoryPingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entExternalDirectoryTestResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/config/directories-test/search": {
+      "post": {
+        "tags": [
+          "EnterpriseConfigService"
+        ],
+        "summary": "[Enterprise Only] Sends an arbitrary config and try to ldapsearch using a given SearchFilter",
+        "operationId": "SearchExternalDirectory",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entExternalDirectorySearchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entExternalDirectoryTestResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -306,6 +495,7 @@
         "parameters": [
           {
             "type": "string",
+            "description": "Id of the external directory",
             "name": "ConfigId",
             "in": "path",
             "required": true
@@ -315,13 +505,20 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/entExternalDirectoryConfig"
+              "type": "object",
+              "title": "EntExternalDirectoryConfig",
+              "properties": {
+                "Config": {
+                  "title": "LDAP or Active Directory configuration",
+                  "$ref": "#/definitions/authLdapServerConfig"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entExternalDirectoryResponse"
             }
@@ -345,6 +542,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -358,14 +561,200 @@
         "parameters": [
           {
             "type": "string",
+            "description": "Id of the external directory",
             "name": "ConfigId",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "Config.ConfigId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.DomainName",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.Host",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.Connection",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.BindDN",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.BindPW",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "Config.BindAnonymous",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "Config.SkipVerifyCertificate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.RootCA",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "To be converted to []byte.",
+            "name": "Config.RootCAData",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "Config.PageSize",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "Config.User.DNs",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.User.Filter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.User.IDAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.User.DisplayAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.User.Scope",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.Mapping.LeftAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.Mapping.RightAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.Mapping.RuleString",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.Mapping.RolePrefix",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "Config.MemberOfMapping.GroupFilter.DNs",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.GroupFilter.Filter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.GroupFilter.IDAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.GroupFilter.DisplayAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.GroupFilter.Scope",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "Config.MemberOfMapping.SupportNestedGroup",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "Config.MemberOfMapping.RealMemberOf",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.RealMemberOfAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.RealMemberOfValueFormat",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.PydioMemberOfAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.MemberOfMapping.PydioMemberOfValueFormat",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.RolePrefix",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.Schedule",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Config.SchedulerDetails",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "Config.SyncOnly",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entExternalDirectoryResponse"
             }
@@ -389,6 +778,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -403,7 +798,7 @@
         "operationId": "ListOAuth2Clients",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ClientCollection"
             }
@@ -428,11 +823,17 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
     },
-    "/config/oauth2clients/{ClientID}": {
+    "/config/oauth2clients/{client_id}": {
       "put": {
         "tags": [
           "EnterpriseConfigService"
@@ -442,7 +843,7 @@
         "parameters": [
           {
             "type": "string",
-            "name": "ClientID",
+            "name": "client_id",
             "in": "path",
             "required": true
           },
@@ -451,13 +852,48 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/authOAuth2ClientConfig"
+              "type": "object",
+              "properties": {
+                "audience": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "client_name": {
+                  "type": "string"
+                },
+                "client_secret": {
+                  "type": "string"
+                },
+                "grant_types": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "redirect_uris": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "response_types": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "scope": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ClientResponse"
             }
@@ -481,6 +917,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -494,14 +936,65 @@
         "parameters": [
           {
             "type": "string",
-            "name": "ClientID",
+            "name": "client_id",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "client_name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "client_secret",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "redirect_uris",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "grant_types",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "response_types",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "scope",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "audience",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ClientResponse"
             }
@@ -525,6 +1018,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -539,7 +1038,7 @@
         "operationId": "ListOAuth2Connectors",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ConnectorCollection"
             }
@@ -564,6 +1063,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -585,7 +1090,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ConnectorResponse"
             }
@@ -609,6 +1114,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -633,13 +1144,63 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/authOAuth2ConnectorConfig"
+              "type": "object",
+              "properties": {
+                "configbitbucket": {
+                  "$ref": "#/definitions/authOAuth2ConnectorBitbucketConfig"
+                },
+                "configgithub": {
+                  "$ref": "#/definitions/authOAuth2ConnectorGithubConfig"
+                },
+                "configgitlab": {
+                  "$ref": "#/definitions/authOAuth2ConnectorGitlabConfig"
+                },
+                "configldap": {
+                  "$ref": "#/definitions/authLdapServerConfig"
+                },
+                "configlinkedin": {
+                  "$ref": "#/definitions/authOAuth2ConnectorLinkedinConfig"
+                },
+                "configmicrosoft": {
+                  "$ref": "#/definitions/authOAuth2ConnectorMicrosoftConfig"
+                },
+                "configoauth": {
+                  "$ref": "#/definitions/authOAuth2ConnectorOAuthConfig"
+                },
+                "configoidc": {
+                  "$ref": "#/definitions/authOAuth2ConnectorOIDCConfig"
+                },
+                "configpydio": {
+                  "$ref": "#/definitions/authOAuth2ConnectorPydioConfig"
+                },
+                "configsaml": {
+                  "$ref": "#/definitions/authOAuth2ConnectorSAMLConfig"
+                },
+                "mappingRules": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/authOAuth2MappingRule"
+                  }
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sites": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "type": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ConnectorResponse"
             }
@@ -663,6 +1224,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -679,11 +1246,550 @@
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoidc.issuer",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoidc.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoidc.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoidc.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configoidc.basicAuthUnsupported",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configoidc.hostedDomains",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configoidc.scopes",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configoidc.insecureSkipEmailVerified",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configoidc.getUserInfo",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoidc.userIDKey",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoidc.userNameKey",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.ssoURL",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.ca",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.usernameAttr",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.emailAttr",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.groupsAttr",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.caData",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configsaml.insecureSkipSignatureValidation",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.entityIssuer",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.ssoIssuer",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.groupsDelim",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configsaml.nameIDPolicyFormat",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configbitbucket.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configbitbucket.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configbitbucket.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configbitbucket.teams",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgithub.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgithub.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgithub.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configgithub.loadAllGroups",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgithub.teamNameField",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configgithub.useLoginAsID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "For GitHub enterprise.",
+            "name": "configgithub.hostName",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgithub.rootCA",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgitlab.baseURL",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgitlab.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgitlab.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configgitlab.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configgitlab.groups",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configgitlab.userLoginAsID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configlinkedin.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configlinkedin.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configlinkedin.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configmicrosoft.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configmicrosoft.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configmicrosoft.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configmicrosoft.tenant",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configmicrosoft.groups",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configmicrosoft.onlySecurityGroups",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configmicrosoft.groupNameFormat",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configmicrosoft.useGroupsAsWhitelist",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.ConfigId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.DomainName",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.Host",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.Connection",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.BindDN",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.BindPW",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configldap.BindAnonymous",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configldap.SkipVerifyCertificate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.RootCA",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "To be converted to []byte.",
+            "name": "configldap.RootCAData",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "configldap.PageSize",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configldap.User.DNs",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.User.Filter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.User.IDAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.User.DisplayAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.User.Scope",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.Mapping.LeftAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.Mapping.RightAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.Mapping.RuleString",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.Mapping.RolePrefix",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configldap.MemberOfMapping.GroupFilter.DNs",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.GroupFilter.Filter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.GroupFilter.IDAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.GroupFilter.DisplayAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.GroupFilter.Scope",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configldap.MemberOfMapping.SupportNestedGroup",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configldap.MemberOfMapping.RealMemberOf",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.RealMemberOfAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.RealMemberOfValueFormat",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.PydioMemberOfAttribute",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.MemberOfMapping.PydioMemberOfValueFormat",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.RolePrefix",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.Schedule",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configldap.SchedulerDetails",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configldap.SyncOnly",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.baseURL",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.authorizeURL",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.tokenURL",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.userInfoURL",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.clientID",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.clientSecret",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configoauth.redirectURI",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "configoauth.groups",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configoauth.useLoginAsID",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "name": "configoauth.useBrokenAuthHeaderProvider",
+            "in": "query"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi",
+            "name": "sites",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entOAuth2ConnectorResponse"
             }
@@ -708,6 +1814,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -721,7 +1833,7 @@
         "operationId": "ListSites",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entListSitesResponse"
             }
@@ -746,6 +1858,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -769,13 +1887,48 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/treeVersioningPolicy"
+              "type": "object",
+              "properties": {
+                "Description": {
+                  "type": "string"
+                },
+                "IgnoreFilesGreaterThan": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "KeepPeriods": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/treeVersioningKeepPeriod"
+                  }
+                },
+                "MaxSizePerFile": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "MaxTotalSize": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "Name": {
+                  "type": "string"
+                },
+                "NodeDeletedStrategy": {
+                  "$ref": "#/definitions/treeVersioningNodeDeletedStrategy"
+                },
+                "VersionsDataSourceBucket": {
+                  "type": "string"
+                },
+                "VersionsDataSourceName": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/treeVersioningPolicy"
             }
@@ -800,6 +1953,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -815,11 +1974,60 @@
             "name": "Uuid",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "Name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Description",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "VersionsDataSourceName",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "VersionsDataSourceBucket",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "int64",
+            "name": "MaxTotalSize",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "int64",
+            "name": "MaxSizePerFile",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "int64",
+            "name": "IgnoreFilesGreaterThan",
+            "in": "query"
+          },
+          {
+            "enum": [
+              "KeepAll",
+              "KeepLast",
+              "KeepNone"
+            ],
+            "type": "string",
+            "default": "KeepAll",
+            "name": "NodeDeletedStrategy",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entDeleteVersioningPolicyResponse"
             }
@@ -844,6 +2052,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -858,6 +2072,7 @@
         "parameters": [
           {
             "type": "string",
+            "description": "------------------------------------\nCore identification of the node\n------------------------------------",
             "name": "Uuid",
             "in": "path",
             "required": true
@@ -867,13 +2082,61 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/treeNode"
+              "type": "object",
+              "properties": {
+                "AppearsIn": {
+                  "type": "array",
+                  "title": "Can be used for output when node is appearing in multiple workspaces",
+                  "items": {
+                    "$ref": "#/definitions/treeWorkspaceRelativePath"
+                  }
+                },
+                "Commits": {
+                  "type": "array",
+                  "title": "List of successive commits",
+                  "items": {
+                    "$ref": "#/definitions/treeChangeLog"
+                  }
+                },
+                "Etag": {
+                  "type": "string",
+                  "title": "Hash of the content if node is a LEAF, Uuid or"
+                },
+                "MTime": {
+                  "type": "string",
+                  "format": "int64",
+                  "title": "Last modification Timestamp"
+                },
+                "MetaStore": {
+                  "type": "object",
+                  "title": "------------------------------------\nThen a free K =\u003e V representation of any kind of metadata\n------------------------------------",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                },
+                "Mode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "title": "Permission mode, like 0777"
+                },
+                "Path": {
+                  "type": "string"
+                },
+                "Size": {
+                  "type": "string",
+                  "format": "int64",
+                  "title": "Size of the file, or cumulated size of folder"
+                },
+                "Type": {
+                  "$ref": "#/definitions/treeNodeType"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/treeNode"
             }
@@ -898,6 +2161,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -910,14 +2179,58 @@
         "parameters": [
           {
             "type": "string",
+            "description": "------------------------------------\nCore identification of the node\n------------------------------------",
             "name": "Uuid",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "Path",
+            "in": "query"
+          },
+          {
+            "enum": [
+              "UNKNOWN",
+              "LEAF",
+              "COLLECTION"
+            ],
+            "type": "string",
+            "default": "UNKNOWN",
+            "name": "Type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "int64",
+            "description": "Size of the file, or cumulated size of folder.",
+            "name": "Size",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "format": "int64",
+            "description": "Last modification Timestamp.",
+            "name": "MTime",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "description": "Permission mode, like 0777.",
+            "name": "Mode",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Hash of the content if node is a LEAF, Uuid or.",
+            "name": "Etag",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entDeleteVirtualNodeResponse"
             }
@@ -942,6 +2255,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -955,7 +2274,7 @@
         "operationId": "FrontLoginConnectors",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entFrontLoginConnectorsResponse"
             }
@@ -980,6 +2299,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -994,14 +2319,13 @@
         "parameters": [
           {
             "type": "boolean",
-            "format": "boolean",
             "name": "ForceRefresh",
             "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/certLicenseStatsResponse"
             }
@@ -1026,6 +2350,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1049,7 +2379,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/certPutLicenseInfoResponse"
             }
@@ -1074,6 +2404,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1097,7 +2433,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/restLogMessageCollection"
             }
@@ -1121,6 +2457,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -1145,7 +2487,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/restTimeRangeResultCollection"
             }
@@ -1170,6 +2512,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1193,7 +2541,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/restLogMessageCollection"
             }
@@ -1217,6 +2565,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -1241,7 +2595,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/restLogMessageCollection"
             }
@@ -1266,6 +2620,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1289,7 +2649,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/idmPolicyGroup"
             }
@@ -1314,6 +2674,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1327,7 +2693,7 @@
         "operationId": "ListBans",
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/ipbanListBansCollection"
             }
@@ -1352,6 +2718,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -1373,7 +2745,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/ipbanUnbanResponse"
             }
@@ -1398,6 +2770,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1421,7 +2799,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/ipbanIPsCollection"
             }
@@ -1445,6 +2823,12 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -1467,7 +2851,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/ipbanIPsCollection"
             }
@@ -1492,6 +2876,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1509,11 +2899,43 @@
             "name": "Uuid",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "Name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "Description",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "OwnerUuid",
+            "in": "query"
+          },
+          {
+            "enum": [
+              "rest",
+              "acl",
+              "oidc"
+            ],
+            "type": "string",
+            "default": "rest",
+            "name": "ResourceGroup",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "LastUpdated",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/restDeleteResponse"
             }
@@ -1538,6 +2960,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1561,7 +2989,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/jobsPutJobResponse"
             }
@@ -1586,6 +3014,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1603,11 +3037,16 @@
             "name": "JobID",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "boolean",
+            "name": "CleanableJobs",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/jobsDeleteJobResponse"
             }
@@ -1632,6 +3071,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1655,7 +3100,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entPutActionTemplateResponse"
             }
@@ -1680,6 +3125,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -1701,7 +3152,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entListActionTemplatesResponse"
             }
@@ -1726,6 +3177,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1747,7 +3204,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entDeleteActionTemplateResponse"
             }
@@ -1772,6 +3229,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1792,7 +3255,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entDocTemplatesResponse"
             }
@@ -1817,6 +3280,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1840,7 +3309,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entListJobTemplatesResponse"
             }
@@ -1865,6 +3334,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1888,13 +3363,19 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/entPutJobTemplateRequest"
+              "type": "object",
+              "title": "EntPutJobTemplateRequest",
+              "properties": {
+                "Job": {
+                  "$ref": "#/definitions/jobsJob"
+                }
+              }
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entPutJobTemplateResponse"
             }
@@ -1919,6 +3400,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -1938,7 +3425,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entDeleteJobTemplateResponse"
             }
@@ -1963,6 +3450,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -1986,7 +3479,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entPlaygroundResponse"
             }
@@ -2011,6 +3504,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -2034,7 +3533,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entPutSelectorTemplateResponse"
             }
@@ -2059,6 +3558,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       },
@@ -2080,7 +3585,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entListSelectorTemplatesResponse"
             }
@@ -2105,6 +3610,12 @@
             "schema": {
               "$ref": "#/definitions/restError"
             }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
           }
         }
       }
@@ -2126,7 +3637,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/entDeleteSelectorTemplateResponse"
             }
@@ -2150,6 +3661,273 @@
             "description": "An internal error occurred in the backend",
             "schema": {
               "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/templates/meta": {
+      "get": {
+        "tags": [
+          "EnterpriseTemplatesService"
+        ],
+        "summary": "Store an arbitrary metadata template",
+        "operationId": "ListMetaTemplates",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "Namespace",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entListMetaTemplateResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "EnterpriseTemplatesService"
+        ],
+        "summary": "Store an arbitrary metadata template",
+        "operationId": "PutMetaTemplate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entPutMetaTemplateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entPutMetaTemplateResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/templates/meta/{TemplateUuid}": {
+      "delete": {
+        "tags": [
+          "EnterpriseTemplatesService"
+        ],
+        "summary": "Delete an arbitrary metadata template",
+        "operationId": "DeleteMetaTemplate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "TemplateUuid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entDeleteMetaTemplateResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/templates/node": {
+      "post": {
+        "tags": [
+          "EnterpriseTemplatesService"
+        ],
+        "summary": "Create a template from a specific node",
+        "operationId": "CreateNodeTemplate",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/entCreateNodeTemplateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entCreateNodeTemplateResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        }
+      }
+    },
+    "/templates/node/{TemplateUuid}": {
+      "delete": {
+        "tags": [
+          "EnterpriseTemplatesService"
+        ],
+        "summary": "Create a template from a specific node",
+        "operationId": "DeleteNodeTemplate",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "TemplateUuid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/entDeleteNodeTemplateResponse"
+            }
+          },
+          "401": {
+            "description": "User is not authenticated"
+          },
+          "403": {
+            "description": "User has no permission to access this resource",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "404": {
+            "description": "Resource does not exist in the system",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "500": {
+            "description": "An internal error occurred in the backend",
+            "schema": {
+              "$ref": "#/definitions/restError"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         }
@@ -2183,6 +3961,9 @@
     "activityObject": {
       "type": "object",
       "properties": {
+        "@context": {
+          "type": "string"
+        },
         "accuracy": {
           "type": "number",
           "format": "float",
@@ -2284,9 +4065,6 @@
           "items": {
             "$ref": "#/definitions/activityObject"
           }
-        },
-        "jsonLdContext": {
-          "type": "string"
         },
         "last": {
           "$ref": "#/definitions/activityObject"
@@ -2496,8 +4274,7 @@
           "type": "string"
         },
         "RealMemberOf": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "RealMemberOfAttribute": {
           "type": "string"
@@ -2506,8 +4283,7 @@
           "type": "string"
         },
         "SupportNestedGroup": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -2538,8 +4314,7 @@
       "type": "object",
       "properties": {
         "BindAnonymous": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "BindDN": {
           "type": "string"
@@ -2589,12 +4364,10 @@
           "type": "string"
         },
         "SkipVerifyCertificate": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "SyncOnly": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "User": {
           "$ref": "#/definitions/authLdapSearchFilter"
@@ -2604,40 +4377,40 @@
     "authOAuth2ClientConfig": {
       "type": "object",
       "properties": {
-        "Audience": {
+        "audience": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "ClientID": {
+        "client_id": {
           "type": "string"
         },
-        "GrantTypes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "Name": {
+        "client_name": {
           "type": "string"
         },
-        "RedirectURIs": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "ResponseTypes": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "Scope": {
+        "client_secret": {
           "type": "string"
         },
-        "Secret": {
+        "grant_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "redirect_uris": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "response_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "scope": {
           "type": "string"
         }
       }
@@ -2743,8 +4516,7 @@
           "title": "For GitHub enterprise"
         },
         "loadAllGroups": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "orgs": {
           "type": "array",
@@ -2762,8 +4534,7 @@
           "type": "string"
         },
         "useLoginAsID": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -2803,8 +4574,7 @@
           "type": "string"
         },
         "userLoginAsID": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -2841,8 +4611,7 @@
           }
         },
         "onlySecurityGroups": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "redirectURI": {
           "type": "string"
@@ -2851,8 +4620,7 @@
           "type": "string"
         },
         "useGroupsAsWhitelist": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -2884,12 +4652,10 @@
           "type": "string"
         },
         "useBrokenAuthHeaderProvider": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "useLoginAsID": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "userInfoURL": {
           "type": "string"
@@ -2900,8 +4666,7 @@
       "type": "object",
       "properties": {
         "basicAuthUnsupported": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "clientID": {
           "type": "string"
@@ -2910,8 +4675,7 @@
           "type": "string"
         },
         "getUserInfo": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "hostedDomains": {
           "type": "array",
@@ -2920,8 +4684,7 @@
           }
         },
         "insecureSkipEmailVerified": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "issuer": {
           "type": "string"
@@ -2991,8 +4754,7 @@
           "type": "string"
         },
         "insecureSkipSignatureValidation": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "nameIDPolicyFormat": {
           "type": "string"
@@ -3017,7 +4779,16 @@
         "LeftAttribute": {
           "type": "string"
         },
+        "LeftSplit": {
+          "type": "string"
+        },
+        "NoUpdate": {
+          "type": "boolean"
+        },
         "RightAttribute": {
+          "type": "string"
+        },
+        "RightValueTemplate": {
           "type": "string"
         },
         "RuleString": {
@@ -3154,16 +4925,13 @@
       "type": "object",
       "properties": {
         "ErrorInvalid": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "ErrorWrite": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3192,12 +4960,40 @@
         }
       }
     },
+    "entCreateNodeTemplateRequest": {
+      "type": "object",
+      "properties": {
+        "Policies": {
+          "type": "array",
+          "title": "Optional policies",
+          "items": {
+            "$ref": "#/definitions/serviceResourcePolicy"
+          }
+        },
+        "RefNodeUuid": {
+          "type": "string"
+        },
+        "TplLabel": {
+          "type": "string"
+        }
+      }
+    },
+    "entCreateNodeTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "Success": {
+          "type": "boolean"
+        },
+        "TemplateUuid": {
+          "type": "string"
+        }
+      }
+    },
     "entDeleteActionTemplateResponse": {
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3205,8 +5001,23 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
+        }
+      }
+    },
+    "entDeleteMetaTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "Success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "entDeleteNodeTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "Success": {
+          "type": "boolean"
         }
       }
     },
@@ -3214,8 +5025,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3223,8 +5033,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3232,8 +5041,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3279,16 +5087,15 @@
         }
       }
     },
-    "entExternalDirectoryConfig": {
+    "entExternalDirectoryPingRequest": {
       "type": "object",
+      "title": "Try to connect to an external directory",
       "properties": {
-        "Config": {
-          "title": "LDAP or Active Directory configuration",
-          "$ref": "#/definitions/authLdapServerConfig"
+        "Bind": {
+          "type": "boolean"
         },
-        "ConfigId": {
-          "type": "string",
-          "title": "Id of the external directory"
+        "Config": {
+          "$ref": "#/definitions/authLdapServerConfig"
         }
       }
     },
@@ -3296,8 +5103,39 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
+        }
+      }
+    },
+    "entExternalDirectorySearchRequest": {
+      "type": "object",
+      "title": "Try to connect perform an ldapsearch in an external directory",
+      "properties": {
+        "Config": {
+          "$ref": "#/definitions/authLdapServerConfig"
+        },
+        "Filter": {
+          "$ref": "#/definitions/authLdapSearchFilter"
+        },
+        "Limit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Offset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "entExternalDirectoryTestResponse": {
+      "type": "object",
+      "title": "Test responses sends back arbitrary JSON contents",
+      "properties": {
+        "DirectoryResponseJSON": {
+          "type": "string"
+        },
+        "Success": {
+          "type": "boolean"
         }
       }
     },
@@ -3321,7 +5159,12 @@
       }
     },
     "entListActionTemplatesRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "All": {
+          "type": "boolean"
+        }
+      }
     },
     "entListActionTemplatesResponse": {
       "type": "object",
@@ -3335,7 +5178,12 @@
       }
     },
     "entListJobTemplatesRequest": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "All": {
+          "type": "boolean"
+        }
+      }
     },
     "entListJobTemplatesResponse": {
       "type": "object",
@@ -3344,6 +5192,17 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/jobsJob"
+          }
+        }
+      }
+    },
+    "entListMetaTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "Templates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/entMetaTemplate"
           }
         }
       }
@@ -3378,10 +5237,34 @@
         }
       }
     },
+    "entMetaTemplate": {
+      "type": "object",
+      "properties": {
+        "Label": {
+          "type": "string"
+        },
+        "Meta": {
+          "type": "string"
+        },
+        "Namespace": {
+          "type": "string"
+        },
+        "Policies": {
+          "type": "array",
+          "title": "Optional policies",
+          "items": {
+            "$ref": "#/definitions/serviceResourcePolicy"
+          }
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
     "entOAuth2ClientCollection": {
       "type": "object",
       "properties": {
-        "Clients": {
+        "staticClients": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/authOAuth2ClientConfig"
@@ -3393,8 +5276,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3413,8 +5295,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3498,22 +5379,30 @@
         }
       }
     },
-    "entPutJobTemplateRequest": {
-      "type": "object",
-      "properties": {
-        "Job": {
-          "$ref": "#/definitions/jobsJob"
-        },
-        "Name": {
-          "type": "string"
-        }
-      }
-    },
     "entPutJobTemplateResponse": {
       "type": "object",
       "properties": {
         "Job": {
           "$ref": "#/definitions/jobsJob"
+        }
+      }
+    },
+    "entPutMetaTemplateRequest": {
+      "type": "object",
+      "properties": {
+        "Template": {
+          "$ref": "#/definitions/entMetaTemplate"
+        },
+        "Uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "entPutMetaTemplateResponse": {
+      "type": "object",
+      "properties": {
+        "Template": {
+          "$ref": "#/definitions/entMetaTemplate"
         }
       }
     },
@@ -3529,8 +5418,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -3541,8 +5429,7 @@
           "$ref": "#/definitions/jobsActionOutputFilter"
         },
         "AsFilter": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "ContextMetaFilter": {
           "$ref": "#/definitions/jobsContextMetaFilter"
@@ -3717,17 +5604,14 @@
         },
         "ForceOverride": {
           "description": "Is used in a stack of roles, this one will always be applied last.",
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "GroupRole": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether this role is attached to a Group object"
         },
         "IsTeam": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether this role represents a user team or not"
         },
         "Label": {
@@ -3748,12 +5632,10 @@
         },
         "PoliciesContextEditable": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether the policies resolve into an editable state"
         },
         "UserRole": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether this role is attached to a User object"
         },
         "Uuid": {
@@ -3783,7 +5665,6 @@
         },
         "IsGroup": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether this object is a group or a user"
         },
         "LastConnected": {
@@ -3812,8 +5693,7 @@
         },
         "PoliciesContextEditable": {
           "description": "Context-resolved to quickly check if user is editable or not.",
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Roles": {
           "type": "array",
@@ -3858,7 +5738,6 @@
         },
         "PoliciesContextEditable": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Context-resolved to quickly check if workspace is editable or not"
         },
         "RootNodes": {
@@ -3918,7 +5797,6 @@
         },
         "Maintenance": {
           "type": "boolean",
-          "format": "boolean",
           "title": "If set, this site will be in maintenance mode"
         },
         "MaintenanceConditions": {
@@ -3934,7 +5812,6 @@
         },
         "SSLRedirect": {
           "type": "boolean",
-          "format": "boolean",
           "title": "If TLS is set, whether to automatically redirect each http://host:port to https://host:port"
         },
         "SelfSigned": {
@@ -3962,15 +5839,13 @@
       "title": "TLSLetsEncrypt set up proxy to automatically get a valid certificate from let's encrypt servers",
       "properties": {
         "AcceptEULA": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Email": {
           "type": "string"
         },
         "StagingCA": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -4017,8 +5892,7 @@
           "type": "string"
         },
         "IsSuccess": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "connectionTime": {
           "type": "string",
@@ -4064,8 +5938,7 @@
       "type": "object",
       "properties": {
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -4078,12 +5951,10 @@
         },
         "BreakAfter": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Stop full chain now : do not carry on executing next actions"
         },
         "Bypass": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Bypass this action (forward input to output and do nothing)"
         },
         "ChainedActions": {
@@ -4146,6 +6017,10 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional timeout for this action"
         },
         "TriggerFilter": {
           "title": "Filter on specific triggers",
@@ -4251,7 +6126,6 @@
         },
         "Ignored": {
           "type": "boolean",
-          "format": "boolean",
           "title": "If action was returned WithIgnore()"
         },
         "JsonBody": {
@@ -4270,7 +6144,6 @@
         },
         "Success": {
           "type": "boolean",
-          "format": "boolean",
           "title": "True if action succeeded"
         },
         "Time": {
@@ -4334,12 +6207,10 @@
       "properties": {
         "All": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Select all"
         },
         "Collect": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Collect results"
         },
         "Description": {
@@ -4353,6 +6224,10 @@
         "Query": {
           "title": "Composition of DataSourceSingleQueries",
           "$ref": "#/definitions/serviceQuery"
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional Timeout for this selector"
         },
         "Type": {
           "title": "Selector type, either DataSource or Object service",
@@ -4376,8 +6251,7 @@
           "format": "int32"
         },
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -4387,12 +6261,10 @@
       "properties": {
         "All": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Load all objects"
         },
         "Collect": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Pass a slice of objects to one action, or trigger all actions in parallel"
         },
         "Description": {
@@ -4406,6 +6278,10 @@
         "Query": {
           "title": "Serialized search query",
           "$ref": "#/definitions/serviceQuery"
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional Timeout for this selector"
         },
         "Type": {
           "title": "Type of objects to look for",
@@ -4436,12 +6312,10 @@
         },
         "AutoClean": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Remove job automatically once it is finished (success only)"
         },
         "AutoStart": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Start task as soon as job is inserted"
         },
         "ContextMetaFilter": {
@@ -4450,7 +6324,6 @@
         },
         "Custom": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Job created by application or by administrator"
         },
         "DataSourceFilter": {
@@ -4474,7 +6347,6 @@
         },
         "Inactive": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Admin can temporarily disable this job"
         },
         "Label": {
@@ -4528,8 +6400,11 @@
         },
         "TasksSilentUpdate": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Do not send notification on task update"
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional Timeout any running job"
         },
         "UserEventFilter": {
           "title": "Deprecated in favor of more generic IdmSelector",
@@ -4550,7 +6425,6 @@
         },
         "Mandatory": {
           "type": "boolean",
-          "format": "boolean",
           "title": "If mandatory, job cannot start without a value"
         },
         "Name": {
@@ -4573,12 +6447,10 @@
       "properties": {
         "All": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Select all files - ignore any other condition"
         },
         "Collect": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether to trigger one action per node or one action\nwith all nodes as selection"
         },
         "Description": {
@@ -4599,6 +6471,10 @@
         "Query": {
           "title": "Query to apply to select users (or filter a given node passed by event)",
           "$ref": "#/definitions/serviceQuery"
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional Timeout for this selector"
         }
       }
     },
@@ -4643,12 +6519,10 @@
         },
         "CanPause": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Can be paused/resumed"
         },
         "CanStop": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Can be interrupted"
         },
         "EndTime": {
@@ -4657,7 +6531,6 @@
         },
         "HasProgress": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Tasks publish a progress"
         },
         "ID": {
@@ -4726,12 +6599,10 @@
       "properties": {
         "All": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Select all users"
         },
         "Collect": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Wether to trigger one action per user or one action\nwith all user as a selection"
         },
         "Description": {
@@ -4745,6 +6616,10 @@
         "Query": {
           "title": "Filter users using this query",
           "$ref": "#/definitions/serviceQuery"
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional Timeout for this selector"
         },
         "Users": {
           "type": "array",
@@ -4971,7 +6846,6 @@
         },
         "Disabled": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Whether this data source is disabled or running"
         },
         "EncryptionKey": {
@@ -4984,7 +6858,6 @@
         },
         "FlatStorage": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Store data in flat format (object-storage like)"
         },
         "LastSynchronizationDate": {
@@ -5015,7 +6888,6 @@
         },
         "ObjectsSecure": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Corresponding objects service connection type"
         },
         "ObjectsServiceName": {
@@ -5028,7 +6900,6 @@
         },
         "SkipSyncOnRestart": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Do not trigger resync at start"
         },
         "StorageConfiguration": {
@@ -5048,7 +6919,6 @@
         },
         "Watch": {
           "type": "boolean",
-          "format": "boolean",
           "title": "Not implemented, whether to watch for underlying changes on the FS"
         }
       }
@@ -5081,26 +6951,24 @@
       ]
     },
     "protobufAny": {
-      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := ptypes.MarshalAny(foo)\n     ...\n     foo := \u0026pb.Foo{}\n     if err := ptypes.UnmarshalAny(any, foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }",
       "type": "object",
       "properties": {
-        "type_url": {
-          "description": "A URL/resource name whose content describes the type of the\nserialized protocol buffer message.\n\nFor URLs which use the scheme `http`, `https`, or no scheme, the\nfollowing restrictions and interpretations apply:\n\n* If no scheme is provided, `https` is assumed.\n* The last segment of the URL's path must represent the fully\n  qualified name of the type (as in `path/google.protobuf.Duration`).\n  The name should be in a canonical form (e.g., leading \".\" is\n  not accepted).\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
+        "@type": {
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics.",
           "type": "string"
-        },
-        "value": {
-          "description": "Must be a valid serialized protocol buffer of the above specified type.",
-          "type": "string",
-          "format": "byte"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "reportsAuditedWorkspace": {
       "type": "object",
       "properties": {
         "BrokenLink": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
+        },
+        "BrokenWorkspace": {
+          "type": "boolean"
         },
         "OwnerUser": {
           "$ref": "#/definitions/idmUser"
@@ -5130,6 +6998,18 @@
         }
       }
     },
+    "reportsListReportsResponse": {
+      "type": "object",
+      "properties": {
+        "ReportDates": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
     "reportsSharedResource": {
       "type": "object",
       "properties": {
@@ -5139,6 +7019,10 @@
         },
         "Node": {
           "$ref": "#/definitions/treeNode"
+        },
+        "ReportDate": {
+          "type": "integer",
+          "format": "int32"
         },
         "Workspaces": {
           "type": "array",
@@ -5188,9 +7072,12 @@
         "OwnerUUID": {
           "type": "string"
         },
+        "ReportDate": {
+          "type": "integer",
+          "format": "int32"
+        },
         "RolesReadAND": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "RolesReadUUIDs": {
           "type": "array",
@@ -5256,7 +7143,6 @@
         },
         "Success": {
           "type": "boolean",
-          "format": "boolean",
           "title": "If delete was successfull"
         }
       }
@@ -5310,8 +7196,7 @@
           "type": "string"
         },
         "Success": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -5330,6 +7215,24 @@
           "items": {
             "$ref": "#/definitions/logTimeRangeResult"
           }
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
@@ -5417,12 +7320,10 @@
       "type": "object",
       "properties": {
         "Any": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Empty": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Subjects": {
           "type": "array",
@@ -5537,12 +7438,10 @@
           }
         },
         "Optimistic": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Silent": {
-          "type": "boolean",
-          "format": "boolean"
+          "type": "boolean"
         },
         "Source": {
           "$ref": "#/definitions/treeNode"
@@ -5680,6 +7579,35 @@
       }
     }
   },
+  "tags": [
+    {
+      "name": "EnterpriseConfigService"
+    },
+    {
+      "name": "EnterprisePolicyService"
+    },
+    {
+      "name": "EnterpriseLogService"
+    },
+    {
+      "name": "SchedulerService"
+    },
+    {
+      "name": "LicenseService"
+    },
+    {
+      "name": "AuditDataService"
+    },
+    {
+      "name": "EnterpriseFrontendService"
+    },
+    {
+      "name": "EnterpriseTokenService"
+    },
+    {
+      "name": "EnterpriseTemplatesService"
+    }
+  ],
   "externalDocs": {
     "description": "More about Pydio Cells Apis",
     "url": "https://pydio.com"

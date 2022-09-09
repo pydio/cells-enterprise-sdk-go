@@ -51,6 +51,8 @@ func (m *EntFrontLoginConnectorsResponse) validateConnectors(formats strfmt.Regi
 			if err := m.Connectors[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Connectors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Connectors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -83,6 +85,8 @@ func (m *EntFrontLoginConnectorsResponse) contextValidateConnectors(ctx context.
 			if err := m.Connectors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Connectors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Connectors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

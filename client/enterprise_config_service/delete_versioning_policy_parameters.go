@@ -52,15 +52,49 @@ func NewDeleteVersioningPolicyParamsWithHTTPClient(client *http.Client) *DeleteV
 	}
 }
 
-/* DeleteVersioningPolicyParams contains all the parameters to send to the API endpoint
-   for the delete versioning policy operation.
+/*
+DeleteVersioningPolicyParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete versioning policy operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteVersioningPolicyParams struct {
 
+	// Description.
+	Description *string
+
+	// IgnoreFilesGreaterThan.
+	//
+	// Format: int64
+	IgnoreFilesGreaterThan *string
+
+	// MaxSizePerFile.
+	//
+	// Format: int64
+	MaxSizePerFile *string
+
+	// MaxTotalSize.
+	//
+	// Format: int64
+	MaxTotalSize *string
+
+	// Name.
+	Name *string
+
+	// NodeDeletedStrategy.
+	//
+	// Default: "KeepAll"
+	NodeDeletedStrategy *string
+
 	// UUID.
 	UUID string
+
+	// VersionsDataSourceBucket.
+	VersionsDataSourceBucket *string
+
+	// VersionsDataSourceName.
+	VersionsDataSourceName *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -79,7 +113,18 @@ func (o *DeleteVersioningPolicyParams) WithDefaults() *DeleteVersioningPolicyPar
 //
 // All values with no default are reset to their zero value.
 func (o *DeleteVersioningPolicyParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		nodeDeletedStrategyDefault = string("KeepAll")
+	)
+
+	val := DeleteVersioningPolicyParams{
+		NodeDeletedStrategy: &nodeDeletedStrategyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete versioning policy params
@@ -115,6 +160,72 @@ func (o *DeleteVersioningPolicyParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithDescription adds the description to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithDescription(description *string) *DeleteVersioningPolicyParams {
+	o.SetDescription(description)
+	return o
+}
+
+// SetDescription adds the description to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetDescription(description *string) {
+	o.Description = description
+}
+
+// WithIgnoreFilesGreaterThan adds the ignoreFilesGreaterThan to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithIgnoreFilesGreaterThan(ignoreFilesGreaterThan *string) *DeleteVersioningPolicyParams {
+	o.SetIgnoreFilesGreaterThan(ignoreFilesGreaterThan)
+	return o
+}
+
+// SetIgnoreFilesGreaterThan adds the ignoreFilesGreaterThan to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetIgnoreFilesGreaterThan(ignoreFilesGreaterThan *string) {
+	o.IgnoreFilesGreaterThan = ignoreFilesGreaterThan
+}
+
+// WithMaxSizePerFile adds the maxSizePerFile to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithMaxSizePerFile(maxSizePerFile *string) *DeleteVersioningPolicyParams {
+	o.SetMaxSizePerFile(maxSizePerFile)
+	return o
+}
+
+// SetMaxSizePerFile adds the maxSizePerFile to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetMaxSizePerFile(maxSizePerFile *string) {
+	o.MaxSizePerFile = maxSizePerFile
+}
+
+// WithMaxTotalSize adds the maxTotalSize to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithMaxTotalSize(maxTotalSize *string) *DeleteVersioningPolicyParams {
+	o.SetMaxTotalSize(maxTotalSize)
+	return o
+}
+
+// SetMaxTotalSize adds the maxTotalSize to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetMaxTotalSize(maxTotalSize *string) {
+	o.MaxTotalSize = maxTotalSize
+}
+
+// WithName adds the name to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithName(name *string) *DeleteVersioningPolicyParams {
+	o.SetName(name)
+	return o
+}
+
+// SetName adds the name to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetName(name *string) {
+	o.Name = name
+}
+
+// WithNodeDeletedStrategy adds the nodeDeletedStrategy to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithNodeDeletedStrategy(nodeDeletedStrategy *string) *DeleteVersioningPolicyParams {
+	o.SetNodeDeletedStrategy(nodeDeletedStrategy)
+	return o
+}
+
+// SetNodeDeletedStrategy adds the nodeDeletedStrategy to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetNodeDeletedStrategy(nodeDeletedStrategy *string) {
+	o.NodeDeletedStrategy = nodeDeletedStrategy
+}
+
 // WithUUID adds the uuid to the delete versioning policy params
 func (o *DeleteVersioningPolicyParams) WithUUID(uuid string) *DeleteVersioningPolicyParams {
 	o.SetUUID(uuid)
@@ -126,6 +237,28 @@ func (o *DeleteVersioningPolicyParams) SetUUID(uuid string) {
 	o.UUID = uuid
 }
 
+// WithVersionsDataSourceBucket adds the versionsDataSourceBucket to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithVersionsDataSourceBucket(versionsDataSourceBucket *string) *DeleteVersioningPolicyParams {
+	o.SetVersionsDataSourceBucket(versionsDataSourceBucket)
+	return o
+}
+
+// SetVersionsDataSourceBucket adds the versionsDataSourceBucket to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetVersionsDataSourceBucket(versionsDataSourceBucket *string) {
+	o.VersionsDataSourceBucket = versionsDataSourceBucket
+}
+
+// WithVersionsDataSourceName adds the versionsDataSourceName to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) WithVersionsDataSourceName(versionsDataSourceName *string) *DeleteVersioningPolicyParams {
+	o.SetVersionsDataSourceName(versionsDataSourceName)
+	return o
+}
+
+// SetVersionsDataSourceName adds the versionsDataSourceName to the delete versioning policy params
+func (o *DeleteVersioningPolicyParams) SetVersionsDataSourceName(versionsDataSourceName *string) {
+	o.VersionsDataSourceName = versionsDataSourceName
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteVersioningPolicyParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -134,9 +267,145 @@ func (o *DeleteVersioningPolicyParams) WriteToRequest(r runtime.ClientRequest, r
 	}
 	var res []error
 
+	if o.Description != nil {
+
+		// query param Description
+		var qrDescription string
+
+		if o.Description != nil {
+			qrDescription = *o.Description
+		}
+		qDescription := qrDescription
+		if qDescription != "" {
+
+			if err := r.SetQueryParam("Description", qDescription); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.IgnoreFilesGreaterThan != nil {
+
+		// query param IgnoreFilesGreaterThan
+		var qrIgnoreFilesGreaterThan string
+
+		if o.IgnoreFilesGreaterThan != nil {
+			qrIgnoreFilesGreaterThan = *o.IgnoreFilesGreaterThan
+		}
+		qIgnoreFilesGreaterThan := qrIgnoreFilesGreaterThan
+		if qIgnoreFilesGreaterThan != "" {
+
+			if err := r.SetQueryParam("IgnoreFilesGreaterThan", qIgnoreFilesGreaterThan); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MaxSizePerFile != nil {
+
+		// query param MaxSizePerFile
+		var qrMaxSizePerFile string
+
+		if o.MaxSizePerFile != nil {
+			qrMaxSizePerFile = *o.MaxSizePerFile
+		}
+		qMaxSizePerFile := qrMaxSizePerFile
+		if qMaxSizePerFile != "" {
+
+			if err := r.SetQueryParam("MaxSizePerFile", qMaxSizePerFile); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MaxTotalSize != nil {
+
+		// query param MaxTotalSize
+		var qrMaxTotalSize string
+
+		if o.MaxTotalSize != nil {
+			qrMaxTotalSize = *o.MaxTotalSize
+		}
+		qMaxTotalSize := qrMaxTotalSize
+		if qMaxTotalSize != "" {
+
+			if err := r.SetQueryParam("MaxTotalSize", qMaxTotalSize); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Name != nil {
+
+		// query param Name
+		var qrName string
+
+		if o.Name != nil {
+			qrName = *o.Name
+		}
+		qName := qrName
+		if qName != "" {
+
+			if err := r.SetQueryParam("Name", qName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.NodeDeletedStrategy != nil {
+
+		// query param NodeDeletedStrategy
+		var qrNodeDeletedStrategy string
+
+		if o.NodeDeletedStrategy != nil {
+			qrNodeDeletedStrategy = *o.NodeDeletedStrategy
+		}
+		qNodeDeletedStrategy := qrNodeDeletedStrategy
+		if qNodeDeletedStrategy != "" {
+
+			if err := r.SetQueryParam("NodeDeletedStrategy", qNodeDeletedStrategy); err != nil {
+				return err
+			}
+		}
+	}
+
 	// path param Uuid
 	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
 		return err
+	}
+
+	if o.VersionsDataSourceBucket != nil {
+
+		// query param VersionsDataSourceBucket
+		var qrVersionsDataSourceBucket string
+
+		if o.VersionsDataSourceBucket != nil {
+			qrVersionsDataSourceBucket = *o.VersionsDataSourceBucket
+		}
+		qVersionsDataSourceBucket := qrVersionsDataSourceBucket
+		if qVersionsDataSourceBucket != "" {
+
+			if err := r.SetQueryParam("VersionsDataSourceBucket", qVersionsDataSourceBucket); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VersionsDataSourceName != nil {
+
+		// query param VersionsDataSourceName
+		var qrVersionsDataSourceName string
+
+		if o.VersionsDataSourceName != nil {
+			qrVersionsDataSourceName = *o.VersionsDataSourceName
+		}
+		qVersionsDataSourceName := qrVersionsDataSourceName
+		if qVersionsDataSourceName != "" {
+
+			if err := r.SetQueryParam("VersionsDataSourceName", qVersionsDataSourceName); err != nil {
+				return err
+			}
+		}
 	}
 
 	if len(res) > 0 {

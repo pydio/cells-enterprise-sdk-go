@@ -52,10 +52,12 @@ func NewListOAuth2ConnectorsParamsWithHTTPClient(client *http.Client) *ListOAuth
 	}
 }
 
-/* ListOAuth2ConnectorsParams contains all the parameters to send to the API endpoint
-   for the list o auth2 connectors operation.
+/*
+ListOAuth2ConnectorsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list o auth2 connectors operation.
+
+	Typically these are written to a http.Request.
 */
 type ListOAuth2ConnectorsParams struct {
 	timeout    time.Duration

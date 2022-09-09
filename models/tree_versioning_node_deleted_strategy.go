@@ -20,8 +20,12 @@ import (
 type TreeVersioningNodeDeletedStrategy string
 
 func NewTreeVersioningNodeDeletedStrategy(value TreeVersioningNodeDeletedStrategy) *TreeVersioningNodeDeletedStrategy {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated TreeVersioningNodeDeletedStrategy.
+func (m TreeVersioningNodeDeletedStrategy) Pointer() *TreeVersioningNodeDeletedStrategy {
+	return &m
 }
 
 const (

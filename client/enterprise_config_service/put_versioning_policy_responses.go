@@ -6,11 +6,15 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
@@ -54,7 +58,14 @@ func (o *PutVersioningPolicyReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewPutVersioningPolicyDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +74,48 @@ func NewPutVersioningPolicyOK() *PutVersioningPolicyOK {
 	return &PutVersioningPolicyOK{}
 }
 
-/* PutVersioningPolicyOK describes a response with status code 200, with default header values.
+/*
+PutVersioningPolicyOK describes a response with status code 200, with default header values.
 
-PutVersioningPolicyOK put versioning policy o k
+A successful response.
 */
 type PutVersioningPolicyOK struct {
 	Payload *models.TreeVersioningPolicy
 }
 
+// IsSuccess returns true when this put versioning policy o k response has a 2xx status code
+func (o *PutVersioningPolicyOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put versioning policy o k response has a 3xx status code
+func (o *PutVersioningPolicyOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put versioning policy o k response has a 4xx status code
+func (o *PutVersioningPolicyOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put versioning policy o k response has a 5xx status code
+func (o *PutVersioningPolicyOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put versioning policy o k response a status code equal to that given
+func (o *PutVersioningPolicyOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PutVersioningPolicyOK) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyOK  %+v", 200, o.Payload)
 }
+
+func (o *PutVersioningPolicyOK) String() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyOK  %+v", 200, o.Payload)
+}
+
 func (o *PutVersioningPolicyOK) GetPayload() *models.TreeVersioningPolicy {
 	return o.Payload
 }
@@ -95,14 +137,44 @@ func NewPutVersioningPolicyUnauthorized() *PutVersioningPolicyUnauthorized {
 	return &PutVersioningPolicyUnauthorized{}
 }
 
-/* PutVersioningPolicyUnauthorized describes a response with status code 401, with default header values.
+/*
+PutVersioningPolicyUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type PutVersioningPolicyUnauthorized struct {
 }
 
+// IsSuccess returns true when this put versioning policy unauthorized response has a 2xx status code
+func (o *PutVersioningPolicyUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put versioning policy unauthorized response has a 3xx status code
+func (o *PutVersioningPolicyUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put versioning policy unauthorized response has a 4xx status code
+func (o *PutVersioningPolicyUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put versioning policy unauthorized response has a 5xx status code
+func (o *PutVersioningPolicyUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put versioning policy unauthorized response a status code equal to that given
+func (o *PutVersioningPolicyUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *PutVersioningPolicyUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyUnauthorized ", 401)
+}
+
+func (o *PutVersioningPolicyUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyUnauthorized ", 401)
 }
 
@@ -116,7 +188,8 @@ func NewPutVersioningPolicyForbidden() *PutVersioningPolicyForbidden {
 	return &PutVersioningPolicyForbidden{}
 }
 
-/* PutVersioningPolicyForbidden describes a response with status code 403, with default header values.
+/*
+PutVersioningPolicyForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +197,39 @@ type PutVersioningPolicyForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put versioning policy forbidden response has a 2xx status code
+func (o *PutVersioningPolicyForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put versioning policy forbidden response has a 3xx status code
+func (o *PutVersioningPolicyForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put versioning policy forbidden response has a 4xx status code
+func (o *PutVersioningPolicyForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put versioning policy forbidden response has a 5xx status code
+func (o *PutVersioningPolicyForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put versioning policy forbidden response a status code equal to that given
+func (o *PutVersioningPolicyForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *PutVersioningPolicyForbidden) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyForbidden  %+v", 403, o.Payload)
 }
+
+func (o *PutVersioningPolicyForbidden) String() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyForbidden  %+v", 403, o.Payload)
+}
+
 func (o *PutVersioningPolicyForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +251,8 @@ func NewPutVersioningPolicyNotFound() *PutVersioningPolicyNotFound {
 	return &PutVersioningPolicyNotFound{}
 }
 
-/* PutVersioningPolicyNotFound describes a response with status code 404, with default header values.
+/*
+PutVersioningPolicyNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +260,39 @@ type PutVersioningPolicyNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put versioning policy not found response has a 2xx status code
+func (o *PutVersioningPolicyNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put versioning policy not found response has a 3xx status code
+func (o *PutVersioningPolicyNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put versioning policy not found response has a 4xx status code
+func (o *PutVersioningPolicyNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put versioning policy not found response has a 5xx status code
+func (o *PutVersioningPolicyNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put versioning policy not found response a status code equal to that given
+func (o *PutVersioningPolicyNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PutVersioningPolicyNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutVersioningPolicyNotFound) String() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutVersioningPolicyNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +314,8 @@ func NewPutVersioningPolicyInternalServerError() *PutVersioningPolicyInternalSer
 	return &PutVersioningPolicyInternalServerError{}
 }
 
-/* PutVersioningPolicyInternalServerError describes a response with status code 500, with default header values.
+/*
+PutVersioningPolicyInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +323,39 @@ type PutVersioningPolicyInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put versioning policy internal server error response has a 2xx status code
+func (o *PutVersioningPolicyInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put versioning policy internal server error response has a 3xx status code
+func (o *PutVersioningPolicyInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put versioning policy internal server error response has a 4xx status code
+func (o *PutVersioningPolicyInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put versioning policy internal server error response has a 5xx status code
+func (o *PutVersioningPolicyInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this put versioning policy internal server error response a status code equal to that given
+func (o *PutVersioningPolicyInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PutVersioningPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PutVersioningPolicyInternalServerError) String() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PutVersioningPolicyInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -204,5 +369,246 @@ func (o *PutVersioningPolicyInternalServerError) readResponse(response runtime.C
 		return err
 	}
 
+	return nil
+}
+
+// NewPutVersioningPolicyDefault creates a PutVersioningPolicyDefault with default headers values
+func NewPutVersioningPolicyDefault(code int) *PutVersioningPolicyDefault {
+	return &PutVersioningPolicyDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+PutVersioningPolicyDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type PutVersioningPolicyDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the put versioning policy default response
+func (o *PutVersioningPolicyDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this put versioning policy default response has a 2xx status code
+func (o *PutVersioningPolicyDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this put versioning policy default response has a 3xx status code
+func (o *PutVersioningPolicyDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this put versioning policy default response has a 4xx status code
+func (o *PutVersioningPolicyDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this put versioning policy default response has a 5xx status code
+func (o *PutVersioningPolicyDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this put versioning policy default response a status code equal to that given
+func (o *PutVersioningPolicyDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *PutVersioningPolicyDefault) Error() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] PutVersioningPolicy default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutVersioningPolicyDefault) String() string {
+	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] PutVersioningPolicy default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutVersioningPolicyDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *PutVersioningPolicyDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+/*
+PutVersioningPolicyBody put versioning policy body
+swagger:model PutVersioningPolicyBody
+*/
+type PutVersioningPolicyBody struct {
+
+	// description
+	Description string `json:"Description,omitempty"`
+
+	// ignore files greater than
+	IgnoreFilesGreaterThan string `json:"IgnoreFilesGreaterThan,omitempty"`
+
+	// keep periods
+	KeepPeriods []*models.TreeVersioningKeepPeriod `json:"KeepPeriods"`
+
+	// max size per file
+	MaxSizePerFile string `json:"MaxSizePerFile,omitempty"`
+
+	// max total size
+	MaxTotalSize string `json:"MaxTotalSize,omitempty"`
+
+	// name
+	Name string `json:"Name,omitempty"`
+
+	// node deleted strategy
+	NodeDeletedStrategy *models.TreeVersioningNodeDeletedStrategy `json:"NodeDeletedStrategy,omitempty"`
+
+	// versions data source bucket
+	VersionsDataSourceBucket string `json:"VersionsDataSourceBucket,omitempty"`
+
+	// versions data source name
+	VersionsDataSourceName string `json:"VersionsDataSourceName,omitempty"`
+}
+
+// Validate validates this put versioning policy body
+func (o *PutVersioningPolicyBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateKeepPeriods(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateNodeDeletedStrategy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutVersioningPolicyBody) validateKeepPeriods(formats strfmt.Registry) error {
+	if swag.IsZero(o.KeepPeriods) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.KeepPeriods); i++ {
+		if swag.IsZero(o.KeepPeriods[i]) { // not required
+			continue
+		}
+
+		if o.KeepPeriods[i] != nil {
+			if err := o.KeepPeriods[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "KeepPeriods" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "KeepPeriods" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutVersioningPolicyBody) validateNodeDeletedStrategy(formats strfmt.Registry) error {
+	if swag.IsZero(o.NodeDeletedStrategy) { // not required
+		return nil
+	}
+
+	if o.NodeDeletedStrategy != nil {
+		if err := o.NodeDeletedStrategy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "NodeDeletedStrategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "NodeDeletedStrategy")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this put versioning policy body based on the context it is used
+func (o *PutVersioningPolicyBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateKeepPeriods(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateNodeDeletedStrategy(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutVersioningPolicyBody) contextValidateKeepPeriods(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.KeepPeriods); i++ {
+
+		if o.KeepPeriods[i] != nil {
+			if err := o.KeepPeriods[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "KeepPeriods" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "KeepPeriods" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutVersioningPolicyBody) contextValidateNodeDeletedStrategy(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.NodeDeletedStrategy != nil {
+		if err := o.NodeDeletedStrategy.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "NodeDeletedStrategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "NodeDeletedStrategy")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PutVersioningPolicyBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PutVersioningPolicyBody) UnmarshalBinary(b []byte) error {
+	var res PutVersioningPolicyBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

@@ -20,8 +20,12 @@ import (
 type JobsDataSourceSelectorType string
 
 func NewJobsDataSourceSelectorType(value JobsDataSourceSelectorType) *JobsDataSourceSelectorType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated JobsDataSourceSelectorType.
+func (m JobsDataSourceSelectorType) Pointer() *JobsDataSourceSelectorType {
+	return &m
 }
 
 const (

@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeletePolicyParams creates a new DeletePolicyParams object,
@@ -52,12 +53,33 @@ func NewDeletePolicyParamsWithHTTPClient(client *http.Client) *DeletePolicyParam
 	}
 }
 
-/* DeletePolicyParams contains all the parameters to send to the API endpoint
-   for the delete policy operation.
+/*
+DeletePolicyParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete policy operation.
+
+	Typically these are written to a http.Request.
 */
 type DeletePolicyParams struct {
+
+	// Description.
+	Description *string
+
+	// LastUpdated.
+	//
+	// Format: int32
+	LastUpdated *int32
+
+	// Name.
+	Name *string
+
+	// OwnerUUID.
+	OwnerUUID *string
+
+	// ResourceGroup.
+	//
+	// Default: "rest"
+	ResourceGroup *string
 
 	// UUID.
 	UUID string
@@ -79,7 +101,18 @@ func (o *DeletePolicyParams) WithDefaults() *DeletePolicyParams {
 //
 // All values with no default are reset to their zero value.
 func (o *DeletePolicyParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		resourceGroupDefault = string("rest")
+	)
+
+	val := DeletePolicyParams{
+		ResourceGroup: &resourceGroupDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete policy params
@@ -115,6 +148,61 @@ func (o *DeletePolicyParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithDescription adds the description to the delete policy params
+func (o *DeletePolicyParams) WithDescription(description *string) *DeletePolicyParams {
+	o.SetDescription(description)
+	return o
+}
+
+// SetDescription adds the description to the delete policy params
+func (o *DeletePolicyParams) SetDescription(description *string) {
+	o.Description = description
+}
+
+// WithLastUpdated adds the lastUpdated to the delete policy params
+func (o *DeletePolicyParams) WithLastUpdated(lastUpdated *int32) *DeletePolicyParams {
+	o.SetLastUpdated(lastUpdated)
+	return o
+}
+
+// SetLastUpdated adds the lastUpdated to the delete policy params
+func (o *DeletePolicyParams) SetLastUpdated(lastUpdated *int32) {
+	o.LastUpdated = lastUpdated
+}
+
+// WithName adds the name to the delete policy params
+func (o *DeletePolicyParams) WithName(name *string) *DeletePolicyParams {
+	o.SetName(name)
+	return o
+}
+
+// SetName adds the name to the delete policy params
+func (o *DeletePolicyParams) SetName(name *string) {
+	o.Name = name
+}
+
+// WithOwnerUUID adds the ownerUUID to the delete policy params
+func (o *DeletePolicyParams) WithOwnerUUID(ownerUUID *string) *DeletePolicyParams {
+	o.SetOwnerUUID(ownerUUID)
+	return o
+}
+
+// SetOwnerUUID adds the ownerUuid to the delete policy params
+func (o *DeletePolicyParams) SetOwnerUUID(ownerUUID *string) {
+	o.OwnerUUID = ownerUUID
+}
+
+// WithResourceGroup adds the resourceGroup to the delete policy params
+func (o *DeletePolicyParams) WithResourceGroup(resourceGroup *string) *DeletePolicyParams {
+	o.SetResourceGroup(resourceGroup)
+	return o
+}
+
+// SetResourceGroup adds the resourceGroup to the delete policy params
+func (o *DeletePolicyParams) SetResourceGroup(resourceGroup *string) {
+	o.ResourceGroup = resourceGroup
+}
+
 // WithUUID adds the uuid to the delete policy params
 func (o *DeletePolicyParams) WithUUID(uuid string) *DeletePolicyParams {
 	o.SetUUID(uuid)
@@ -133,6 +221,91 @@ func (o *DeletePolicyParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.Description != nil {
+
+		// query param Description
+		var qrDescription string
+
+		if o.Description != nil {
+			qrDescription = *o.Description
+		}
+		qDescription := qrDescription
+		if qDescription != "" {
+
+			if err := r.SetQueryParam("Description", qDescription); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.LastUpdated != nil {
+
+		// query param LastUpdated
+		var qrLastUpdated int32
+
+		if o.LastUpdated != nil {
+			qrLastUpdated = *o.LastUpdated
+		}
+		qLastUpdated := swag.FormatInt32(qrLastUpdated)
+		if qLastUpdated != "" {
+
+			if err := r.SetQueryParam("LastUpdated", qLastUpdated); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Name != nil {
+
+		// query param Name
+		var qrName string
+
+		if o.Name != nil {
+			qrName = *o.Name
+		}
+		qName := qrName
+		if qName != "" {
+
+			if err := r.SetQueryParam("Name", qName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.OwnerUUID != nil {
+
+		// query param OwnerUuid
+		var qrOwnerUUID string
+
+		if o.OwnerUUID != nil {
+			qrOwnerUUID = *o.OwnerUUID
+		}
+		qOwnerUUID := qrOwnerUUID
+		if qOwnerUUID != "" {
+
+			if err := r.SetQueryParam("OwnerUuid", qOwnerUUID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ResourceGroup != nil {
+
+		// query param ResourceGroup
+		var qrResourceGroup string
+
+		if o.ResourceGroup != nil {
+			qrResourceGroup = *o.ResourceGroup
+		}
+		qResourceGroup := qrResourceGroup
+		if qResourceGroup != "" {
+
+			if err := r.SetQueryParam("ResourceGroup", qResourceGroup); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param Uuid
 	if err := r.SetPathParam("Uuid", o.UUID); err != nil {

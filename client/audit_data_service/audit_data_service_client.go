@@ -6,8 +6,6 @@ package audit_data_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 )
@@ -30,13 +28,52 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	ListReports(params *ListReportsParams, opts ...ClientOption) (*ListReportsOK, error)
+
 	SharedResources(params *SharedResourcesParams, opts ...ClientOption) (*SharedResourcesOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  SharedResources enterprises only audit all shares across the application
+ListReports enterprises only audit all shares across the application
+*/
+func (a *Client) ListReports(params *ListReportsParams, opts ...ClientOption) (*ListReportsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListReportsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ListReports",
+		Method:             "GET",
+		PathPattern:        "/audit/data/reports",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListReportsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListReportsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListReportsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+SharedResources enterprises only audit all shares across the application
 */
 func (a *Client) SharedResources(params *SharedResourcesParams, opts ...ClientOption) (*SharedResourcesOK, error) {
 	// TODO: Validate the params before sending
@@ -68,9 +105,8 @@ func (a *Client) SharedResources(params *SharedResourcesParams, opts ...ClientOp
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for SharedResources: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*SharedResourcesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

@@ -54,7 +54,14 @@ func (o *AuditReader) ReadResponse(response runtime.ClientResponse, consumer run
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewAuditDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewAuditOK() *AuditOK {
 	return &AuditOK{}
 }
 
-/* AuditOK describes a response with status code 200, with default header values.
+/*
+AuditOK describes a response with status code 200, with default header values.
 
-AuditOK audit o k
+A successful response.
 */
 type AuditOK struct {
 	Payload *models.RestLogMessageCollection
 }
 
+// IsSuccess returns true when this audit o k response has a 2xx status code
+func (o *AuditOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this audit o k response has a 3xx status code
+func (o *AuditOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit o k response has a 4xx status code
+func (o *AuditOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this audit o k response has a 5xx status code
+func (o *AuditOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit o k response a status code equal to that given
+func (o *AuditOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *AuditOK) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditOK  %+v", 200, o.Payload)
 }
+
+func (o *AuditOK) String() string {
+	return fmt.Sprintf("[POST /log/audit][%d] auditOK  %+v", 200, o.Payload)
+}
+
 func (o *AuditOK) GetPayload() *models.RestLogMessageCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewAuditUnauthorized() *AuditUnauthorized {
 	return &AuditUnauthorized{}
 }
 
-/* AuditUnauthorized describes a response with status code 401, with default header values.
+/*
+AuditUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type AuditUnauthorized struct {
 }
 
+// IsSuccess returns true when this audit unauthorized response has a 2xx status code
+func (o *AuditUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit unauthorized response has a 3xx status code
+func (o *AuditUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit unauthorized response has a 4xx status code
+func (o *AuditUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit unauthorized response has a 5xx status code
+func (o *AuditUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit unauthorized response a status code equal to that given
+func (o *AuditUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *AuditUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /log/audit][%d] auditUnauthorized ", 401)
+}
+
+func (o *AuditUnauthorized) String() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewAuditForbidden() *AuditForbidden {
 	return &AuditForbidden{}
 }
 
-/* AuditForbidden describes a response with status code 403, with default header values.
+/*
+AuditForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type AuditForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit forbidden response has a 2xx status code
+func (o *AuditForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit forbidden response has a 3xx status code
+func (o *AuditForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit forbidden response has a 4xx status code
+func (o *AuditForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit forbidden response has a 5xx status code
+func (o *AuditForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit forbidden response a status code equal to that given
+func (o *AuditForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *AuditForbidden) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditForbidden  %+v", 403, o.Payload)
 }
+
+func (o *AuditForbidden) String() string {
+	return fmt.Sprintf("[POST /log/audit][%d] auditForbidden  %+v", 403, o.Payload)
+}
+
 func (o *AuditForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewAuditNotFound() *AuditNotFound {
 	return &AuditNotFound{}
 }
 
-/* AuditNotFound describes a response with status code 404, with default header values.
+/*
+AuditNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type AuditNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit not found response has a 2xx status code
+func (o *AuditNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit not found response has a 3xx status code
+func (o *AuditNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit not found response has a 4xx status code
+func (o *AuditNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit not found response has a 5xx status code
+func (o *AuditNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit not found response a status code equal to that given
+func (o *AuditNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *AuditNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditNotFound  %+v", 404, o.Payload)
 }
+
+func (o *AuditNotFound) String() string {
+	return fmt.Sprintf("[POST /log/audit][%d] auditNotFound  %+v", 404, o.Payload)
+}
+
 func (o *AuditNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewAuditInternalServerError() *AuditInternalServerError {
 	return &AuditInternalServerError{}
 }
 
-/* AuditInternalServerError describes a response with status code 500, with default header values.
+/*
+AuditInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type AuditInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit internal server error response has a 2xx status code
+func (o *AuditInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit internal server error response has a 3xx status code
+func (o *AuditInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit internal server error response has a 4xx status code
+func (o *AuditInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this audit internal server error response has a 5xx status code
+func (o *AuditInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this audit internal server error response a status code equal to that given
+func (o *AuditInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *AuditInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *AuditInternalServerError) String() string {
+	return fmt.Sprintf("[POST /log/audit][%d] auditInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *AuditInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *AuditInternalServerError) GetPayload() *models.RestError {
 func (o *AuditInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAuditDefault creates a AuditDefault with default headers values
+func NewAuditDefault(code int) *AuditDefault {
+	return &AuditDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+AuditDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type AuditDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the audit default response
+func (o *AuditDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this audit default response has a 2xx status code
+func (o *AuditDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this audit default response has a 3xx status code
+func (o *AuditDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this audit default response has a 4xx status code
+func (o *AuditDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this audit default response has a 5xx status code
+func (o *AuditDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this audit default response a status code equal to that given
+func (o *AuditDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *AuditDefault) Error() string {
+	return fmt.Sprintf("[POST /log/audit][%d] Audit default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AuditDefault) String() string {
+	return fmt.Sprintf("[POST /log/audit][%d] Audit default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AuditDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *AuditDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

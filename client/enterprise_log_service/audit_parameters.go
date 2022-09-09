@@ -54,10 +54,12 @@ func NewAuditParamsWithHTTPClient(client *http.Client) *AuditParams {
 	}
 }
 
-/* AuditParams contains all the parameters to send to the API endpoint
-   for the audit operation.
+/*
+AuditParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the audit operation.
+
+	Typically these are written to a http.Request.
 */
 type AuditParams struct {
 

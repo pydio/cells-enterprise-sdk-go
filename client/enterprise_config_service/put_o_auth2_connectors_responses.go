@@ -54,7 +54,14 @@ func (o *PutOAuth2ConnectorsReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewPutOAuth2ConnectorsDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewPutOAuth2ConnectorsOK() *PutOAuth2ConnectorsOK {
 	return &PutOAuth2ConnectorsOK{}
 }
 
-/* PutOAuth2ConnectorsOK describes a response with status code 200, with default header values.
+/*
+PutOAuth2ConnectorsOK describes a response with status code 200, with default header values.
 
-PutOAuth2ConnectorsOK put o auth2 connectors o k
+A successful response.
 */
 type PutOAuth2ConnectorsOK struct {
 	Payload *models.EntOAuth2ConnectorResponse
 }
 
+// IsSuccess returns true when this put o auth2 connectors o k response has a 2xx status code
+func (o *PutOAuth2ConnectorsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put o auth2 connectors o k response has a 3xx status code
+func (o *PutOAuth2ConnectorsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connectors o k response has a 4xx status code
+func (o *PutOAuth2ConnectorsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put o auth2 connectors o k response has a 5xx status code
+func (o *PutOAuth2ConnectorsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connectors o k response a status code equal to that given
+func (o *PutOAuth2ConnectorsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PutOAuth2ConnectorsOK) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsOK  %+v", 200, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorsOK) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsOK  %+v", 200, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorsOK) GetPayload() *models.EntOAuth2ConnectorResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewPutOAuth2ConnectorsUnauthorized() *PutOAuth2ConnectorsUnauthorized {
 	return &PutOAuth2ConnectorsUnauthorized{}
 }
 
-/* PutOAuth2ConnectorsUnauthorized describes a response with status code 401, with default header values.
+/*
+PutOAuth2ConnectorsUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type PutOAuth2ConnectorsUnauthorized struct {
 }
 
+// IsSuccess returns true when this put o auth2 connectors unauthorized response has a 2xx status code
+func (o *PutOAuth2ConnectorsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connectors unauthorized response has a 3xx status code
+func (o *PutOAuth2ConnectorsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connectors unauthorized response has a 4xx status code
+func (o *PutOAuth2ConnectorsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 connectors unauthorized response has a 5xx status code
+func (o *PutOAuth2ConnectorsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connectors unauthorized response a status code equal to that given
+func (o *PutOAuth2ConnectorsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *PutOAuth2ConnectorsUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsUnauthorized ", 401)
+}
+
+func (o *PutOAuth2ConnectorsUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewPutOAuth2ConnectorsForbidden() *PutOAuth2ConnectorsForbidden {
 	return &PutOAuth2ConnectorsForbidden{}
 }
 
-/* PutOAuth2ConnectorsForbidden describes a response with status code 403, with default header values.
+/*
+PutOAuth2ConnectorsForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type PutOAuth2ConnectorsForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put o auth2 connectors forbidden response has a 2xx status code
+func (o *PutOAuth2ConnectorsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connectors forbidden response has a 3xx status code
+func (o *PutOAuth2ConnectorsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connectors forbidden response has a 4xx status code
+func (o *PutOAuth2ConnectorsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 connectors forbidden response has a 5xx status code
+func (o *PutOAuth2ConnectorsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connectors forbidden response a status code equal to that given
+func (o *PutOAuth2ConnectorsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *PutOAuth2ConnectorsForbidden) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorsForbidden) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewPutOAuth2ConnectorsNotFound() *PutOAuth2ConnectorsNotFound {
 	return &PutOAuth2ConnectorsNotFound{}
 }
 
-/* PutOAuth2ConnectorsNotFound describes a response with status code 404, with default header values.
+/*
+PutOAuth2ConnectorsNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type PutOAuth2ConnectorsNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put o auth2 connectors not found response has a 2xx status code
+func (o *PutOAuth2ConnectorsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connectors not found response has a 3xx status code
+func (o *PutOAuth2ConnectorsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connectors not found response has a 4xx status code
+func (o *PutOAuth2ConnectorsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 connectors not found response has a 5xx status code
+func (o *PutOAuth2ConnectorsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connectors not found response a status code equal to that given
+func (o *PutOAuth2ConnectorsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PutOAuth2ConnectorsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorsNotFound) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewPutOAuth2ConnectorsInternalServerError() *PutOAuth2ConnectorsInternalSer
 	return &PutOAuth2ConnectorsInternalServerError{}
 }
 
-/* PutOAuth2ConnectorsInternalServerError describes a response with status code 500, with default header values.
+/*
+PutOAuth2ConnectorsInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type PutOAuth2ConnectorsInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put o auth2 connectors internal server error response has a 2xx status code
+func (o *PutOAuth2ConnectorsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connectors internal server error response has a 3xx status code
+func (o *PutOAuth2ConnectorsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connectors internal server error response has a 4xx status code
+func (o *PutOAuth2ConnectorsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put o auth2 connectors internal server error response has a 5xx status code
+func (o *PutOAuth2ConnectorsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this put o auth2 connectors internal server error response a status code equal to that given
+func (o *PutOAuth2ConnectorsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PutOAuth2ConnectorsInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorsInternalServerError) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] putOAuth2ConnectorsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *PutOAuth2ConnectorsInternalServerError) GetPayload() *models.RestError 
 func (o *PutOAuth2ConnectorsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewPutOAuth2ConnectorsDefault creates a PutOAuth2ConnectorsDefault with default headers values
+func NewPutOAuth2ConnectorsDefault(code int) *PutOAuth2ConnectorsDefault {
+	return &PutOAuth2ConnectorsDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+PutOAuth2ConnectorsDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type PutOAuth2ConnectorsDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the put o auth2 connectors default response
+func (o *PutOAuth2ConnectorsDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this put o auth2 connectors default response has a 2xx status code
+func (o *PutOAuth2ConnectorsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this put o auth2 connectors default response has a 3xx status code
+func (o *PutOAuth2ConnectorsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this put o auth2 connectors default response has a 4xx status code
+func (o *PutOAuth2ConnectorsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this put o auth2 connectors default response has a 5xx status code
+func (o *PutOAuth2ConnectorsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this put o auth2 connectors default response a status code equal to that given
+func (o *PutOAuth2ConnectorsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *PutOAuth2ConnectorsDefault) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] PutOAuth2Connectors default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutOAuth2ConnectorsDefault) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors][%d] PutOAuth2Connectors default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutOAuth2ConnectorsDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *PutOAuth2ConnectorsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

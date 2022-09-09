@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
 
 // NewPutJobTemplateParams creates a new PutJobTemplateParams object,
@@ -54,10 +52,12 @@ func NewPutJobTemplateParamsWithHTTPClient(client *http.Client) *PutJobTemplateP
 	}
 }
 
-/* PutJobTemplateParams contains all the parameters to send to the API endpoint
-   for the put job template operation.
+/*
+PutJobTemplateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put job template operation.
+
+	Typically these are written to a http.Request.
 */
 type PutJobTemplateParams struct {
 
@@ -65,7 +65,7 @@ type PutJobTemplateParams struct {
 	Name string
 
 	// Body.
-	Body *models.EntPutJobTemplateRequest
+	Body PutJobTemplateBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,13 +132,13 @@ func (o *PutJobTemplateParams) SetName(name string) {
 }
 
 // WithBody adds the body to the put job template params
-func (o *PutJobTemplateParams) WithBody(body *models.EntPutJobTemplateRequest) *PutJobTemplateParams {
+func (o *PutJobTemplateParams) WithBody(body PutJobTemplateBody) *PutJobTemplateParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put job template params
-func (o *PutJobTemplateParams) SetBody(body *models.EntPutJobTemplateRequest) {
+func (o *PutJobTemplateParams) SetBody(body PutJobTemplateBody) {
 	o.Body = body
 }
 
@@ -154,10 +154,8 @@ func (o *PutJobTemplateParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if err := r.SetPathParam("Name", o.Name); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

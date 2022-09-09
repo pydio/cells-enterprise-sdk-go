@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeleteJobParams creates a new DeleteJobParams object,
@@ -52,12 +53,17 @@ func NewDeleteJobParamsWithHTTPClient(client *http.Client) *DeleteJobParams {
 	}
 }
 
-/* DeleteJobParams contains all the parameters to send to the API endpoint
-   for the delete job operation.
+/*
+DeleteJobParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete job operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteJobParams struct {
+
+	// CleanableJobs.
+	CleanableJobs *bool
 
 	// JobID.
 	JobID string
@@ -115,6 +121,17 @@ func (o *DeleteJobParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCleanableJobs adds the cleanableJobs to the delete job params
+func (o *DeleteJobParams) WithCleanableJobs(cleanableJobs *bool) *DeleteJobParams {
+	o.SetCleanableJobs(cleanableJobs)
+	return o
+}
+
+// SetCleanableJobs adds the cleanableJobs to the delete job params
+func (o *DeleteJobParams) SetCleanableJobs(cleanableJobs *bool) {
+	o.CleanableJobs = cleanableJobs
+}
+
 // WithJobID adds the jobID to the delete job params
 func (o *DeleteJobParams) WithJobID(jobID string) *DeleteJobParams {
 	o.SetJobID(jobID)
@@ -133,6 +150,23 @@ func (o *DeleteJobParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		return err
 	}
 	var res []error
+
+	if o.CleanableJobs != nil {
+
+		// query param CleanableJobs
+		var qrCleanableJobs bool
+
+		if o.CleanableJobs != nil {
+			qrCleanableJobs = *o.CleanableJobs
+		}
+		qCleanableJobs := swag.FormatBool(qrCleanableJobs)
+		if qCleanableJobs != "" {
+
+			if err := r.SetQueryParam("CleanableJobs", qCleanableJobs); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param JobID
 	if err := r.SetPathParam("JobID", o.JobID); err != nil {

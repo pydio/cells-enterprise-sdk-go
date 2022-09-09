@@ -54,7 +54,14 @@ func (o *ListDocTemplatesReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewListDocTemplatesDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewListDocTemplatesOK() *ListDocTemplatesOK {
 	return &ListDocTemplatesOK{}
 }
 
-/* ListDocTemplatesOK describes a response with status code 200, with default header values.
+/*
+ListDocTemplatesOK describes a response with status code 200, with default header values.
 
-ListDocTemplatesOK list doc templates o k
+A successful response.
 */
 type ListDocTemplatesOK struct {
 	Payload *models.EntDocTemplatesResponse
 }
 
+// IsSuccess returns true when this list doc templates o k response has a 2xx status code
+func (o *ListDocTemplatesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list doc templates o k response has a 3xx status code
+func (o *ListDocTemplatesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list doc templates o k response has a 4xx status code
+func (o *ListDocTemplatesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list doc templates o k response has a 5xx status code
+func (o *ListDocTemplatesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list doc templates o k response a status code equal to that given
+func (o *ListDocTemplatesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListDocTemplatesOK) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListDocTemplatesOK) String() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListDocTemplatesOK) GetPayload() *models.EntDocTemplatesResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewListDocTemplatesUnauthorized() *ListDocTemplatesUnauthorized {
 	return &ListDocTemplatesUnauthorized{}
 }
 
-/* ListDocTemplatesUnauthorized describes a response with status code 401, with default header values.
+/*
+ListDocTemplatesUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type ListDocTemplatesUnauthorized struct {
 }
 
+// IsSuccess returns true when this list doc templates unauthorized response has a 2xx status code
+func (o *ListDocTemplatesUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list doc templates unauthorized response has a 3xx status code
+func (o *ListDocTemplatesUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list doc templates unauthorized response has a 4xx status code
+func (o *ListDocTemplatesUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list doc templates unauthorized response has a 5xx status code
+func (o *ListDocTemplatesUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list doc templates unauthorized response a status code equal to that given
+func (o *ListDocTemplatesUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *ListDocTemplatesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesUnauthorized ", 401)
+}
+
+func (o *ListDocTemplatesUnauthorized) String() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewListDocTemplatesForbidden() *ListDocTemplatesForbidden {
 	return &ListDocTemplatesForbidden{}
 }
 
-/* ListDocTemplatesForbidden describes a response with status code 403, with default header values.
+/*
+ListDocTemplatesForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type ListDocTemplatesForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list doc templates forbidden response has a 2xx status code
+func (o *ListDocTemplatesForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list doc templates forbidden response has a 3xx status code
+func (o *ListDocTemplatesForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list doc templates forbidden response has a 4xx status code
+func (o *ListDocTemplatesForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list doc templates forbidden response has a 5xx status code
+func (o *ListDocTemplatesForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list doc templates forbidden response a status code equal to that given
+func (o *ListDocTemplatesForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ListDocTemplatesForbidden) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ListDocTemplatesForbidden) String() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ListDocTemplatesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewListDocTemplatesNotFound() *ListDocTemplatesNotFound {
 	return &ListDocTemplatesNotFound{}
 }
 
-/* ListDocTemplatesNotFound describes a response with status code 404, with default header values.
+/*
+ListDocTemplatesNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type ListDocTemplatesNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list doc templates not found response has a 2xx status code
+func (o *ListDocTemplatesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list doc templates not found response has a 3xx status code
+func (o *ListDocTemplatesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list doc templates not found response has a 4xx status code
+func (o *ListDocTemplatesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list doc templates not found response has a 5xx status code
+func (o *ListDocTemplatesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list doc templates not found response a status code equal to that given
+func (o *ListDocTemplatesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ListDocTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListDocTemplatesNotFound) String() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListDocTemplatesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewListDocTemplatesInternalServerError() *ListDocTemplatesInternalServerErr
 	return &ListDocTemplatesInternalServerError{}
 }
 
-/* ListDocTemplatesInternalServerError describes a response with status code 500, with default header values.
+/*
+ListDocTemplatesInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type ListDocTemplatesInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list doc templates internal server error response has a 2xx status code
+func (o *ListDocTemplatesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list doc templates internal server error response has a 3xx status code
+func (o *ListDocTemplatesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list doc templates internal server error response has a 4xx status code
+func (o *ListDocTemplatesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list doc templates internal server error response has a 5xx status code
+func (o *ListDocTemplatesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this list doc templates internal server error response a status code equal to that given
+func (o *ListDocTemplatesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ListDocTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ListDocTemplatesInternalServerError) String() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ListDocTemplatesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *ListDocTemplatesInternalServerError) GetPayload() *models.RestError {
 func (o *ListDocTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListDocTemplatesDefault creates a ListDocTemplatesDefault with default headers values
+func NewListDocTemplatesDefault(code int) *ListDocTemplatesDefault {
+	return &ListDocTemplatesDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ListDocTemplatesDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type ListDocTemplatesDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the list doc templates default response
+func (o *ListDocTemplatesDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this list doc templates default response has a 2xx status code
+func (o *ListDocTemplatesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list doc templates default response has a 3xx status code
+func (o *ListDocTemplatesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list doc templates default response has a 4xx status code
+func (o *ListDocTemplatesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list doc templates default response has a 5xx status code
+func (o *ListDocTemplatesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list doc templates default response a status code equal to that given
+func (o *ListDocTemplatesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ListDocTemplatesDefault) Error() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] ListDocTemplates default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListDocTemplatesDefault) String() string {
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] ListDocTemplates default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListDocTemplatesDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *ListDocTemplatesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

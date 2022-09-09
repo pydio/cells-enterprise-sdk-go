@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeleteExternalDirectoryParams creates a new DeleteExternalDirectoryParams object,
@@ -52,14 +53,129 @@ func NewDeleteExternalDirectoryParamsWithHTTPClient(client *http.Client) *Delete
 	}
 }
 
-/* DeleteExternalDirectoryParams contains all the parameters to send to the API endpoint
-   for the delete external directory operation.
+/*
+DeleteExternalDirectoryParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete external directory operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteExternalDirectoryParams struct {
 
-	// ConfigID.
+	// ConfigBindAnonymous.
+	ConfigBindAnonymous *bool
+
+	// ConfigBindDN.
+	ConfigBindDN *string
+
+	// ConfigBindPW.
+	ConfigBindPW *string
+
+	// ConfigConfigID.
+	ConfigConfigID *string
+
+	// ConfigConnection.
+	ConfigConnection *string
+
+	// ConfigDomainName.
+	ConfigDomainName *string
+
+	// ConfigHost.
+	ConfigHost *string
+
+	// ConfigMemberOfMappingGroupFilterDNs.
+	ConfigMemberOfMappingGroupFilterDNs []string
+
+	// ConfigMemberOfMappingGroupFilterDisplayAttribute.
+	ConfigMemberOfMappingGroupFilterDisplayAttribute *string
+
+	// ConfigMemberOfMappingGroupFilterFilter.
+	ConfigMemberOfMappingGroupFilterFilter *string
+
+	// ConfigMemberOfMappingGroupFilterIDAttribute.
+	ConfigMemberOfMappingGroupFilterIDAttribute *string
+
+	// ConfigMemberOfMappingGroupFilterScope.
+	ConfigMemberOfMappingGroupFilterScope *string
+
+	// ConfigMemberOfMappingMappingLeftAttribute.
+	ConfigMemberOfMappingMappingLeftAttribute *string
+
+	// ConfigMemberOfMappingMappingRightAttribute.
+	ConfigMemberOfMappingMappingRightAttribute *string
+
+	// ConfigMemberOfMappingMappingRolePrefix.
+	ConfigMemberOfMappingMappingRolePrefix *string
+
+	// ConfigMemberOfMappingMappingRuleString.
+	ConfigMemberOfMappingMappingRuleString *string
+
+	// ConfigMemberOfMappingPydioMemberOfAttribute.
+	ConfigMemberOfMappingPydioMemberOfAttribute *string
+
+	// ConfigMemberOfMappingPydioMemberOfValueFormat.
+	ConfigMemberOfMappingPydioMemberOfValueFormat *string
+
+	// ConfigMemberOfMappingRealMemberOf.
+	ConfigMemberOfMappingRealMemberOf *bool
+
+	// ConfigMemberOfMappingRealMemberOfAttribute.
+	ConfigMemberOfMappingRealMemberOfAttribute *string
+
+	// ConfigMemberOfMappingRealMemberOfValueFormat.
+	ConfigMemberOfMappingRealMemberOfValueFormat *string
+
+	// ConfigMemberOfMappingSupportNestedGroup.
+	ConfigMemberOfMappingSupportNestedGroup *bool
+
+	// ConfigPageSize.
+	//
+	// Format: int32
+	ConfigPageSize *int32
+
+	// ConfigRolePrefix.
+	ConfigRolePrefix *string
+
+	// ConfigRootCA.
+	ConfigRootCA *string
+
+	/* ConfigRootCAData.
+
+	   To be converted to []byte.
+	*/
+	ConfigRootCAData *string
+
+	// ConfigSchedule.
+	ConfigSchedule *string
+
+	// ConfigSchedulerDetails.
+	ConfigSchedulerDetails *string
+
+	// ConfigSkipVerifyCertificate.
+	ConfigSkipVerifyCertificate *bool
+
+	// ConfigSyncOnly.
+	ConfigSyncOnly *bool
+
+	// ConfigUserDNs.
+	ConfigUserDNs []string
+
+	// ConfigUserDisplayAttribute.
+	ConfigUserDisplayAttribute *string
+
+	// ConfigUserFilter.
+	ConfigUserFilter *string
+
+	// ConfigUserIDAttribute.
+	ConfigUserIDAttribute *string
+
+	// ConfigUserScope.
+	ConfigUserScope *string
+
+	/* ConfigID.
+
+	   Id of the external directory
+	*/
 	ConfigID string
 
 	timeout    time.Duration
@@ -115,6 +231,391 @@ func (o *DeleteExternalDirectoryParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithConfigBindAnonymous adds the configBindAnonymous to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigBindAnonymous(configBindAnonymous *bool) *DeleteExternalDirectoryParams {
+	o.SetConfigBindAnonymous(configBindAnonymous)
+	return o
+}
+
+// SetConfigBindAnonymous adds the configBindAnonymous to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigBindAnonymous(configBindAnonymous *bool) {
+	o.ConfigBindAnonymous = configBindAnonymous
+}
+
+// WithConfigBindDN adds the configBindDN to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigBindDN(configBindDN *string) *DeleteExternalDirectoryParams {
+	o.SetConfigBindDN(configBindDN)
+	return o
+}
+
+// SetConfigBindDN adds the configBindDN to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigBindDN(configBindDN *string) {
+	o.ConfigBindDN = configBindDN
+}
+
+// WithConfigBindPW adds the configBindPW to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigBindPW(configBindPW *string) *DeleteExternalDirectoryParams {
+	o.SetConfigBindPW(configBindPW)
+	return o
+}
+
+// SetConfigBindPW adds the configBindPW to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigBindPW(configBindPW *string) {
+	o.ConfigBindPW = configBindPW
+}
+
+// WithConfigConfigID adds the configConfigID to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigConfigID(configConfigID *string) *DeleteExternalDirectoryParams {
+	o.SetConfigConfigID(configConfigID)
+	return o
+}
+
+// SetConfigConfigID adds the configConfigId to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigConfigID(configConfigID *string) {
+	o.ConfigConfigID = configConfigID
+}
+
+// WithConfigConnection adds the configConnection to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigConnection(configConnection *string) *DeleteExternalDirectoryParams {
+	o.SetConfigConnection(configConnection)
+	return o
+}
+
+// SetConfigConnection adds the configConnection to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigConnection(configConnection *string) {
+	o.ConfigConnection = configConnection
+}
+
+// WithConfigDomainName adds the configDomainName to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigDomainName(configDomainName *string) *DeleteExternalDirectoryParams {
+	o.SetConfigDomainName(configDomainName)
+	return o
+}
+
+// SetConfigDomainName adds the configDomainName to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigDomainName(configDomainName *string) {
+	o.ConfigDomainName = configDomainName
+}
+
+// WithConfigHost adds the configHost to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigHost(configHost *string) *DeleteExternalDirectoryParams {
+	o.SetConfigHost(configHost)
+	return o
+}
+
+// SetConfigHost adds the configHost to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigHost(configHost *string) {
+	o.ConfigHost = configHost
+}
+
+// WithConfigMemberOfMappingGroupFilterDNs adds the configMemberOfMappingGroupFilterDNs to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingGroupFilterDNs(configMemberOfMappingGroupFilterDNs []string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingGroupFilterDNs(configMemberOfMappingGroupFilterDNs)
+	return o
+}
+
+// SetConfigMemberOfMappingGroupFilterDNs adds the configMemberOfMappingGroupFilterDNs to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingGroupFilterDNs(configMemberOfMappingGroupFilterDNs []string) {
+	o.ConfigMemberOfMappingGroupFilterDNs = configMemberOfMappingGroupFilterDNs
+}
+
+// WithConfigMemberOfMappingGroupFilterDisplayAttribute adds the configMemberOfMappingGroupFilterDisplayAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingGroupFilterDisplayAttribute(configMemberOfMappingGroupFilterDisplayAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingGroupFilterDisplayAttribute(configMemberOfMappingGroupFilterDisplayAttribute)
+	return o
+}
+
+// SetConfigMemberOfMappingGroupFilterDisplayAttribute adds the configMemberOfMappingGroupFilterDisplayAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingGroupFilterDisplayAttribute(configMemberOfMappingGroupFilterDisplayAttribute *string) {
+	o.ConfigMemberOfMappingGroupFilterDisplayAttribute = configMemberOfMappingGroupFilterDisplayAttribute
+}
+
+// WithConfigMemberOfMappingGroupFilterFilter adds the configMemberOfMappingGroupFilterFilter to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingGroupFilterFilter(configMemberOfMappingGroupFilterFilter *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingGroupFilterFilter(configMemberOfMappingGroupFilterFilter)
+	return o
+}
+
+// SetConfigMemberOfMappingGroupFilterFilter adds the configMemberOfMappingGroupFilterFilter to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingGroupFilterFilter(configMemberOfMappingGroupFilterFilter *string) {
+	o.ConfigMemberOfMappingGroupFilterFilter = configMemberOfMappingGroupFilterFilter
+}
+
+// WithConfigMemberOfMappingGroupFilterIDAttribute adds the configMemberOfMappingGroupFilterIDAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingGroupFilterIDAttribute(configMemberOfMappingGroupFilterIDAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingGroupFilterIDAttribute(configMemberOfMappingGroupFilterIDAttribute)
+	return o
+}
+
+// SetConfigMemberOfMappingGroupFilterIDAttribute adds the configMemberOfMappingGroupFilterIdAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingGroupFilterIDAttribute(configMemberOfMappingGroupFilterIDAttribute *string) {
+	o.ConfigMemberOfMappingGroupFilterIDAttribute = configMemberOfMappingGroupFilterIDAttribute
+}
+
+// WithConfigMemberOfMappingGroupFilterScope adds the configMemberOfMappingGroupFilterScope to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingGroupFilterScope(configMemberOfMappingGroupFilterScope *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingGroupFilterScope(configMemberOfMappingGroupFilterScope)
+	return o
+}
+
+// SetConfigMemberOfMappingGroupFilterScope adds the configMemberOfMappingGroupFilterScope to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingGroupFilterScope(configMemberOfMappingGroupFilterScope *string) {
+	o.ConfigMemberOfMappingGroupFilterScope = configMemberOfMappingGroupFilterScope
+}
+
+// WithConfigMemberOfMappingMappingLeftAttribute adds the configMemberOfMappingMappingLeftAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingMappingLeftAttribute(configMemberOfMappingMappingLeftAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingMappingLeftAttribute(configMemberOfMappingMappingLeftAttribute)
+	return o
+}
+
+// SetConfigMemberOfMappingMappingLeftAttribute adds the configMemberOfMappingMappingLeftAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingMappingLeftAttribute(configMemberOfMappingMappingLeftAttribute *string) {
+	o.ConfigMemberOfMappingMappingLeftAttribute = configMemberOfMappingMappingLeftAttribute
+}
+
+// WithConfigMemberOfMappingMappingRightAttribute adds the configMemberOfMappingMappingRightAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingMappingRightAttribute(configMemberOfMappingMappingRightAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingMappingRightAttribute(configMemberOfMappingMappingRightAttribute)
+	return o
+}
+
+// SetConfigMemberOfMappingMappingRightAttribute adds the configMemberOfMappingMappingRightAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingMappingRightAttribute(configMemberOfMappingMappingRightAttribute *string) {
+	o.ConfigMemberOfMappingMappingRightAttribute = configMemberOfMappingMappingRightAttribute
+}
+
+// WithConfigMemberOfMappingMappingRolePrefix adds the configMemberOfMappingMappingRolePrefix to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingMappingRolePrefix(configMemberOfMappingMappingRolePrefix *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingMappingRolePrefix(configMemberOfMappingMappingRolePrefix)
+	return o
+}
+
+// SetConfigMemberOfMappingMappingRolePrefix adds the configMemberOfMappingMappingRolePrefix to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingMappingRolePrefix(configMemberOfMappingMappingRolePrefix *string) {
+	o.ConfigMemberOfMappingMappingRolePrefix = configMemberOfMappingMappingRolePrefix
+}
+
+// WithConfigMemberOfMappingMappingRuleString adds the configMemberOfMappingMappingRuleString to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingMappingRuleString(configMemberOfMappingMappingRuleString *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingMappingRuleString(configMemberOfMappingMappingRuleString)
+	return o
+}
+
+// SetConfigMemberOfMappingMappingRuleString adds the configMemberOfMappingMappingRuleString to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingMappingRuleString(configMemberOfMappingMappingRuleString *string) {
+	o.ConfigMemberOfMappingMappingRuleString = configMemberOfMappingMappingRuleString
+}
+
+// WithConfigMemberOfMappingPydioMemberOfAttribute adds the configMemberOfMappingPydioMemberOfAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingPydioMemberOfAttribute(configMemberOfMappingPydioMemberOfAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingPydioMemberOfAttribute(configMemberOfMappingPydioMemberOfAttribute)
+	return o
+}
+
+// SetConfigMemberOfMappingPydioMemberOfAttribute adds the configMemberOfMappingPydioMemberOfAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingPydioMemberOfAttribute(configMemberOfMappingPydioMemberOfAttribute *string) {
+	o.ConfigMemberOfMappingPydioMemberOfAttribute = configMemberOfMappingPydioMemberOfAttribute
+}
+
+// WithConfigMemberOfMappingPydioMemberOfValueFormat adds the configMemberOfMappingPydioMemberOfValueFormat to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingPydioMemberOfValueFormat(configMemberOfMappingPydioMemberOfValueFormat *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingPydioMemberOfValueFormat(configMemberOfMappingPydioMemberOfValueFormat)
+	return o
+}
+
+// SetConfigMemberOfMappingPydioMemberOfValueFormat adds the configMemberOfMappingPydioMemberOfValueFormat to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingPydioMemberOfValueFormat(configMemberOfMappingPydioMemberOfValueFormat *string) {
+	o.ConfigMemberOfMappingPydioMemberOfValueFormat = configMemberOfMappingPydioMemberOfValueFormat
+}
+
+// WithConfigMemberOfMappingRealMemberOf adds the configMemberOfMappingRealMemberOf to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingRealMemberOf(configMemberOfMappingRealMemberOf *bool) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingRealMemberOf(configMemberOfMappingRealMemberOf)
+	return o
+}
+
+// SetConfigMemberOfMappingRealMemberOf adds the configMemberOfMappingRealMemberOf to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingRealMemberOf(configMemberOfMappingRealMemberOf *bool) {
+	o.ConfigMemberOfMappingRealMemberOf = configMemberOfMappingRealMemberOf
+}
+
+// WithConfigMemberOfMappingRealMemberOfAttribute adds the configMemberOfMappingRealMemberOfAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingRealMemberOfAttribute(configMemberOfMappingRealMemberOfAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingRealMemberOfAttribute(configMemberOfMappingRealMemberOfAttribute)
+	return o
+}
+
+// SetConfigMemberOfMappingRealMemberOfAttribute adds the configMemberOfMappingRealMemberOfAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingRealMemberOfAttribute(configMemberOfMappingRealMemberOfAttribute *string) {
+	o.ConfigMemberOfMappingRealMemberOfAttribute = configMemberOfMappingRealMemberOfAttribute
+}
+
+// WithConfigMemberOfMappingRealMemberOfValueFormat adds the configMemberOfMappingRealMemberOfValueFormat to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingRealMemberOfValueFormat(configMemberOfMappingRealMemberOfValueFormat *string) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingRealMemberOfValueFormat(configMemberOfMappingRealMemberOfValueFormat)
+	return o
+}
+
+// SetConfigMemberOfMappingRealMemberOfValueFormat adds the configMemberOfMappingRealMemberOfValueFormat to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingRealMemberOfValueFormat(configMemberOfMappingRealMemberOfValueFormat *string) {
+	o.ConfigMemberOfMappingRealMemberOfValueFormat = configMemberOfMappingRealMemberOfValueFormat
+}
+
+// WithConfigMemberOfMappingSupportNestedGroup adds the configMemberOfMappingSupportNestedGroup to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigMemberOfMappingSupportNestedGroup(configMemberOfMappingSupportNestedGroup *bool) *DeleteExternalDirectoryParams {
+	o.SetConfigMemberOfMappingSupportNestedGroup(configMemberOfMappingSupportNestedGroup)
+	return o
+}
+
+// SetConfigMemberOfMappingSupportNestedGroup adds the configMemberOfMappingSupportNestedGroup to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigMemberOfMappingSupportNestedGroup(configMemberOfMappingSupportNestedGroup *bool) {
+	o.ConfigMemberOfMappingSupportNestedGroup = configMemberOfMappingSupportNestedGroup
+}
+
+// WithConfigPageSize adds the configPageSize to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigPageSize(configPageSize *int32) *DeleteExternalDirectoryParams {
+	o.SetConfigPageSize(configPageSize)
+	return o
+}
+
+// SetConfigPageSize adds the configPageSize to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigPageSize(configPageSize *int32) {
+	o.ConfigPageSize = configPageSize
+}
+
+// WithConfigRolePrefix adds the configRolePrefix to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigRolePrefix(configRolePrefix *string) *DeleteExternalDirectoryParams {
+	o.SetConfigRolePrefix(configRolePrefix)
+	return o
+}
+
+// SetConfigRolePrefix adds the configRolePrefix to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigRolePrefix(configRolePrefix *string) {
+	o.ConfigRolePrefix = configRolePrefix
+}
+
+// WithConfigRootCA adds the configRootCA to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigRootCA(configRootCA *string) *DeleteExternalDirectoryParams {
+	o.SetConfigRootCA(configRootCA)
+	return o
+}
+
+// SetConfigRootCA adds the configRootCA to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigRootCA(configRootCA *string) {
+	o.ConfigRootCA = configRootCA
+}
+
+// WithConfigRootCAData adds the configRootCAData to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigRootCAData(configRootCAData *string) *DeleteExternalDirectoryParams {
+	o.SetConfigRootCAData(configRootCAData)
+	return o
+}
+
+// SetConfigRootCAData adds the configRootCAData to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigRootCAData(configRootCAData *string) {
+	o.ConfigRootCAData = configRootCAData
+}
+
+// WithConfigSchedule adds the configSchedule to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigSchedule(configSchedule *string) *DeleteExternalDirectoryParams {
+	o.SetConfigSchedule(configSchedule)
+	return o
+}
+
+// SetConfigSchedule adds the configSchedule to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigSchedule(configSchedule *string) {
+	o.ConfigSchedule = configSchedule
+}
+
+// WithConfigSchedulerDetails adds the configSchedulerDetails to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigSchedulerDetails(configSchedulerDetails *string) *DeleteExternalDirectoryParams {
+	o.SetConfigSchedulerDetails(configSchedulerDetails)
+	return o
+}
+
+// SetConfigSchedulerDetails adds the configSchedulerDetails to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigSchedulerDetails(configSchedulerDetails *string) {
+	o.ConfigSchedulerDetails = configSchedulerDetails
+}
+
+// WithConfigSkipVerifyCertificate adds the configSkipVerifyCertificate to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigSkipVerifyCertificate(configSkipVerifyCertificate *bool) *DeleteExternalDirectoryParams {
+	o.SetConfigSkipVerifyCertificate(configSkipVerifyCertificate)
+	return o
+}
+
+// SetConfigSkipVerifyCertificate adds the configSkipVerifyCertificate to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigSkipVerifyCertificate(configSkipVerifyCertificate *bool) {
+	o.ConfigSkipVerifyCertificate = configSkipVerifyCertificate
+}
+
+// WithConfigSyncOnly adds the configSyncOnly to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigSyncOnly(configSyncOnly *bool) *DeleteExternalDirectoryParams {
+	o.SetConfigSyncOnly(configSyncOnly)
+	return o
+}
+
+// SetConfigSyncOnly adds the configSyncOnly to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigSyncOnly(configSyncOnly *bool) {
+	o.ConfigSyncOnly = configSyncOnly
+}
+
+// WithConfigUserDNs adds the configUserDNs to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigUserDNs(configUserDNs []string) *DeleteExternalDirectoryParams {
+	o.SetConfigUserDNs(configUserDNs)
+	return o
+}
+
+// SetConfigUserDNs adds the configUserDNs to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigUserDNs(configUserDNs []string) {
+	o.ConfigUserDNs = configUserDNs
+}
+
+// WithConfigUserDisplayAttribute adds the configUserDisplayAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigUserDisplayAttribute(configUserDisplayAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigUserDisplayAttribute(configUserDisplayAttribute)
+	return o
+}
+
+// SetConfigUserDisplayAttribute adds the configUserDisplayAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigUserDisplayAttribute(configUserDisplayAttribute *string) {
+	o.ConfigUserDisplayAttribute = configUserDisplayAttribute
+}
+
+// WithConfigUserFilter adds the configUserFilter to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigUserFilter(configUserFilter *string) *DeleteExternalDirectoryParams {
+	o.SetConfigUserFilter(configUserFilter)
+	return o
+}
+
+// SetConfigUserFilter adds the configUserFilter to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigUserFilter(configUserFilter *string) {
+	o.ConfigUserFilter = configUserFilter
+}
+
+// WithConfigUserIDAttribute adds the configUserIDAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigUserIDAttribute(configUserIDAttribute *string) *DeleteExternalDirectoryParams {
+	o.SetConfigUserIDAttribute(configUserIDAttribute)
+	return o
+}
+
+// SetConfigUserIDAttribute adds the configUserIdAttribute to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigUserIDAttribute(configUserIDAttribute *string) {
+	o.ConfigUserIDAttribute = configUserIDAttribute
+}
+
+// WithConfigUserScope adds the configUserScope to the delete external directory params
+func (o *DeleteExternalDirectoryParams) WithConfigUserScope(configUserScope *string) *DeleteExternalDirectoryParams {
+	o.SetConfigUserScope(configUserScope)
+	return o
+}
+
+// SetConfigUserScope adds the configUserScope to the delete external directory params
+func (o *DeleteExternalDirectoryParams) SetConfigUserScope(configUserScope *string) {
+	o.ConfigUserScope = configUserScope
+}
+
 // WithConfigID adds the configID to the delete external directory params
 func (o *DeleteExternalDirectoryParams) WithConfigID(configID string) *DeleteExternalDirectoryParams {
 	o.SetConfigID(configID)
@@ -134,6 +635,589 @@ func (o *DeleteExternalDirectoryParams) WriteToRequest(r runtime.ClientRequest, 
 	}
 	var res []error
 
+	if o.ConfigBindAnonymous != nil {
+
+		// query param Config.BindAnonymous
+		var qrConfigBindAnonymous bool
+
+		if o.ConfigBindAnonymous != nil {
+			qrConfigBindAnonymous = *o.ConfigBindAnonymous
+		}
+		qConfigBindAnonymous := swag.FormatBool(qrConfigBindAnonymous)
+		if qConfigBindAnonymous != "" {
+
+			if err := r.SetQueryParam("Config.BindAnonymous", qConfigBindAnonymous); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigBindDN != nil {
+
+		// query param Config.BindDN
+		var qrConfigBindDN string
+
+		if o.ConfigBindDN != nil {
+			qrConfigBindDN = *o.ConfigBindDN
+		}
+		qConfigBindDN := qrConfigBindDN
+		if qConfigBindDN != "" {
+
+			if err := r.SetQueryParam("Config.BindDN", qConfigBindDN); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigBindPW != nil {
+
+		// query param Config.BindPW
+		var qrConfigBindPW string
+
+		if o.ConfigBindPW != nil {
+			qrConfigBindPW = *o.ConfigBindPW
+		}
+		qConfigBindPW := qrConfigBindPW
+		if qConfigBindPW != "" {
+
+			if err := r.SetQueryParam("Config.BindPW", qConfigBindPW); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigConfigID != nil {
+
+		// query param Config.ConfigId
+		var qrConfigConfigID string
+
+		if o.ConfigConfigID != nil {
+			qrConfigConfigID = *o.ConfigConfigID
+		}
+		qConfigConfigID := qrConfigConfigID
+		if qConfigConfigID != "" {
+
+			if err := r.SetQueryParam("Config.ConfigId", qConfigConfigID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigConnection != nil {
+
+		// query param Config.Connection
+		var qrConfigConnection string
+
+		if o.ConfigConnection != nil {
+			qrConfigConnection = *o.ConfigConnection
+		}
+		qConfigConnection := qrConfigConnection
+		if qConfigConnection != "" {
+
+			if err := r.SetQueryParam("Config.Connection", qConfigConnection); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigDomainName != nil {
+
+		// query param Config.DomainName
+		var qrConfigDomainName string
+
+		if o.ConfigDomainName != nil {
+			qrConfigDomainName = *o.ConfigDomainName
+		}
+		qConfigDomainName := qrConfigDomainName
+		if qConfigDomainName != "" {
+
+			if err := r.SetQueryParam("Config.DomainName", qConfigDomainName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigHost != nil {
+
+		// query param Config.Host
+		var qrConfigHost string
+
+		if o.ConfigHost != nil {
+			qrConfigHost = *o.ConfigHost
+		}
+		qConfigHost := qrConfigHost
+		if qConfigHost != "" {
+
+			if err := r.SetQueryParam("Config.Host", qConfigHost); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingGroupFilterDNs != nil {
+
+		// binding items for Config.MemberOfMapping.GroupFilter.DNs
+		joinedConfigMemberOfMappingGroupFilterDNs := o.bindParamConfigMemberOfMappingGroupFilterDNs(reg)
+
+		// query array param Config.MemberOfMapping.GroupFilter.DNs
+		if err := r.SetQueryParam("Config.MemberOfMapping.GroupFilter.DNs", joinedConfigMemberOfMappingGroupFilterDNs...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigMemberOfMappingGroupFilterDisplayAttribute != nil {
+
+		// query param Config.MemberOfMapping.GroupFilter.DisplayAttribute
+		var qrConfigMemberOfMappingGroupFilterDisplayAttribute string
+
+		if o.ConfigMemberOfMappingGroupFilterDisplayAttribute != nil {
+			qrConfigMemberOfMappingGroupFilterDisplayAttribute = *o.ConfigMemberOfMappingGroupFilterDisplayAttribute
+		}
+		qConfigMemberOfMappingGroupFilterDisplayAttribute := qrConfigMemberOfMappingGroupFilterDisplayAttribute
+		if qConfigMemberOfMappingGroupFilterDisplayAttribute != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.GroupFilter.DisplayAttribute", qConfigMemberOfMappingGroupFilterDisplayAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingGroupFilterFilter != nil {
+
+		// query param Config.MemberOfMapping.GroupFilter.Filter
+		var qrConfigMemberOfMappingGroupFilterFilter string
+
+		if o.ConfigMemberOfMappingGroupFilterFilter != nil {
+			qrConfigMemberOfMappingGroupFilterFilter = *o.ConfigMemberOfMappingGroupFilterFilter
+		}
+		qConfigMemberOfMappingGroupFilterFilter := qrConfigMemberOfMappingGroupFilterFilter
+		if qConfigMemberOfMappingGroupFilterFilter != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.GroupFilter.Filter", qConfigMemberOfMappingGroupFilterFilter); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingGroupFilterIDAttribute != nil {
+
+		// query param Config.MemberOfMapping.GroupFilter.IDAttribute
+		var qrConfigMemberOfMappingGroupFilterIDAttribute string
+
+		if o.ConfigMemberOfMappingGroupFilterIDAttribute != nil {
+			qrConfigMemberOfMappingGroupFilterIDAttribute = *o.ConfigMemberOfMappingGroupFilterIDAttribute
+		}
+		qConfigMemberOfMappingGroupFilterIDAttribute := qrConfigMemberOfMappingGroupFilterIDAttribute
+		if qConfigMemberOfMappingGroupFilterIDAttribute != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.GroupFilter.IDAttribute", qConfigMemberOfMappingGroupFilterIDAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingGroupFilterScope != nil {
+
+		// query param Config.MemberOfMapping.GroupFilter.Scope
+		var qrConfigMemberOfMappingGroupFilterScope string
+
+		if o.ConfigMemberOfMappingGroupFilterScope != nil {
+			qrConfigMemberOfMappingGroupFilterScope = *o.ConfigMemberOfMappingGroupFilterScope
+		}
+		qConfigMemberOfMappingGroupFilterScope := qrConfigMemberOfMappingGroupFilterScope
+		if qConfigMemberOfMappingGroupFilterScope != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.GroupFilter.Scope", qConfigMemberOfMappingGroupFilterScope); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingMappingLeftAttribute != nil {
+
+		// query param Config.MemberOfMapping.Mapping.LeftAttribute
+		var qrConfigMemberOfMappingMappingLeftAttribute string
+
+		if o.ConfigMemberOfMappingMappingLeftAttribute != nil {
+			qrConfigMemberOfMappingMappingLeftAttribute = *o.ConfigMemberOfMappingMappingLeftAttribute
+		}
+		qConfigMemberOfMappingMappingLeftAttribute := qrConfigMemberOfMappingMappingLeftAttribute
+		if qConfigMemberOfMappingMappingLeftAttribute != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.Mapping.LeftAttribute", qConfigMemberOfMappingMappingLeftAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingMappingRightAttribute != nil {
+
+		// query param Config.MemberOfMapping.Mapping.RightAttribute
+		var qrConfigMemberOfMappingMappingRightAttribute string
+
+		if o.ConfigMemberOfMappingMappingRightAttribute != nil {
+			qrConfigMemberOfMappingMappingRightAttribute = *o.ConfigMemberOfMappingMappingRightAttribute
+		}
+		qConfigMemberOfMappingMappingRightAttribute := qrConfigMemberOfMappingMappingRightAttribute
+		if qConfigMemberOfMappingMappingRightAttribute != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.Mapping.RightAttribute", qConfigMemberOfMappingMappingRightAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingMappingRolePrefix != nil {
+
+		// query param Config.MemberOfMapping.Mapping.RolePrefix
+		var qrConfigMemberOfMappingMappingRolePrefix string
+
+		if o.ConfigMemberOfMappingMappingRolePrefix != nil {
+			qrConfigMemberOfMappingMappingRolePrefix = *o.ConfigMemberOfMappingMappingRolePrefix
+		}
+		qConfigMemberOfMappingMappingRolePrefix := qrConfigMemberOfMappingMappingRolePrefix
+		if qConfigMemberOfMappingMappingRolePrefix != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.Mapping.RolePrefix", qConfigMemberOfMappingMappingRolePrefix); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingMappingRuleString != nil {
+
+		// query param Config.MemberOfMapping.Mapping.RuleString
+		var qrConfigMemberOfMappingMappingRuleString string
+
+		if o.ConfigMemberOfMappingMappingRuleString != nil {
+			qrConfigMemberOfMappingMappingRuleString = *o.ConfigMemberOfMappingMappingRuleString
+		}
+		qConfigMemberOfMappingMappingRuleString := qrConfigMemberOfMappingMappingRuleString
+		if qConfigMemberOfMappingMappingRuleString != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.Mapping.RuleString", qConfigMemberOfMappingMappingRuleString); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingPydioMemberOfAttribute != nil {
+
+		// query param Config.MemberOfMapping.PydioMemberOfAttribute
+		var qrConfigMemberOfMappingPydioMemberOfAttribute string
+
+		if o.ConfigMemberOfMappingPydioMemberOfAttribute != nil {
+			qrConfigMemberOfMappingPydioMemberOfAttribute = *o.ConfigMemberOfMappingPydioMemberOfAttribute
+		}
+		qConfigMemberOfMappingPydioMemberOfAttribute := qrConfigMemberOfMappingPydioMemberOfAttribute
+		if qConfigMemberOfMappingPydioMemberOfAttribute != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.PydioMemberOfAttribute", qConfigMemberOfMappingPydioMemberOfAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingPydioMemberOfValueFormat != nil {
+
+		// query param Config.MemberOfMapping.PydioMemberOfValueFormat
+		var qrConfigMemberOfMappingPydioMemberOfValueFormat string
+
+		if o.ConfigMemberOfMappingPydioMemberOfValueFormat != nil {
+			qrConfigMemberOfMappingPydioMemberOfValueFormat = *o.ConfigMemberOfMappingPydioMemberOfValueFormat
+		}
+		qConfigMemberOfMappingPydioMemberOfValueFormat := qrConfigMemberOfMappingPydioMemberOfValueFormat
+		if qConfigMemberOfMappingPydioMemberOfValueFormat != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.PydioMemberOfValueFormat", qConfigMemberOfMappingPydioMemberOfValueFormat); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingRealMemberOf != nil {
+
+		// query param Config.MemberOfMapping.RealMemberOf
+		var qrConfigMemberOfMappingRealMemberOf bool
+
+		if o.ConfigMemberOfMappingRealMemberOf != nil {
+			qrConfigMemberOfMappingRealMemberOf = *o.ConfigMemberOfMappingRealMemberOf
+		}
+		qConfigMemberOfMappingRealMemberOf := swag.FormatBool(qrConfigMemberOfMappingRealMemberOf)
+		if qConfigMemberOfMappingRealMemberOf != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.RealMemberOf", qConfigMemberOfMappingRealMemberOf); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingRealMemberOfAttribute != nil {
+
+		// query param Config.MemberOfMapping.RealMemberOfAttribute
+		var qrConfigMemberOfMappingRealMemberOfAttribute string
+
+		if o.ConfigMemberOfMappingRealMemberOfAttribute != nil {
+			qrConfigMemberOfMappingRealMemberOfAttribute = *o.ConfigMemberOfMappingRealMemberOfAttribute
+		}
+		qConfigMemberOfMappingRealMemberOfAttribute := qrConfigMemberOfMappingRealMemberOfAttribute
+		if qConfigMemberOfMappingRealMemberOfAttribute != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.RealMemberOfAttribute", qConfigMemberOfMappingRealMemberOfAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingRealMemberOfValueFormat != nil {
+
+		// query param Config.MemberOfMapping.RealMemberOfValueFormat
+		var qrConfigMemberOfMappingRealMemberOfValueFormat string
+
+		if o.ConfigMemberOfMappingRealMemberOfValueFormat != nil {
+			qrConfigMemberOfMappingRealMemberOfValueFormat = *o.ConfigMemberOfMappingRealMemberOfValueFormat
+		}
+		qConfigMemberOfMappingRealMemberOfValueFormat := qrConfigMemberOfMappingRealMemberOfValueFormat
+		if qConfigMemberOfMappingRealMemberOfValueFormat != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.RealMemberOfValueFormat", qConfigMemberOfMappingRealMemberOfValueFormat); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigMemberOfMappingSupportNestedGroup != nil {
+
+		// query param Config.MemberOfMapping.SupportNestedGroup
+		var qrConfigMemberOfMappingSupportNestedGroup bool
+
+		if o.ConfigMemberOfMappingSupportNestedGroup != nil {
+			qrConfigMemberOfMappingSupportNestedGroup = *o.ConfigMemberOfMappingSupportNestedGroup
+		}
+		qConfigMemberOfMappingSupportNestedGroup := swag.FormatBool(qrConfigMemberOfMappingSupportNestedGroup)
+		if qConfigMemberOfMappingSupportNestedGroup != "" {
+
+			if err := r.SetQueryParam("Config.MemberOfMapping.SupportNestedGroup", qConfigMemberOfMappingSupportNestedGroup); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigPageSize != nil {
+
+		// query param Config.PageSize
+		var qrConfigPageSize int32
+
+		if o.ConfigPageSize != nil {
+			qrConfigPageSize = *o.ConfigPageSize
+		}
+		qConfigPageSize := swag.FormatInt32(qrConfigPageSize)
+		if qConfigPageSize != "" {
+
+			if err := r.SetQueryParam("Config.PageSize", qConfigPageSize); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigRolePrefix != nil {
+
+		// query param Config.RolePrefix
+		var qrConfigRolePrefix string
+
+		if o.ConfigRolePrefix != nil {
+			qrConfigRolePrefix = *o.ConfigRolePrefix
+		}
+		qConfigRolePrefix := qrConfigRolePrefix
+		if qConfigRolePrefix != "" {
+
+			if err := r.SetQueryParam("Config.RolePrefix", qConfigRolePrefix); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigRootCA != nil {
+
+		// query param Config.RootCA
+		var qrConfigRootCA string
+
+		if o.ConfigRootCA != nil {
+			qrConfigRootCA = *o.ConfigRootCA
+		}
+		qConfigRootCA := qrConfigRootCA
+		if qConfigRootCA != "" {
+
+			if err := r.SetQueryParam("Config.RootCA", qConfigRootCA); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigRootCAData != nil {
+
+		// query param Config.RootCAData
+		var qrConfigRootCAData string
+
+		if o.ConfigRootCAData != nil {
+			qrConfigRootCAData = *o.ConfigRootCAData
+		}
+		qConfigRootCAData := qrConfigRootCAData
+		if qConfigRootCAData != "" {
+
+			if err := r.SetQueryParam("Config.RootCAData", qConfigRootCAData); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigSchedule != nil {
+
+		// query param Config.Schedule
+		var qrConfigSchedule string
+
+		if o.ConfigSchedule != nil {
+			qrConfigSchedule = *o.ConfigSchedule
+		}
+		qConfigSchedule := qrConfigSchedule
+		if qConfigSchedule != "" {
+
+			if err := r.SetQueryParam("Config.Schedule", qConfigSchedule); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigSchedulerDetails != nil {
+
+		// query param Config.SchedulerDetails
+		var qrConfigSchedulerDetails string
+
+		if o.ConfigSchedulerDetails != nil {
+			qrConfigSchedulerDetails = *o.ConfigSchedulerDetails
+		}
+		qConfigSchedulerDetails := qrConfigSchedulerDetails
+		if qConfigSchedulerDetails != "" {
+
+			if err := r.SetQueryParam("Config.SchedulerDetails", qConfigSchedulerDetails); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigSkipVerifyCertificate != nil {
+
+		// query param Config.SkipVerifyCertificate
+		var qrConfigSkipVerifyCertificate bool
+
+		if o.ConfigSkipVerifyCertificate != nil {
+			qrConfigSkipVerifyCertificate = *o.ConfigSkipVerifyCertificate
+		}
+		qConfigSkipVerifyCertificate := swag.FormatBool(qrConfigSkipVerifyCertificate)
+		if qConfigSkipVerifyCertificate != "" {
+
+			if err := r.SetQueryParam("Config.SkipVerifyCertificate", qConfigSkipVerifyCertificate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigSyncOnly != nil {
+
+		// query param Config.SyncOnly
+		var qrConfigSyncOnly bool
+
+		if o.ConfigSyncOnly != nil {
+			qrConfigSyncOnly = *o.ConfigSyncOnly
+		}
+		qConfigSyncOnly := swag.FormatBool(qrConfigSyncOnly)
+		if qConfigSyncOnly != "" {
+
+			if err := r.SetQueryParam("Config.SyncOnly", qConfigSyncOnly); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigUserDNs != nil {
+
+		// binding items for Config.User.DNs
+		joinedConfigUserDNs := o.bindParamConfigUserDNs(reg)
+
+		// query array param Config.User.DNs
+		if err := r.SetQueryParam("Config.User.DNs", joinedConfigUserDNs...); err != nil {
+			return err
+		}
+	}
+
+	if o.ConfigUserDisplayAttribute != nil {
+
+		// query param Config.User.DisplayAttribute
+		var qrConfigUserDisplayAttribute string
+
+		if o.ConfigUserDisplayAttribute != nil {
+			qrConfigUserDisplayAttribute = *o.ConfigUserDisplayAttribute
+		}
+		qConfigUserDisplayAttribute := qrConfigUserDisplayAttribute
+		if qConfigUserDisplayAttribute != "" {
+
+			if err := r.SetQueryParam("Config.User.DisplayAttribute", qConfigUserDisplayAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigUserFilter != nil {
+
+		// query param Config.User.Filter
+		var qrConfigUserFilter string
+
+		if o.ConfigUserFilter != nil {
+			qrConfigUserFilter = *o.ConfigUserFilter
+		}
+		qConfigUserFilter := qrConfigUserFilter
+		if qConfigUserFilter != "" {
+
+			if err := r.SetQueryParam("Config.User.Filter", qConfigUserFilter); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigUserIDAttribute != nil {
+
+		// query param Config.User.IDAttribute
+		var qrConfigUserIDAttribute string
+
+		if o.ConfigUserIDAttribute != nil {
+			qrConfigUserIDAttribute = *o.ConfigUserIDAttribute
+		}
+		qConfigUserIDAttribute := qrConfigUserIDAttribute
+		if qConfigUserIDAttribute != "" {
+
+			if err := r.SetQueryParam("Config.User.IDAttribute", qConfigUserIDAttribute); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigUserScope != nil {
+
+		// query param Config.User.Scope
+		var qrConfigUserScope string
+
+		if o.ConfigUserScope != nil {
+			qrConfigUserScope = *o.ConfigUserScope
+		}
+		qConfigUserScope := qrConfigUserScope
+		if qConfigUserScope != "" {
+
+			if err := r.SetQueryParam("Config.User.Scope", qConfigUserScope); err != nil {
+				return err
+			}
+		}
+	}
+
 	// path param ConfigId
 	if err := r.SetPathParam("ConfigId", o.ConfigID); err != nil {
 		return err
@@ -143,4 +1227,38 @@ func (o *DeleteExternalDirectoryParams) WriteToRequest(r runtime.ClientRequest, 
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamDeleteExternalDirectory binds the parameter Config.MemberOfMapping.GroupFilter.DNs
+func (o *DeleteExternalDirectoryParams) bindParamConfigMemberOfMappingGroupFilterDNs(formats strfmt.Registry) []string {
+	configMemberOfMappingGroupFilterDNsIR := o.ConfigMemberOfMappingGroupFilterDNs
+
+	var configMemberOfMappingGroupFilterDNsIC []string
+	for _, configMemberOfMappingGroupFilterDNsIIR := range configMemberOfMappingGroupFilterDNsIR { // explode []string
+
+		configMemberOfMappingGroupFilterDNsIIV := configMemberOfMappingGroupFilterDNsIIR // string as string
+		configMemberOfMappingGroupFilterDNsIC = append(configMemberOfMappingGroupFilterDNsIC, configMemberOfMappingGroupFilterDNsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configMemberOfMappingGroupFilterDNsIS := swag.JoinByFormat(configMemberOfMappingGroupFilterDNsIC, "multi")
+
+	return configMemberOfMappingGroupFilterDNsIS
+}
+
+// bindParamDeleteExternalDirectory binds the parameter Config.User.DNs
+func (o *DeleteExternalDirectoryParams) bindParamConfigUserDNs(formats strfmt.Registry) []string {
+	configUserDNsIR := o.ConfigUserDNs
+
+	var configUserDNsIC []string
+	for _, configUserDNsIIR := range configUserDNsIR { // explode []string
+
+		configUserDNsIIV := configUserDNsIIR // string as string
+		configUserDNsIC = append(configUserDNsIC, configUserDNsIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	configUserDNsIS := swag.JoinByFormat(configUserDNsIC, "multi")
+
+	return configUserDNsIS
 }

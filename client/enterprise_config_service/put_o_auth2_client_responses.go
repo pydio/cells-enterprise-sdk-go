@@ -6,11 +6,13 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
@@ -54,7 +56,14 @@ func (o *PutOAuth2ClientReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewPutOAuth2ClientDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +72,48 @@ func NewPutOAuth2ClientOK() *PutOAuth2ClientOK {
 	return &PutOAuth2ClientOK{}
 }
 
-/* PutOAuth2ClientOK describes a response with status code 200, with default header values.
+/*
+PutOAuth2ClientOK describes a response with status code 200, with default header values.
 
-PutOAuth2ClientOK put o auth2 client o k
+A successful response.
 */
 type PutOAuth2ClientOK struct {
 	Payload *models.EntOAuth2ClientResponse
 }
 
-func (o *PutOAuth2ClientOK) Error() string {
-	return fmt.Sprintf("[PUT /config/oauth2clients/{ClientID}][%d] putOAuth2ClientOK  %+v", 200, o.Payload)
+// IsSuccess returns true when this put o auth2 client o k response has a 2xx status code
+func (o *PutOAuth2ClientOK) IsSuccess() bool {
+	return true
 }
+
+// IsRedirect returns true when this put o auth2 client o k response has a 3xx status code
+func (o *PutOAuth2ClientOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 client o k response has a 4xx status code
+func (o *PutOAuth2ClientOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put o auth2 client o k response has a 5xx status code
+func (o *PutOAuth2ClientOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 client o k response a status code equal to that given
+func (o *PutOAuth2ClientOK) IsCode(code int) bool {
+	return code == 200
+}
+
+func (o *PutOAuth2ClientOK) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientOK  %+v", 200, o.Payload)
+}
+
+func (o *PutOAuth2ClientOK) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientOK  %+v", 200, o.Payload)
+}
+
 func (o *PutOAuth2ClientOK) GetPayload() *models.EntOAuth2ClientResponse {
 	return o.Payload
 }
@@ -95,15 +135,45 @@ func NewPutOAuth2ClientUnauthorized() *PutOAuth2ClientUnauthorized {
 	return &PutOAuth2ClientUnauthorized{}
 }
 
-/* PutOAuth2ClientUnauthorized describes a response with status code 401, with default header values.
+/*
+PutOAuth2ClientUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type PutOAuth2ClientUnauthorized struct {
 }
 
+// IsSuccess returns true when this put o auth2 client unauthorized response has a 2xx status code
+func (o *PutOAuth2ClientUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 client unauthorized response has a 3xx status code
+func (o *PutOAuth2ClientUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 client unauthorized response has a 4xx status code
+func (o *PutOAuth2ClientUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 client unauthorized response has a 5xx status code
+func (o *PutOAuth2ClientUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 client unauthorized response a status code equal to that given
+func (o *PutOAuth2ClientUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *PutOAuth2ClientUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/oauth2clients/{ClientID}][%d] putOAuth2ClientUnauthorized ", 401)
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientUnauthorized ", 401)
+}
+
+func (o *PutOAuth2ClientUnauthorized) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientUnauthorized ", 401)
 }
 
 func (o *PutOAuth2ClientUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,7 +186,8 @@ func NewPutOAuth2ClientForbidden() *PutOAuth2ClientForbidden {
 	return &PutOAuth2ClientForbidden{}
 }
 
-/* PutOAuth2ClientForbidden describes a response with status code 403, with default header values.
+/*
+PutOAuth2ClientForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +195,39 @@ type PutOAuth2ClientForbidden struct {
 	Payload *models.RestError
 }
 
-func (o *PutOAuth2ClientForbidden) Error() string {
-	return fmt.Sprintf("[PUT /config/oauth2clients/{ClientID}][%d] putOAuth2ClientForbidden  %+v", 403, o.Payload)
+// IsSuccess returns true when this put o auth2 client forbidden response has a 2xx status code
+func (o *PutOAuth2ClientForbidden) IsSuccess() bool {
+	return false
 }
+
+// IsRedirect returns true when this put o auth2 client forbidden response has a 3xx status code
+func (o *PutOAuth2ClientForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 client forbidden response has a 4xx status code
+func (o *PutOAuth2ClientForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 client forbidden response has a 5xx status code
+func (o *PutOAuth2ClientForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 client forbidden response a status code equal to that given
+func (o *PutOAuth2ClientForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+func (o *PutOAuth2ClientForbidden) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientForbidden  %+v", 403, o.Payload)
+}
+
+func (o *PutOAuth2ClientForbidden) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientForbidden  %+v", 403, o.Payload)
+}
+
 func (o *PutOAuth2ClientForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +249,8 @@ func NewPutOAuth2ClientNotFound() *PutOAuth2ClientNotFound {
 	return &PutOAuth2ClientNotFound{}
 }
 
-/* PutOAuth2ClientNotFound describes a response with status code 404, with default header values.
+/*
+PutOAuth2ClientNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +258,39 @@ type PutOAuth2ClientNotFound struct {
 	Payload *models.RestError
 }
 
-func (o *PutOAuth2ClientNotFound) Error() string {
-	return fmt.Sprintf("[PUT /config/oauth2clients/{ClientID}][%d] putOAuth2ClientNotFound  %+v", 404, o.Payload)
+// IsSuccess returns true when this put o auth2 client not found response has a 2xx status code
+func (o *PutOAuth2ClientNotFound) IsSuccess() bool {
+	return false
 }
+
+// IsRedirect returns true when this put o auth2 client not found response has a 3xx status code
+func (o *PutOAuth2ClientNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 client not found response has a 4xx status code
+func (o *PutOAuth2ClientNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 client not found response has a 5xx status code
+func (o *PutOAuth2ClientNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 client not found response a status code equal to that given
+func (o *PutOAuth2ClientNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+func (o *PutOAuth2ClientNotFound) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PutOAuth2ClientNotFound) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutOAuth2ClientNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +312,8 @@ func NewPutOAuth2ClientInternalServerError() *PutOAuth2ClientInternalServerError
 	return &PutOAuth2ClientInternalServerError{}
 }
 
-/* PutOAuth2ClientInternalServerError describes a response with status code 500, with default header values.
+/*
+PutOAuth2ClientInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +321,39 @@ type PutOAuth2ClientInternalServerError struct {
 	Payload *models.RestError
 }
 
-func (o *PutOAuth2ClientInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /config/oauth2clients/{ClientID}][%d] putOAuth2ClientInternalServerError  %+v", 500, o.Payload)
+// IsSuccess returns true when this put o auth2 client internal server error response has a 2xx status code
+func (o *PutOAuth2ClientInternalServerError) IsSuccess() bool {
+	return false
 }
+
+// IsRedirect returns true when this put o auth2 client internal server error response has a 3xx status code
+func (o *PutOAuth2ClientInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 client internal server error response has a 4xx status code
+func (o *PutOAuth2ClientInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put o auth2 client internal server error response has a 5xx status code
+func (o *PutOAuth2ClientInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this put o auth2 client internal server error response a status code equal to that given
+func (o *PutOAuth2ClientInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+func (o *PutOAuth2ClientInternalServerError) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *PutOAuth2ClientInternalServerError) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PutOAuth2ClientInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -204,5 +367,133 @@ func (o *PutOAuth2ClientInternalServerError) readResponse(response runtime.Clien
 		return err
 	}
 
+	return nil
+}
+
+// NewPutOAuth2ClientDefault creates a PutOAuth2ClientDefault with default headers values
+func NewPutOAuth2ClientDefault(code int) *PutOAuth2ClientDefault {
+	return &PutOAuth2ClientDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+PutOAuth2ClientDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type PutOAuth2ClientDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the put o auth2 client default response
+func (o *PutOAuth2ClientDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this put o auth2 client default response has a 2xx status code
+func (o *PutOAuth2ClientDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this put o auth2 client default response has a 3xx status code
+func (o *PutOAuth2ClientDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this put o auth2 client default response has a 4xx status code
+func (o *PutOAuth2ClientDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this put o auth2 client default response has a 5xx status code
+func (o *PutOAuth2ClientDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this put o auth2 client default response a status code equal to that given
+func (o *PutOAuth2ClientDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *PutOAuth2ClientDefault) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] PutOAuth2Client default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutOAuth2ClientDefault) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] PutOAuth2Client default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutOAuth2ClientDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *PutOAuth2ClientDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+/*
+PutOAuth2ClientBody put o auth2 client body
+swagger:model PutOAuth2ClientBody
+*/
+type PutOAuth2ClientBody struct {
+
+	// audience
+	Audience []string `json:"audience"`
+
+	// client name
+	ClientName string `json:"client_name,omitempty"`
+
+	// client secret
+	ClientSecret string `json:"client_secret,omitempty"`
+
+	// grant types
+	GrantTypes []string `json:"grant_types"`
+
+	// redirect uris
+	RedirectUris []string `json:"redirect_uris"`
+
+	// response types
+	ResponseTypes []string `json:"response_types"`
+
+	// scope
+	Scope string `json:"scope,omitempty"`
+}
+
+// Validate validates this put o auth2 client body
+func (o *PutOAuth2ClientBody) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this put o auth2 client body based on context it is used
+func (o *PutOAuth2ClientBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PutOAuth2ClientBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PutOAuth2ClientBody) UnmarshalBinary(b []byte) error {
+	var res PutOAuth2ClientBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

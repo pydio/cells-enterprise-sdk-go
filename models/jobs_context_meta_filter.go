@@ -58,6 +58,8 @@ func (m *JobsContextMetaFilter) validateQuery(formats strfmt.Registry) error {
 		if err := m.Query.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
 			}
 			return err
 		}
@@ -75,6 +77,8 @@ func (m *JobsContextMetaFilter) validateType(formats strfmt.Registry) error {
 		if err := m.Type.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}
@@ -107,6 +111,8 @@ func (m *JobsContextMetaFilter) contextValidateQuery(ctx context.Context, format
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
 			}
 			return err
 		}
@@ -121,6 +127,8 @@ func (m *JobsContextMetaFilter) contextValidateType(ctx context.Context, formats
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}

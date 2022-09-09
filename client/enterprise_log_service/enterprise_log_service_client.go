@@ -6,8 +6,6 @@ package enterprise_log_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 )
@@ -42,7 +40,7 @@ type ClientService interface {
 }
 
 /*
-  Audit enterprises only auditable logs in Json or c s v format
+Audit enterprises only auditable logs in Json or c s v format
 */
 func (a *Client) Audit(params *AuditParams, opts ...ClientOption) (*AuditOK, error) {
 	// TODO: Validate the params before sending
@@ -74,13 +72,12 @@ func (a *Client) Audit(params *AuditParams, opts ...ClientOption) (*AuditOK, err
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for Audit: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*AuditDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  AuditChartData enterprises only retrieves aggregated audit logs to generate charts
+AuditChartData enterprises only retrieves aggregated audit logs to generate charts
 */
 func (a *Client) AuditChartData(params *AuditChartDataParams, opts ...ClientOption) (*AuditChartDataOK, error) {
 	// TODO: Validate the params before sending
@@ -112,13 +109,12 @@ func (a *Client) AuditChartData(params *AuditChartDataParams, opts ...ClientOpti
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for AuditChartData: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*AuditChartDataDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  AuditExport enterprises only auditable logs in Json or c s v format
+AuditExport enterprises only auditable logs in Json or c s v format
 */
 func (a *Client) AuditExport(params *AuditExportParams, opts ...ClientOption) (*AuditExportOK, error) {
 	// TODO: Validate the params before sending
@@ -150,13 +146,12 @@ func (a *Client) AuditExport(params *AuditExportParams, opts ...ClientOption) (*
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for AuditExport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*AuditExportDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  SyslogExport enterprises only technical logs in Json or c s v format
+SyslogExport enterprises only technical logs in Json or c s v format
 */
 func (a *Client) SyslogExport(params *SyslogExportParams, opts ...ClientOption) (*SyslogExportOK, error) {
 	// TODO: Validate the params before sending
@@ -188,9 +183,8 @@ func (a *Client) SyslogExport(params *SyslogExportParams, opts ...ClientOption) 
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for SyslogExport: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*SyslogExportDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

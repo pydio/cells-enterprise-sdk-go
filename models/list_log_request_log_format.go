@@ -20,8 +20,12 @@ import (
 type ListLogRequestLogFormat string
 
 func NewListLogRequestLogFormat(value ListLogRequestLogFormat) *ListLogRequestLogFormat {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated ListLogRequestLogFormat.
+func (m ListLogRequestLogFormat) Pointer() *ListLogRequestLogFormat {
+	return &m
 }
 
 const (

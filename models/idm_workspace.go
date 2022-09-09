@@ -90,6 +90,8 @@ func (m *IdmWorkspace) validatePolicies(formats strfmt.Registry) error {
 			if err := m.Policies[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Policies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -112,6 +114,11 @@ func (m *IdmWorkspace) validateRootNodes(formats strfmt.Registry) error {
 		}
 		if val, ok := m.RootNodes[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("RootNodes" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RootNodes" + "." + k)
+				}
 				return err
 			}
 		}
@@ -130,6 +137,8 @@ func (m *IdmWorkspace) validateScope(formats strfmt.Registry) error {
 		if err := m.Scope.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Scope")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Scope")
 			}
 			return err
 		}
@@ -168,6 +177,8 @@ func (m *IdmWorkspace) contextValidatePolicies(ctx context.Context, formats strf
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Policies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -199,6 +210,8 @@ func (m *IdmWorkspace) contextValidateScope(ctx context.Context, formats strfmt.
 		if err := m.Scope.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Scope")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Scope")
 			}
 			return err
 		}

@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
 
 // NewPutOAuth2ConnectorParams creates a new PutOAuth2ConnectorParams object,
@@ -54,15 +52,17 @@ func NewPutOAuth2ConnectorParamsWithHTTPClient(client *http.Client) *PutOAuth2Co
 	}
 }
 
-/* PutOAuth2ConnectorParams contains all the parameters to send to the API endpoint
-   for the put o auth2 connector operation.
+/*
+PutOAuth2ConnectorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put o auth2 connector operation.
+
+	Typically these are written to a http.Request.
 */
 type PutOAuth2ConnectorParams struct {
 
 	// Body.
-	Body *models.AuthOAuth2ConnectorConfig
+	Body PutOAuth2ConnectorBody
 
 	// ID.
 	ID string
@@ -121,13 +121,13 @@ func (o *PutOAuth2ConnectorParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the put o auth2 connector params
-func (o *PutOAuth2ConnectorParams) WithBody(body *models.AuthOAuth2ConnectorConfig) *PutOAuth2ConnectorParams {
+func (o *PutOAuth2ConnectorParams) WithBody(body PutOAuth2ConnectorBody) *PutOAuth2ConnectorParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put o auth2 connector params
-func (o *PutOAuth2ConnectorParams) SetBody(body *models.AuthOAuth2ConnectorConfig) {
+func (o *PutOAuth2ConnectorParams) SetBody(body PutOAuth2ConnectorBody) {
 	o.Body = body
 }
 
@@ -149,10 +149,8 @@ func (o *PutOAuth2ConnectorParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	// path param id

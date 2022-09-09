@@ -15,6 +15,7 @@ import (
 	"github.com/pydio/cells-enterprise-sdk-go/client/enterprise_frontend_service"
 	"github.com/pydio/cells-enterprise-sdk-go/client/enterprise_log_service"
 	"github.com/pydio/cells-enterprise-sdk-go/client/enterprise_policy_service"
+	"github.com/pydio/cells-enterprise-sdk-go/client/enterprise_templates_service"
 	"github.com/pydio/cells-enterprise-sdk-go/client/enterprise_token_service"
 	"github.com/pydio/cells-enterprise-sdk-go/client/license_service"
 	"github.com/pydio/cells-enterprise-sdk-go/client/scheduler_service"
@@ -67,6 +68,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *PydioCells
 	cli.EnterpriseFrontendService = enterprise_frontend_service.New(transport, formats)
 	cli.EnterpriseLogService = enterprise_log_service.New(transport, formats)
 	cli.EnterprisePolicyService = enterprise_policy_service.New(transport, formats)
+	cli.EnterpriseTemplatesService = enterprise_templates_service.New(transport, formats)
 	cli.EnterpriseTokenService = enterprise_token_service.New(transport, formats)
 	cli.LicenseService = license_service.New(transport, formats)
 	cli.SchedulerService = scheduler_service.New(transport, formats)
@@ -124,6 +126,8 @@ type PydioCellsEnterpriseRestAPI struct {
 
 	EnterprisePolicyService enterprise_policy_service.ClientService
 
+	EnterpriseTemplatesService enterprise_templates_service.ClientService
+
 	EnterpriseTokenService enterprise_token_service.ClientService
 
 	LicenseService license_service.ClientService
@@ -141,6 +145,7 @@ func (c *PydioCellsEnterpriseRestAPI) SetTransport(transport runtime.ClientTrans
 	c.EnterpriseFrontendService.SetTransport(transport)
 	c.EnterpriseLogService.SetTransport(transport)
 	c.EnterprisePolicyService.SetTransport(transport)
+	c.EnterpriseTemplatesService.SetTransport(transport)
 	c.EnterpriseTokenService.SetTransport(transport)
 	c.LicenseService.SetTransport(transport)
 	c.SchedulerService.SetTransport(transport)

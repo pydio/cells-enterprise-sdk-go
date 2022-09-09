@@ -54,7 +54,14 @@ func (o *ListJobTemplatesReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewListJobTemplatesDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewListJobTemplatesOK() *ListJobTemplatesOK {
 	return &ListJobTemplatesOK{}
 }
 
-/* ListJobTemplatesOK describes a response with status code 200, with default header values.
+/*
+ListJobTemplatesOK describes a response with status code 200, with default header values.
 
-ListJobTemplatesOK list job templates o k
+A successful response.
 */
 type ListJobTemplatesOK struct {
 	Payload *models.EntListJobTemplatesResponse
 }
 
+// IsSuccess returns true when this list job templates o k response has a 2xx status code
+func (o *ListJobTemplatesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list job templates o k response has a 3xx status code
+func (o *ListJobTemplatesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list job templates o k response has a 4xx status code
+func (o *ListJobTemplatesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list job templates o k response has a 5xx status code
+func (o *ListJobTemplatesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list job templates o k response a status code equal to that given
+func (o *ListJobTemplatesOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListJobTemplatesOK) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListJobTemplatesOK) String() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListJobTemplatesOK) GetPayload() *models.EntListJobTemplatesResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewListJobTemplatesUnauthorized() *ListJobTemplatesUnauthorized {
 	return &ListJobTemplatesUnauthorized{}
 }
 
-/* ListJobTemplatesUnauthorized describes a response with status code 401, with default header values.
+/*
+ListJobTemplatesUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type ListJobTemplatesUnauthorized struct {
 }
 
+// IsSuccess returns true when this list job templates unauthorized response has a 2xx status code
+func (o *ListJobTemplatesUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list job templates unauthorized response has a 3xx status code
+func (o *ListJobTemplatesUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list job templates unauthorized response has a 4xx status code
+func (o *ListJobTemplatesUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list job templates unauthorized response has a 5xx status code
+func (o *ListJobTemplatesUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list job templates unauthorized response a status code equal to that given
+func (o *ListJobTemplatesUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *ListJobTemplatesUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesUnauthorized ", 401)
+}
+
+func (o *ListJobTemplatesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewListJobTemplatesForbidden() *ListJobTemplatesForbidden {
 	return &ListJobTemplatesForbidden{}
 }
 
-/* ListJobTemplatesForbidden describes a response with status code 403, with default header values.
+/*
+ListJobTemplatesForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type ListJobTemplatesForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list job templates forbidden response has a 2xx status code
+func (o *ListJobTemplatesForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list job templates forbidden response has a 3xx status code
+func (o *ListJobTemplatesForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list job templates forbidden response has a 4xx status code
+func (o *ListJobTemplatesForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list job templates forbidden response has a 5xx status code
+func (o *ListJobTemplatesForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list job templates forbidden response a status code equal to that given
+func (o *ListJobTemplatesForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ListJobTemplatesForbidden) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ListJobTemplatesForbidden) String() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ListJobTemplatesForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewListJobTemplatesNotFound() *ListJobTemplatesNotFound {
 	return &ListJobTemplatesNotFound{}
 }
 
-/* ListJobTemplatesNotFound describes a response with status code 404, with default header values.
+/*
+ListJobTemplatesNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type ListJobTemplatesNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list job templates not found response has a 2xx status code
+func (o *ListJobTemplatesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list job templates not found response has a 3xx status code
+func (o *ListJobTemplatesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list job templates not found response has a 4xx status code
+func (o *ListJobTemplatesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list job templates not found response has a 5xx status code
+func (o *ListJobTemplatesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list job templates not found response a status code equal to that given
+func (o *ListJobTemplatesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ListJobTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListJobTemplatesNotFound) String() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListJobTemplatesNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewListJobTemplatesInternalServerError() *ListJobTemplatesInternalServerErr
 	return &ListJobTemplatesInternalServerError{}
 }
 
-/* ListJobTemplatesInternalServerError describes a response with status code 500, with default header values.
+/*
+ListJobTemplatesInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type ListJobTemplatesInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list job templates internal server error response has a 2xx status code
+func (o *ListJobTemplatesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list job templates internal server error response has a 3xx status code
+func (o *ListJobTemplatesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list job templates internal server error response has a 4xx status code
+func (o *ListJobTemplatesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list job templates internal server error response has a 5xx status code
+func (o *ListJobTemplatesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this list job templates internal server error response a status code equal to that given
+func (o *ListJobTemplatesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ListJobTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ListJobTemplatesInternalServerError) String() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ListJobTemplatesInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *ListJobTemplatesInternalServerError) GetPayload() *models.RestError {
 func (o *ListJobTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListJobTemplatesDefault creates a ListJobTemplatesDefault with default headers values
+func NewListJobTemplatesDefault(code int) *ListJobTemplatesDefault {
+	return &ListJobTemplatesDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ListJobTemplatesDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type ListJobTemplatesDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the list job templates default response
+func (o *ListJobTemplatesDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this list job templates default response has a 2xx status code
+func (o *ListJobTemplatesDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list job templates default response has a 3xx status code
+func (o *ListJobTemplatesDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list job templates default response has a 4xx status code
+func (o *ListJobTemplatesDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list job templates default response has a 5xx status code
+func (o *ListJobTemplatesDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list job templates default response a status code equal to that given
+func (o *ListJobTemplatesDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ListJobTemplatesDefault) Error() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] ListJobTemplates default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListJobTemplatesDefault) String() string {
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] ListJobTemplates default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListJobTemplatesDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *ListJobTemplatesDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

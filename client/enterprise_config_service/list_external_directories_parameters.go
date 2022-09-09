@@ -52,10 +52,12 @@ func NewListExternalDirectoriesParamsWithHTTPClient(client *http.Client) *ListEx
 	}
 }
 
-/* ListExternalDirectoriesParams contains all the parameters to send to the API endpoint
-   for the list external directories operation.
+/*
+ListExternalDirectoriesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list external directories operation.
+
+	Typically these are written to a http.Request.
 */
 type ListExternalDirectoriesParams struct {
 	timeout    time.Duration

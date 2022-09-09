@@ -92,6 +92,8 @@ func (m *EntSelectorTemplate) validateActionOutputFilter(formats strfmt.Registry
 		if err := m.ActionOutputFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ActionOutputFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ActionOutputFilter")
 			}
 			return err
 		}
@@ -109,6 +111,8 @@ func (m *EntSelectorTemplate) validateContextMetaFilter(formats strfmt.Registry)
 		if err := m.ContextMetaFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContextMetaFilter")
 			}
 			return err
 		}
@@ -126,6 +130,8 @@ func (m *EntSelectorTemplate) validateDataSourceSelector(formats strfmt.Registry
 		if err := m.DataSourceSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceSelector")
 			}
 			return err
 		}
@@ -143,6 +149,8 @@ func (m *EntSelectorTemplate) validateIdmSelector(formats strfmt.Registry) error
 		if err := m.IdmSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmSelector")
 			}
 			return err
 		}
@@ -160,6 +168,8 @@ func (m *EntSelectorTemplate) validateNodesSelector(formats strfmt.Registry) err
 		if err := m.NodesSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodesSelector")
 			}
 			return err
 		}
@@ -177,6 +187,8 @@ func (m *EntSelectorTemplate) validateTriggerFilter(formats strfmt.Registry) err
 		if err := m.TriggerFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TriggerFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TriggerFilter")
 			}
 			return err
 		}
@@ -225,6 +237,8 @@ func (m *EntSelectorTemplate) contextValidateActionOutputFilter(ctx context.Cont
 		if err := m.ActionOutputFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ActionOutputFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ActionOutputFilter")
 			}
 			return err
 		}
@@ -239,6 +253,8 @@ func (m *EntSelectorTemplate) contextValidateContextMetaFilter(ctx context.Conte
 		if err := m.ContextMetaFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContextMetaFilter")
 			}
 			return err
 		}
@@ -253,6 +269,8 @@ func (m *EntSelectorTemplate) contextValidateDataSourceSelector(ctx context.Cont
 		if err := m.DataSourceSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceSelector")
 			}
 			return err
 		}
@@ -267,6 +285,8 @@ func (m *EntSelectorTemplate) contextValidateIdmSelector(ctx context.Context, fo
 		if err := m.IdmSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmSelector")
 			}
 			return err
 		}
@@ -281,6 +301,8 @@ func (m *EntSelectorTemplate) contextValidateNodesSelector(ctx context.Context, 
 		if err := m.NodesSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodesSelector")
 			}
 			return err
 		}
@@ -295,6 +317,8 @@ func (m *EntSelectorTemplate) contextValidateTriggerFilter(ctx context.Context, 
 		if err := m.TriggerFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TriggerFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TriggerFilter")
 			}
 			return err
 		}

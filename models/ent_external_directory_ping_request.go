@@ -13,20 +13,20 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// EntExternalDirectoryConfig ent external directory config
+// EntExternalDirectoryPingRequest Try to connect to an external directory
 //
-// swagger:model entExternalDirectoryConfig
-type EntExternalDirectoryConfig struct {
+// swagger:model entExternalDirectoryPingRequest
+type EntExternalDirectoryPingRequest struct {
 
-	// LDAP or Active Directory configuration
+	// bind
+	Bind bool `json:"Bind,omitempty"`
+
+	// config
 	Config *AuthLdapServerConfig `json:"Config,omitempty"`
-
-	// Id of the external directory
-	ConfigID string `json:"ConfigId,omitempty"`
 }
 
-// Validate validates this ent external directory config
-func (m *EntExternalDirectoryConfig) Validate(formats strfmt.Registry) error {
+// Validate validates this ent external directory ping request
+func (m *EntExternalDirectoryPingRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateConfig(formats); err != nil {
@@ -39,7 +39,7 @@ func (m *EntExternalDirectoryConfig) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *EntExternalDirectoryConfig) validateConfig(formats strfmt.Registry) error {
+func (m *EntExternalDirectoryPingRequest) validateConfig(formats strfmt.Registry) error {
 	if swag.IsZero(m.Config) { // not required
 		return nil
 	}
@@ -48,6 +48,8 @@ func (m *EntExternalDirectoryConfig) validateConfig(formats strfmt.Registry) err
 		if err := m.Config.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config")
 			}
 			return err
 		}
@@ -56,8 +58,8 @@ func (m *EntExternalDirectoryConfig) validateConfig(formats strfmt.Registry) err
 	return nil
 }
 
-// ContextValidate validate this ent external directory config based on the context it is used
-func (m *EntExternalDirectoryConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this ent external directory ping request based on the context it is used
+func (m *EntExternalDirectoryPingRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateConfig(ctx, formats); err != nil {
@@ -70,12 +72,14 @@ func (m *EntExternalDirectoryConfig) ContextValidate(ctx context.Context, format
 	return nil
 }
 
-func (m *EntExternalDirectoryConfig) contextValidateConfig(ctx context.Context, formats strfmt.Registry) error {
+func (m *EntExternalDirectoryPingRequest) contextValidateConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Config != nil {
 		if err := m.Config.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Config")
 			}
 			return err
 		}
@@ -85,7 +89,7 @@ func (m *EntExternalDirectoryConfig) contextValidateConfig(ctx context.Context, 
 }
 
 // MarshalBinary interface implementation
-func (m *EntExternalDirectoryConfig) MarshalBinary() ([]byte, error) {
+func (m *EntExternalDirectoryPingRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -93,8 +97,8 @@ func (m *EntExternalDirectoryConfig) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *EntExternalDirectoryConfig) UnmarshalBinary(b []byte) error {
-	var res EntExternalDirectoryConfig
+func (m *EntExternalDirectoryPingRequest) UnmarshalBinary(b []byte) error {
+	var res EntExternalDirectoryPingRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

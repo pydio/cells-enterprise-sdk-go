@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
 
 // NewPutVirtualNodeParams creates a new PutVirtualNodeParams object,
@@ -54,18 +52,25 @@ func NewPutVirtualNodeParamsWithHTTPClient(client *http.Client) *PutVirtualNodeP
 	}
 }
 
-/* PutVirtualNodeParams contains all the parameters to send to the API endpoint
-   for the put virtual node operation.
+/*
+PutVirtualNodeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put virtual node operation.
+
+	Typically these are written to a http.Request.
 */
 type PutVirtualNodeParams struct {
 
-	// UUID.
+	/* UUID.
+
+	     ------------------------------------
+	Core identification of the node
+	------------------------------------
+	*/
 	UUID string
 
 	// Body.
-	Body *models.TreeNode
+	Body PutVirtualNodeBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,13 +137,13 @@ func (o *PutVirtualNodeParams) SetUUID(uuid string) {
 }
 
 // WithBody adds the body to the put virtual node params
-func (o *PutVirtualNodeParams) WithBody(body *models.TreeNode) *PutVirtualNodeParams {
+func (o *PutVirtualNodeParams) WithBody(body PutVirtualNodeBody) *PutVirtualNodeParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put virtual node params
-func (o *PutVirtualNodeParams) SetBody(body *models.TreeNode) {
+func (o *PutVirtualNodeParams) SetBody(body PutVirtualNodeBody) {
 	o.Body = body
 }
 
@@ -154,10 +159,8 @@ func (o *PutVirtualNodeParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

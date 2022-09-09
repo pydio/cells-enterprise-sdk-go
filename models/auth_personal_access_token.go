@@ -75,6 +75,8 @@ func (m *AuthPersonalAccessToken) validateType(formats strfmt.Registry) error {
 		if err := m.Type.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}
@@ -103,6 +105,8 @@ func (m *AuthPersonalAccessToken) contextValidateType(ctx context.Context, forma
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}

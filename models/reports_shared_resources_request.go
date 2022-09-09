@@ -39,6 +39,9 @@ type ReportsSharedResourcesRequest struct {
 	// owner UUID
 	OwnerUUID string `json:"OwnerUUID,omitempty"`
 
+	// report date
+	ReportDate int32 `json:"ReportDate,omitempty"`
+
 	// roles read a n d
 	RolesReadAND bool `json:"RolesReadAND,omitempty"`
 
@@ -85,6 +88,8 @@ func (m *ReportsSharedResourcesRequest) validateNodeType(formats strfmt.Registry
 		if err := m.NodeType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodeType")
 			}
 			return err
 		}
@@ -102,6 +107,8 @@ func (m *ReportsSharedResourcesRequest) validateShareType(formats strfmt.Registr
 		if err := m.ShareType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ShareType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ShareType")
 			}
 			return err
 		}
@@ -134,6 +141,8 @@ func (m *ReportsSharedResourcesRequest) contextValidateNodeType(ctx context.Cont
 		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodeType")
 			}
 			return err
 		}
@@ -148,6 +157,8 @@ func (m *ReportsSharedResourcesRequest) contextValidateShareType(ctx context.Con
 		if err := m.ShareType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ShareType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ShareType")
 			}
 			return err
 		}

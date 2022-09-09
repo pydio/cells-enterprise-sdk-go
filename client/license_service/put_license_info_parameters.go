@@ -54,10 +54,12 @@ func NewPutLicenseInfoParamsWithHTTPClient(client *http.Client) *PutLicenseInfoP
 	}
 }
 
-/* PutLicenseInfoParams contains all the parameters to send to the API endpoint
-   for the put license info operation.
+/*
+PutLicenseInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put license info operation.
+
+	Typically these are written to a http.Request.
 */
 type PutLicenseInfoParams struct {
 

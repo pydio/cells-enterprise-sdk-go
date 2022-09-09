@@ -19,15 +19,15 @@ import (
 // swagger:model entOAuth2ClientCollection
 type EntOAuth2ClientCollection struct {
 
-	// clients
-	Clients []*AuthOAuth2ClientConfig `json:"Clients"`
+	// static clients
+	StaticClients []*AuthOAuth2ClientConfig `json:"staticClients"`
 }
 
 // Validate validates this ent o auth2 client collection
 func (m *EntOAuth2ClientCollection) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateClients(formats); err != nil {
+	if err := m.validateStaticClients(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -37,20 +37,22 @@ func (m *EntOAuth2ClientCollection) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *EntOAuth2ClientCollection) validateClients(formats strfmt.Registry) error {
-	if swag.IsZero(m.Clients) { // not required
+func (m *EntOAuth2ClientCollection) validateStaticClients(formats strfmt.Registry) error {
+	if swag.IsZero(m.StaticClients) { // not required
 		return nil
 	}
 
-	for i := 0; i < len(m.Clients); i++ {
-		if swag.IsZero(m.Clients[i]) { // not required
+	for i := 0; i < len(m.StaticClients); i++ {
+		if swag.IsZero(m.StaticClients[i]) { // not required
 			continue
 		}
 
-		if m.Clients[i] != nil {
-			if err := m.Clients[i].Validate(formats); err != nil {
+		if m.StaticClients[i] != nil {
+			if err := m.StaticClients[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Clients" + "." + strconv.Itoa(i))
+					return ve.ValidateName("staticClients" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("staticClients" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -65,7 +67,7 @@ func (m *EntOAuth2ClientCollection) validateClients(formats strfmt.Registry) err
 func (m *EntOAuth2ClientCollection) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateClients(ctx, formats); err != nil {
+	if err := m.contextValidateStaticClients(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,14 +77,16 @@ func (m *EntOAuth2ClientCollection) ContextValidate(ctx context.Context, formats
 	return nil
 }
 
-func (m *EntOAuth2ClientCollection) contextValidateClients(ctx context.Context, formats strfmt.Registry) error {
+func (m *EntOAuth2ClientCollection) contextValidateStaticClients(ctx context.Context, formats strfmt.Registry) error {
 
-	for i := 0; i < len(m.Clients); i++ {
+	for i := 0; i < len(m.StaticClients); i++ {
 
-		if m.Clients[i] != nil {
-			if err := m.Clients[i].ContextValidate(ctx, formats); err != nil {
+		if m.StaticClients[i] != nil {
+			if err := m.StaticClients[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("Clients" + "." + strconv.Itoa(i))
+					return ve.ValidateName("staticClients" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("staticClients" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

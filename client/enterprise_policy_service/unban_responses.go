@@ -54,7 +54,14 @@ func (o *UnbanReader) ReadResponse(response runtime.ClientResponse, consumer run
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewUnbanDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewUnbanOK() *UnbanOK {
 	return &UnbanOK{}
 }
 
-/* UnbanOK describes a response with status code 200, with default header values.
+/*
+UnbanOK describes a response with status code 200, with default header values.
 
-UnbanOK unban o k
+A successful response.
 */
 type UnbanOK struct {
 	Payload *models.IpbanUnbanResponse
 }
 
+// IsSuccess returns true when this unban o k response has a 2xx status code
+func (o *UnbanOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this unban o k response has a 3xx status code
+func (o *UnbanOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this unban o k response has a 4xx status code
+func (o *UnbanOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this unban o k response has a 5xx status code
+func (o *UnbanOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this unban o k response a status code equal to that given
+func (o *UnbanOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *UnbanOK) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK  %+v", 200, o.Payload)
 }
+
+func (o *UnbanOK) String() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK  %+v", 200, o.Payload)
+}
+
 func (o *UnbanOK) GetPayload() *models.IpbanUnbanResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewUnbanUnauthorized() *UnbanUnauthorized {
 	return &UnbanUnauthorized{}
 }
 
-/* UnbanUnauthorized describes a response with status code 401, with default header values.
+/*
+UnbanUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type UnbanUnauthorized struct {
 }
 
+// IsSuccess returns true when this unban unauthorized response has a 2xx status code
+func (o *UnbanUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this unban unauthorized response has a 3xx status code
+func (o *UnbanUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this unban unauthorized response has a 4xx status code
+func (o *UnbanUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this unban unauthorized response has a 5xx status code
+func (o *UnbanUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this unban unauthorized response a status code equal to that given
+func (o *UnbanUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *UnbanUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanUnauthorized ", 401)
+}
+
+func (o *UnbanUnauthorized) String() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewUnbanForbidden() *UnbanForbidden {
 	return &UnbanForbidden{}
 }
 
-/* UnbanForbidden describes a response with status code 403, with default header values.
+/*
+UnbanForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type UnbanForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this unban forbidden response has a 2xx status code
+func (o *UnbanForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this unban forbidden response has a 3xx status code
+func (o *UnbanForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this unban forbidden response has a 4xx status code
+func (o *UnbanForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this unban forbidden response has a 5xx status code
+func (o *UnbanForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this unban forbidden response a status code equal to that given
+func (o *UnbanForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *UnbanForbidden) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanForbidden  %+v", 403, o.Payload)
 }
+
+func (o *UnbanForbidden) String() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanForbidden  %+v", 403, o.Payload)
+}
+
 func (o *UnbanForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewUnbanNotFound() *UnbanNotFound {
 	return &UnbanNotFound{}
 }
 
-/* UnbanNotFound describes a response with status code 404, with default header values.
+/*
+UnbanNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type UnbanNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this unban not found response has a 2xx status code
+func (o *UnbanNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this unban not found response has a 3xx status code
+func (o *UnbanNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this unban not found response has a 4xx status code
+func (o *UnbanNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this unban not found response has a 5xx status code
+func (o *UnbanNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this unban not found response a status code equal to that given
+func (o *UnbanNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *UnbanNotFound) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UnbanNotFound) String() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UnbanNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewUnbanInternalServerError() *UnbanInternalServerError {
 	return &UnbanInternalServerError{}
 }
 
-/* UnbanInternalServerError describes a response with status code 500, with default header values.
+/*
+UnbanInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type UnbanInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this unban internal server error response has a 2xx status code
+func (o *UnbanInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this unban internal server error response has a 3xx status code
+func (o *UnbanInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this unban internal server error response has a 4xx status code
+func (o *UnbanInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this unban internal server error response has a 5xx status code
+func (o *UnbanInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this unban internal server error response a status code equal to that given
+func (o *UnbanInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *UnbanInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *UnbanInternalServerError) String() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *UnbanInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *UnbanInternalServerError) GetPayload() *models.RestError {
 func (o *UnbanInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanDefault creates a UnbanDefault with default headers values
+func NewUnbanDefault(code int) *UnbanDefault {
+	return &UnbanDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+UnbanDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type UnbanDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the unban default response
+func (o *UnbanDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this unban default response has a 2xx status code
+func (o *UnbanDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this unban default response has a 3xx status code
+func (o *UnbanDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this unban default response has a 4xx status code
+func (o *UnbanDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this unban default response has a 5xx status code
+func (o *UnbanDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this unban default response a status code equal to that given
+func (o *UnbanDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *UnbanDefault) Error() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] Unban default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UnbanDefault) String() string {
+	return fmt.Sprintf("[POST /policy/ipbans][%d] Unban default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UnbanDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *UnbanDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

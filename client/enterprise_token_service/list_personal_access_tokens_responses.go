@@ -54,7 +54,14 @@ func (o *ListPersonalAccessTokensReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewListPersonalAccessTokensDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewListPersonalAccessTokensOK() *ListPersonalAccessTokensOK {
 	return &ListPersonalAccessTokensOK{}
 }
 
-/* ListPersonalAccessTokensOK describes a response with status code 200, with default header values.
+/*
+ListPersonalAccessTokensOK describes a response with status code 200, with default header values.
 
-ListPersonalAccessTokensOK list personal access tokens o k
+A successful response.
 */
 type ListPersonalAccessTokensOK struct {
 	Payload *models.AuthPatListResponse
 }
 
+// IsSuccess returns true when this list personal access tokens o k response has a 2xx status code
+func (o *ListPersonalAccessTokensOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list personal access tokens o k response has a 3xx status code
+func (o *ListPersonalAccessTokensOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list personal access tokens o k response has a 4xx status code
+func (o *ListPersonalAccessTokensOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list personal access tokens o k response has a 5xx status code
+func (o *ListPersonalAccessTokensOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list personal access tokens o k response a status code equal to that given
+func (o *ListPersonalAccessTokensOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListPersonalAccessTokensOK) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensOK  %+v", 200, o.Payload)
 }
+
+func (o *ListPersonalAccessTokensOK) String() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensOK  %+v", 200, o.Payload)
+}
+
 func (o *ListPersonalAccessTokensOK) GetPayload() *models.AuthPatListResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewListPersonalAccessTokensUnauthorized() *ListPersonalAccessTokensUnauthor
 	return &ListPersonalAccessTokensUnauthorized{}
 }
 
-/* ListPersonalAccessTokensUnauthorized describes a response with status code 401, with default header values.
+/*
+ListPersonalAccessTokensUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type ListPersonalAccessTokensUnauthorized struct {
 }
 
+// IsSuccess returns true when this list personal access tokens unauthorized response has a 2xx status code
+func (o *ListPersonalAccessTokensUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list personal access tokens unauthorized response has a 3xx status code
+func (o *ListPersonalAccessTokensUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list personal access tokens unauthorized response has a 4xx status code
+func (o *ListPersonalAccessTokensUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list personal access tokens unauthorized response has a 5xx status code
+func (o *ListPersonalAccessTokensUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list personal access tokens unauthorized response a status code equal to that given
+func (o *ListPersonalAccessTokensUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *ListPersonalAccessTokensUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensUnauthorized ", 401)
+}
+
+func (o *ListPersonalAccessTokensUnauthorized) String() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewListPersonalAccessTokensForbidden() *ListPersonalAccessTokensForbidden {
 	return &ListPersonalAccessTokensForbidden{}
 }
 
-/* ListPersonalAccessTokensForbidden describes a response with status code 403, with default header values.
+/*
+ListPersonalAccessTokensForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type ListPersonalAccessTokensForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list personal access tokens forbidden response has a 2xx status code
+func (o *ListPersonalAccessTokensForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list personal access tokens forbidden response has a 3xx status code
+func (o *ListPersonalAccessTokensForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list personal access tokens forbidden response has a 4xx status code
+func (o *ListPersonalAccessTokensForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list personal access tokens forbidden response has a 5xx status code
+func (o *ListPersonalAccessTokensForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list personal access tokens forbidden response a status code equal to that given
+func (o *ListPersonalAccessTokensForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ListPersonalAccessTokensForbidden) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ListPersonalAccessTokensForbidden) String() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ListPersonalAccessTokensForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewListPersonalAccessTokensNotFound() *ListPersonalAccessTokensNotFound {
 	return &ListPersonalAccessTokensNotFound{}
 }
 
-/* ListPersonalAccessTokensNotFound describes a response with status code 404, with default header values.
+/*
+ListPersonalAccessTokensNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type ListPersonalAccessTokensNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list personal access tokens not found response has a 2xx status code
+func (o *ListPersonalAccessTokensNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list personal access tokens not found response has a 3xx status code
+func (o *ListPersonalAccessTokensNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list personal access tokens not found response has a 4xx status code
+func (o *ListPersonalAccessTokensNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list personal access tokens not found response has a 5xx status code
+func (o *ListPersonalAccessTokensNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list personal access tokens not found response a status code equal to that given
+func (o *ListPersonalAccessTokensNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ListPersonalAccessTokensNotFound) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListPersonalAccessTokensNotFound) String() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListPersonalAccessTokensNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewListPersonalAccessTokensInternalServerError() *ListPersonalAccessTokensI
 	return &ListPersonalAccessTokensInternalServerError{}
 }
 
-/* ListPersonalAccessTokensInternalServerError describes a response with status code 500, with default header values.
+/*
+ListPersonalAccessTokensInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type ListPersonalAccessTokensInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list personal access tokens internal server error response has a 2xx status code
+func (o *ListPersonalAccessTokensInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list personal access tokens internal server error response has a 3xx status code
+func (o *ListPersonalAccessTokensInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list personal access tokens internal server error response has a 4xx status code
+func (o *ListPersonalAccessTokensInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list personal access tokens internal server error response has a 5xx status code
+func (o *ListPersonalAccessTokensInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this list personal access tokens internal server error response a status code equal to that given
+func (o *ListPersonalAccessTokensInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ListPersonalAccessTokensInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ListPersonalAccessTokensInternalServerError) String() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ListPersonalAccessTokensInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *ListPersonalAccessTokensInternalServerError) GetPayload() *models.RestE
 func (o *ListPersonalAccessTokensInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListPersonalAccessTokensDefault creates a ListPersonalAccessTokensDefault with default headers values
+func NewListPersonalAccessTokensDefault(code int) *ListPersonalAccessTokensDefault {
+	return &ListPersonalAccessTokensDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ListPersonalAccessTokensDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type ListPersonalAccessTokensDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the list personal access tokens default response
+func (o *ListPersonalAccessTokensDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this list personal access tokens default response has a 2xx status code
+func (o *ListPersonalAccessTokensDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list personal access tokens default response has a 3xx status code
+func (o *ListPersonalAccessTokensDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list personal access tokens default response has a 4xx status code
+func (o *ListPersonalAccessTokensDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list personal access tokens default response has a 5xx status code
+func (o *ListPersonalAccessTokensDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list personal access tokens default response a status code equal to that given
+func (o *ListPersonalAccessTokensDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ListPersonalAccessTokensDefault) Error() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] ListPersonalAccessTokens default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListPersonalAccessTokensDefault) String() string {
+	return fmt.Sprintf("[POST /auth/tokens][%d] ListPersonalAccessTokens default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListPersonalAccessTokensDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *ListPersonalAccessTokensDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

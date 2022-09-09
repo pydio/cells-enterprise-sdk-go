@@ -54,10 +54,12 @@ func NewAuditChartDataParamsWithHTTPClient(client *http.Client) *AuditChartDataP
 	}
 }
 
-/* AuditChartDataParams contains all the parameters to send to the API endpoint
-   for the audit chart data operation.
+/*
+AuditChartDataParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the audit chart data operation.
+
+	Typically these are written to a http.Request.
 */
 type AuditChartDataParams struct {
 

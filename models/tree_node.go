@@ -90,6 +90,8 @@ func (m *TreeNode) validateAppearsIn(formats strfmt.Registry) error {
 			if err := m.AppearsIn[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("AppearsIn" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("AppearsIn" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -114,6 +116,8 @@ func (m *TreeNode) validateCommits(formats strfmt.Registry) error {
 			if err := m.Commits[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Commits" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Commits" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -133,6 +137,8 @@ func (m *TreeNode) validateType(formats strfmt.Registry) error {
 		if err := m.Type.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}
@@ -171,6 +177,8 @@ func (m *TreeNode) contextValidateAppearsIn(ctx context.Context, formats strfmt.
 			if err := m.AppearsIn[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("AppearsIn" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("AppearsIn" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -189,6 +197,8 @@ func (m *TreeNode) contextValidateCommits(ctx context.Context, formats strfmt.Re
 			if err := m.Commits[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Commits" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Commits" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -205,6 +215,8 @@ func (m *TreeNode) contextValidateType(ctx context.Context, formats strfmt.Regis
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}

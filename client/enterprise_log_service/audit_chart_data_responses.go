@@ -54,7 +54,14 @@ func (o *AuditChartDataReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewAuditChartDataDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewAuditChartDataOK() *AuditChartDataOK {
 	return &AuditChartDataOK{}
 }
 
-/* AuditChartDataOK describes a response with status code 200, with default header values.
+/*
+AuditChartDataOK describes a response with status code 200, with default header values.
 
-AuditChartDataOK audit chart data o k
+A successful response.
 */
 type AuditChartDataOK struct {
 	Payload *models.RestTimeRangeResultCollection
 }
 
+// IsSuccess returns true when this audit chart data o k response has a 2xx status code
+func (o *AuditChartDataOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this audit chart data o k response has a 3xx status code
+func (o *AuditChartDataOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit chart data o k response has a 4xx status code
+func (o *AuditChartDataOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this audit chart data o k response has a 5xx status code
+func (o *AuditChartDataOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit chart data o k response a status code equal to that given
+func (o *AuditChartDataOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *AuditChartDataOK) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK  %+v", 200, o.Payload)
 }
+
+func (o *AuditChartDataOK) String() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK  %+v", 200, o.Payload)
+}
+
 func (o *AuditChartDataOK) GetPayload() *models.RestTimeRangeResultCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewAuditChartDataUnauthorized() *AuditChartDataUnauthorized {
 	return &AuditChartDataUnauthorized{}
 }
 
-/* AuditChartDataUnauthorized describes a response with status code 401, with default header values.
+/*
+AuditChartDataUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type AuditChartDataUnauthorized struct {
 }
 
+// IsSuccess returns true when this audit chart data unauthorized response has a 2xx status code
+func (o *AuditChartDataUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit chart data unauthorized response has a 3xx status code
+func (o *AuditChartDataUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit chart data unauthorized response has a 4xx status code
+func (o *AuditChartDataUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit chart data unauthorized response has a 5xx status code
+func (o *AuditChartDataUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit chart data unauthorized response a status code equal to that given
+func (o *AuditChartDataUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *AuditChartDataUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataUnauthorized ", 401)
+}
+
+func (o *AuditChartDataUnauthorized) String() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewAuditChartDataForbidden() *AuditChartDataForbidden {
 	return &AuditChartDataForbidden{}
 }
 
-/* AuditChartDataForbidden describes a response with status code 403, with default header values.
+/*
+AuditChartDataForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type AuditChartDataForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit chart data forbidden response has a 2xx status code
+func (o *AuditChartDataForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit chart data forbidden response has a 3xx status code
+func (o *AuditChartDataForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit chart data forbidden response has a 4xx status code
+func (o *AuditChartDataForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit chart data forbidden response has a 5xx status code
+func (o *AuditChartDataForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit chart data forbidden response a status code equal to that given
+func (o *AuditChartDataForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *AuditChartDataForbidden) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataForbidden  %+v", 403, o.Payload)
 }
+
+func (o *AuditChartDataForbidden) String() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataForbidden  %+v", 403, o.Payload)
+}
+
 func (o *AuditChartDataForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewAuditChartDataNotFound() *AuditChartDataNotFound {
 	return &AuditChartDataNotFound{}
 }
 
-/* AuditChartDataNotFound describes a response with status code 404, with default header values.
+/*
+AuditChartDataNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type AuditChartDataNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit chart data not found response has a 2xx status code
+func (o *AuditChartDataNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit chart data not found response has a 3xx status code
+func (o *AuditChartDataNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit chart data not found response has a 4xx status code
+func (o *AuditChartDataNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit chart data not found response has a 5xx status code
+func (o *AuditChartDataNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit chart data not found response a status code equal to that given
+func (o *AuditChartDataNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *AuditChartDataNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataNotFound  %+v", 404, o.Payload)
 }
+
+func (o *AuditChartDataNotFound) String() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataNotFound  %+v", 404, o.Payload)
+}
+
 func (o *AuditChartDataNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewAuditChartDataInternalServerError() *AuditChartDataInternalServerError {
 	return &AuditChartDataInternalServerError{}
 }
 
-/* AuditChartDataInternalServerError describes a response with status code 500, with default header values.
+/*
+AuditChartDataInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type AuditChartDataInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit chart data internal server error response has a 2xx status code
+func (o *AuditChartDataInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit chart data internal server error response has a 3xx status code
+func (o *AuditChartDataInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit chart data internal server error response has a 4xx status code
+func (o *AuditChartDataInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this audit chart data internal server error response has a 5xx status code
+func (o *AuditChartDataInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this audit chart data internal server error response a status code equal to that given
+func (o *AuditChartDataInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *AuditChartDataInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *AuditChartDataInternalServerError) String() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *AuditChartDataInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *AuditChartDataInternalServerError) GetPayload() *models.RestError {
 func (o *AuditChartDataInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAuditChartDataDefault creates a AuditChartDataDefault with default headers values
+func NewAuditChartDataDefault(code int) *AuditChartDataDefault {
+	return &AuditChartDataDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+AuditChartDataDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type AuditChartDataDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the audit chart data default response
+func (o *AuditChartDataDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this audit chart data default response has a 2xx status code
+func (o *AuditChartDataDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this audit chart data default response has a 3xx status code
+func (o *AuditChartDataDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this audit chart data default response has a 4xx status code
+func (o *AuditChartDataDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this audit chart data default response has a 5xx status code
+func (o *AuditChartDataDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this audit chart data default response a status code equal to that given
+func (o *AuditChartDataDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *AuditChartDataDefault) Error() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] AuditChartData default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AuditChartDataDefault) String() string {
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] AuditChartData default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AuditChartDataDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *AuditChartDataDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

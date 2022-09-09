@@ -45,6 +45,8 @@ func (m *EntPutJobTemplateResponse) validateJob(formats strfmt.Registry) error {
 		if err := m.Job.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Job")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Job")
 			}
 			return err
 		}
@@ -73,6 +75,8 @@ func (m *EntPutJobTemplateResponse) contextValidateJob(ctx context.Context, form
 		if err := m.Job.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Job")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Job")
 			}
 			return err
 		}

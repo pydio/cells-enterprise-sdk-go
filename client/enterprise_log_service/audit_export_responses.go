@@ -54,7 +54,14 @@ func (o *AuditExportReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewAuditExportDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewAuditExportOK() *AuditExportOK {
 	return &AuditExportOK{}
 }
 
-/* AuditExportOK describes a response with status code 200, with default header values.
+/*
+AuditExportOK describes a response with status code 200, with default header values.
 
-AuditExportOK audit export o k
+A successful response.
 */
 type AuditExportOK struct {
 	Payload *models.RestLogMessageCollection
 }
 
+// IsSuccess returns true when this audit export o k response has a 2xx status code
+func (o *AuditExportOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this audit export o k response has a 3xx status code
+func (o *AuditExportOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit export o k response has a 4xx status code
+func (o *AuditExportOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this audit export o k response has a 5xx status code
+func (o *AuditExportOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit export o k response a status code equal to that given
+func (o *AuditExportOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *AuditExportOK) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportOK  %+v", 200, o.Payload)
 }
+
+func (o *AuditExportOK) String() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportOK  %+v", 200, o.Payload)
+}
+
 func (o *AuditExportOK) GetPayload() *models.RestLogMessageCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewAuditExportUnauthorized() *AuditExportUnauthorized {
 	return &AuditExportUnauthorized{}
 }
 
-/* AuditExportUnauthorized describes a response with status code 401, with default header values.
+/*
+AuditExportUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type AuditExportUnauthorized struct {
 }
 
+// IsSuccess returns true when this audit export unauthorized response has a 2xx status code
+func (o *AuditExportUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit export unauthorized response has a 3xx status code
+func (o *AuditExportUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit export unauthorized response has a 4xx status code
+func (o *AuditExportUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit export unauthorized response has a 5xx status code
+func (o *AuditExportUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit export unauthorized response a status code equal to that given
+func (o *AuditExportUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *AuditExportUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportUnauthorized ", 401)
+}
+
+func (o *AuditExportUnauthorized) String() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewAuditExportForbidden() *AuditExportForbidden {
 	return &AuditExportForbidden{}
 }
 
-/* AuditExportForbidden describes a response with status code 403, with default header values.
+/*
+AuditExportForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type AuditExportForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit export forbidden response has a 2xx status code
+func (o *AuditExportForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit export forbidden response has a 3xx status code
+func (o *AuditExportForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit export forbidden response has a 4xx status code
+func (o *AuditExportForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit export forbidden response has a 5xx status code
+func (o *AuditExportForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit export forbidden response a status code equal to that given
+func (o *AuditExportForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *AuditExportForbidden) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportForbidden  %+v", 403, o.Payload)
 }
+
+func (o *AuditExportForbidden) String() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportForbidden  %+v", 403, o.Payload)
+}
+
 func (o *AuditExportForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewAuditExportNotFound() *AuditExportNotFound {
 	return &AuditExportNotFound{}
 }
 
-/* AuditExportNotFound describes a response with status code 404, with default header values.
+/*
+AuditExportNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type AuditExportNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit export not found response has a 2xx status code
+func (o *AuditExportNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit export not found response has a 3xx status code
+func (o *AuditExportNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit export not found response has a 4xx status code
+func (o *AuditExportNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this audit export not found response has a 5xx status code
+func (o *AuditExportNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this audit export not found response a status code equal to that given
+func (o *AuditExportNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *AuditExportNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportNotFound  %+v", 404, o.Payload)
 }
+
+func (o *AuditExportNotFound) String() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportNotFound  %+v", 404, o.Payload)
+}
+
 func (o *AuditExportNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewAuditExportInternalServerError() *AuditExportInternalServerError {
 	return &AuditExportInternalServerError{}
 }
 
-/* AuditExportInternalServerError describes a response with status code 500, with default header values.
+/*
+AuditExportInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type AuditExportInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this audit export internal server error response has a 2xx status code
+func (o *AuditExportInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this audit export internal server error response has a 3xx status code
+func (o *AuditExportInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this audit export internal server error response has a 4xx status code
+func (o *AuditExportInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this audit export internal server error response has a 5xx status code
+func (o *AuditExportInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this audit export internal server error response a status code equal to that given
+func (o *AuditExportInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *AuditExportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *AuditExportInternalServerError) String() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *AuditExportInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *AuditExportInternalServerError) GetPayload() *models.RestError {
 func (o *AuditExportInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAuditExportDefault creates a AuditExportDefault with default headers values
+func NewAuditExportDefault(code int) *AuditExportDefault {
+	return &AuditExportDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+AuditExportDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type AuditExportDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the audit export default response
+func (o *AuditExportDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this audit export default response has a 2xx status code
+func (o *AuditExportDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this audit export default response has a 3xx status code
+func (o *AuditExportDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this audit export default response has a 4xx status code
+func (o *AuditExportDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this audit export default response has a 5xx status code
+func (o *AuditExportDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this audit export default response a status code equal to that given
+func (o *AuditExportDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *AuditExportDefault) Error() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] AuditExport default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AuditExportDefault) String() string {
+	return fmt.Sprintf("[POST /log/audit/export][%d] AuditExport default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *AuditExportDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *AuditExportDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -20,8 +20,12 @@ import (
 type ServiceOperationType string
 
 func NewServiceOperationType(value ServiceOperationType) *ServiceOperationType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated ServiceOperationType.
+func (m ServiceOperationType) Pointer() *ServiceOperationType {
+	return &m
 }
 
 const (

@@ -6,8 +6,6 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 )
@@ -48,6 +46,8 @@ type ClientService interface {
 
 	ListSites(params *ListSitesParams, opts ...ClientOption) (*ListSitesOK, error)
 
+	PingExternalDirectory(params *PingExternalDirectoryParams, opts ...ClientOption) (*PingExternalDirectoryOK, error)
+
 	PutExternalDirectory(params *PutExternalDirectoryParams, opts ...ClientOption) (*PutExternalDirectoryOK, error)
 
 	PutOAuth2Client(params *PutOAuth2ClientParams, opts ...ClientOption) (*PutOAuth2ClientOK, error)
@@ -60,11 +60,13 @@ type ClientService interface {
 
 	PutVirtualNode(params *PutVirtualNodeParams, opts ...ClientOption) (*PutVirtualNodeOK, error)
 
+	SearchExternalDirectory(params *SearchExternalDirectoryParams, opts ...ClientOption) (*SearchExternalDirectoryOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  DeleteExternalDirectory enterprises only delete external directory
+DeleteExternalDirectory enterprises only delete external directory
 */
 func (a *Client) DeleteExternalDirectory(params *DeleteExternalDirectoryParams, opts ...ClientOption) (*DeleteExternalDirectoryOK, error) {
 	// TODO: Validate the params before sending
@@ -96,13 +98,12 @@ func (a *Client) DeleteExternalDirectory(params *DeleteExternalDirectoryParams, 
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteExternalDirectory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteExternalDirectoryDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteOAuth2Client enterprises only delete an oauth2 client
+DeleteOAuth2Client enterprises only delete an oauth2 client
 */
 func (a *Client) DeleteOAuth2Client(params *DeleteOAuth2ClientParams, opts ...ClientOption) (*DeleteOAuth2ClientOK, error) {
 	// TODO: Validate the params before sending
@@ -112,7 +113,7 @@ func (a *Client) DeleteOAuth2Client(params *DeleteOAuth2ClientParams, opts ...Cl
 	op := &runtime.ClientOperation{
 		ID:                 "DeleteOAuth2Client",
 		Method:             "DELETE",
-		PathPattern:        "/config/oauth2clients/{ClientID}",
+		PathPattern:        "/config/oauth2clients/{client_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
@@ -134,13 +135,12 @@ func (a *Client) DeleteOAuth2Client(params *DeleteOAuth2ClientParams, opts ...Cl
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteOAuth2Client: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteOAuth2ClientDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteOAuth2Connector enterprises only delete an oauth2 client
+DeleteOAuth2Connector enterprises only delete an oauth2 client
 */
 func (a *Client) DeleteOAuth2Connector(params *DeleteOAuth2ConnectorParams, opts ...ClientOption) (*DeleteOAuth2ConnectorOK, error) {
 	// TODO: Validate the params before sending
@@ -172,13 +172,12 @@ func (a *Client) DeleteOAuth2Connector(params *DeleteOAuth2ConnectorParams, opts
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteOAuth2Connector: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteOAuth2ConnectorDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteVersioningPolicy enterprises only delete a versioning policy
+DeleteVersioningPolicy enterprises only delete a versioning policy
 */
 func (a *Client) DeleteVersioningPolicy(params *DeleteVersioningPolicyParams, opts ...ClientOption) (*DeleteVersioningPolicyOK, error) {
 	// TODO: Validate the params before sending
@@ -210,13 +209,12 @@ func (a *Client) DeleteVersioningPolicy(params *DeleteVersioningPolicyParams, op
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteVersioningPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteVersioningPolicyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteVirtualNode enterprises only delete a virtual node
+DeleteVirtualNode enterprises only delete a virtual node
 */
 func (a *Client) DeleteVirtualNode(params *DeleteVirtualNodeParams, opts ...ClientOption) (*DeleteVirtualNodeOK, error) {
 	// TODO: Validate the params before sending
@@ -248,13 +246,12 @@ func (a *Client) DeleteVirtualNode(params *DeleteVirtualNodeParams, opts ...Clie
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteVirtualNode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteVirtualNodeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListExternalDirectories enterprises only list additional user directories
+ListExternalDirectories enterprises only list additional user directories
 */
 func (a *Client) ListExternalDirectories(params *ListExternalDirectoriesParams, opts ...ClientOption) (*ListExternalDirectoriesOK, error) {
 	// TODO: Validate the params before sending
@@ -286,13 +283,12 @@ func (a *Client) ListExternalDirectories(params *ListExternalDirectoriesParams, 
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListExternalDirectories: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListExternalDirectoriesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListOAuth2Clients enterprises only list oauth2 clients
+ListOAuth2Clients enterprises only list oauth2 clients
 */
 func (a *Client) ListOAuth2Clients(params *ListOAuth2ClientsParams, opts ...ClientOption) (*ListOAuth2ClientsOK, error) {
 	// TODO: Validate the params before sending
@@ -324,13 +320,12 @@ func (a *Client) ListOAuth2Clients(params *ListOAuth2ClientsParams, opts ...Clie
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListOAuth2Clients: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListOAuth2ClientsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListOAuth2Connectors enterprises only list oauth2 connectors
+ListOAuth2Connectors enterprises only list oauth2 connectors
 */
 func (a *Client) ListOAuth2Connectors(params *ListOAuth2ConnectorsParams, opts ...ClientOption) (*ListOAuth2ConnectorsOK, error) {
 	// TODO: Validate the params before sending
@@ -362,13 +357,12 @@ func (a *Client) ListOAuth2Connectors(params *ListOAuth2ConnectorsParams, opts .
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListOAuth2Connectors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListOAuth2ConnectorsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListSites enterprises only list configured sites
+ListSites enterprises only list configured sites
 */
 func (a *Client) ListSites(params *ListSitesParams, opts ...ClientOption) (*ListSitesOK, error) {
 	// TODO: Validate the params before sending
@@ -400,13 +394,49 @@ func (a *Client) ListSites(params *ListSitesParams, opts ...ClientOption) (*List
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListSites: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListSitesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutExternalDirectory enterprises only add create an external directory
+PingExternalDirectory enterprises only sends an arbitrary config and try to ping the server and bind
+*/
+func (a *Client) PingExternalDirectory(params *PingExternalDirectoryParams, opts ...ClientOption) (*PingExternalDirectoryOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPingExternalDirectoryParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "PingExternalDirectory",
+		Method:             "POST",
+		PathPattern:        "/config/directories-test/ping",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &PingExternalDirectoryReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PingExternalDirectoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PingExternalDirectoryDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+PutExternalDirectory enterprises only add create an external directory
 */
 func (a *Client) PutExternalDirectory(params *PutExternalDirectoryParams, opts ...ClientOption) (*PutExternalDirectoryOK, error) {
 	// TODO: Validate the params before sending
@@ -438,13 +468,12 @@ func (a *Client) PutExternalDirectory(params *PutExternalDirectoryParams, opts .
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutExternalDirectory: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutExternalDirectoryDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutOAuth2Client enterprises only add create a new oauth2 client
+PutOAuth2Client enterprises only add create a new oauth2 client
 */
 func (a *Client) PutOAuth2Client(params *PutOAuth2ClientParams, opts ...ClientOption) (*PutOAuth2ClientOK, error) {
 	// TODO: Validate the params before sending
@@ -454,7 +483,7 @@ func (a *Client) PutOAuth2Client(params *PutOAuth2ClientParams, opts ...ClientOp
 	op := &runtime.ClientOperation{
 		ID:                 "PutOAuth2Client",
 		Method:             "PUT",
-		PathPattern:        "/config/oauth2clients/{ClientID}",
+		PathPattern:        "/config/oauth2clients/{client_id}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"http", "https", "wss"},
@@ -476,13 +505,12 @@ func (a *Client) PutOAuth2Client(params *PutOAuth2ClientParams, opts ...ClientOp
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutOAuth2Client: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutOAuth2ClientDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutOAuth2Connector enterprises only add create a new oauth2 client
+PutOAuth2Connector enterprises only add create a new oauth2 client
 */
 func (a *Client) PutOAuth2Connector(params *PutOAuth2ConnectorParams, opts ...ClientOption) (*PutOAuth2ConnectorOK, error) {
 	// TODO: Validate the params before sending
@@ -514,13 +542,12 @@ func (a *Client) PutOAuth2Connector(params *PutOAuth2ConnectorParams, opts ...Cl
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutOAuth2Connector: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutOAuth2ConnectorDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutOAuth2Connectors enterprises only add create a new oauth2 client
+PutOAuth2Connectors enterprises only add create a new oauth2 client
 */
 func (a *Client) PutOAuth2Connectors(params *PutOAuth2ConnectorsParams, opts ...ClientOption) (*PutOAuth2ConnectorsOK, error) {
 	// TODO: Validate the params before sending
@@ -552,13 +579,12 @@ func (a *Client) PutOAuth2Connectors(params *PutOAuth2ConnectorsParams, opts ...
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutOAuth2Connectors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutOAuth2ConnectorsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutVersioningPolicy enterprises only create or update a versioning policy
+PutVersioningPolicy enterprises only create or update a versioning policy
 */
 func (a *Client) PutVersioningPolicy(params *PutVersioningPolicyParams, opts ...ClientOption) (*PutVersioningPolicyOK, error) {
 	// TODO: Validate the params before sending
@@ -590,13 +616,12 @@ func (a *Client) PutVersioningPolicy(params *PutVersioningPolicyParams, opts ...
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutVersioningPolicy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutVersioningPolicyDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutVirtualNode enterprises only create or update a virtual node
+PutVirtualNode enterprises only create or update a virtual node
 */
 func (a *Client) PutVirtualNode(params *PutVirtualNodeParams, opts ...ClientOption) (*PutVirtualNodeOK, error) {
 	// TODO: Validate the params before sending
@@ -628,9 +653,45 @@ func (a *Client) PutVirtualNode(params *PutVirtualNodeParams, opts ...ClientOpti
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutVirtualNode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutVirtualNodeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+SearchExternalDirectory enterprises only sends an arbitrary config and try to ldapsearch using a given search filter
+*/
+func (a *Client) SearchExternalDirectory(params *SearchExternalDirectoryParams, opts ...ClientOption) (*SearchExternalDirectoryOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSearchExternalDirectoryParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "SearchExternalDirectory",
+		Method:             "POST",
+		PathPattern:        "/config/directories-test/search",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &SearchExternalDirectoryReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SearchExternalDirectoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*SearchExternalDirectoryDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

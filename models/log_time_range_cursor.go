@@ -51,6 +51,8 @@ func (m *LogTimeRangeCursor) validateRel(formats strfmt.Registry) error {
 		if err := m.Rel.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Rel")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Rel")
 			}
 			return err
 		}
@@ -79,6 +81,8 @@ func (m *LogTimeRangeCursor) contextValidateRel(ctx context.Context, formats str
 		if err := m.Rel.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Rel")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Rel")
 			}
 			return err
 		}

@@ -51,6 +51,8 @@ func (m *EntOAuth2ConnectorCollection) validateConnectors(formats strfmt.Registr
 			if err := m.Connectors[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("connectors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("connectors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -83,6 +85,8 @@ func (m *EntOAuth2ConnectorCollection) contextValidateConnectors(ctx context.Con
 			if err := m.Connectors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("connectors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("connectors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

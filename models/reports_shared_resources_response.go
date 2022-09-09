@@ -63,6 +63,8 @@ func (m *ReportsSharedResourcesResponse) validateResources(formats strfmt.Regist
 			if err := m.Resources[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -95,6 +97,8 @@ func (m *ReportsSharedResourcesResponse) contextValidateResources(ctx context.Co
 			if err := m.Resources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

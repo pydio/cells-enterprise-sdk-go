@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeleteVirtualNodeParams creates a new DeleteVirtualNodeParams object,
@@ -52,14 +53,59 @@ func NewDeleteVirtualNodeParamsWithHTTPClient(client *http.Client) *DeleteVirtua
 	}
 }
 
-/* DeleteVirtualNodeParams contains all the parameters to send to the API endpoint
-   for the delete virtual node operation.
+/*
+DeleteVirtualNodeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete virtual node operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteVirtualNodeParams struct {
 
-	// UUID.
+	/* Etag.
+
+	   Hash of the content if node is a LEAF, Uuid or.
+	*/
+	Etag *string
+
+	/* MTime.
+
+	   Last modification Timestamp.
+
+	   Format: int64
+	*/
+	MTime *string
+
+	/* Mode.
+
+	   Permission mode, like 0777.
+
+	   Format: int32
+	*/
+	Mode *int32
+
+	// Path.
+	Path *string
+
+	/* Size.
+
+	   Size of the file, or cumulated size of folder.
+
+	   Format: int64
+	*/
+	Size *string
+
+	// Type.
+	//
+	// Default: "UNKNOWN"
+	Type *string
+
+	/* UUID.
+
+	     ------------------------------------
+	Core identification of the node
+	------------------------------------
+	*/
 	UUID string
 
 	timeout    time.Duration
@@ -79,7 +125,18 @@ func (o *DeleteVirtualNodeParams) WithDefaults() *DeleteVirtualNodeParams {
 //
 // All values with no default are reset to their zero value.
 func (o *DeleteVirtualNodeParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		typeVarDefault = string("UNKNOWN")
+	)
+
+	val := DeleteVirtualNodeParams{
+		Type: &typeVarDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete virtual node params
@@ -115,6 +172,72 @@ func (o *DeleteVirtualNodeParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithEtag adds the etag to the delete virtual node params
+func (o *DeleteVirtualNodeParams) WithEtag(etag *string) *DeleteVirtualNodeParams {
+	o.SetEtag(etag)
+	return o
+}
+
+// SetEtag adds the etag to the delete virtual node params
+func (o *DeleteVirtualNodeParams) SetEtag(etag *string) {
+	o.Etag = etag
+}
+
+// WithMTime adds the mTime to the delete virtual node params
+func (o *DeleteVirtualNodeParams) WithMTime(mTime *string) *DeleteVirtualNodeParams {
+	o.SetMTime(mTime)
+	return o
+}
+
+// SetMTime adds the mTime to the delete virtual node params
+func (o *DeleteVirtualNodeParams) SetMTime(mTime *string) {
+	o.MTime = mTime
+}
+
+// WithMode adds the mode to the delete virtual node params
+func (o *DeleteVirtualNodeParams) WithMode(mode *int32) *DeleteVirtualNodeParams {
+	o.SetMode(mode)
+	return o
+}
+
+// SetMode adds the mode to the delete virtual node params
+func (o *DeleteVirtualNodeParams) SetMode(mode *int32) {
+	o.Mode = mode
+}
+
+// WithPath adds the path to the delete virtual node params
+func (o *DeleteVirtualNodeParams) WithPath(path *string) *DeleteVirtualNodeParams {
+	o.SetPath(path)
+	return o
+}
+
+// SetPath adds the path to the delete virtual node params
+func (o *DeleteVirtualNodeParams) SetPath(path *string) {
+	o.Path = path
+}
+
+// WithSize adds the size to the delete virtual node params
+func (o *DeleteVirtualNodeParams) WithSize(size *string) *DeleteVirtualNodeParams {
+	o.SetSize(size)
+	return o
+}
+
+// SetSize adds the size to the delete virtual node params
+func (o *DeleteVirtualNodeParams) SetSize(size *string) {
+	o.Size = size
+}
+
+// WithType adds the typeVar to the delete virtual node params
+func (o *DeleteVirtualNodeParams) WithType(typeVar *string) *DeleteVirtualNodeParams {
+	o.SetType(typeVar)
+	return o
+}
+
+// SetType adds the type to the delete virtual node params
+func (o *DeleteVirtualNodeParams) SetType(typeVar *string) {
+	o.Type = typeVar
+}
+
 // WithUUID adds the uuid to the delete virtual node params
 func (o *DeleteVirtualNodeParams) WithUUID(uuid string) *DeleteVirtualNodeParams {
 	o.SetUUID(uuid)
@@ -133,6 +256,108 @@ func (o *DeleteVirtualNodeParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
+
+	if o.Etag != nil {
+
+		// query param Etag
+		var qrEtag string
+
+		if o.Etag != nil {
+			qrEtag = *o.Etag
+		}
+		qEtag := qrEtag
+		if qEtag != "" {
+
+			if err := r.SetQueryParam("Etag", qEtag); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.MTime != nil {
+
+		// query param MTime
+		var qrMTime string
+
+		if o.MTime != nil {
+			qrMTime = *o.MTime
+		}
+		qMTime := qrMTime
+		if qMTime != "" {
+
+			if err := r.SetQueryParam("MTime", qMTime); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Mode != nil {
+
+		// query param Mode
+		var qrMode int32
+
+		if o.Mode != nil {
+			qrMode = *o.Mode
+		}
+		qMode := swag.FormatInt32(qrMode)
+		if qMode != "" {
+
+			if err := r.SetQueryParam("Mode", qMode); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Path != nil {
+
+		// query param Path
+		var qrPath string
+
+		if o.Path != nil {
+			qrPath = *o.Path
+		}
+		qPath := qrPath
+		if qPath != "" {
+
+			if err := r.SetQueryParam("Path", qPath); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Size != nil {
+
+		// query param Size
+		var qrSize string
+
+		if o.Size != nil {
+			qrSize = *o.Size
+		}
+		qSize := qrSize
+		if qSize != "" {
+
+			if err := r.SetQueryParam("Size", qSize); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Type != nil {
+
+		// query param Type
+		var qrType string
+
+		if o.Type != nil {
+			qrType = *o.Type
+		}
+		qType := qrType
+		if qType != "" {
+
+			if err := r.SetQueryParam("Type", qType); err != nil {
+				return err
+			}
+		}
+	}
 
 	// path param Uuid
 	if err := r.SetPathParam("Uuid", o.UUID); err != nil {

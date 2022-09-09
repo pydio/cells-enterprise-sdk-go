@@ -20,8 +20,12 @@ import (
 type JobsContextMetaFilterType string
 
 func NewJobsContextMetaFilterType(value JobsContextMetaFilterType) *JobsContextMetaFilterType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated JobsContextMetaFilterType.
+func (m JobsContextMetaFilterType) Pointer() *JobsContextMetaFilterType {
+	return &m
 }
 
 const (

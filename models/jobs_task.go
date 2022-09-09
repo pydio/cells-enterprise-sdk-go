@@ -88,6 +88,8 @@ func (m *JobsTask) validateActionsLogs(formats strfmt.Registry) error {
 			if err := m.ActionsLogs[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ActionsLogs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ActionsLogs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -107,6 +109,8 @@ func (m *JobsTask) validateStatus(formats strfmt.Registry) error {
 		if err := m.Status.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Status")
 			}
 			return err
 		}
@@ -141,6 +145,8 @@ func (m *JobsTask) contextValidateActionsLogs(ctx context.Context, formats strfm
 			if err := m.ActionsLogs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ActionsLogs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ActionsLogs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -157,6 +163,8 @@ func (m *JobsTask) contextValidateStatus(ctx context.Context, formats strfmt.Reg
 		if err := m.Status.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Status")
 			}
 			return err
 		}

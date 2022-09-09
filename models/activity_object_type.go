@@ -15,17 +15,21 @@ import (
 )
 
 // ActivityObjectType - Collection: CollectionTypes
-//  - Application: Actor Types
-//  - Article: Objects Types
-//  - Accept: Activity Types
-//  - Workspace: Pydio Types
+//   - Application: Actor Types
+//   - Article: Objects Types
+//   - Accept: Activity Types
+//   - Workspace: Pydio Types
 //
 // swagger:model activityObjectType
 type ActivityObjectType string
 
 func NewActivityObjectType(value ActivityObjectType) *ActivityObjectType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated ActivityObjectType.
+func (m ActivityObjectType) Pointer() *ActivityObjectType {
+	return &m
 }
 
 const (

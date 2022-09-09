@@ -45,6 +45,8 @@ func (m *EntPutActionTemplateRequest) validateTemplate(formats strfmt.Registry) 
 		if err := m.Template.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Template")
 			}
 			return err
 		}
@@ -73,6 +75,8 @@ func (m *EntPutActionTemplateRequest) contextValidateTemplate(ctx context.Contex
 		if err := m.Template.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Template")
 			}
 			return err
 		}

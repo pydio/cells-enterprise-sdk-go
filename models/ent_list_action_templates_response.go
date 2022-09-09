@@ -51,6 +51,8 @@ func (m *EntListActionTemplatesResponse) validateTemplates(formats strfmt.Regist
 			if err := m.Templates[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Templates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Templates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -83,6 +85,8 @@ func (m *EntListActionTemplatesResponse) contextValidateTemplates(ctx context.Co
 			if err := m.Templates[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Templates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Templates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

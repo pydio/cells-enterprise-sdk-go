@@ -22,6 +22,9 @@ type ReportsAuditedWorkspace struct {
 	// broken link
 	BrokenLink bool `json:"BrokenLink,omitempty"`
 
+	// broken workspace
+	BrokenWorkspace bool `json:"BrokenWorkspace,omitempty"`
+
 	// owner user
 	OwnerUser *IdmUser `json:"OwnerUser,omitempty"`
 
@@ -76,6 +79,8 @@ func (m *ReportsAuditedWorkspace) validateOwnerUser(formats strfmt.Registry) err
 		if err := m.OwnerUser.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("OwnerUser")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("OwnerUser")
 			}
 			return err
 		}
@@ -98,6 +103,8 @@ func (m *ReportsAuditedWorkspace) validateRolesRead(formats strfmt.Registry) err
 			if err := m.RolesRead[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RolesRead" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RolesRead" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -122,6 +129,8 @@ func (m *ReportsAuditedWorkspace) validateRolesWrite(formats strfmt.Registry) er
 			if err := m.RolesWrite[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RolesWrite" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RolesWrite" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -141,6 +150,8 @@ func (m *ReportsAuditedWorkspace) validateWorkspace(formats strfmt.Registry) err
 		if err := m.Workspace.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Workspace")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Workspace")
 			}
 			return err
 		}
@@ -181,6 +192,8 @@ func (m *ReportsAuditedWorkspace) contextValidateOwnerUser(ctx context.Context, 
 		if err := m.OwnerUser.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("OwnerUser")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("OwnerUser")
 			}
 			return err
 		}
@@ -197,6 +210,8 @@ func (m *ReportsAuditedWorkspace) contextValidateRolesRead(ctx context.Context, 
 			if err := m.RolesRead[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RolesRead" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RolesRead" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -215,6 +230,8 @@ func (m *ReportsAuditedWorkspace) contextValidateRolesWrite(ctx context.Context,
 			if err := m.RolesWrite[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RolesWrite" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("RolesWrite" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -231,6 +248,8 @@ func (m *ReportsAuditedWorkspace) contextValidateWorkspace(ctx context.Context, 
 		if err := m.Workspace.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Workspace")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Workspace")
 			}
 			return err
 		}

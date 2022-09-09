@@ -54,7 +54,14 @@ func (o *ListIPsReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewListIPsDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewListIPsOK() *ListIPsOK {
 	return &ListIPsOK{}
 }
 
-/* ListIPsOK describes a response with status code 200, with default header values.
+/*
+ListIPsOK describes a response with status code 200, with default header values.
 
-ListIPsOK list i ps o k
+A successful response.
 */
 type ListIPsOK struct {
 	Payload *models.IpbanIPsCollection
 }
 
+// IsSuccess returns true when this list i ps o k response has a 2xx status code
+func (o *ListIPsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list i ps o k response has a 3xx status code
+func (o *ListIPsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list i ps o k response has a 4xx status code
+func (o *ListIPsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list i ps o k response has a 5xx status code
+func (o *ListIPsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list i ps o k response a status code equal to that given
+func (o *ListIPsOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *ListIPsOK) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListIPsOK) String() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListIPsOK) GetPayload() *models.IpbanIPsCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewListIPsUnauthorized() *ListIPsUnauthorized {
 	return &ListIPsUnauthorized{}
 }
 
-/* ListIPsUnauthorized describes a response with status code 401, with default header values.
+/*
+ListIPsUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type ListIPsUnauthorized struct {
 }
 
+// IsSuccess returns true when this list i ps unauthorized response has a 2xx status code
+func (o *ListIPsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list i ps unauthorized response has a 3xx status code
+func (o *ListIPsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list i ps unauthorized response has a 4xx status code
+func (o *ListIPsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list i ps unauthorized response has a 5xx status code
+func (o *ListIPsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list i ps unauthorized response a status code equal to that given
+func (o *ListIPsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *ListIPsUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsUnauthorized ", 401)
+}
+
+func (o *ListIPsUnauthorized) String() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewListIPsForbidden() *ListIPsForbidden {
 	return &ListIPsForbidden{}
 }
 
-/* ListIPsForbidden describes a response with status code 403, with default header values.
+/*
+ListIPsForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type ListIPsForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list i ps forbidden response has a 2xx status code
+func (o *ListIPsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list i ps forbidden response has a 3xx status code
+func (o *ListIPsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list i ps forbidden response has a 4xx status code
+func (o *ListIPsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list i ps forbidden response has a 5xx status code
+func (o *ListIPsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list i ps forbidden response a status code equal to that given
+func (o *ListIPsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *ListIPsForbidden) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *ListIPsForbidden) String() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *ListIPsForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewListIPsNotFound() *ListIPsNotFound {
 	return &ListIPsNotFound{}
 }
 
-/* ListIPsNotFound describes a response with status code 404, with default header values.
+/*
+ListIPsNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type ListIPsNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list i ps not found response has a 2xx status code
+func (o *ListIPsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list i ps not found response has a 3xx status code
+func (o *ListIPsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list i ps not found response has a 4xx status code
+func (o *ListIPsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list i ps not found response has a 5xx status code
+func (o *ListIPsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list i ps not found response a status code equal to that given
+func (o *ListIPsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *ListIPsNotFound) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListIPsNotFound) String() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListIPsNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewListIPsInternalServerError() *ListIPsInternalServerError {
 	return &ListIPsInternalServerError{}
 }
 
-/* ListIPsInternalServerError describes a response with status code 500, with default header values.
+/*
+ListIPsInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type ListIPsInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this list i ps internal server error response has a 2xx status code
+func (o *ListIPsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list i ps internal server error response has a 3xx status code
+func (o *ListIPsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list i ps internal server error response has a 4xx status code
+func (o *ListIPsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list i ps internal server error response has a 5xx status code
+func (o *ListIPsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this list i ps internal server error response a status code equal to that given
+func (o *ListIPsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *ListIPsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ListIPsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ListIPsInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *ListIPsInternalServerError) GetPayload() *models.RestError {
 func (o *ListIPsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewListIPsDefault creates a ListIPsDefault with default headers values
+func NewListIPsDefault(code int) *ListIPsDefault {
+	return &ListIPsDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ListIPsDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type ListIPsDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the list i ps default response
+func (o *ListIPsDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this list i ps default response has a 2xx status code
+func (o *ListIPsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this list i ps default response has a 3xx status code
+func (o *ListIPsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this list i ps default response has a 4xx status code
+func (o *ListIPsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this list i ps default response has a 5xx status code
+func (o *ListIPsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this list i ps default response a status code equal to that given
+func (o *ListIPsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ListIPsDefault) Error() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] ListIPs default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListIPsDefault) String() string {
+	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] ListIPs default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ListIPsDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *ListIPsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

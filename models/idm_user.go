@@ -88,6 +88,8 @@ func (m *IdmUser) validatePolicies(formats strfmt.Registry) error {
 			if err := m.Policies[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Policies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -112,6 +114,8 @@ func (m *IdmUser) validateRoles(formats strfmt.Registry) error {
 			if err := m.Roles[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Roles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Roles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -148,6 +152,8 @@ func (m *IdmUser) contextValidatePolicies(ctx context.Context, formats strfmt.Re
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Policies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -166,6 +172,8 @@ func (m *IdmUser) contextValidateRoles(ctx context.Context, formats strfmt.Regis
 			if err := m.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Roles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Roles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

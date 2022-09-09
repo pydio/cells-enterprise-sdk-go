@@ -54,10 +54,12 @@ func NewGeneratePersonalAccessTokenParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/* GeneratePersonalAccessTokenParams contains all the parameters to send to the API endpoint
-   for the generate personal access token operation.
+/*
+GeneratePersonalAccessTokenParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the generate personal access token operation.
+
+	Typically these are written to a http.Request.
 */
 type GeneratePersonalAccessTokenParams struct {
 

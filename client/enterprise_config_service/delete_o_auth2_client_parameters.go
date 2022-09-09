@@ -14,6 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewDeleteOAuth2ClientParams creates a new DeleteOAuth2ClientParams object,
@@ -52,15 +53,38 @@ func NewDeleteOAuth2ClientParamsWithHTTPClient(client *http.Client) *DeleteOAuth
 	}
 }
 
-/* DeleteOAuth2ClientParams contains all the parameters to send to the API endpoint
-   for the delete o auth2 client operation.
+/*
+DeleteOAuth2ClientParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete o auth2 client operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteOAuth2ClientParams struct {
 
+	// Audience.
+	Audience []string
+
 	// ClientID.
 	ClientID string
+
+	// ClientName.
+	ClientName *string
+
+	// ClientSecret.
+	ClientSecret *string
+
+	// GrantTypes.
+	GrantTypes []string
+
+	// RedirectUris.
+	RedirectUris []string
+
+	// ResponseTypes.
+	ResponseTypes []string
+
+	// Scope.
+	Scope *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -115,6 +139,17 @@ func (o *DeleteOAuth2ClientParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAudience adds the audience to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithAudience(audience []string) *DeleteOAuth2ClientParams {
+	o.SetAudience(audience)
+	return o
+}
+
+// SetAudience adds the audience to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetAudience(audience []string) {
+	o.Audience = audience
+}
+
 // WithClientID adds the clientID to the delete o auth2 client params
 func (o *DeleteOAuth2ClientParams) WithClientID(clientID string) *DeleteOAuth2ClientParams {
 	o.SetClientID(clientID)
@@ -126,6 +161,72 @@ func (o *DeleteOAuth2ClientParams) SetClientID(clientID string) {
 	o.ClientID = clientID
 }
 
+// WithClientName adds the clientName to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithClientName(clientName *string) *DeleteOAuth2ClientParams {
+	o.SetClientName(clientName)
+	return o
+}
+
+// SetClientName adds the clientName to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetClientName(clientName *string) {
+	o.ClientName = clientName
+}
+
+// WithClientSecret adds the clientSecret to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithClientSecret(clientSecret *string) *DeleteOAuth2ClientParams {
+	o.SetClientSecret(clientSecret)
+	return o
+}
+
+// SetClientSecret adds the clientSecret to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetClientSecret(clientSecret *string) {
+	o.ClientSecret = clientSecret
+}
+
+// WithGrantTypes adds the grantTypes to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithGrantTypes(grantTypes []string) *DeleteOAuth2ClientParams {
+	o.SetGrantTypes(grantTypes)
+	return o
+}
+
+// SetGrantTypes adds the grantTypes to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetGrantTypes(grantTypes []string) {
+	o.GrantTypes = grantTypes
+}
+
+// WithRedirectUris adds the redirectUris to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithRedirectUris(redirectUris []string) *DeleteOAuth2ClientParams {
+	o.SetRedirectUris(redirectUris)
+	return o
+}
+
+// SetRedirectUris adds the redirectUris to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetRedirectUris(redirectUris []string) {
+	o.RedirectUris = redirectUris
+}
+
+// WithResponseTypes adds the responseTypes to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithResponseTypes(responseTypes []string) *DeleteOAuth2ClientParams {
+	o.SetResponseTypes(responseTypes)
+	return o
+}
+
+// SetResponseTypes adds the responseTypes to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetResponseTypes(responseTypes []string) {
+	o.ResponseTypes = responseTypes
+}
+
+// WithScope adds the scope to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) WithScope(scope *string) *DeleteOAuth2ClientParams {
+	o.SetScope(scope)
+	return o
+}
+
+// SetScope adds the scope to the delete o auth2 client params
+func (o *DeleteOAuth2ClientParams) SetScope(scope *string) {
+	o.Scope = scope
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DeleteOAuth2ClientParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -134,13 +235,176 @@ func (o *DeleteOAuth2ClientParams) WriteToRequest(r runtime.ClientRequest, reg s
 	}
 	var res []error
 
-	// path param ClientID
-	if err := r.SetPathParam("ClientID", o.ClientID); err != nil {
+	if o.Audience != nil {
+
+		// binding items for audience
+		joinedAudience := o.bindParamAudience(reg)
+
+		// query array param audience
+		if err := r.SetQueryParam("audience", joinedAudience...); err != nil {
+			return err
+		}
+	}
+
+	// path param client_id
+	if err := r.SetPathParam("client_id", o.ClientID); err != nil {
 		return err
+	}
+
+	if o.ClientName != nil {
+
+		// query param client_name
+		var qrClientName string
+
+		if o.ClientName != nil {
+			qrClientName = *o.ClientName
+		}
+		qClientName := qrClientName
+		if qClientName != "" {
+
+			if err := r.SetQueryParam("client_name", qClientName); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ClientSecret != nil {
+
+		// query param client_secret
+		var qrClientSecret string
+
+		if o.ClientSecret != nil {
+			qrClientSecret = *o.ClientSecret
+		}
+		qClientSecret := qrClientSecret
+		if qClientSecret != "" {
+
+			if err := r.SetQueryParam("client_secret", qClientSecret); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.GrantTypes != nil {
+
+		// binding items for grant_types
+		joinedGrantTypes := o.bindParamGrantTypes(reg)
+
+		// query array param grant_types
+		if err := r.SetQueryParam("grant_types", joinedGrantTypes...); err != nil {
+			return err
+		}
+	}
+
+	if o.RedirectUris != nil {
+
+		// binding items for redirect_uris
+		joinedRedirectUris := o.bindParamRedirectUris(reg)
+
+		// query array param redirect_uris
+		if err := r.SetQueryParam("redirect_uris", joinedRedirectUris...); err != nil {
+			return err
+		}
+	}
+
+	if o.ResponseTypes != nil {
+
+		// binding items for response_types
+		joinedResponseTypes := o.bindParamResponseTypes(reg)
+
+		// query array param response_types
+		if err := r.SetQueryParam("response_types", joinedResponseTypes...); err != nil {
+			return err
+		}
+	}
+
+	if o.Scope != nil {
+
+		// query param scope
+		var qrScope string
+
+		if o.Scope != nil {
+			qrScope = *o.Scope
+		}
+		qScope := qrScope
+		if qScope != "" {
+
+			if err := r.SetQueryParam("scope", qScope); err != nil {
+				return err
+			}
+		}
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamDeleteOAuth2Client binds the parameter audience
+func (o *DeleteOAuth2ClientParams) bindParamAudience(formats strfmt.Registry) []string {
+	audienceIR := o.Audience
+
+	var audienceIC []string
+	for _, audienceIIR := range audienceIR { // explode []string
+
+		audienceIIV := audienceIIR // string as string
+		audienceIC = append(audienceIC, audienceIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	audienceIS := swag.JoinByFormat(audienceIC, "multi")
+
+	return audienceIS
+}
+
+// bindParamDeleteOAuth2Client binds the parameter grant_types
+func (o *DeleteOAuth2ClientParams) bindParamGrantTypes(formats strfmt.Registry) []string {
+	grantTypesIR := o.GrantTypes
+
+	var grantTypesIC []string
+	for _, grantTypesIIR := range grantTypesIR { // explode []string
+
+		grantTypesIIV := grantTypesIIR // string as string
+		grantTypesIC = append(grantTypesIC, grantTypesIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	grantTypesIS := swag.JoinByFormat(grantTypesIC, "multi")
+
+	return grantTypesIS
+}
+
+// bindParamDeleteOAuth2Client binds the parameter redirect_uris
+func (o *DeleteOAuth2ClientParams) bindParamRedirectUris(formats strfmt.Registry) []string {
+	redirectUrisIR := o.RedirectUris
+
+	var redirectUrisIC []string
+	for _, redirectUrisIIR := range redirectUrisIR { // explode []string
+
+		redirectUrisIIV := redirectUrisIIR // string as string
+		redirectUrisIC = append(redirectUrisIC, redirectUrisIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	redirectUrisIS := swag.JoinByFormat(redirectUrisIC, "multi")
+
+	return redirectUrisIS
+}
+
+// bindParamDeleteOAuth2Client binds the parameter response_types
+func (o *DeleteOAuth2ClientParams) bindParamResponseTypes(formats strfmt.Registry) []string {
+	responseTypesIR := o.ResponseTypes
+
+	var responseTypesIC []string
+	for _, responseTypesIIR := range responseTypesIR { // explode []string
+
+		responseTypesIIV := responseTypesIIR // string as string
+		responseTypesIC = append(responseTypesIC, responseTypesIIV)
+	}
+
+	// items.CollectionFormat: "multi"
+	responseTypesIS := swag.JoinByFormat(responseTypesIC, "multi")
+
+	return responseTypesIS
 }

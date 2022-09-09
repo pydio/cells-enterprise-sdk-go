@@ -20,8 +20,12 @@ import (
 type IdmPolicyEffect string
 
 func NewIdmPolicyEffect(value IdmPolicyEffect) *IdmPolicyEffect {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated IdmPolicyEffect.
+func (m IdmPolicyEffect) Pointer() *IdmPolicyEffect {
+	return &m
 }
 
 const (

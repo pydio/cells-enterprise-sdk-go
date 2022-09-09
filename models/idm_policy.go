@@ -71,6 +71,11 @@ func (m *IdmPolicy) validateConditions(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Conditions[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("conditions" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("conditions" + "." + k)
+				}
 				return err
 			}
 		}
@@ -89,6 +94,8 @@ func (m *IdmPolicy) validateEffect(formats strfmt.Registry) error {
 		if err := m.Effect.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("effect")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("effect")
 			}
 			return err
 		}
@@ -136,6 +143,8 @@ func (m *IdmPolicy) contextValidateEffect(ctx context.Context, formats strfmt.Re
 		if err := m.Effect.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("effect")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("effect")
 			}
 			return err
 		}

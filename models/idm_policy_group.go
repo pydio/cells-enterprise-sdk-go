@@ -73,6 +73,8 @@ func (m *IdmPolicyGroup) validatePolicies(formats strfmt.Registry) error {
 			if err := m.Policies[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Policies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -92,6 +94,8 @@ func (m *IdmPolicyGroup) validateResourceGroup(formats strfmt.Registry) error {
 		if err := m.ResourceGroup.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourceGroup")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ResourceGroup")
 			}
 			return err
 		}
@@ -126,6 +130,8 @@ func (m *IdmPolicyGroup) contextValidatePolicies(ctx context.Context, formats st
 			if err := m.Policies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Policies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Policies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -142,6 +148,8 @@ func (m *IdmPolicyGroup) contextValidateResourceGroup(ctx context.Context, forma
 		if err := m.ResourceGroup.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ResourceGroup")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ResourceGroup")
 			}
 			return err
 		}

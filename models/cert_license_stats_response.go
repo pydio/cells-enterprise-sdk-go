@@ -51,6 +51,8 @@ func (m *CertLicenseStatsResponse) validateLicense(formats strfmt.Registry) erro
 		if err := m.License.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("License")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("License")
 			}
 			return err
 		}
@@ -79,6 +81,8 @@ func (m *CertLicenseStatsResponse) contextValidateLicense(ctx context.Context, f
 		if err := m.License.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("License")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("License")
 			}
 			return err
 		}

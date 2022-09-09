@@ -48,6 +48,8 @@ func (m *EntActionTemplate) validateAction(formats strfmt.Registry) error {
 		if err := m.Action.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}
@@ -76,6 +78,8 @@ func (m *EntActionTemplate) contextValidateAction(ctx context.Context, formats s
 		if err := m.Action.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Action")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Action")
 			}
 			return err
 		}

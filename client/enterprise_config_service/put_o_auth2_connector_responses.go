@@ -6,11 +6,15 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
@@ -54,7 +58,14 @@ func (o *PutOAuth2ConnectorReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewPutOAuth2ConnectorDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +74,48 @@ func NewPutOAuth2ConnectorOK() *PutOAuth2ConnectorOK {
 	return &PutOAuth2ConnectorOK{}
 }
 
-/* PutOAuth2ConnectorOK describes a response with status code 200, with default header values.
+/*
+PutOAuth2ConnectorOK describes a response with status code 200, with default header values.
 
-PutOAuth2ConnectorOK put o auth2 connector o k
+A successful response.
 */
 type PutOAuth2ConnectorOK struct {
 	Payload *models.EntOAuth2ConnectorResponse
 }
 
+// IsSuccess returns true when this put o auth2 connector o k response has a 2xx status code
+func (o *PutOAuth2ConnectorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put o auth2 connector o k response has a 3xx status code
+func (o *PutOAuth2ConnectorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connector o k response has a 4xx status code
+func (o *PutOAuth2ConnectorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put o auth2 connector o k response has a 5xx status code
+func (o *PutOAuth2ConnectorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connector o k response a status code equal to that given
+func (o *PutOAuth2ConnectorOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PutOAuth2ConnectorOK) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorOK  %+v", 200, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorOK) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorOK  %+v", 200, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorOK) GetPayload() *models.EntOAuth2ConnectorResponse {
 	return o.Payload
 }
@@ -95,14 +137,44 @@ func NewPutOAuth2ConnectorUnauthorized() *PutOAuth2ConnectorUnauthorized {
 	return &PutOAuth2ConnectorUnauthorized{}
 }
 
-/* PutOAuth2ConnectorUnauthorized describes a response with status code 401, with default header values.
+/*
+PutOAuth2ConnectorUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type PutOAuth2ConnectorUnauthorized struct {
 }
 
+// IsSuccess returns true when this put o auth2 connector unauthorized response has a 2xx status code
+func (o *PutOAuth2ConnectorUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connector unauthorized response has a 3xx status code
+func (o *PutOAuth2ConnectorUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connector unauthorized response has a 4xx status code
+func (o *PutOAuth2ConnectorUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 connector unauthorized response has a 5xx status code
+func (o *PutOAuth2ConnectorUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connector unauthorized response a status code equal to that given
+func (o *PutOAuth2ConnectorUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *PutOAuth2ConnectorUnauthorized) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorUnauthorized ", 401)
+}
+
+func (o *PutOAuth2ConnectorUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorUnauthorized ", 401)
 }
 
@@ -116,7 +188,8 @@ func NewPutOAuth2ConnectorForbidden() *PutOAuth2ConnectorForbidden {
 	return &PutOAuth2ConnectorForbidden{}
 }
 
-/* PutOAuth2ConnectorForbidden describes a response with status code 403, with default header values.
+/*
+PutOAuth2ConnectorForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +197,39 @@ type PutOAuth2ConnectorForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put o auth2 connector forbidden response has a 2xx status code
+func (o *PutOAuth2ConnectorForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connector forbidden response has a 3xx status code
+func (o *PutOAuth2ConnectorForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connector forbidden response has a 4xx status code
+func (o *PutOAuth2ConnectorForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 connector forbidden response has a 5xx status code
+func (o *PutOAuth2ConnectorForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connector forbidden response a status code equal to that given
+func (o *PutOAuth2ConnectorForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *PutOAuth2ConnectorForbidden) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorForbidden  %+v", 403, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorForbidden) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorForbidden  %+v", 403, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +251,8 @@ func NewPutOAuth2ConnectorNotFound() *PutOAuth2ConnectorNotFound {
 	return &PutOAuth2ConnectorNotFound{}
 }
 
-/* PutOAuth2ConnectorNotFound describes a response with status code 404, with default header values.
+/*
+PutOAuth2ConnectorNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +260,39 @@ type PutOAuth2ConnectorNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put o auth2 connector not found response has a 2xx status code
+func (o *PutOAuth2ConnectorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connector not found response has a 3xx status code
+func (o *PutOAuth2ConnectorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connector not found response has a 4xx status code
+func (o *PutOAuth2ConnectorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put o auth2 connector not found response has a 5xx status code
+func (o *PutOAuth2ConnectorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put o auth2 connector not found response a status code equal to that given
+func (o *PutOAuth2ConnectorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PutOAuth2ConnectorNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorNotFound) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +314,8 @@ func NewPutOAuth2ConnectorInternalServerError() *PutOAuth2ConnectorInternalServe
 	return &PutOAuth2ConnectorInternalServerError{}
 }
 
-/* PutOAuth2ConnectorInternalServerError describes a response with status code 500, with default header values.
+/*
+PutOAuth2ConnectorInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +323,39 @@ type PutOAuth2ConnectorInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put o auth2 connector internal server error response has a 2xx status code
+func (o *PutOAuth2ConnectorInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put o auth2 connector internal server error response has a 3xx status code
+func (o *PutOAuth2ConnectorInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put o auth2 connector internal server error response has a 4xx status code
+func (o *PutOAuth2ConnectorInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put o auth2 connector internal server error response has a 5xx status code
+func (o *PutOAuth2ConnectorInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this put o auth2 connector internal server error response a status code equal to that given
+func (o *PutOAuth2ConnectorInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PutOAuth2ConnectorInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PutOAuth2ConnectorInternalServerError) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PutOAuth2ConnectorInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -204,5 +369,648 @@ func (o *PutOAuth2ConnectorInternalServerError) readResponse(response runtime.Cl
 		return err
 	}
 
+	return nil
+}
+
+// NewPutOAuth2ConnectorDefault creates a PutOAuth2ConnectorDefault with default headers values
+func NewPutOAuth2ConnectorDefault(code int) *PutOAuth2ConnectorDefault {
+	return &PutOAuth2ConnectorDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+PutOAuth2ConnectorDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type PutOAuth2ConnectorDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the put o auth2 connector default response
+func (o *PutOAuth2ConnectorDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this put o auth2 connector default response has a 2xx status code
+func (o *PutOAuth2ConnectorDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this put o auth2 connector default response has a 3xx status code
+func (o *PutOAuth2ConnectorDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this put o auth2 connector default response has a 4xx status code
+func (o *PutOAuth2ConnectorDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this put o auth2 connector default response has a 5xx status code
+func (o *PutOAuth2ConnectorDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this put o auth2 connector default response a status code equal to that given
+func (o *PutOAuth2ConnectorDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *PutOAuth2ConnectorDefault) Error() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] PutOAuth2Connector default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutOAuth2ConnectorDefault) String() string {
+	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] PutOAuth2Connector default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutOAuth2ConnectorDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *PutOAuth2ConnectorDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+/*
+PutOAuth2ConnectorBody put o auth2 connector body
+swagger:model PutOAuth2ConnectorBody
+*/
+type PutOAuth2ConnectorBody struct {
+
+	// configbitbucket
+	Configbitbucket *models.AuthOAuth2ConnectorBitbucketConfig `json:"configbitbucket,omitempty"`
+
+	// configgithub
+	Configgithub *models.AuthOAuth2ConnectorGithubConfig `json:"configgithub,omitempty"`
+
+	// configgitlab
+	Configgitlab *models.AuthOAuth2ConnectorGitlabConfig `json:"configgitlab,omitempty"`
+
+	// configldap
+	Configldap *models.AuthLdapServerConfig `json:"configldap,omitempty"`
+
+	// configlinkedin
+	Configlinkedin *models.AuthOAuth2ConnectorLinkedinConfig `json:"configlinkedin,omitempty"`
+
+	// configmicrosoft
+	Configmicrosoft *models.AuthOAuth2ConnectorMicrosoftConfig `json:"configmicrosoft,omitempty"`
+
+	// configoauth
+	Configoauth *models.AuthOAuth2ConnectorOAuthConfig `json:"configoauth,omitempty"`
+
+	// configoidc
+	Configoidc *models.AuthOAuth2ConnectorOIDCConfig `json:"configoidc,omitempty"`
+
+	// configpydio
+	Configpydio *models.AuthOAuth2ConnectorPydioConfig `json:"configpydio,omitempty"`
+
+	// configsaml
+	Configsaml *models.AuthOAuth2ConnectorSAMLConfig `json:"configsaml,omitempty"`
+
+	// mapping rules
+	MappingRules []*models.AuthOAuth2MappingRule `json:"mappingRules"`
+
+	// name
+	Name string `json:"name,omitempty"`
+
+	// sites
+	Sites []string `json:"sites"`
+
+	// type
+	Type string `json:"type,omitempty"`
+}
+
+// Validate validates this put o auth2 connector body
+func (o *PutOAuth2ConnectorBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateConfigbitbucket(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfiggithub(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfiggitlab(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigldap(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfiglinkedin(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigmicrosoft(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigoauth(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigoidc(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigpydio(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigsaml(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateMappingRules(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigbitbucket(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configbitbucket) { // not required
+		return nil
+	}
+
+	if o.Configbitbucket != nil {
+		if err := o.Configbitbucket.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configbitbucket")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configbitbucket")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfiggithub(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configgithub) { // not required
+		return nil
+	}
+
+	if o.Configgithub != nil {
+		if err := o.Configgithub.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configgithub")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configgithub")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfiggitlab(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configgitlab) { // not required
+		return nil
+	}
+
+	if o.Configgitlab != nil {
+		if err := o.Configgitlab.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configgitlab")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configgitlab")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigldap(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configldap) { // not required
+		return nil
+	}
+
+	if o.Configldap != nil {
+		if err := o.Configldap.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configldap")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configldap")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfiglinkedin(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configlinkedin) { // not required
+		return nil
+	}
+
+	if o.Configlinkedin != nil {
+		if err := o.Configlinkedin.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configlinkedin")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configlinkedin")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigmicrosoft(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configmicrosoft) { // not required
+		return nil
+	}
+
+	if o.Configmicrosoft != nil {
+		if err := o.Configmicrosoft.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configmicrosoft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configmicrosoft")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigoauth(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configoauth) { // not required
+		return nil
+	}
+
+	if o.Configoauth != nil {
+		if err := o.Configoauth.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configoauth")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configoauth")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigoidc(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configoidc) { // not required
+		return nil
+	}
+
+	if o.Configoidc != nil {
+		if err := o.Configoidc.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configoidc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configoidc")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigpydio(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configpydio) { // not required
+		return nil
+	}
+
+	if o.Configpydio != nil {
+		if err := o.Configpydio.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configpydio")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configpydio")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateConfigsaml(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configsaml) { // not required
+		return nil
+	}
+
+	if o.Configsaml != nil {
+		if err := o.Configsaml.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configsaml")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configsaml")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) validateMappingRules(formats strfmt.Registry) error {
+	if swag.IsZero(o.MappingRules) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.MappingRules); i++ {
+		if swag.IsZero(o.MappingRules[i]) { // not required
+			continue
+		}
+
+		if o.MappingRules[i] != nil {
+			if err := o.MappingRules[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "mappingRules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "mappingRules" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this put o auth2 connector body based on the context it is used
+func (o *PutOAuth2ConnectorBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateConfigbitbucket(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfiggithub(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfiggitlab(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigldap(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfiglinkedin(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigmicrosoft(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigoauth(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigoidc(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigpydio(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigsaml(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateMappingRules(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigbitbucket(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configbitbucket != nil {
+		if err := o.Configbitbucket.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configbitbucket")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configbitbucket")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfiggithub(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configgithub != nil {
+		if err := o.Configgithub.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configgithub")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configgithub")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfiggitlab(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configgitlab != nil {
+		if err := o.Configgitlab.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configgitlab")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configgitlab")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigldap(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configldap != nil {
+		if err := o.Configldap.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configldap")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configldap")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfiglinkedin(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configlinkedin != nil {
+		if err := o.Configlinkedin.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configlinkedin")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configlinkedin")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigmicrosoft(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configmicrosoft != nil {
+		if err := o.Configmicrosoft.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configmicrosoft")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configmicrosoft")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigoauth(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configoauth != nil {
+		if err := o.Configoauth.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configoauth")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configoauth")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigoidc(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configoidc != nil {
+		if err := o.Configoidc.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configoidc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configoidc")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigpydio(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configpydio != nil {
+		if err := o.Configpydio.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configpydio")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configpydio")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigsaml(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configsaml != nil {
+		if err := o.Configsaml.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configsaml")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configsaml")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateMappingRules(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.MappingRules); i++ {
+
+		if o.MappingRules[i] != nil {
+			if err := o.MappingRules[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "mappingRules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "mappingRules" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PutOAuth2ConnectorBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PutOAuth2ConnectorBody) UnmarshalBinary(b []byte) error {
+	var res PutOAuth2ConnectorBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

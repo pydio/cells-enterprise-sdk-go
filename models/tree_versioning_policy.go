@@ -82,6 +82,8 @@ func (m *TreeVersioningPolicy) validateKeepPeriods(formats strfmt.Registry) erro
 			if err := m.KeepPeriods[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("KeepPeriods" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("KeepPeriods" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -101,6 +103,8 @@ func (m *TreeVersioningPolicy) validateNodeDeletedStrategy(formats strfmt.Regist
 		if err := m.NodeDeletedStrategy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeDeletedStrategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodeDeletedStrategy")
 			}
 			return err
 		}
@@ -135,6 +139,8 @@ func (m *TreeVersioningPolicy) contextValidateKeepPeriods(ctx context.Context, f
 			if err := m.KeepPeriods[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("KeepPeriods" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("KeepPeriods" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -151,6 +157,8 @@ func (m *TreeVersioningPolicy) contextValidateNodeDeletedStrategy(ctx context.Co
 		if err := m.NodeDeletedStrategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeDeletedStrategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodeDeletedStrategy")
 			}
 			return err
 		}

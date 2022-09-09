@@ -54,7 +54,14 @@ func (o *SyslogExportReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewSyslogExportDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewSyslogExportOK() *SyslogExportOK {
 	return &SyslogExportOK{}
 }
 
-/* SyslogExportOK describes a response with status code 200, with default header values.
+/*
+SyslogExportOK describes a response with status code 200, with default header values.
 
-SyslogExportOK syslog export o k
+A successful response.
 */
 type SyslogExportOK struct {
 	Payload *models.RestLogMessageCollection
 }
 
+// IsSuccess returns true when this syslog export o k response has a 2xx status code
+func (o *SyslogExportOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this syslog export o k response has a 3xx status code
+func (o *SyslogExportOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this syslog export o k response has a 4xx status code
+func (o *SyslogExportOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this syslog export o k response has a 5xx status code
+func (o *SyslogExportOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this syslog export o k response a status code equal to that given
+func (o *SyslogExportOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *SyslogExportOK) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK  %+v", 200, o.Payload)
 }
+
+func (o *SyslogExportOK) String() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK  %+v", 200, o.Payload)
+}
+
 func (o *SyslogExportOK) GetPayload() *models.RestLogMessageCollection {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewSyslogExportUnauthorized() *SyslogExportUnauthorized {
 	return &SyslogExportUnauthorized{}
 }
 
-/* SyslogExportUnauthorized describes a response with status code 401, with default header values.
+/*
+SyslogExportUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type SyslogExportUnauthorized struct {
 }
 
+// IsSuccess returns true when this syslog export unauthorized response has a 2xx status code
+func (o *SyslogExportUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this syslog export unauthorized response has a 3xx status code
+func (o *SyslogExportUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this syslog export unauthorized response has a 4xx status code
+func (o *SyslogExportUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this syslog export unauthorized response has a 5xx status code
+func (o *SyslogExportUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this syslog export unauthorized response a status code equal to that given
+func (o *SyslogExportUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *SyslogExportUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportUnauthorized ", 401)
+}
+
+func (o *SyslogExportUnauthorized) String() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewSyslogExportForbidden() *SyslogExportForbidden {
 	return &SyslogExportForbidden{}
 }
 
-/* SyslogExportForbidden describes a response with status code 403, with default header values.
+/*
+SyslogExportForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type SyslogExportForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this syslog export forbidden response has a 2xx status code
+func (o *SyslogExportForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this syslog export forbidden response has a 3xx status code
+func (o *SyslogExportForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this syslog export forbidden response has a 4xx status code
+func (o *SyslogExportForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this syslog export forbidden response has a 5xx status code
+func (o *SyslogExportForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this syslog export forbidden response a status code equal to that given
+func (o *SyslogExportForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *SyslogExportForbidden) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportForbidden  %+v", 403, o.Payload)
 }
+
+func (o *SyslogExportForbidden) String() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportForbidden  %+v", 403, o.Payload)
+}
+
 func (o *SyslogExportForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewSyslogExportNotFound() *SyslogExportNotFound {
 	return &SyslogExportNotFound{}
 }
 
-/* SyslogExportNotFound describes a response with status code 404, with default header values.
+/*
+SyslogExportNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type SyslogExportNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this syslog export not found response has a 2xx status code
+func (o *SyslogExportNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this syslog export not found response has a 3xx status code
+func (o *SyslogExportNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this syslog export not found response has a 4xx status code
+func (o *SyslogExportNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this syslog export not found response has a 5xx status code
+func (o *SyslogExportNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this syslog export not found response a status code equal to that given
+func (o *SyslogExportNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *SyslogExportNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SyslogExportNotFound) String() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SyslogExportNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewSyslogExportInternalServerError() *SyslogExportInternalServerError {
 	return &SyslogExportInternalServerError{}
 }
 
-/* SyslogExportInternalServerError describes a response with status code 500, with default header values.
+/*
+SyslogExportInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type SyslogExportInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this syslog export internal server error response has a 2xx status code
+func (o *SyslogExportInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this syslog export internal server error response has a 3xx status code
+func (o *SyslogExportInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this syslog export internal server error response has a 4xx status code
+func (o *SyslogExportInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this syslog export internal server error response has a 5xx status code
+func (o *SyslogExportInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this syslog export internal server error response a status code equal to that given
+func (o *SyslogExportInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *SyslogExportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SyslogExportInternalServerError) String() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SyslogExportInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *SyslogExportInternalServerError) GetPayload() *models.RestError {
 func (o *SyslogExportInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSyslogExportDefault creates a SyslogExportDefault with default headers values
+func NewSyslogExportDefault(code int) *SyslogExportDefault {
+	return &SyslogExportDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+SyslogExportDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type SyslogExportDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the syslog export default response
+func (o *SyslogExportDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this syslog export default response has a 2xx status code
+func (o *SyslogExportDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this syslog export default response has a 3xx status code
+func (o *SyslogExportDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this syslog export default response has a 4xx status code
+func (o *SyslogExportDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this syslog export default response has a 5xx status code
+func (o *SyslogExportDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this syslog export default response a status code equal to that given
+func (o *SyslogExportDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *SyslogExportDefault) Error() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] SyslogExport default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *SyslogExportDefault) String() string {
+	return fmt.Sprintf("[POST /log/sys/export][%d] SyslogExport default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *SyslogExportDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *SyslogExportDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

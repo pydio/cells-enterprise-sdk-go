@@ -35,6 +35,9 @@ type JobsUsersSelector struct {
 	// Filter users using this query
 	Query *ServiceQuery `json:"Query,omitempty"`
 
+	// Optional Timeout for this selector
+	Timeout string `json:"Timeout,omitempty"`
+
 	// Preset set of Users
 	Users []*IdmUser `json:"Users"`
 }
@@ -66,6 +69,8 @@ func (m *JobsUsersSelector) validateQuery(formats strfmt.Registry) error {
 		if err := m.Query.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
 			}
 			return err
 		}
@@ -88,6 +93,8 @@ func (m *JobsUsersSelector) validateUsers(formats strfmt.Registry) error {
 			if err := m.Users[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Users" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Users" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -122,6 +129,8 @@ func (m *JobsUsersSelector) contextValidateQuery(ctx context.Context, formats st
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Query")
 			}
 			return err
 		}
@@ -138,6 +147,8 @@ func (m *JobsUsersSelector) contextValidateUsers(ctx context.Context, formats st
 			if err := m.Users[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Users" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Users" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -71,6 +71,9 @@ type JobsAction struct {
 	// Defined parameters for this action
 	Parameters map[string]string `json:"Parameters,omitempty"`
 
+	// Optional timeout for this action
+	Timeout string `json:"Timeout,omitempty"`
+
 	// Filter on specific triggers
 	TriggerFilter *JobsTriggerFilter `json:"TriggerFilter,omitempty"`
 
@@ -152,6 +155,8 @@ func (m *JobsAction) validateActionOutputFilter(formats strfmt.Registry) error {
 		if err := m.ActionOutputFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ActionOutputFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ActionOutputFilter")
 			}
 			return err
 		}
@@ -174,6 +179,8 @@ func (m *JobsAction) validateChainedActions(formats strfmt.Registry) error {
 			if err := m.ChainedActions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ChainedActions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ChainedActions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -193,6 +200,8 @@ func (m *JobsAction) validateContextMetaFilter(formats strfmt.Registry) error {
 		if err := m.ContextMetaFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContextMetaFilter")
 			}
 			return err
 		}
@@ -210,6 +219,8 @@ func (m *JobsAction) validateDataSourceFilter(formats strfmt.Registry) error {
 		if err := m.DataSourceFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceFilter")
 			}
 			return err
 		}
@@ -227,6 +238,8 @@ func (m *JobsAction) validateDataSourceSelector(formats strfmt.Registry) error {
 		if err := m.DataSourceSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceSelector")
 			}
 			return err
 		}
@@ -249,6 +262,8 @@ func (m *JobsAction) validateFailedFilterActions(formats strfmt.Registry) error 
 			if err := m.FailedFilterActions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("FailedFilterActions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("FailedFilterActions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -268,6 +283,8 @@ func (m *JobsAction) validateIdmFilter(formats strfmt.Registry) error {
 		if err := m.IdmFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmFilter")
 			}
 			return err
 		}
@@ -285,6 +302,8 @@ func (m *JobsAction) validateIdmSelector(formats strfmt.Registry) error {
 		if err := m.IdmSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmSelector")
 			}
 			return err
 		}
@@ -302,6 +321,8 @@ func (m *JobsAction) validateNodesFilter(formats strfmt.Registry) error {
 		if err := m.NodesFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodesFilter")
 			}
 			return err
 		}
@@ -319,6 +340,8 @@ func (m *JobsAction) validateNodesSelector(formats strfmt.Registry) error {
 		if err := m.NodesSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodesSelector")
 			}
 			return err
 		}
@@ -336,6 +359,8 @@ func (m *JobsAction) validateTriggerFilter(formats strfmt.Registry) error {
 		if err := m.TriggerFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TriggerFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TriggerFilter")
 			}
 			return err
 		}
@@ -353,6 +378,8 @@ func (m *JobsAction) validateUsersFilter(formats strfmt.Registry) error {
 		if err := m.UsersFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UsersFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UsersFilter")
 			}
 			return err
 		}
@@ -370,6 +397,8 @@ func (m *JobsAction) validateUsersSelector(formats strfmt.Registry) error {
 		if err := m.UsersSelector.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UsersSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UsersSelector")
 			}
 			return err
 		}
@@ -446,6 +475,8 @@ func (m *JobsAction) contextValidateActionOutputFilter(ctx context.Context, form
 		if err := m.ActionOutputFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ActionOutputFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ActionOutputFilter")
 			}
 			return err
 		}
@@ -462,6 +493,8 @@ func (m *JobsAction) contextValidateChainedActions(ctx context.Context, formats 
 			if err := m.ChainedActions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ChainedActions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ChainedActions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -478,6 +511,8 @@ func (m *JobsAction) contextValidateContextMetaFilter(ctx context.Context, forma
 		if err := m.ContextMetaFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContextMetaFilter")
 			}
 			return err
 		}
@@ -492,6 +527,8 @@ func (m *JobsAction) contextValidateDataSourceFilter(ctx context.Context, format
 		if err := m.DataSourceFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceFilter")
 			}
 			return err
 		}
@@ -506,6 +543,8 @@ func (m *JobsAction) contextValidateDataSourceSelector(ctx context.Context, form
 		if err := m.DataSourceSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceSelector")
 			}
 			return err
 		}
@@ -522,6 +561,8 @@ func (m *JobsAction) contextValidateFailedFilterActions(ctx context.Context, for
 			if err := m.FailedFilterActions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("FailedFilterActions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("FailedFilterActions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -538,6 +579,8 @@ func (m *JobsAction) contextValidateIdmFilter(ctx context.Context, formats strfm
 		if err := m.IdmFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmFilter")
 			}
 			return err
 		}
@@ -552,6 +595,8 @@ func (m *JobsAction) contextValidateIdmSelector(ctx context.Context, formats str
 		if err := m.IdmSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmSelector")
 			}
 			return err
 		}
@@ -566,6 +611,8 @@ func (m *JobsAction) contextValidateNodesFilter(ctx context.Context, formats str
 		if err := m.NodesFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodesFilter")
 			}
 			return err
 		}
@@ -580,6 +627,8 @@ func (m *JobsAction) contextValidateNodesSelector(ctx context.Context, formats s
 		if err := m.NodesSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodesSelector")
 			}
 			return err
 		}
@@ -594,6 +643,8 @@ func (m *JobsAction) contextValidateTriggerFilter(ctx context.Context, formats s
 		if err := m.TriggerFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TriggerFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("TriggerFilter")
 			}
 			return err
 		}
@@ -608,6 +659,8 @@ func (m *JobsAction) contextValidateUsersFilter(ctx context.Context, formats str
 		if err := m.UsersFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UsersFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UsersFilter")
 			}
 			return err
 		}
@@ -622,6 +675,8 @@ func (m *JobsAction) contextValidateUsersSelector(ctx context.Context, formats s
 		if err := m.UsersSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UsersSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UsersSelector")
 			}
 			return err
 		}

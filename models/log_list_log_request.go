@@ -54,6 +54,8 @@ func (m *LogListLogRequest) validateFormat(formats strfmt.Registry) error {
 		if err := m.Format.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Format")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Format")
 			}
 			return err
 		}
@@ -82,6 +84,8 @@ func (m *LogListLogRequest) contextValidateFormat(ctx context.Context, formats s
 		if err := m.Format.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Format")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Format")
 			}
 			return err
 		}

@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
 
 // NewPutExternalDirectoryParams creates a new PutExternalDirectoryParams object,
@@ -54,18 +52,23 @@ func NewPutExternalDirectoryParamsWithHTTPClient(client *http.Client) *PutExtern
 	}
 }
 
-/* PutExternalDirectoryParams contains all the parameters to send to the API endpoint
-   for the put external directory operation.
+/*
+PutExternalDirectoryParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put external directory operation.
+
+	Typically these are written to a http.Request.
 */
 type PutExternalDirectoryParams struct {
 
-	// ConfigID.
+	/* ConfigID.
+
+	   Id of the external directory
+	*/
 	ConfigID string
 
 	// Body.
-	Body *models.EntExternalDirectoryConfig
+	Body PutExternalDirectoryBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,13 +135,13 @@ func (o *PutExternalDirectoryParams) SetConfigID(configID string) {
 }
 
 // WithBody adds the body to the put external directory params
-func (o *PutExternalDirectoryParams) WithBody(body *models.EntExternalDirectoryConfig) *PutExternalDirectoryParams {
+func (o *PutExternalDirectoryParams) WithBody(body PutExternalDirectoryBody) *PutExternalDirectoryParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put external directory params
-func (o *PutExternalDirectoryParams) SetBody(body *models.EntExternalDirectoryConfig) {
+func (o *PutExternalDirectoryParams) SetBody(body PutExternalDirectoryBody) {
 	o.Body = body
 }
 
@@ -154,10 +157,8 @@ func (o *PutExternalDirectoryParams) WriteToRequest(r runtime.ClientRequest, reg
 	if err := r.SetPathParam("ConfigId", o.ConfigID); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

@@ -20,8 +20,12 @@ import (
 type IdmPolicyResourceGroup string
 
 func NewIdmPolicyResourceGroup(value IdmPolicyResourceGroup) *IdmPolicyResourceGroup {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated IdmPolicyResourceGroup.
+func (m IdmPolicyResourceGroup) Pointer() *IdmPolicyResourceGroup {
+	return &m
 }
 
 const (

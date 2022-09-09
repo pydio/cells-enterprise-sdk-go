@@ -6,8 +6,6 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"fmt"
-
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 )
@@ -60,7 +58,7 @@ type ClientService interface {
 }
 
 /*
-  DeleteActionTemplate templates management for actions
+DeleteActionTemplate templates management for actions
 */
 func (a *Client) DeleteActionTemplate(params *DeleteActionTemplateParams, opts ...ClientOption) (*DeleteActionTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -92,13 +90,12 @@ func (a *Client) DeleteActionTemplate(params *DeleteActionTemplateParams, opts .
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteActionTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteActionTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteJob enterprises only delete a job from the scheduler
+DeleteJob enterprises only delete a job from the scheduler
 */
 func (a *Client) DeleteJob(params *DeleteJobParams, opts ...ClientOption) (*DeleteJobOK, error) {
 	// TODO: Validate the params before sending
@@ -130,13 +127,12 @@ func (a *Client) DeleteJob(params *DeleteJobParams, opts ...ClientOption) (*Dele
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteJob: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteJobDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteJobTemplate templates management for jobs
+DeleteJobTemplate templates management for jobs
 */
 func (a *Client) DeleteJobTemplate(params *DeleteJobTemplateParams, opts ...ClientOption) (*DeleteJobTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -168,13 +164,12 @@ func (a *Client) DeleteJobTemplate(params *DeleteJobTemplateParams, opts ...Clie
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteJobTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteJobTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  DeleteSelectorTemplate templates management for filters
+DeleteSelectorTemplate templates management for filters
 */
 func (a *Client) DeleteSelectorTemplate(params *DeleteSelectorTemplateParams, opts ...ClientOption) (*DeleteSelectorTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -206,13 +201,12 @@ func (a *Client) DeleteSelectorTemplate(params *DeleteSelectorTemplateParams, op
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for DeleteSelectorTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*DeleteSelectorTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ExecutePlaygroundCode runs a code sample
+ExecutePlaygroundCode runs a code sample
 */
 func (a *Client) ExecutePlaygroundCode(params *ExecutePlaygroundCodeParams, opts ...ClientOption) (*ExecutePlaygroundCodeOK, error) {
 	// TODO: Validate the params before sending
@@ -244,13 +238,12 @@ func (a *Client) ExecutePlaygroundCode(params *ExecutePlaygroundCodeParams, opts
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ExecutePlaygroundCode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ExecutePlaygroundCodeDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListActionTemplates templates management for actions
+ListActionTemplates templates management for actions
 */
 func (a *Client) ListActionTemplates(params *ListActionTemplatesParams, opts ...ClientOption) (*ListActionTemplatesOK, error) {
 	// TODO: Validate the params before sending
@@ -282,13 +275,12 @@ func (a *Client) ListActionTemplates(params *ListActionTemplatesParams, opts ...
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListActionTemplates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListActionTemplatesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListDocTemplates list doc templates API
+ListDocTemplates list doc templates API
 */
 func (a *Client) ListDocTemplates(params *ListDocTemplatesParams, opts ...ClientOption) (*ListDocTemplatesOK, error) {
 	// TODO: Validate the params before sending
@@ -320,13 +312,12 @@ func (a *Client) ListDocTemplates(params *ListDocTemplatesParams, opts ...Client
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListDocTemplates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListDocTemplatesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListJobTemplates templates management for jobs
+ListJobTemplates templates management for jobs
 */
 func (a *Client) ListJobTemplates(params *ListJobTemplatesParams, opts ...ClientOption) (*ListJobTemplatesOK, error) {
 	// TODO: Validate the params before sending
@@ -358,13 +349,12 @@ func (a *Client) ListJobTemplates(params *ListJobTemplatesParams, opts ...Client
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListJobTemplates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListJobTemplatesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  ListSelectorTemplates templates management for filters
+ListSelectorTemplates templates management for filters
 */
 func (a *Client) ListSelectorTemplates(params *ListSelectorTemplatesParams, opts ...ClientOption) (*ListSelectorTemplatesOK, error) {
 	// TODO: Validate the params before sending
@@ -396,13 +386,12 @@ func (a *Client) ListSelectorTemplates(params *ListSelectorTemplatesParams, opts
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for ListSelectorTemplates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*ListSelectorTemplatesDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutActionTemplate templates management for actions
+PutActionTemplate templates management for actions
 */
 func (a *Client) PutActionTemplate(params *PutActionTemplateParams, opts ...ClientOption) (*PutActionTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -434,13 +423,12 @@ func (a *Client) PutActionTemplate(params *PutActionTemplateParams, opts ...Clie
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutActionTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutActionTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutJob enterprises only put a job in the scheduler
+PutJob enterprises only put a job in the scheduler
 */
 func (a *Client) PutJob(params *PutJobParams, opts ...ClientOption) (*PutJobOK, error) {
 	// TODO: Validate the params before sending
@@ -472,13 +460,12 @@ func (a *Client) PutJob(params *PutJobParams, opts ...ClientOption) (*PutJobOK, 
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutJob: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutJobDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutJobTemplate templates management for jobs
+PutJobTemplate templates management for jobs
 */
 func (a *Client) PutJobTemplate(params *PutJobTemplateParams, opts ...ClientOption) (*PutJobTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -510,13 +497,12 @@ func (a *Client) PutJobTemplate(params *PutJobTemplateParams, opts ...ClientOpti
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutJobTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutJobTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*
-  PutSelectorTemplate templates management for filters
+PutSelectorTemplate templates management for filters
 */
 func (a *Client) PutSelectorTemplate(params *PutSelectorTemplateParams, opts ...ClientOption) (*PutSelectorTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -548,9 +534,8 @@ func (a *Client) PutSelectorTemplate(params *PutSelectorTemplateParams, opts ...
 		return success, nil
 	}
 	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for PutSelectorTemplate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
+	unexpectedSuccess := result.(*PutSelectorTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 // SetTransport changes the transport on the client

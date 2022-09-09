@@ -20,8 +20,12 @@ import (
 type IdmWorkspaceScope string
 
 func NewIdmWorkspaceScope(value IdmWorkspaceScope) *IdmWorkspaceScope {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated IdmWorkspaceScope.
+func (m IdmWorkspaceScope) Pointer() *IdmWorkspaceScope {
+	return &m
 }
 
 const (

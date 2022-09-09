@@ -6,11 +6,15 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
@@ -54,7 +58,14 @@ func (o *PutVirtualNodeReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewPutVirtualNodeDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +74,48 @@ func NewPutVirtualNodeOK() *PutVirtualNodeOK {
 	return &PutVirtualNodeOK{}
 }
 
-/* PutVirtualNodeOK describes a response with status code 200, with default header values.
+/*
+PutVirtualNodeOK describes a response with status code 200, with default header values.
 
-PutVirtualNodeOK put virtual node o k
+A successful response.
 */
 type PutVirtualNodeOK struct {
 	Payload *models.TreeNode
 }
 
+// IsSuccess returns true when this put virtual node o k response has a 2xx status code
+func (o *PutVirtualNodeOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put virtual node o k response has a 3xx status code
+func (o *PutVirtualNodeOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put virtual node o k response has a 4xx status code
+func (o *PutVirtualNodeOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put virtual node o k response has a 5xx status code
+func (o *PutVirtualNodeOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put virtual node o k response a status code equal to that given
+func (o *PutVirtualNodeOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *PutVirtualNodeOK) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK  %+v", 200, o.Payload)
 }
+
+func (o *PutVirtualNodeOK) String() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK  %+v", 200, o.Payload)
+}
+
 func (o *PutVirtualNodeOK) GetPayload() *models.TreeNode {
 	return o.Payload
 }
@@ -95,14 +137,44 @@ func NewPutVirtualNodeUnauthorized() *PutVirtualNodeUnauthorized {
 	return &PutVirtualNodeUnauthorized{}
 }
 
-/* PutVirtualNodeUnauthorized describes a response with status code 401, with default header values.
+/*
+PutVirtualNodeUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type PutVirtualNodeUnauthorized struct {
 }
 
+// IsSuccess returns true when this put virtual node unauthorized response has a 2xx status code
+func (o *PutVirtualNodeUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put virtual node unauthorized response has a 3xx status code
+func (o *PutVirtualNodeUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put virtual node unauthorized response has a 4xx status code
+func (o *PutVirtualNodeUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put virtual node unauthorized response has a 5xx status code
+func (o *PutVirtualNodeUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put virtual node unauthorized response a status code equal to that given
+func (o *PutVirtualNodeUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *PutVirtualNodeUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeUnauthorized ", 401)
+}
+
+func (o *PutVirtualNodeUnauthorized) String() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeUnauthorized ", 401)
 }
 
@@ -116,7 +188,8 @@ func NewPutVirtualNodeForbidden() *PutVirtualNodeForbidden {
 	return &PutVirtualNodeForbidden{}
 }
 
-/* PutVirtualNodeForbidden describes a response with status code 403, with default header values.
+/*
+PutVirtualNodeForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +197,39 @@ type PutVirtualNodeForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put virtual node forbidden response has a 2xx status code
+func (o *PutVirtualNodeForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put virtual node forbidden response has a 3xx status code
+func (o *PutVirtualNodeForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put virtual node forbidden response has a 4xx status code
+func (o *PutVirtualNodeForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put virtual node forbidden response has a 5xx status code
+func (o *PutVirtualNodeForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put virtual node forbidden response a status code equal to that given
+func (o *PutVirtualNodeForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *PutVirtualNodeForbidden) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeForbidden  %+v", 403, o.Payload)
 }
+
+func (o *PutVirtualNodeForbidden) String() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeForbidden  %+v", 403, o.Payload)
+}
+
 func (o *PutVirtualNodeForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +251,8 @@ func NewPutVirtualNodeNotFound() *PutVirtualNodeNotFound {
 	return &PutVirtualNodeNotFound{}
 }
 
-/* PutVirtualNodeNotFound describes a response with status code 404, with default header values.
+/*
+PutVirtualNodeNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +260,39 @@ type PutVirtualNodeNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put virtual node not found response has a 2xx status code
+func (o *PutVirtualNodeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put virtual node not found response has a 3xx status code
+func (o *PutVirtualNodeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put virtual node not found response has a 4xx status code
+func (o *PutVirtualNodeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put virtual node not found response has a 5xx status code
+func (o *PutVirtualNodeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put virtual node not found response a status code equal to that given
+func (o *PutVirtualNodeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *PutVirtualNodeNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutVirtualNodeNotFound) String() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutVirtualNodeNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +314,8 @@ func NewPutVirtualNodeInternalServerError() *PutVirtualNodeInternalServerError {
 	return &PutVirtualNodeInternalServerError{}
 }
 
-/* PutVirtualNodeInternalServerError describes a response with status code 500, with default header values.
+/*
+PutVirtualNodeInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +323,39 @@ type PutVirtualNodeInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this put virtual node internal server error response has a 2xx status code
+func (o *PutVirtualNodeInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put virtual node internal server error response has a 3xx status code
+func (o *PutVirtualNodeInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put virtual node internal server error response has a 4xx status code
+func (o *PutVirtualNodeInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put virtual node internal server error response has a 5xx status code
+func (o *PutVirtualNodeInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this put virtual node internal server error response a status code equal to that given
+func (o *PutVirtualNodeInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *PutVirtualNodeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *PutVirtualNodeInternalServerError) String() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *PutVirtualNodeInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -204,5 +369,302 @@ func (o *PutVirtualNodeInternalServerError) readResponse(response runtime.Client
 		return err
 	}
 
+	return nil
+}
+
+// NewPutVirtualNodeDefault creates a PutVirtualNodeDefault with default headers values
+func NewPutVirtualNodeDefault(code int) *PutVirtualNodeDefault {
+	return &PutVirtualNodeDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+PutVirtualNodeDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type PutVirtualNodeDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the put virtual node default response
+func (o *PutVirtualNodeDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this put virtual node default response has a 2xx status code
+func (o *PutVirtualNodeDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this put virtual node default response has a 3xx status code
+func (o *PutVirtualNodeDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this put virtual node default response has a 4xx status code
+func (o *PutVirtualNodeDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this put virtual node default response has a 5xx status code
+func (o *PutVirtualNodeDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this put virtual node default response a status code equal to that given
+func (o *PutVirtualNodeDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *PutVirtualNodeDefault) Error() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] PutVirtualNode default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutVirtualNodeDefault) String() string {
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] PutVirtualNode default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *PutVirtualNodeDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *PutVirtualNodeDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+/*
+PutVirtualNodeBody put virtual node body
+swagger:model PutVirtualNodeBody
+*/
+type PutVirtualNodeBody struct {
+
+	// Can be used for output when node is appearing in multiple workspaces
+	AppearsIn []*models.TreeWorkspaceRelativePath `json:"AppearsIn"`
+
+	// List of successive commits
+	Commits []*models.TreeChangeLog `json:"Commits"`
+
+	// Hash of the content if node is a LEAF, Uuid or
+	Etag string `json:"Etag,omitempty"`
+
+	// Last modification Timestamp
+	MTime string `json:"MTime,omitempty"`
+
+	// ------------------------------------
+	// Then a free K => V representation of any kind of metadata
+	// ------------------------------------
+	MetaStore map[string]string `json:"MetaStore,omitempty"`
+
+	// Permission mode, like 0777
+	Mode int32 `json:"Mode,omitempty"`
+
+	// path
+	Path string `json:"Path,omitempty"`
+
+	// Size of the file, or cumulated size of folder
+	Size string `json:"Size,omitempty"`
+
+	// type
+	Type *models.TreeNodeType `json:"Type,omitempty"`
+}
+
+// Validate validates this put virtual node body
+func (o *PutVirtualNodeBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateAppearsIn(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateCommits(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutVirtualNodeBody) validateAppearsIn(formats strfmt.Registry) error {
+	if swag.IsZero(o.AppearsIn) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.AppearsIn); i++ {
+		if swag.IsZero(o.AppearsIn[i]) { // not required
+			continue
+		}
+
+		if o.AppearsIn[i] != nil {
+			if err := o.AppearsIn[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "AppearsIn" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "AppearsIn" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutVirtualNodeBody) validateCommits(formats strfmt.Registry) error {
+	if swag.IsZero(o.Commits) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(o.Commits); i++ {
+		if swag.IsZero(o.Commits[i]) { // not required
+			continue
+		}
+
+		if o.Commits[i] != nil {
+			if err := o.Commits[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "Commits" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "Commits" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutVirtualNodeBody) validateType(formats strfmt.Registry) error {
+	if swag.IsZero(o.Type) { // not required
+		return nil
+	}
+
+	if o.Type != nil {
+		if err := o.Type.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this put virtual node body based on the context it is used
+func (o *PutVirtualNodeBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.contextValidateAppearsIn(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateCommits(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *PutVirtualNodeBody) contextValidateAppearsIn(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.AppearsIn); i++ {
+
+		if o.AppearsIn[i] != nil {
+			if err := o.AppearsIn[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "AppearsIn" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "AppearsIn" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutVirtualNodeBody) contextValidateCommits(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(o.Commits); i++ {
+
+		if o.Commits[i] != nil {
+			if err := o.Commits[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("body" + "." + "Commits" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("body" + "." + "Commits" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (o *PutVirtualNodeBody) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Type != nil {
+		if err := o.Type.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "Type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *PutVirtualNodeBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *PutVirtualNodeBody) UnmarshalBinary(b []byte) error {
+	var res PutVirtualNodeBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
 	return nil
 }

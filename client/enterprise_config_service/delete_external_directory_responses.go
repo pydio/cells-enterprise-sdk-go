@@ -54,7 +54,14 @@ func (o *DeleteExternalDirectoryReader) ReadResponse(response runtime.ClientResp
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDeleteExternalDirectoryDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -63,17 +70,48 @@ func NewDeleteExternalDirectoryOK() *DeleteExternalDirectoryOK {
 	return &DeleteExternalDirectoryOK{}
 }
 
-/* DeleteExternalDirectoryOK describes a response with status code 200, with default header values.
+/*
+DeleteExternalDirectoryOK describes a response with status code 200, with default header values.
 
-DeleteExternalDirectoryOK delete external directory o k
+A successful response.
 */
 type DeleteExternalDirectoryOK struct {
 	Payload *models.EntExternalDirectoryResponse
 }
 
+// IsSuccess returns true when this delete external directory o k response has a 2xx status code
+func (o *DeleteExternalDirectoryOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete external directory o k response has a 3xx status code
+func (o *DeleteExternalDirectoryOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete external directory o k response has a 4xx status code
+func (o *DeleteExternalDirectoryOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete external directory o k response has a 5xx status code
+func (o *DeleteExternalDirectoryOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete external directory o k response a status code equal to that given
+func (o *DeleteExternalDirectoryOK) IsCode(code int) bool {
+	return code == 200
+}
+
 func (o *DeleteExternalDirectoryOK) Error() string {
 	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteExternalDirectoryOK) String() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryResponse {
 	return o.Payload
 }
@@ -95,14 +133,44 @@ func NewDeleteExternalDirectoryUnauthorized() *DeleteExternalDirectoryUnauthoriz
 	return &DeleteExternalDirectoryUnauthorized{}
 }
 
-/* DeleteExternalDirectoryUnauthorized describes a response with status code 401, with default header values.
+/*
+DeleteExternalDirectoryUnauthorized describes a response with status code 401, with default header values.
 
 User is not authenticated
 */
 type DeleteExternalDirectoryUnauthorized struct {
 }
 
+// IsSuccess returns true when this delete external directory unauthorized response has a 2xx status code
+func (o *DeleteExternalDirectoryUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete external directory unauthorized response has a 3xx status code
+func (o *DeleteExternalDirectoryUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete external directory unauthorized response has a 4xx status code
+func (o *DeleteExternalDirectoryUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete external directory unauthorized response has a 5xx status code
+func (o *DeleteExternalDirectoryUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete external directory unauthorized response a status code equal to that given
+func (o *DeleteExternalDirectoryUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
 func (o *DeleteExternalDirectoryUnauthorized) Error() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryUnauthorized ", 401)
+}
+
+func (o *DeleteExternalDirectoryUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryUnauthorized ", 401)
 }
 
@@ -116,7 +184,8 @@ func NewDeleteExternalDirectoryForbidden() *DeleteExternalDirectoryForbidden {
 	return &DeleteExternalDirectoryForbidden{}
 }
 
-/* DeleteExternalDirectoryForbidden describes a response with status code 403, with default header values.
+/*
+DeleteExternalDirectoryForbidden describes a response with status code 403, with default header values.
 
 User has no permission to access this resource
 */
@@ -124,9 +193,39 @@ type DeleteExternalDirectoryForbidden struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete external directory forbidden response has a 2xx status code
+func (o *DeleteExternalDirectoryForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete external directory forbidden response has a 3xx status code
+func (o *DeleteExternalDirectoryForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete external directory forbidden response has a 4xx status code
+func (o *DeleteExternalDirectoryForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete external directory forbidden response has a 5xx status code
+func (o *DeleteExternalDirectoryForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete external directory forbidden response a status code equal to that given
+func (o *DeleteExternalDirectoryForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
 func (o *DeleteExternalDirectoryForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryForbidden  %+v", 403, o.Payload)
 }
+
+func (o *DeleteExternalDirectoryForbidden) String() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryForbidden  %+v", 403, o.Payload)
+}
+
 func (o *DeleteExternalDirectoryForbidden) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -148,7 +247,8 @@ func NewDeleteExternalDirectoryNotFound() *DeleteExternalDirectoryNotFound {
 	return &DeleteExternalDirectoryNotFound{}
 }
 
-/* DeleteExternalDirectoryNotFound describes a response with status code 404, with default header values.
+/*
+DeleteExternalDirectoryNotFound describes a response with status code 404, with default header values.
 
 Resource does not exist in the system
 */
@@ -156,9 +256,39 @@ type DeleteExternalDirectoryNotFound struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete external directory not found response has a 2xx status code
+func (o *DeleteExternalDirectoryNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete external directory not found response has a 3xx status code
+func (o *DeleteExternalDirectoryNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete external directory not found response has a 4xx status code
+func (o *DeleteExternalDirectoryNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete external directory not found response has a 5xx status code
+func (o *DeleteExternalDirectoryNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete external directory not found response a status code equal to that given
+func (o *DeleteExternalDirectoryNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
 func (o *DeleteExternalDirectoryNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteExternalDirectoryNotFound) String() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteExternalDirectoryNotFound) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -180,7 +310,8 @@ func NewDeleteExternalDirectoryInternalServerError() *DeleteExternalDirectoryInt
 	return &DeleteExternalDirectoryInternalServerError{}
 }
 
-/* DeleteExternalDirectoryInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteExternalDirectoryInternalServerError describes a response with status code 500, with default header values.
 
 An internal error occurred in the backend
 */
@@ -188,9 +319,39 @@ type DeleteExternalDirectoryInternalServerError struct {
 	Payload *models.RestError
 }
 
+// IsSuccess returns true when this delete external directory internal server error response has a 2xx status code
+func (o *DeleteExternalDirectoryInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete external directory internal server error response has a 3xx status code
+func (o *DeleteExternalDirectoryInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete external directory internal server error response has a 4xx status code
+func (o *DeleteExternalDirectoryInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete external directory internal server error response has a 5xx status code
+func (o *DeleteExternalDirectoryInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete external directory internal server error response a status code equal to that given
+func (o *DeleteExternalDirectoryInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
 func (o *DeleteExternalDirectoryInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteExternalDirectoryInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] deleteExternalDirectoryInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteExternalDirectoryInternalServerError) GetPayload() *models.RestError {
 	return o.Payload
 }
@@ -198,6 +359,78 @@ func (o *DeleteExternalDirectoryInternalServerError) GetPayload() *models.RestEr
 func (o *DeleteExternalDirectoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestError)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteExternalDirectoryDefault creates a DeleteExternalDirectoryDefault with default headers values
+func NewDeleteExternalDirectoryDefault(code int) *DeleteExternalDirectoryDefault {
+	return &DeleteExternalDirectoryDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DeleteExternalDirectoryDefault describes a response with status code -1, with default header values.
+
+An unexpected error response.
+*/
+type DeleteExternalDirectoryDefault struct {
+	_statusCode int
+
+	Payload *models.RPCStatus
+}
+
+// Code gets the status code for the delete external directory default response
+func (o *DeleteExternalDirectoryDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this delete external directory default response has a 2xx status code
+func (o *DeleteExternalDirectoryDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this delete external directory default response has a 3xx status code
+func (o *DeleteExternalDirectoryDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this delete external directory default response has a 4xx status code
+func (o *DeleteExternalDirectoryDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this delete external directory default response has a 5xx status code
+func (o *DeleteExternalDirectoryDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this delete external directory default response a status code equal to that given
+func (o *DeleteExternalDirectoryDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DeleteExternalDirectoryDefault) Error() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] DeleteExternalDirectory default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteExternalDirectoryDefault) String() string {
+	return fmt.Sprintf("[DELETE /config/directories/{ConfigId}][%d] DeleteExternalDirectory default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DeleteExternalDirectoryDefault) GetPayload() *models.RPCStatus {
+	return o.Payload
+}
+
+func (o *DeleteExternalDirectoryDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.RPCStatus)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

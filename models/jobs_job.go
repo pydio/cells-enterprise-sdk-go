@@ -81,6 +81,9 @@ type JobsJob struct {
 	// Do not send notification on task update
 	TasksSilentUpdate bool `json:"TasksSilentUpdate,omitempty"`
 
+	// Optional Timeout any running job
+	Timeout string `json:"Timeout,omitempty"`
+
 	// Deprecated in favor of more generic IdmSelector
 	UserEventFilter *JobsUsersSelector `json:"UserEventFilter,omitempty"`
 }
@@ -149,6 +152,8 @@ func (m *JobsJob) validateActions(formats strfmt.Registry) error {
 			if err := m.Actions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Actions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Actions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -168,6 +173,8 @@ func (m *JobsJob) validateContextMetaFilter(formats strfmt.Registry) error {
 		if err := m.ContextMetaFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContextMetaFilter")
 			}
 			return err
 		}
@@ -185,6 +192,8 @@ func (m *JobsJob) validateDataSourceFilter(formats strfmt.Registry) error {
 		if err := m.DataSourceFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceFilter")
 			}
 			return err
 		}
@@ -202,6 +211,8 @@ func (m *JobsJob) validateIdmFilter(formats strfmt.Registry) error {
 		if err := m.IdmFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmFilter")
 			}
 			return err
 		}
@@ -219,6 +230,8 @@ func (m *JobsJob) validateNodeEventFilter(formats strfmt.Registry) error {
 		if err := m.NodeEventFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodeEventFilter")
 			}
 			return err
 		}
@@ -241,6 +254,8 @@ func (m *JobsJob) validateParameters(formats strfmt.Registry) error {
 			if err := m.Parameters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Parameters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Parameters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -265,6 +280,8 @@ func (m *JobsJob) validateResourcesDependencies(formats strfmt.Registry) error {
 			if err := m.ResourcesDependencies[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ResourcesDependencies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ResourcesDependencies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -284,6 +301,8 @@ func (m *JobsJob) validateSchedule(formats strfmt.Registry) error {
 		if err := m.Schedule.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Schedule")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Schedule")
 			}
 			return err
 		}
@@ -306,6 +325,8 @@ func (m *JobsJob) validateTasks(formats strfmt.Registry) error {
 			if err := m.Tasks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Tasks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Tasks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -325,6 +346,8 @@ func (m *JobsJob) validateUserEventFilter(formats strfmt.Registry) error {
 		if err := m.UserEventFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UserEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UserEventFilter")
 			}
 			return err
 		}
@@ -391,6 +414,8 @@ func (m *JobsJob) contextValidateActions(ctx context.Context, formats strfmt.Reg
 			if err := m.Actions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Actions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Actions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -407,6 +432,8 @@ func (m *JobsJob) contextValidateContextMetaFilter(ctx context.Context, formats 
 		if err := m.ContextMetaFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ContextMetaFilter")
 			}
 			return err
 		}
@@ -421,6 +448,8 @@ func (m *JobsJob) contextValidateDataSourceFilter(ctx context.Context, formats s
 		if err := m.DataSourceFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSourceFilter")
 			}
 			return err
 		}
@@ -435,6 +464,8 @@ func (m *JobsJob) contextValidateIdmFilter(ctx context.Context, formats strfmt.R
 		if err := m.IdmFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("IdmFilter")
 			}
 			return err
 		}
@@ -449,6 +480,8 @@ func (m *JobsJob) contextValidateNodeEventFilter(ctx context.Context, formats st
 		if err := m.NodeEventFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodeEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("NodeEventFilter")
 			}
 			return err
 		}
@@ -465,6 +498,8 @@ func (m *JobsJob) contextValidateParameters(ctx context.Context, formats strfmt.
 			if err := m.Parameters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Parameters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Parameters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -483,6 +518,8 @@ func (m *JobsJob) contextValidateResourcesDependencies(ctx context.Context, form
 			if err := m.ResourcesDependencies[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("ResourcesDependencies" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("ResourcesDependencies" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -499,6 +536,8 @@ func (m *JobsJob) contextValidateSchedule(ctx context.Context, formats strfmt.Re
 		if err := m.Schedule.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Schedule")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Schedule")
 			}
 			return err
 		}
@@ -515,6 +554,8 @@ func (m *JobsJob) contextValidateTasks(ctx context.Context, formats strfmt.Regis
 			if err := m.Tasks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Tasks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("Tasks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -531,6 +572,8 @@ func (m *JobsJob) contextValidateUserEventFilter(ctx context.Context, formats st
 		if err := m.UserEventFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("UserEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("UserEventFilter")
 			}
 			return err
 		}

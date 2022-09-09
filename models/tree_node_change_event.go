@@ -68,6 +68,8 @@ func (m *TreeNodeChangeEvent) validateSource(formats strfmt.Registry) error {
 		if err := m.Source.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Source")
 			}
 			return err
 		}
@@ -85,6 +87,8 @@ func (m *TreeNodeChangeEvent) validateTarget(formats strfmt.Registry) error {
 		if err := m.Target.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Target")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Target")
 			}
 			return err
 		}
@@ -102,6 +106,8 @@ func (m *TreeNodeChangeEvent) validateType(formats strfmt.Registry) error {
 		if err := m.Type.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}
@@ -138,6 +144,8 @@ func (m *TreeNodeChangeEvent) contextValidateSource(ctx context.Context, formats
 		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Source")
 			}
 			return err
 		}
@@ -152,6 +160,8 @@ func (m *TreeNodeChangeEvent) contextValidateTarget(ctx context.Context, formats
 		if err := m.Target.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Target")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Target")
 			}
 			return err
 		}
@@ -166,6 +176,8 @@ func (m *TreeNodeChangeEvent) contextValidateType(ctx context.Context, formats s
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Type")
 			}
 			return err
 		}

@@ -54,10 +54,12 @@ func NewExecutePlaygroundCodeParamsWithHTTPClient(client *http.Client) *ExecuteP
 	}
 }
 
-/* ExecutePlaygroundCodeParams contains all the parameters to send to the API endpoint
-   for the execute playground code operation.
+/*
+ExecutePlaygroundCodeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the execute playground code operation.
+
+	Typically these are written to a http.Request.
 */
 type ExecutePlaygroundCodeParams struct {
 

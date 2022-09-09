@@ -22,8 +22,12 @@ import (
 type TreeNodeType string
 
 func NewTreeNodeType(value TreeNodeType) *TreeNodeType {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated TreeNodeType.
+func (m TreeNodeType) Pointer() *TreeNodeType {
+	return &m
 }
 
 const (

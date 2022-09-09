@@ -70,6 +70,8 @@ func (m *AuthLdapMemberOfMapping) validateGroupFilter(formats strfmt.Registry) e
 		if err := m.GroupFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("GroupFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("GroupFilter")
 			}
 			return err
 		}
@@ -87,6 +89,8 @@ func (m *AuthLdapMemberOfMapping) validateMapping(formats strfmt.Registry) error
 		if err := m.Mapping.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mapping")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Mapping")
 			}
 			return err
 		}
@@ -119,6 +123,8 @@ func (m *AuthLdapMemberOfMapping) contextValidateGroupFilter(ctx context.Context
 		if err := m.GroupFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("GroupFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("GroupFilter")
 			}
 			return err
 		}
@@ -133,6 +139,8 @@ func (m *AuthLdapMemberOfMapping) contextValidateMapping(ctx context.Context, fo
 		if err := m.Mapping.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mapping")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("Mapping")
 			}
 			return err
 		}

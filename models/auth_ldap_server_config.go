@@ -110,6 +110,8 @@ func (m *AuthLdapServerConfig) validateMappingRules(formats strfmt.Registry) err
 			if err := m.MappingRules[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("MappingRules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("MappingRules" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -129,6 +131,8 @@ func (m *AuthLdapServerConfig) validateMemberOfMapping(formats strfmt.Registry) 
 		if err := m.MemberOfMapping.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("MemberOfMapping")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("MemberOfMapping")
 			}
 			return err
 		}
@@ -146,6 +150,8 @@ func (m *AuthLdapServerConfig) validateUser(formats strfmt.Registry) error {
 		if err := m.User.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("User")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("User")
 			}
 			return err
 		}
@@ -184,6 +190,8 @@ func (m *AuthLdapServerConfig) contextValidateMappingRules(ctx context.Context, 
 			if err := m.MappingRules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("MappingRules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("MappingRules" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -200,6 +208,8 @@ func (m *AuthLdapServerConfig) contextValidateMemberOfMapping(ctx context.Contex
 		if err := m.MemberOfMapping.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("MemberOfMapping")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("MemberOfMapping")
 			}
 			return err
 		}
@@ -214,6 +224,8 @@ func (m *AuthLdapServerConfig) contextValidateUser(ctx context.Context, formats 
 		if err := m.User.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("User")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("User")
 			}
 			return err
 		}

@@ -20,8 +20,12 @@ import (
 type ServiceResourcePolicyAction string
 
 func NewServiceResourcePolicyAction(value ServiceResourcePolicyAction) *ServiceResourcePolicyAction {
-	v := value
-	return &v
+	return &value
+}
+
+// Pointer returns a pointer to a freshly-allocated ServiceResourcePolicyAction.
+func (m ServiceResourcePolicyAction) Pointer() *ServiceResourcePolicyAction {
+	return &m
 }
 
 const (

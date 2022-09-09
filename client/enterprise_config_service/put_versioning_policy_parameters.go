@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
 
 // NewPutVersioningPolicyParams creates a new PutVersioningPolicyParams object,
@@ -54,10 +52,12 @@ func NewPutVersioningPolicyParamsWithHTTPClient(client *http.Client) *PutVersion
 	}
 }
 
-/* PutVersioningPolicyParams contains all the parameters to send to the API endpoint
-   for the put versioning policy operation.
+/*
+PutVersioningPolicyParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put versioning policy operation.
+
+	Typically these are written to a http.Request.
 */
 type PutVersioningPolicyParams struct {
 
@@ -65,7 +65,7 @@ type PutVersioningPolicyParams struct {
 	UUID string
 
 	// Body.
-	Body *models.TreeVersioningPolicy
+	Body PutVersioningPolicyBody
 
 	timeout    time.Duration
 	Context    context.Context
@@ -132,13 +132,13 @@ func (o *PutVersioningPolicyParams) SetUUID(uuid string) {
 }
 
 // WithBody adds the body to the put versioning policy params
-func (o *PutVersioningPolicyParams) WithBody(body *models.TreeVersioningPolicy) *PutVersioningPolicyParams {
+func (o *PutVersioningPolicyParams) WithBody(body PutVersioningPolicyBody) *PutVersioningPolicyParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the put versioning policy params
-func (o *PutVersioningPolicyParams) SetBody(body *models.TreeVersioningPolicy) {
+func (o *PutVersioningPolicyParams) SetBody(body PutVersioningPolicyBody) {
 	o.Body = body
 }
 
@@ -154,10 +154,8 @@ func (o *PutVersioningPolicyParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if err := r.SetPathParam("Uuid", o.UUID); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

@@ -14,8 +14,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/pydio/cells-enterprise-sdk-go/models"
 )
 
 // NewPutOAuth2ClientParams creates a new PutOAuth2ClientParams object,
@@ -54,18 +52,20 @@ func NewPutOAuth2ClientParamsWithHTTPClient(client *http.Client) *PutOAuth2Clien
 	}
 }
 
-/* PutOAuth2ClientParams contains all the parameters to send to the API endpoint
-   for the put o auth2 client operation.
+/*
+PutOAuth2ClientParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put o auth2 client operation.
+
+	Typically these are written to a http.Request.
 */
 type PutOAuth2ClientParams struct {
 
+	// Body.
+	Body PutOAuth2ClientBody
+
 	// ClientID.
 	ClientID string
-
-	// Body.
-	Body *models.AuthOAuth2ClientConfig
 
 	timeout    time.Duration
 	Context    context.Context
@@ -120,6 +120,17 @@ func (o *PutOAuth2ClientParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithBody adds the body to the put o auth2 client params
+func (o *PutOAuth2ClientParams) WithBody(body PutOAuth2ClientBody) *PutOAuth2ClientParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the put o auth2 client params
+func (o *PutOAuth2ClientParams) SetBody(body PutOAuth2ClientBody) {
+	o.Body = body
+}
+
 // WithClientID adds the clientID to the put o auth2 client params
 func (o *PutOAuth2ClientParams) WithClientID(clientID string) *PutOAuth2ClientParams {
 	o.SetClientID(clientID)
@@ -131,17 +142,6 @@ func (o *PutOAuth2ClientParams) SetClientID(clientID string) {
 	o.ClientID = clientID
 }
 
-// WithBody adds the body to the put o auth2 client params
-func (o *PutOAuth2ClientParams) WithBody(body *models.AuthOAuth2ClientConfig) *PutOAuth2ClientParams {
-	o.SetBody(body)
-	return o
-}
-
-// SetBody adds the body to the put o auth2 client params
-func (o *PutOAuth2ClientParams) SetBody(body *models.AuthOAuth2ClientConfig) {
-	o.Body = body
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *PutOAuth2ClientParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -149,15 +149,13 @@ func (o *PutOAuth2ClientParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
-	// path param ClientID
-	if err := r.SetPathParam("ClientID", o.ClientID); err != nil {
+	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+
+	// path param client_id
+	if err := r.SetPathParam("client_id", o.ClientID); err != nil {
+		return err
 	}
 
 	if len(res) > 0 {

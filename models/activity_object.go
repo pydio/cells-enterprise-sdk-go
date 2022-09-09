@@ -20,6 +20,9 @@ import (
 // swagger:model activityObject
 type ActivityObject struct {
 
+	// at context
+	AtContext string `json:"@context,omitempty"`
+
 	// Place Properties
 	Accuracy float32 `json:"accuracy,omitempty"`
 
@@ -110,9 +113,6 @@ type ActivityObject struct {
 
 	// Collection Properties
 	Items []*ActivityObject `json:"items"`
-
-	// json ld context
-	JSONLdContext string `json:"jsonLdContext,omitempty"`
 
 	// last
 	Last *ActivityObject `json:"last,omitempty"`
@@ -409,6 +409,8 @@ func (m *ActivityObject) validateActor(formats strfmt.Registry) error {
 		if err := m.Actor.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("actor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("actor")
 			}
 			return err
 		}
@@ -426,6 +428,8 @@ func (m *ActivityObject) validateAnyOf(formats strfmt.Registry) error {
 		if err := m.AnyOf.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("anyOf")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("anyOf")
 			}
 			return err
 		}
@@ -443,6 +447,8 @@ func (m *ActivityObject) validateAttachment(formats strfmt.Registry) error {
 		if err := m.Attachment.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attachment")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("attachment")
 			}
 			return err
 		}
@@ -460,6 +466,8 @@ func (m *ActivityObject) validateAttributedTo(formats strfmt.Registry) error {
 		if err := m.AttributedTo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributedTo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("attributedTo")
 			}
 			return err
 		}
@@ -477,6 +485,8 @@ func (m *ActivityObject) validateAudience(formats strfmt.Registry) error {
 		if err := m.Audience.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("audience")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("audience")
 			}
 			return err
 		}
@@ -494,6 +504,8 @@ func (m *ActivityObject) validateBcc(formats strfmt.Registry) error {
 		if err := m.Bcc.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bcc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bcc")
 			}
 			return err
 		}
@@ -511,6 +523,8 @@ func (m *ActivityObject) validateBto(formats strfmt.Registry) error {
 		if err := m.Bto.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bto")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bto")
 			}
 			return err
 		}
@@ -528,6 +542,8 @@ func (m *ActivityObject) validateCc(formats strfmt.Registry) error {
 		if err := m.Cc.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cc")
 			}
 			return err
 		}
@@ -557,6 +573,8 @@ func (m *ActivityObject) validateContent(formats strfmt.Registry) error {
 		if err := m.Content.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("content")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("content")
 			}
 			return err
 		}
@@ -574,6 +592,8 @@ func (m *ActivityObject) validateContext(formats strfmt.Registry) error {
 		if err := m.Context.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("context")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("context")
 			}
 			return err
 		}
@@ -591,6 +611,8 @@ func (m *ActivityObject) validateCurrent(formats strfmt.Registry) error {
 		if err := m.Current.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("current")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("current")
 			}
 			return err
 		}
@@ -644,6 +666,8 @@ func (m *ActivityObject) validateFirst(formats strfmt.Registry) error {
 		if err := m.First.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("first")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("first")
 			}
 			return err
 		}
@@ -661,6 +685,8 @@ func (m *ActivityObject) validateFormerType(formats strfmt.Registry) error {
 		if err := m.FormerType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("formerType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("formerType")
 			}
 			return err
 		}
@@ -678,6 +704,8 @@ func (m *ActivityObject) validateGenerator(formats strfmt.Registry) error {
 		if err := m.Generator.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("generator")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("generator")
 			}
 			return err
 		}
@@ -695,6 +723,8 @@ func (m *ActivityObject) validateIcon(formats strfmt.Registry) error {
 		if err := m.Icon.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("icon")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("icon")
 			}
 			return err
 		}
@@ -712,6 +742,8 @@ func (m *ActivityObject) validateImage(formats strfmt.Registry) error {
 		if err := m.Image.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("image")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("image")
 			}
 			return err
 		}
@@ -729,6 +761,8 @@ func (m *ActivityObject) validateInReplyTo(formats strfmt.Registry) error {
 		if err := m.InReplyTo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("inReplyTo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("inReplyTo")
 			}
 			return err
 		}
@@ -746,6 +780,8 @@ func (m *ActivityObject) validateInstrument(formats strfmt.Registry) error {
 		if err := m.Instrument.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("instrument")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("instrument")
 			}
 			return err
 		}
@@ -768,6 +804,8 @@ func (m *ActivityObject) validateItems(formats strfmt.Registry) error {
 			if err := m.Items[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("items" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -787,6 +825,8 @@ func (m *ActivityObject) validateLast(formats strfmt.Registry) error {
 		if err := m.Last.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last")
 			}
 			return err
 		}
@@ -804,6 +844,8 @@ func (m *ActivityObject) validateLocation(formats strfmt.Registry) error {
 		if err := m.Location.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("location")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("location")
 			}
 			return err
 		}
@@ -821,6 +863,8 @@ func (m *ActivityObject) validateNext(formats strfmt.Registry) error {
 		if err := m.Next.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("next")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("next")
 			}
 			return err
 		}
@@ -838,6 +882,8 @@ func (m *ActivityObject) validateObject(formats strfmt.Registry) error {
 		if err := m.Object.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("object")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("object")
 			}
 			return err
 		}
@@ -855,6 +901,8 @@ func (m *ActivityObject) validateOneOf(formats strfmt.Registry) error {
 		if err := m.OneOf.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oneOf")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("oneOf")
 			}
 			return err
 		}
@@ -872,6 +920,8 @@ func (m *ActivityObject) validateOrigin(formats strfmt.Registry) error {
 		if err := m.Origin.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("origin")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("origin")
 			}
 			return err
 		}
@@ -889,6 +939,8 @@ func (m *ActivityObject) validatePartOf(formats strfmt.Registry) error {
 		if err := m.PartOf.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partOf")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partOf")
 			}
 			return err
 		}
@@ -906,6 +958,8 @@ func (m *ActivityObject) validatePrev(formats strfmt.Registry) error {
 		if err := m.Prev.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("prev")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("prev")
 			}
 			return err
 		}
@@ -923,6 +977,8 @@ func (m *ActivityObject) validatePreview(formats strfmt.Registry) error {
 		if err := m.Preview.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("preview")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("preview")
 			}
 			return err
 		}
@@ -952,6 +1008,8 @@ func (m *ActivityObject) validateRelationship(formats strfmt.Registry) error {
 		if err := m.Relationship.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationship")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("relationship")
 			}
 			return err
 		}
@@ -969,6 +1027,8 @@ func (m *ActivityObject) validateReplies(formats strfmt.Registry) error {
 		if err := m.Replies.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("replies")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("replies")
 			}
 			return err
 		}
@@ -986,6 +1046,8 @@ func (m *ActivityObject) validateResult(formats strfmt.Registry) error {
 		if err := m.Result.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("result")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("result")
 			}
 			return err
 		}
@@ -1015,6 +1077,8 @@ func (m *ActivityObject) validateSubject(formats strfmt.Registry) error {
 		if err := m.Subject.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("subject")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("subject")
 			}
 			return err
 		}
@@ -1032,6 +1096,8 @@ func (m *ActivityObject) validateTag(formats strfmt.Registry) error {
 		if err := m.Tag.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("tag")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("tag")
 			}
 			return err
 		}
@@ -1049,6 +1115,8 @@ func (m *ActivityObject) validateTarget(formats strfmt.Registry) error {
 		if err := m.Target.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("target")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("target")
 			}
 			return err
 		}
@@ -1066,6 +1134,8 @@ func (m *ActivityObject) validateTo(formats strfmt.Registry) error {
 		if err := m.To.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("to")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("to")
 			}
 			return err
 		}
@@ -1083,6 +1153,8 @@ func (m *ActivityObject) validateType(formats strfmt.Registry) error {
 		if err := m.Type.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("type")
 			}
 			return err
 		}
@@ -1112,6 +1184,8 @@ func (m *ActivityObject) validateURL(formats strfmt.Registry) error {
 		if err := m.URL.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("url")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("url")
 			}
 			return err
 		}
@@ -1284,6 +1358,8 @@ func (m *ActivityObject) contextValidateActor(ctx context.Context, formats strfm
 		if err := m.Actor.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("actor")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("actor")
 			}
 			return err
 		}
@@ -1298,6 +1374,8 @@ func (m *ActivityObject) contextValidateAnyOf(ctx context.Context, formats strfm
 		if err := m.AnyOf.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("anyOf")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("anyOf")
 			}
 			return err
 		}
@@ -1312,6 +1390,8 @@ func (m *ActivityObject) contextValidateAttachment(ctx context.Context, formats 
 		if err := m.Attachment.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attachment")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("attachment")
 			}
 			return err
 		}
@@ -1326,6 +1406,8 @@ func (m *ActivityObject) contextValidateAttributedTo(ctx context.Context, format
 		if err := m.AttributedTo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributedTo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("attributedTo")
 			}
 			return err
 		}
@@ -1340,6 +1422,8 @@ func (m *ActivityObject) contextValidateAudience(ctx context.Context, formats st
 		if err := m.Audience.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("audience")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("audience")
 			}
 			return err
 		}
@@ -1354,6 +1438,8 @@ func (m *ActivityObject) contextValidateBcc(ctx context.Context, formats strfmt.
 		if err := m.Bcc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bcc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bcc")
 			}
 			return err
 		}
@@ -1368,6 +1454,8 @@ func (m *ActivityObject) contextValidateBto(ctx context.Context, formats strfmt.
 		if err := m.Bto.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bto")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bto")
 			}
 			return err
 		}
@@ -1382,6 +1470,8 @@ func (m *ActivityObject) contextValidateCc(ctx context.Context, formats strfmt.R
 		if err := m.Cc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cc")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cc")
 			}
 			return err
 		}
@@ -1396,6 +1486,8 @@ func (m *ActivityObject) contextValidateContent(ctx context.Context, formats str
 		if err := m.Content.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("content")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("content")
 			}
 			return err
 		}
@@ -1410,6 +1502,8 @@ func (m *ActivityObject) contextValidateContext(ctx context.Context, formats str
 		if err := m.Context.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("context")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("context")
 			}
 			return err
 		}
@@ -1424,6 +1518,8 @@ func (m *ActivityObject) contextValidateCurrent(ctx context.Context, formats str
 		if err := m.Current.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("current")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("current")
 			}
 			return err
 		}
@@ -1438,6 +1534,8 @@ func (m *ActivityObject) contextValidateFirst(ctx context.Context, formats strfm
 		if err := m.First.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("first")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("first")
 			}
 			return err
 		}
@@ -1452,6 +1550,8 @@ func (m *ActivityObject) contextValidateFormerType(ctx context.Context, formats 
 		if err := m.FormerType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("formerType")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("formerType")
 			}
 			return err
 		}
@@ -1466,6 +1566,8 @@ func (m *ActivityObject) contextValidateGenerator(ctx context.Context, formats s
 		if err := m.Generator.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("generator")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("generator")
 			}
 			return err
 		}
@@ -1480,6 +1582,8 @@ func (m *ActivityObject) contextValidateIcon(ctx context.Context, formats strfmt
 		if err := m.Icon.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("icon")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("icon")
 			}
 			return err
 		}
@@ -1494,6 +1598,8 @@ func (m *ActivityObject) contextValidateImage(ctx context.Context, formats strfm
 		if err := m.Image.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("image")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("image")
 			}
 			return err
 		}
@@ -1508,6 +1614,8 @@ func (m *ActivityObject) contextValidateInReplyTo(ctx context.Context, formats s
 		if err := m.InReplyTo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("inReplyTo")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("inReplyTo")
 			}
 			return err
 		}
@@ -1522,6 +1630,8 @@ func (m *ActivityObject) contextValidateInstrument(ctx context.Context, formats 
 		if err := m.Instrument.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("instrument")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("instrument")
 			}
 			return err
 		}
@@ -1538,6 +1648,8 @@ func (m *ActivityObject) contextValidateItems(ctx context.Context, formats strfm
 			if err := m.Items[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("items" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -1554,6 +1666,8 @@ func (m *ActivityObject) contextValidateLast(ctx context.Context, formats strfmt
 		if err := m.Last.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("last")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("last")
 			}
 			return err
 		}
@@ -1568,6 +1682,8 @@ func (m *ActivityObject) contextValidateLocation(ctx context.Context, formats st
 		if err := m.Location.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("location")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("location")
 			}
 			return err
 		}
@@ -1582,6 +1698,8 @@ func (m *ActivityObject) contextValidateNext(ctx context.Context, formats strfmt
 		if err := m.Next.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("next")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("next")
 			}
 			return err
 		}
@@ -1596,6 +1714,8 @@ func (m *ActivityObject) contextValidateObject(ctx context.Context, formats strf
 		if err := m.Object.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("object")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("object")
 			}
 			return err
 		}
@@ -1610,6 +1730,8 @@ func (m *ActivityObject) contextValidateOneOf(ctx context.Context, formats strfm
 		if err := m.OneOf.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("oneOf")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("oneOf")
 			}
 			return err
 		}
@@ -1624,6 +1746,8 @@ func (m *ActivityObject) contextValidateOrigin(ctx context.Context, formats strf
 		if err := m.Origin.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("origin")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("origin")
 			}
 			return err
 		}
@@ -1638,6 +1762,8 @@ func (m *ActivityObject) contextValidatePartOf(ctx context.Context, formats strf
 		if err := m.PartOf.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("partOf")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("partOf")
 			}
 			return err
 		}
@@ -1652,6 +1778,8 @@ func (m *ActivityObject) contextValidatePrev(ctx context.Context, formats strfmt
 		if err := m.Prev.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("prev")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("prev")
 			}
 			return err
 		}
@@ -1666,6 +1794,8 @@ func (m *ActivityObject) contextValidatePreview(ctx context.Context, formats str
 		if err := m.Preview.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("preview")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("preview")
 			}
 			return err
 		}
@@ -1680,6 +1810,8 @@ func (m *ActivityObject) contextValidateRelationship(ctx context.Context, format
 		if err := m.Relationship.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("relationship")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("relationship")
 			}
 			return err
 		}
@@ -1694,6 +1826,8 @@ func (m *ActivityObject) contextValidateReplies(ctx context.Context, formats str
 		if err := m.Replies.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("replies")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("replies")
 			}
 			return err
 		}
@@ -1708,6 +1842,8 @@ func (m *ActivityObject) contextValidateResult(ctx context.Context, formats strf
 		if err := m.Result.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("result")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("result")
 			}
 			return err
 		}
@@ -1722,6 +1858,8 @@ func (m *ActivityObject) contextValidateSubject(ctx context.Context, formats str
 		if err := m.Subject.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("subject")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("subject")
 			}
 			return err
 		}
@@ -1736,6 +1874,8 @@ func (m *ActivityObject) contextValidateTag(ctx context.Context, formats strfmt.
 		if err := m.Tag.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("tag")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("tag")
 			}
 			return err
 		}
@@ -1750,6 +1890,8 @@ func (m *ActivityObject) contextValidateTarget(ctx context.Context, formats strf
 		if err := m.Target.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("target")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("target")
 			}
 			return err
 		}
@@ -1764,6 +1906,8 @@ func (m *ActivityObject) contextValidateTo(ctx context.Context, formats strfmt.R
 		if err := m.To.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("to")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("to")
 			}
 			return err
 		}
@@ -1778,6 +1922,8 @@ func (m *ActivityObject) contextValidateType(ctx context.Context, formats strfmt
 		if err := m.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("type")
 			}
 			return err
 		}
@@ -1792,6 +1938,8 @@ func (m *ActivityObject) contextValidateURL(ctx context.Context, formats strfmt.
 		if err := m.URL.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("url")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("url")
 			}
 			return err
 		}

@@ -75,6 +75,8 @@ func (m *AuthOAuth2ConnectorGithubConfig) validateOrgs(formats strfmt.Registry) 
 			if err := m.Orgs[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("orgs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("orgs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -107,6 +109,8 @@ func (m *AuthOAuth2ConnectorGithubConfig) contextValidateOrgs(ctx context.Contex
 			if err := m.Orgs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("orgs" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("orgs" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

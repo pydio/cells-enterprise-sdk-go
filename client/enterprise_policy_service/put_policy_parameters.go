@@ -54,10 +54,12 @@ func NewPutPolicyParamsWithHTTPClient(client *http.Client) *PutPolicyParams {
 	}
 }
 
-/* PutPolicyParams contains all the parameters to send to the API endpoint
-   for the put policy operation.
+/*
+PutPolicyParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put policy operation.
+
+	Typically these are written to a http.Request.
 */
 type PutPolicyParams struct {
 

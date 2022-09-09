@@ -54,10 +54,12 @@ func NewListSelectorTemplatesParamsWithHTTPClient(client *http.Client) *ListSele
 	}
 }
 
-/* ListSelectorTemplatesParams contains all the parameters to send to the API endpoint
-   for the list selector templates operation.
+/*
+ListSelectorTemplatesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list selector templates operation.
+
+	Typically these are written to a http.Request.
 */
 type ListSelectorTemplatesParams struct {
 
