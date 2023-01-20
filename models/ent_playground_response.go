@@ -21,6 +21,9 @@ type EntPlaygroundResponse struct {
 	// code
 	Code string `json:"Code,omitempty"`
 
+	// code mime
+	CodeMime string `json:"CodeMime,omitempty"`
+
 	// input
 	Input *JobsActionMessage `json:"Input,omitempty"`
 

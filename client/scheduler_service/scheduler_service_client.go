@@ -34,6 +34,8 @@ type ClientService interface {
 
 	DeleteJobTemplate(params *DeleteJobTemplateParams, opts ...ClientOption) (*DeleteJobTemplateOK, error)
 
+	DeleteJobVersion(params *DeleteJobVersionParams, opts ...ClientOption) (*DeleteJobVersionOK, error)
+
 	DeleteSelectorTemplate(params *DeleteSelectorTemplateParams, opts ...ClientOption) (*DeleteSelectorTemplateOK, error)
 
 	ExecutePlaygroundCode(params *ExecutePlaygroundCodeParams, opts ...ClientOption) (*ExecutePlaygroundCodeOK, error)
@@ -44,6 +46,8 @@ type ClientService interface {
 
 	ListJobTemplates(params *ListJobTemplatesParams, opts ...ClientOption) (*ListJobTemplatesOK, error)
 
+	ListJobVersions(params *ListJobVersionsParams, opts ...ClientOption) (*ListJobVersionsOK, error)
+
 	ListSelectorTemplates(params *ListSelectorTemplatesParams, opts ...ClientOption) (*ListSelectorTemplatesOK, error)
 
 	PutActionTemplate(params *PutActionTemplateParams, opts ...ClientOption) (*PutActionTemplateOK, error)
@@ -53,6 +57,10 @@ type ClientService interface {
 	PutJobTemplate(params *PutJobTemplateParams, opts ...ClientOption) (*PutJobTemplateOK, error)
 
 	PutSelectorTemplate(params *PutSelectorTemplateParams, opts ...ClientOption) (*PutSelectorTemplateOK, error)
+
+	RestoreJobVersion(params *RestoreJobVersionParams, opts ...ClientOption) (*RestoreJobVersionOK, error)
+
+	TriggerHook(params *TriggerHookParams, opts ...ClientOption) (*TriggerHookOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -165,6 +173,43 @@ func (a *Client) DeleteJobTemplate(params *DeleteJobTemplateParams, opts ...Clie
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*DeleteJobTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+DeleteJobVersion delete job version API
+*/
+func (a *Client) DeleteJobVersion(params *DeleteJobVersionParams, opts ...ClientOption) (*DeleteJobVersionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteJobVersionParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "DeleteJobVersion",
+		Method:             "DELETE",
+		PathPattern:        "/scheduler/versions/{JobID}/{VersionID}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &DeleteJobVersionReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteJobVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*DeleteJobVersionDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
@@ -354,6 +399,43 @@ func (a *Client) ListJobTemplates(params *ListJobTemplatesParams, opts ...Client
 }
 
 /*
+ListJobVersions list job versions API
+*/
+func (a *Client) ListJobVersions(params *ListJobVersionsParams, opts ...ClientOption) (*ListJobVersionsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListJobVersionsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ListJobVersions",
+		Method:             "POST",
+		PathPattern:        "/scheduler/versions/{JobID}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &ListJobVersionsReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ListJobVersionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*ListJobVersionsDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
 ListSelectorTemplates templates management for filters
 */
 func (a *Client) ListSelectorTemplates(params *ListSelectorTemplatesParams, opts ...ClientOption) (*ListSelectorTemplatesOK, error) {
@@ -535,6 +617,80 @@ func (a *Client) PutSelectorTemplate(params *PutSelectorTemplateParams, opts ...
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*PutSelectorTemplateDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+RestoreJobVersion restore job version API
+*/
+func (a *Client) RestoreJobVersion(params *RestoreJobVersionParams, opts ...ClientOption) (*RestoreJobVersionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestoreJobVersionParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "RestoreJobVersion",
+		Method:             "PATCH",
+		PathPattern:        "/scheduler/versions/{JobID}/{VersionID}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &RestoreJobVersionReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*RestoreJobVersionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*RestoreJobVersionDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+TriggerHook trigger hook API
+*/
+func (a *Client) TriggerHook(params *TriggerHookParams, opts ...ClientOption) (*TriggerHookOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewTriggerHookParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "TriggerHook",
+		Method:             "POST",
+		PathPattern:        "/scheduler/hooks/{HookSlug}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https", "wss"},
+		Params:             params,
+		Reader:             &TriggerHookReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*TriggerHookOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*TriggerHookDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 

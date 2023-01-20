@@ -63,7 +63,12 @@ AuditChartDataParams contains all the parameters to send to the API endpoint
 */
 type AuditChartDataParams struct {
 
-	// Body.
+	/* Body.
+
+	     TimeRangeRequest contains the parameter to configure the query to
+	retrieve the number of audit events of this type for a given time range
+	defined by last timestamp and a range type.
+	*/
 	Body *models.LogTimeRangeRequest
 
 	timeout    time.Duration

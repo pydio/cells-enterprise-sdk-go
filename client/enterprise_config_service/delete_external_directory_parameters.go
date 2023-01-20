@@ -141,7 +141,7 @@ type DeleteExternalDirectoryParams struct {
 
 	/* ConfigRootCAData.
 
-	   To be converted to []byte.
+	   To be converted to []byte
 	*/
 	ConfigRootCAData *string
 

@@ -82,7 +82,7 @@ type DeleteOAuth2ConnectorParams struct {
 
 	/* ConfiggithubHostName.
 
-	   For GitHub enterprise.
+	   For GitHub enterprise
 	*/
 	ConfiggithubHostName *string
 
@@ -198,7 +198,7 @@ type DeleteOAuth2ConnectorParams struct {
 
 	/* ConfigldapRootCAData.
 
-	   To be converted to []byte.
+	   To be converted to []byte
 	*/
 	ConfigldapRootCAData *string
 

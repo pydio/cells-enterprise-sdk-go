@@ -64,13 +64,13 @@ type DeleteVirtualNodeParams struct {
 
 	/* Etag.
 
-	   Hash of the content if node is a LEAF, Uuid or.
+	   Hash of the content if node is a LEAF, Uuid or
 	*/
 	Etag *string
 
 	/* MTime.
 
-	   Last modification Timestamp.
+	   Last modification Timestamp
 
 	   Format: int64
 	*/
@@ -78,7 +78,7 @@ type DeleteVirtualNodeParams struct {
 
 	/* Mode.
 
-	   Permission mode, like 0777.
+	   Permission mode, like 0777
 
 	   Format: int32
 	*/
@@ -89,7 +89,7 @@ type DeleteVirtualNodeParams struct {
 
 	/* Size.
 
-	   Size of the file, or cumulated size of folder.
+	   Size of the file, or cumulated size of folder
 
 	   Format: int64
 	*/

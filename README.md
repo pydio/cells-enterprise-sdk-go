@@ -23,7 +23,7 @@ As this library only adds Enterprise Specific endpoints to the core Cells API, y
 To workaround the obligation of adding v2, v3, ...  subfolders at each new major version, we stay at version 1 in this (very stable) repository.
 
 For better compatibility, the _minor_ version of the SDK you are using should match the _major_ version of your running Cells instance.  
-For instance, use Sdk Go v1.3.x with a recent v3 Cells server. 
+For instance, use Sdk Go v1.4.x with a recent v4 Cells server. 
 
 ## License
 

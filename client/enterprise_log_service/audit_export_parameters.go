@@ -63,7 +63,10 @@ AuditExportParams contains all the parameters to send to the API endpoint
 */
 type AuditExportParams struct {
 
-	// Body.
+	/* Body.
+
+	   ListLogRequest launches a parameterised query in the log repository and streams the results.
+	*/
 	Body *models.LogListLogRequest
 
 	timeout    time.Duration
