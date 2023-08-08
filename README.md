@@ -1,6 +1,6 @@
 # Cells Enterprise SDK for Go
 
-[Go](https://golang.org/) SDK for **Cells Enterprise** REST API. Please check [Cells SDK GO](https://github.com/pydio/cells-sdk-go/tree/master/v3) for accessing the core APIs of Pydio Cells (home edition).
+[Go](https://golang.org/) SDK for **Cells Enterprise** REST API. Please check [Cells SDK GO](https://github.com/pydio/cells-sdk-go) for accessing the core APIs of Pydio Cells (home edition).
 
 For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide)
 
