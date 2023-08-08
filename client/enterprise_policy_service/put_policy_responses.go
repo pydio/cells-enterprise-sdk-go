@@ -104,6 +104,11 @@ func (o *PutPolicyOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put policy o k response
+func (o *PutPolicyOK) Code() int {
+	return 200
+}
+
 func (o *PutPolicyOK) Error() string {
 	return fmt.Sprintf("[PUT /policy][%d] putPolicyOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PutPolicyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put policy unauthorized response
+func (o *PutPolicyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /policy][%d] putPolicyUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PutPolicyForbidden) IsServerError() bool {
 // IsCode returns true when this put policy forbidden response a status code equal to that given
 func (o *PutPolicyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put policy forbidden response
+func (o *PutPolicyForbidden) Code() int {
+	return 403
 }
 
 func (o *PutPolicyForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PutPolicyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put policy not found response
+func (o *PutPolicyNotFound) Code() int {
+	return 404
+}
+
 func (o *PutPolicyNotFound) Error() string {
 	return fmt.Sprintf("[PUT /policy][%d] putPolicyNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PutPolicyInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put policy internal server error response
+func (o *PutPolicyInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /policy][%d] putPolicyInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PutPolicyDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put policy default response
-func (o *PutPolicyDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put policy default response has a 2xx status code
 func (o *PutPolicyDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PutPolicyDefault) IsServerError() bool {
 // IsCode returns true when this put policy default response a status code equal to that given
 func (o *PutPolicyDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put policy default response
+func (o *PutPolicyDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutPolicyDefault) Error() string {

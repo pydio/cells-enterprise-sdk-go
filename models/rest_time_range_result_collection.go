@@ -120,6 +120,11 @@ func (m *RestTimeRangeResultCollection) contextValidateLinks(ctx context.Context
 	for i := 0; i < len(m.Links); i++ {
 
 		if m.Links[i] != nil {
+
+			if swag.IsZero(m.Links[i]) { // not required
+				return nil
+			}
+
 			if err := m.Links[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Links" + "." + strconv.Itoa(i))
@@ -140,6 +145,11 @@ func (m *RestTimeRangeResultCollection) contextValidateResults(ctx context.Conte
 	for i := 0; i < len(m.Results); i++ {
 
 		if m.Results[i] != nil {
+
+			if swag.IsZero(m.Results[i]) { // not required
+				return nil
+			}
+
 			if err := m.Results[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Results" + "." + strconv.Itoa(i))

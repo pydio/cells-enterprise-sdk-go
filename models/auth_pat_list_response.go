@@ -82,6 +82,11 @@ func (m *AuthPatListResponse) contextValidateTokens(ctx context.Context, formats
 	for i := 0; i < len(m.Tokens); i++ {
 
 		if m.Tokens[i] != nil {
+
+			if swag.IsZero(m.Tokens[i]) { // not required
+				return nil
+			}
+
 			if err := m.Tokens[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Tokens" + "." + strconv.Itoa(i))

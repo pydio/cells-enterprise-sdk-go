@@ -104,6 +104,11 @@ func (o *DeleteMetaTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete meta template o k response
+func (o *DeleteMetaTemplateOK) Code() int {
+	return 200
+}
+
 func (o *DeleteMetaTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteMetaTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete meta template unauthorized response
+func (o *DeleteMetaTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteMetaTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteMetaTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this delete meta template forbidden response a status code equal to that given
 func (o *DeleteMetaTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete meta template forbidden response
+func (o *DeleteMetaTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteMetaTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteMetaTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete meta template not found response
+func (o *DeleteMetaTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteMetaTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteMetaTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete meta template internal server error response
+func (o *DeleteMetaTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteMetaTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteMetaTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete meta template default response
-func (o *DeleteMetaTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete meta template default response has a 2xx status code
 func (o *DeleteMetaTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteMetaTemplateDefault) IsServerError() bool {
 // IsCode returns true when this delete meta template default response a status code equal to that given
 func (o *DeleteMetaTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete meta template default response
+func (o *DeleteMetaTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteMetaTemplateDefault) Error() string {

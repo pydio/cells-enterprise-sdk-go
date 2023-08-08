@@ -108,6 +108,11 @@ func (o *PutVersioningPolicyOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put versioning policy o k response
+func (o *PutVersioningPolicyOK) Code() int {
+	return 200
+}
+
 func (o *PutVersioningPolicyOK) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyOK  %+v", 200, o.Payload)
 }
@@ -170,6 +175,11 @@ func (o *PutVersioningPolicyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put versioning policy unauthorized response
+func (o *PutVersioningPolicyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutVersioningPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyUnauthorized ", 401)
 }
@@ -220,6 +230,11 @@ func (o *PutVersioningPolicyForbidden) IsServerError() bool {
 // IsCode returns true when this put versioning policy forbidden response a status code equal to that given
 func (o *PutVersioningPolicyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put versioning policy forbidden response
+func (o *PutVersioningPolicyForbidden) Code() int {
+	return 403
 }
 
 func (o *PutVersioningPolicyForbidden) Error() string {
@@ -285,6 +300,11 @@ func (o *PutVersioningPolicyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put versioning policy not found response
+func (o *PutVersioningPolicyNotFound) Code() int {
+	return 404
+}
+
 func (o *PutVersioningPolicyNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyNotFound  %+v", 404, o.Payload)
 }
@@ -348,6 +368,11 @@ func (o *PutVersioningPolicyInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put versioning policy internal server error response
+func (o *PutVersioningPolicyInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutVersioningPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /config/versioning/{Uuid}][%d] putVersioningPolicyInternalServerError  %+v", 500, o.Payload)
 }
@@ -390,11 +415,6 @@ type PutVersioningPolicyDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put versioning policy default response
-func (o *PutVersioningPolicyDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put versioning policy default response has a 2xx status code
 func (o *PutVersioningPolicyDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -418,6 +438,11 @@ func (o *PutVersioningPolicyDefault) IsServerError() bool {
 // IsCode returns true when this put versioning policy default response a status code equal to that given
 func (o *PutVersioningPolicyDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put versioning policy default response
+func (o *PutVersioningPolicyDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutVersioningPolicyDefault) Error() string {
@@ -564,6 +589,11 @@ func (o *PutVersioningPolicyBody) contextValidateKeepPeriods(ctx context.Context
 	for i := 0; i < len(o.KeepPeriods); i++ {
 
 		if o.KeepPeriods[i] != nil {
+
+			if swag.IsZero(o.KeepPeriods[i]) { // not required
+				return nil
+			}
+
 			if err := o.KeepPeriods[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "KeepPeriods" + "." + strconv.Itoa(i))
@@ -582,6 +612,11 @@ func (o *PutVersioningPolicyBody) contextValidateKeepPeriods(ctx context.Context
 func (o *PutVersioningPolicyBody) contextValidateNodeDeletedStrategy(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.NodeDeletedStrategy != nil {
+
+		if swag.IsZero(o.NodeDeletedStrategy) { // not required
+			return nil
+		}
+
 		if err := o.NodeDeletedStrategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "NodeDeletedStrategy")

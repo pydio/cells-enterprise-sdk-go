@@ -104,6 +104,11 @@ func (o *SearchExternalDirectoryOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the search external directory o k response
+func (o *SearchExternalDirectoryOK) Code() int {
+	return 200
+}
+
 func (o *SearchExternalDirectoryOK) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *SearchExternalDirectoryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the search external directory unauthorized response
+func (o *SearchExternalDirectoryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SearchExternalDirectoryUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *SearchExternalDirectoryForbidden) IsServerError() bool {
 // IsCode returns true when this search external directory forbidden response a status code equal to that given
 func (o *SearchExternalDirectoryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the search external directory forbidden response
+func (o *SearchExternalDirectoryForbidden) Code() int {
+	return 403
 }
 
 func (o *SearchExternalDirectoryForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *SearchExternalDirectoryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the search external directory not found response
+func (o *SearchExternalDirectoryNotFound) Code() int {
+	return 404
+}
+
 func (o *SearchExternalDirectoryNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *SearchExternalDirectoryInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the search external directory internal server error response
+func (o *SearchExternalDirectoryInternalServerError) Code() int {
+	return 500
+}
+
 func (o *SearchExternalDirectoryInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type SearchExternalDirectoryDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the search external directory default response
-func (o *SearchExternalDirectoryDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this search external directory default response has a 2xx status code
 func (o *SearchExternalDirectoryDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *SearchExternalDirectoryDefault) IsServerError() bool {
 // IsCode returns true when this search external directory default response a status code equal to that given
 func (o *SearchExternalDirectoryDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the search external directory default response
+func (o *SearchExternalDirectoryDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *SearchExternalDirectoryDefault) Error() string {

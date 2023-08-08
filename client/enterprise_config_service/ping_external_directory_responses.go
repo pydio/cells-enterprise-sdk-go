@@ -104,6 +104,11 @@ func (o *PingExternalDirectoryOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the ping external directory o k response
+func (o *PingExternalDirectoryOK) Code() int {
+	return 200
+}
+
 func (o *PingExternalDirectoryOK) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PingExternalDirectoryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the ping external directory unauthorized response
+func (o *PingExternalDirectoryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PingExternalDirectoryUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PingExternalDirectoryForbidden) IsServerError() bool {
 // IsCode returns true when this ping external directory forbidden response a status code equal to that given
 func (o *PingExternalDirectoryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the ping external directory forbidden response
+func (o *PingExternalDirectoryForbidden) Code() int {
+	return 403
 }
 
 func (o *PingExternalDirectoryForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PingExternalDirectoryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the ping external directory not found response
+func (o *PingExternalDirectoryNotFound) Code() int {
+	return 404
+}
+
 func (o *PingExternalDirectoryNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PingExternalDirectoryInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the ping external directory internal server error response
+func (o *PingExternalDirectoryInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PingExternalDirectoryInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PingExternalDirectoryDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the ping external directory default response
-func (o *PingExternalDirectoryDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this ping external directory default response has a 2xx status code
 func (o *PingExternalDirectoryDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PingExternalDirectoryDefault) IsServerError() bool {
 // IsCode returns true when this ping external directory default response a status code equal to that given
 func (o *PingExternalDirectoryDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the ping external directory default response
+func (o *PingExternalDirectoryDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PingExternalDirectoryDefault) Error() string {

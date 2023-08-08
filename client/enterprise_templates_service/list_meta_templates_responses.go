@@ -104,6 +104,11 @@ func (o *ListMetaTemplatesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list meta templates o k response
+func (o *ListMetaTemplatesOK) Code() int {
+	return 200
+}
+
 func (o *ListMetaTemplatesOK) Error() string {
 	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListMetaTemplatesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list meta templates unauthorized response
+func (o *ListMetaTemplatesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListMetaTemplatesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListMetaTemplatesForbidden) IsServerError() bool {
 // IsCode returns true when this list meta templates forbidden response a status code equal to that given
 func (o *ListMetaTemplatesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list meta templates forbidden response
+func (o *ListMetaTemplatesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListMetaTemplatesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListMetaTemplatesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list meta templates not found response
+func (o *ListMetaTemplatesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListMetaTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListMetaTemplatesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list meta templates internal server error response
+func (o *ListMetaTemplatesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListMetaTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListMetaTemplatesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list meta templates default response
-func (o *ListMetaTemplatesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list meta templates default response has a 2xx status code
 func (o *ListMetaTemplatesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListMetaTemplatesDefault) IsServerError() bool {
 // IsCode returns true when this list meta templates default response a status code equal to that given
 func (o *ListMetaTemplatesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list meta templates default response
+func (o *ListMetaTemplatesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListMetaTemplatesDefault) Error() string {

@@ -104,6 +104,11 @@ func (o *ListPersonalAccessTokensOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list personal access tokens o k response
+func (o *ListPersonalAccessTokensOK) Code() int {
+	return 200
+}
+
 func (o *ListPersonalAccessTokensOK) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListPersonalAccessTokensUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list personal access tokens unauthorized response
+func (o *ListPersonalAccessTokensUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListPersonalAccessTokensUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListPersonalAccessTokensForbidden) IsServerError() bool {
 // IsCode returns true when this list personal access tokens forbidden response a status code equal to that given
 func (o *ListPersonalAccessTokensForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list personal access tokens forbidden response
+func (o *ListPersonalAccessTokensForbidden) Code() int {
+	return 403
 }
 
 func (o *ListPersonalAccessTokensForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListPersonalAccessTokensNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list personal access tokens not found response
+func (o *ListPersonalAccessTokensNotFound) Code() int {
+	return 404
+}
+
 func (o *ListPersonalAccessTokensNotFound) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListPersonalAccessTokensInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list personal access tokens internal server error response
+func (o *ListPersonalAccessTokensInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListPersonalAccessTokensInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /auth/tokens][%d] listPersonalAccessTokensInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListPersonalAccessTokensDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list personal access tokens default response
-func (o *ListPersonalAccessTokensDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list personal access tokens default response has a 2xx status code
 func (o *ListPersonalAccessTokensDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListPersonalAccessTokensDefault) IsServerError() bool {
 // IsCode returns true when this list personal access tokens default response a status code equal to that given
 func (o *ListPersonalAccessTokensDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list personal access tokens default response
+func (o *ListPersonalAccessTokensDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListPersonalAccessTokensDefault) Error() string {

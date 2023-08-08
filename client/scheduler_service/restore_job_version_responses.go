@@ -106,6 +106,11 @@ func (o *RestoreJobVersionOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the restore job version o k response
+func (o *RestoreJobVersionOK) Code() int {
+	return 200
+}
+
 func (o *RestoreJobVersionOK) Error() string {
 	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionOK  %+v", 200, o.Payload)
 }
@@ -168,6 +173,11 @@ func (o *RestoreJobVersionUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the restore job version unauthorized response
+func (o *RestoreJobVersionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RestoreJobVersionUnauthorized) Error() string {
 	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionUnauthorized ", 401)
 }
@@ -218,6 +228,11 @@ func (o *RestoreJobVersionForbidden) IsServerError() bool {
 // IsCode returns true when this restore job version forbidden response a status code equal to that given
 func (o *RestoreJobVersionForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the restore job version forbidden response
+func (o *RestoreJobVersionForbidden) Code() int {
+	return 403
 }
 
 func (o *RestoreJobVersionForbidden) Error() string {
@@ -283,6 +298,11 @@ func (o *RestoreJobVersionNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the restore job version not found response
+func (o *RestoreJobVersionNotFound) Code() int {
+	return 404
+}
+
 func (o *RestoreJobVersionNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionNotFound  %+v", 404, o.Payload)
 }
@@ -346,6 +366,11 @@ func (o *RestoreJobVersionInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the restore job version internal server error response
+func (o *RestoreJobVersionInternalServerError) Code() int {
+	return 500
+}
+
 func (o *RestoreJobVersionInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionInternalServerError  %+v", 500, o.Payload)
 }
@@ -388,11 +413,6 @@ type RestoreJobVersionDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the restore job version default response
-func (o *RestoreJobVersionDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this restore job version default response has a 2xx status code
 func (o *RestoreJobVersionDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -416,6 +436,11 @@ func (o *RestoreJobVersionDefault) IsServerError() bool {
 // IsCode returns true when this restore job version default response a status code equal to that given
 func (o *RestoreJobVersionDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the restore job version default response
+func (o *RestoreJobVersionDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *RestoreJobVersionDefault) Error() string {

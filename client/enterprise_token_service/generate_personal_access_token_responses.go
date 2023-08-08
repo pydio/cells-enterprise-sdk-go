@@ -104,6 +104,11 @@ func (o *GeneratePersonalAccessTokenOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the generate personal access token o k response
+func (o *GeneratePersonalAccessTokenOK) Code() int {
+	return 200
+}
+
 func (o *GeneratePersonalAccessTokenOK) Error() string {
 	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *GeneratePersonalAccessTokenUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the generate personal access token unauthorized response
+func (o *GeneratePersonalAccessTokenUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GeneratePersonalAccessTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *GeneratePersonalAccessTokenForbidden) IsServerError() bool {
 // IsCode returns true when this generate personal access token forbidden response a status code equal to that given
 func (o *GeneratePersonalAccessTokenForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the generate personal access token forbidden response
+func (o *GeneratePersonalAccessTokenForbidden) Code() int {
+	return 403
 }
 
 func (o *GeneratePersonalAccessTokenForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *GeneratePersonalAccessTokenNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the generate personal access token not found response
+func (o *GeneratePersonalAccessTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *GeneratePersonalAccessTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *GeneratePersonalAccessTokenInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the generate personal access token internal server error response
+func (o *GeneratePersonalAccessTokenInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GeneratePersonalAccessTokenInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type GeneratePersonalAccessTokenDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the generate personal access token default response
-func (o *GeneratePersonalAccessTokenDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this generate personal access token default response has a 2xx status code
 func (o *GeneratePersonalAccessTokenDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *GeneratePersonalAccessTokenDefault) IsServerError() bool {
 // IsCode returns true when this generate personal access token default response a status code equal to that given
 func (o *GeneratePersonalAccessTokenDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the generate personal access token default response
+func (o *GeneratePersonalAccessTokenDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *GeneratePersonalAccessTokenDefault) Error() string {

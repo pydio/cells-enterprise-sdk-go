@@ -104,6 +104,11 @@ func (o *FrontLoginConnectorsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the front login connectors o k response
+func (o *FrontLoginConnectorsOK) Code() int {
+	return 200
+}
+
 func (o *FrontLoginConnectorsOK) Error() string {
 	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *FrontLoginConnectorsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the front login connectors unauthorized response
+func (o *FrontLoginConnectorsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *FrontLoginConnectorsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *FrontLoginConnectorsForbidden) IsServerError() bool {
 // IsCode returns true when this front login connectors forbidden response a status code equal to that given
 func (o *FrontLoginConnectorsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the front login connectors forbidden response
+func (o *FrontLoginConnectorsForbidden) Code() int {
+	return 403
 }
 
 func (o *FrontLoginConnectorsForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *FrontLoginConnectorsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the front login connectors not found response
+func (o *FrontLoginConnectorsNotFound) Code() int {
+	return 404
+}
+
 func (o *FrontLoginConnectorsNotFound) Error() string {
 	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *FrontLoginConnectorsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the front login connectors internal server error response
+func (o *FrontLoginConnectorsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *FrontLoginConnectorsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type FrontLoginConnectorsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the front login connectors default response
-func (o *FrontLoginConnectorsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this front login connectors default response has a 2xx status code
 func (o *FrontLoginConnectorsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *FrontLoginConnectorsDefault) IsServerError() bool {
 // IsCode returns true when this front login connectors default response a status code equal to that given
 func (o *FrontLoginConnectorsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the front login connectors default response
+func (o *FrontLoginConnectorsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *FrontLoginConnectorsDefault) Error() string {

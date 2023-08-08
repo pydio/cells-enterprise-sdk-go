@@ -107,6 +107,11 @@ func (o *PutJobTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put job template o k response
+func (o *PutJobTemplateOK) Code() int {
+	return 200
+}
+
 func (o *PutJobTemplateOK) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateOK  %+v", 200, o.Payload)
 }
@@ -169,6 +174,11 @@ func (o *PutJobTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put job template unauthorized response
+func (o *PutJobTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutJobTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateUnauthorized ", 401)
 }
@@ -219,6 +229,11 @@ func (o *PutJobTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this put job template forbidden response a status code equal to that given
 func (o *PutJobTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put job template forbidden response
+func (o *PutJobTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *PutJobTemplateForbidden) Error() string {
@@ -284,6 +299,11 @@ func (o *PutJobTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put job template not found response
+func (o *PutJobTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *PutJobTemplateNotFound) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -347,6 +367,11 @@ func (o *PutJobTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put job template internal server error response
+func (o *PutJobTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutJobTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -389,11 +414,6 @@ type PutJobTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put job template default response
-func (o *PutJobTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put job template default response has a 2xx status code
 func (o *PutJobTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -417,6 +437,11 @@ func (o *PutJobTemplateDefault) IsServerError() bool {
 // IsCode returns true when this put job template default response a status code equal to that given
 func (o *PutJobTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put job template default response
+func (o *PutJobTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutJobTemplateDefault) Error() string {
@@ -503,6 +528,11 @@ func (o *PutJobTemplateBody) ContextValidate(ctx context.Context, formats strfmt
 func (o *PutJobTemplateBody) contextValidateJob(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Job != nil {
+
+		if swag.IsZero(o.Job) { // not required
+			return nil
+		}
+
 		if err := o.Job.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "Job")

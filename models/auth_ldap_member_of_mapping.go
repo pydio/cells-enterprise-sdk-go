@@ -120,6 +120,11 @@ func (m *AuthLdapMemberOfMapping) ContextValidate(ctx context.Context, formats s
 func (m *AuthLdapMemberOfMapping) contextValidateGroupFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.GroupFilter != nil {
+
+		if swag.IsZero(m.GroupFilter) { // not required
+			return nil
+		}
+
 		if err := m.GroupFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("GroupFilter")
@@ -136,6 +141,11 @@ func (m *AuthLdapMemberOfMapping) contextValidateGroupFilter(ctx context.Context
 func (m *AuthLdapMemberOfMapping) contextValidateMapping(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Mapping != nil {
+
+		if swag.IsZero(m.Mapping) { // not required
+			return nil
+		}
+
 		if err := m.Mapping.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Mapping")

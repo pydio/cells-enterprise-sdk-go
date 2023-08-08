@@ -104,6 +104,11 @@ func (o *ListJobTemplatesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list job templates o k response
+func (o *ListJobTemplatesOK) Code() int {
+	return 200
+}
+
 func (o *ListJobTemplatesOK) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListJobTemplatesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list job templates unauthorized response
+func (o *ListJobTemplatesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListJobTemplatesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListJobTemplatesForbidden) IsServerError() bool {
 // IsCode returns true when this list job templates forbidden response a status code equal to that given
 func (o *ListJobTemplatesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list job templates forbidden response
+func (o *ListJobTemplatesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListJobTemplatesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListJobTemplatesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list job templates not found response
+func (o *ListJobTemplatesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListJobTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListJobTemplatesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list job templates internal server error response
+func (o *ListJobTemplatesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListJobTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListJobTemplatesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list job templates default response
-func (o *ListJobTemplatesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list job templates default response has a 2xx status code
 func (o *ListJobTemplatesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListJobTemplatesDefault) IsServerError() bool {
 // IsCode returns true when this list job templates default response a status code equal to that given
 func (o *ListJobTemplatesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list job templates default response
+func (o *ListJobTemplatesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListJobTemplatesDefault) Error() string {

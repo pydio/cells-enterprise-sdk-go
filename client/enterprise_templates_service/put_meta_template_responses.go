@@ -104,6 +104,11 @@ func (o *PutMetaTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put meta template o k response
+func (o *PutMetaTemplateOK) Code() int {
+	return 200
+}
+
 func (o *PutMetaTemplateOK) Error() string {
 	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PutMetaTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put meta template unauthorized response
+func (o *PutMetaTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutMetaTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PutMetaTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this put meta template forbidden response a status code equal to that given
 func (o *PutMetaTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put meta template forbidden response
+func (o *PutMetaTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *PutMetaTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PutMetaTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put meta template not found response
+func (o *PutMetaTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *PutMetaTemplateNotFound) Error() string {
 	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PutMetaTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put meta template internal server error response
+func (o *PutMetaTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutMetaTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PutMetaTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put meta template default response
-func (o *PutMetaTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put meta template default response has a 2xx status code
 func (o *PutMetaTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PutMetaTemplateDefault) IsServerError() bool {
 // IsCode returns true when this put meta template default response a status code equal to that given
 func (o *PutMetaTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put meta template default response
+func (o *PutMetaTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutMetaTemplateDefault) Error() string {

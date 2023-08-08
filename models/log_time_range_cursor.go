@@ -78,6 +78,11 @@ func (m *LogTimeRangeCursor) ContextValidate(ctx context.Context, formats strfmt
 func (m *LogTimeRangeCursor) contextValidateRel(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Rel != nil {
+
+		if swag.IsZero(m.Rel) { // not required
+			return nil
+		}
+
 		if err := m.Rel.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Rel")

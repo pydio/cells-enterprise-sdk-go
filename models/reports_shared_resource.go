@@ -116,6 +116,11 @@ func (m *ReportsSharedResource) ContextValidate(ctx context.Context, formats str
 func (m *ReportsSharedResource) contextValidateNode(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Node != nil {
+
+		if swag.IsZero(m.Node) { // not required
+			return nil
+		}
+
 		if err := m.Node.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Node")
@@ -134,6 +139,11 @@ func (m *ReportsSharedResource) contextValidateWorkspaces(ctx context.Context, f
 	for i := 0; i < len(m.Workspaces); i++ {
 
 		if m.Workspaces[i] != nil {
+
+			if swag.IsZero(m.Workspaces[i]) { // not required
+				return nil
+			}
+
 			if err := m.Workspaces[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Workspaces" + "." + strconv.Itoa(i))

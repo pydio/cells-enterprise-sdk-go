@@ -104,6 +104,11 @@ func (o *ListOAuth2ConnectorsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list o auth2 connectors o k response
+func (o *ListOAuth2ConnectorsOK) Code() int {
+	return 200
+}
+
 func (o *ListOAuth2ConnectorsOK) Error() string {
 	return fmt.Sprintf("[GET /config/oauth2connectors][%d] listOAuth2ConnectorsOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListOAuth2ConnectorsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list o auth2 connectors unauthorized response
+func (o *ListOAuth2ConnectorsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListOAuth2ConnectorsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/oauth2connectors][%d] listOAuth2ConnectorsUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListOAuth2ConnectorsForbidden) IsServerError() bool {
 // IsCode returns true when this list o auth2 connectors forbidden response a status code equal to that given
 func (o *ListOAuth2ConnectorsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list o auth2 connectors forbidden response
+func (o *ListOAuth2ConnectorsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListOAuth2ConnectorsForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListOAuth2ConnectorsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list o auth2 connectors not found response
+func (o *ListOAuth2ConnectorsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListOAuth2ConnectorsNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/oauth2connectors][%d] listOAuth2ConnectorsNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListOAuth2ConnectorsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list o auth2 connectors internal server error response
+func (o *ListOAuth2ConnectorsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListOAuth2ConnectorsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /config/oauth2connectors][%d] listOAuth2ConnectorsInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListOAuth2ConnectorsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list o auth2 connectors default response
-func (o *ListOAuth2ConnectorsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list o auth2 connectors default response has a 2xx status code
 func (o *ListOAuth2ConnectorsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListOAuth2ConnectorsDefault) IsServerError() bool {
 // IsCode returns true when this list o auth2 connectors default response a status code equal to that given
 func (o *ListOAuth2ConnectorsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list o auth2 connectors default response
+func (o *ListOAuth2ConnectorsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListOAuth2ConnectorsDefault) Error() string {

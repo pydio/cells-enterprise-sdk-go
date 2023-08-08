@@ -104,6 +104,11 @@ func (o *ExecutePlaygroundCodeOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the execute playground code o k response
+func (o *ExecutePlaygroundCodeOK) Code() int {
+	return 200
+}
+
 func (o *ExecutePlaygroundCodeOK) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ExecutePlaygroundCodeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the execute playground code unauthorized response
+func (o *ExecutePlaygroundCodeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ExecutePlaygroundCodeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ExecutePlaygroundCodeForbidden) IsServerError() bool {
 // IsCode returns true when this execute playground code forbidden response a status code equal to that given
 func (o *ExecutePlaygroundCodeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the execute playground code forbidden response
+func (o *ExecutePlaygroundCodeForbidden) Code() int {
+	return 403
 }
 
 func (o *ExecutePlaygroundCodeForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ExecutePlaygroundCodeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the execute playground code not found response
+func (o *ExecutePlaygroundCodeNotFound) Code() int {
+	return 404
+}
+
 func (o *ExecutePlaygroundCodeNotFound) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ExecutePlaygroundCodeInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the execute playground code internal server error response
+func (o *ExecutePlaygroundCodeInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ExecutePlaygroundCodeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ExecutePlaygroundCodeDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the execute playground code default response
-func (o *ExecutePlaygroundCodeDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this execute playground code default response has a 2xx status code
 func (o *ExecutePlaygroundCodeDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ExecutePlaygroundCodeDefault) IsServerError() bool {
 // IsCode returns true when this execute playground code default response a status code equal to that given
 func (o *ExecutePlaygroundCodeDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the execute playground code default response
+func (o *ExecutePlaygroundCodeDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ExecutePlaygroundCodeDefault) Error() string {

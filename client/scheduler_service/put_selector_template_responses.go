@@ -104,6 +104,11 @@ func (o *PutSelectorTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put selector template o k response
+func (o *PutSelectorTemplateOK) Code() int {
+	return 200
+}
+
 func (o *PutSelectorTemplateOK) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PutSelectorTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put selector template unauthorized response
+func (o *PutSelectorTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutSelectorTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PutSelectorTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this put selector template forbidden response a status code equal to that given
 func (o *PutSelectorTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put selector template forbidden response
+func (o *PutSelectorTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *PutSelectorTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PutSelectorTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put selector template not found response
+func (o *PutSelectorTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *PutSelectorTemplateNotFound) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PutSelectorTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put selector template internal server error response
+func (o *PutSelectorTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutSelectorTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PutSelectorTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put selector template default response
-func (o *PutSelectorTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put selector template default response has a 2xx status code
 func (o *PutSelectorTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PutSelectorTemplateDefault) IsServerError() bool {
 // IsCode returns true when this put selector template default response a status code equal to that given
 func (o *PutSelectorTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put selector template default response
+func (o *PutSelectorTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutSelectorTemplateDefault) Error() string {

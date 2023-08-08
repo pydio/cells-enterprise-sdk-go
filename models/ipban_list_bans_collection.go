@@ -82,6 +82,11 @@ func (m *IpbanListBansCollection) contextValidateBans(ctx context.Context, forma
 	for i := 0; i < len(m.Bans); i++ {
 
 		if m.Bans[i] != nil {
+
+			if swag.IsZero(m.Bans[i]) { // not required
+				return nil
+			}
+
 			if err := m.Bans[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Bans" + "." + strconv.Itoa(i))

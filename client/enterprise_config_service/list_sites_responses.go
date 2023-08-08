@@ -104,6 +104,11 @@ func (o *ListSitesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list sites o k response
+func (o *ListSitesOK) Code() int {
+	return 200
+}
+
 func (o *ListSitesOK) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListSitesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list sites unauthorized response
+func (o *ListSitesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListSitesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListSitesForbidden) IsServerError() bool {
 // IsCode returns true when this list sites forbidden response a status code equal to that given
 func (o *ListSitesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list sites forbidden response
+func (o *ListSitesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListSitesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListSitesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list sites not found response
+func (o *ListSitesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListSitesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListSitesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list sites internal server error response
+func (o *ListSitesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListSitesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /config/sites][%d] listSitesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListSitesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list sites default response
-func (o *ListSitesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list sites default response has a 2xx status code
 func (o *ListSitesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListSitesDefault) IsServerError() bool {
 // IsCode returns true when this list sites default response a status code equal to that given
 func (o *ListSitesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list sites default response
+func (o *ListSitesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListSitesDefault) Error() string {

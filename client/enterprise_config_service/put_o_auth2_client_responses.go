@@ -106,6 +106,11 @@ func (o *PutOAuth2ClientOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put o auth2 client o k response
+func (o *PutOAuth2ClientOK) Code() int {
+	return 200
+}
+
 func (o *PutOAuth2ClientOK) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientOK  %+v", 200, o.Payload)
 }
@@ -168,6 +173,11 @@ func (o *PutOAuth2ClientUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put o auth2 client unauthorized response
+func (o *PutOAuth2ClientUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutOAuth2ClientUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientUnauthorized ", 401)
 }
@@ -218,6 +228,11 @@ func (o *PutOAuth2ClientForbidden) IsServerError() bool {
 // IsCode returns true when this put o auth2 client forbidden response a status code equal to that given
 func (o *PutOAuth2ClientForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put o auth2 client forbidden response
+func (o *PutOAuth2ClientForbidden) Code() int {
+	return 403
 }
 
 func (o *PutOAuth2ClientForbidden) Error() string {
@@ -283,6 +298,11 @@ func (o *PutOAuth2ClientNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put o auth2 client not found response
+func (o *PutOAuth2ClientNotFound) Code() int {
+	return 404
+}
+
 func (o *PutOAuth2ClientNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientNotFound  %+v", 404, o.Payload)
 }
@@ -346,6 +366,11 @@ func (o *PutOAuth2ClientInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put o auth2 client internal server error response
+func (o *PutOAuth2ClientInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutOAuth2ClientInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2clients/{client_id}][%d] putOAuth2ClientInternalServerError  %+v", 500, o.Payload)
 }
@@ -388,11 +413,6 @@ type PutOAuth2ClientDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put o auth2 client default response
-func (o *PutOAuth2ClientDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put o auth2 client default response has a 2xx status code
 func (o *PutOAuth2ClientDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -416,6 +436,11 @@ func (o *PutOAuth2ClientDefault) IsServerError() bool {
 // IsCode returns true when this put o auth2 client default response a status code equal to that given
 func (o *PutOAuth2ClientDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put o auth2 client default response
+func (o *PutOAuth2ClientDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutOAuth2ClientDefault) Error() string {

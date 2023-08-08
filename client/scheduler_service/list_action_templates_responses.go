@@ -104,6 +104,11 @@ func (o *ListActionTemplatesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list action templates o k response
+func (o *ListActionTemplatesOK) Code() int {
+	return 200
+}
+
 func (o *ListActionTemplatesOK) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListActionTemplatesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list action templates unauthorized response
+func (o *ListActionTemplatesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListActionTemplatesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListActionTemplatesForbidden) IsServerError() bool {
 // IsCode returns true when this list action templates forbidden response a status code equal to that given
 func (o *ListActionTemplatesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list action templates forbidden response
+func (o *ListActionTemplatesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListActionTemplatesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListActionTemplatesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list action templates not found response
+func (o *ListActionTemplatesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListActionTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListActionTemplatesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list action templates internal server error response
+func (o *ListActionTemplatesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListActionTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListActionTemplatesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list action templates default response
-func (o *ListActionTemplatesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list action templates default response has a 2xx status code
 func (o *ListActionTemplatesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListActionTemplatesDefault) IsServerError() bool {
 // IsCode returns true when this list action templates default response a status code equal to that given
 func (o *ListActionTemplatesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list action templates default response
+func (o *ListActionTemplatesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListActionTemplatesDefault) Error() string {

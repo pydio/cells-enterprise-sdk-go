@@ -104,6 +104,11 @@ func (o *UpdateIPsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the update i ps o k response
+func (o *UpdateIPsOK) Code() int {
+	return 200
+}
+
 func (o *UpdateIPsOK) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *UpdateIPsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the update i ps unauthorized response
+func (o *UpdateIPsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateIPsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *UpdateIPsForbidden) IsServerError() bool {
 // IsCode returns true when this update i ps forbidden response a status code equal to that given
 func (o *UpdateIPsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the update i ps forbidden response
+func (o *UpdateIPsForbidden) Code() int {
+	return 403
 }
 
 func (o *UpdateIPsForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *UpdateIPsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the update i ps not found response
+func (o *UpdateIPsNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateIPsNotFound) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *UpdateIPsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the update i ps internal server error response
+func (o *UpdateIPsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *UpdateIPsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /policy/iplists][%d] updateIPsInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type UpdateIPsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the update i ps default response
-func (o *UpdateIPsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this update i ps default response has a 2xx status code
 func (o *UpdateIPsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *UpdateIPsDefault) IsServerError() bool {
 // IsCode returns true when this update i ps default response a status code equal to that given
 func (o *UpdateIPsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the update i ps default response
+func (o *UpdateIPsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *UpdateIPsDefault) Error() string {

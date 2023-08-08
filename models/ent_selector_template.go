@@ -234,6 +234,11 @@ func (m *EntSelectorTemplate) ContextValidate(ctx context.Context, formats strfm
 func (m *EntSelectorTemplate) contextValidateActionOutputFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ActionOutputFilter != nil {
+
+		if swag.IsZero(m.ActionOutputFilter) { // not required
+			return nil
+		}
+
 		if err := m.ActionOutputFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ActionOutputFilter")
@@ -250,6 +255,11 @@ func (m *EntSelectorTemplate) contextValidateActionOutputFilter(ctx context.Cont
 func (m *EntSelectorTemplate) contextValidateContextMetaFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ContextMetaFilter != nil {
+
+		if swag.IsZero(m.ContextMetaFilter) { // not required
+			return nil
+		}
+
 		if err := m.ContextMetaFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ContextMetaFilter")
@@ -266,6 +276,11 @@ func (m *EntSelectorTemplate) contextValidateContextMetaFilter(ctx context.Conte
 func (m *EntSelectorTemplate) contextValidateDataSourceSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.DataSourceSelector != nil {
+
+		if swag.IsZero(m.DataSourceSelector) { // not required
+			return nil
+		}
+
 		if err := m.DataSourceSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("DataSourceSelector")
@@ -282,6 +297,11 @@ func (m *EntSelectorTemplate) contextValidateDataSourceSelector(ctx context.Cont
 func (m *EntSelectorTemplate) contextValidateIdmSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.IdmSelector != nil {
+
+		if swag.IsZero(m.IdmSelector) { // not required
+			return nil
+		}
+
 		if err := m.IdmSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("IdmSelector")
@@ -298,6 +318,11 @@ func (m *EntSelectorTemplate) contextValidateIdmSelector(ctx context.Context, fo
 func (m *EntSelectorTemplate) contextValidateNodesSelector(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.NodesSelector != nil {
+
+		if swag.IsZero(m.NodesSelector) { // not required
+			return nil
+		}
+
 		if err := m.NodesSelector.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("NodesSelector")
@@ -314,6 +339,11 @@ func (m *EntSelectorTemplate) contextValidateNodesSelector(ctx context.Context, 
 func (m *EntSelectorTemplate) contextValidateTriggerFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.TriggerFilter != nil {
+
+		if swag.IsZero(m.TriggerFilter) { // not required
+			return nil
+		}
+
 		if err := m.TriggerFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("TriggerFilter")

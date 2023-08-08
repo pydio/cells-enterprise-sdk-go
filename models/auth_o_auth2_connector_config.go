@@ -392,6 +392,11 @@ func (m *AuthOAuth2ConnectorConfig) ContextValidate(ctx context.Context, formats
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigbitbucket(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configbitbucket != nil {
+
+		if swag.IsZero(m.Configbitbucket) { // not required
+			return nil
+		}
+
 		if err := m.Configbitbucket.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configbitbucket")
@@ -408,6 +413,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigbitbucket(ctx context.C
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfiggithub(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configgithub != nil {
+
+		if swag.IsZero(m.Configgithub) { // not required
+			return nil
+		}
+
 		if err := m.Configgithub.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configgithub")
@@ -424,6 +434,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfiggithub(ctx context.Cont
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfiggitlab(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configgitlab != nil {
+
+		if swag.IsZero(m.Configgitlab) { // not required
+			return nil
+		}
+
 		if err := m.Configgitlab.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configgitlab")
@@ -440,6 +455,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfiggitlab(ctx context.Cont
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigldap(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configldap != nil {
+
+		if swag.IsZero(m.Configldap) { // not required
+			return nil
+		}
+
 		if err := m.Configldap.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configldap")
@@ -456,6 +476,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigldap(ctx context.Contex
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfiglinkedin(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configlinkedin != nil {
+
+		if swag.IsZero(m.Configlinkedin) { // not required
+			return nil
+		}
+
 		if err := m.Configlinkedin.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configlinkedin")
@@ -472,6 +497,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfiglinkedin(ctx context.Co
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigmicrosoft(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configmicrosoft != nil {
+
+		if swag.IsZero(m.Configmicrosoft) { // not required
+			return nil
+		}
+
 		if err := m.Configmicrosoft.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configmicrosoft")
@@ -488,6 +518,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigmicrosoft(ctx context.C
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigoauth(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configoauth != nil {
+
+		if swag.IsZero(m.Configoauth) { // not required
+			return nil
+		}
+
 		if err := m.Configoauth.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configoauth")
@@ -504,6 +539,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigoauth(ctx context.Conte
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigoidc(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configoidc != nil {
+
+		if swag.IsZero(m.Configoidc) { // not required
+			return nil
+		}
+
 		if err := m.Configoidc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configoidc")
@@ -520,6 +560,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigoidc(ctx context.Contex
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigpydio(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configpydio != nil {
+
+		if swag.IsZero(m.Configpydio) { // not required
+			return nil
+		}
+
 		if err := m.Configpydio.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configpydio")
@@ -536,6 +581,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigpydio(ctx context.Conte
 func (m *AuthOAuth2ConnectorConfig) contextValidateConfigsaml(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Configsaml != nil {
+
+		if swag.IsZero(m.Configsaml) { // not required
+			return nil
+		}
+
 		if err := m.Configsaml.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("configsaml")
@@ -554,6 +604,11 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateMappingRules(ctx context.Cont
 	for i := 0; i < len(m.MappingRules); i++ {
 
 		if m.MappingRules[i] != nil {
+
+			if swag.IsZero(m.MappingRules[i]) { // not required
+				return nil
+			}
+
 			if err := m.MappingRules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("mappingRules" + "." + strconv.Itoa(i))

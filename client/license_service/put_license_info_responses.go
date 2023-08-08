@@ -104,6 +104,11 @@ func (o *PutLicenseInfoOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put license info o k response
+func (o *PutLicenseInfoOK) Code() int {
+	return 200
+}
+
 func (o *PutLicenseInfoOK) Error() string {
 	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PutLicenseInfoUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put license info unauthorized response
+func (o *PutLicenseInfoUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutLicenseInfoUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PutLicenseInfoForbidden) IsServerError() bool {
 // IsCode returns true when this put license info forbidden response a status code equal to that given
 func (o *PutLicenseInfoForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put license info forbidden response
+func (o *PutLicenseInfoForbidden) Code() int {
+	return 403
 }
 
 func (o *PutLicenseInfoForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PutLicenseInfoNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put license info not found response
+func (o *PutLicenseInfoNotFound) Code() int {
+	return 404
+}
+
 func (o *PutLicenseInfoNotFound) Error() string {
 	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PutLicenseInfoInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put license info internal server error response
+func (o *PutLicenseInfoInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutLicenseInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PutLicenseInfoDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put license info default response
-func (o *PutLicenseInfoDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put license info default response has a 2xx status code
 func (o *PutLicenseInfoDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PutLicenseInfoDefault) IsServerError() bool {
 // IsCode returns true when this put license info default response a status code equal to that given
 func (o *PutLicenseInfoDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put license info default response
+func (o *PutLicenseInfoDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutLicenseInfoDefault) Error() string {

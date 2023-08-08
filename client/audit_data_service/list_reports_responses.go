@@ -104,6 +104,11 @@ func (o *ListReportsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list reports o k response
+func (o *ListReportsOK) Code() int {
+	return 200
+}
+
 func (o *ListReportsOK) Error() string {
 	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListReportsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list reports unauthorized response
+func (o *ListReportsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListReportsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListReportsForbidden) IsServerError() bool {
 // IsCode returns true when this list reports forbidden response a status code equal to that given
 func (o *ListReportsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list reports forbidden response
+func (o *ListReportsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListReportsForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListReportsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list reports not found response
+func (o *ListReportsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListReportsNotFound) Error() string {
 	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListReportsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list reports internal server error response
+func (o *ListReportsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListReportsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListReportsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list reports default response
-func (o *ListReportsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list reports default response has a 2xx status code
 func (o *ListReportsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListReportsDefault) IsServerError() bool {
 // IsCode returns true when this list reports default response a status code equal to that given
 func (o *ListReportsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list reports default response
+func (o *ListReportsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListReportsDefault) Error() string {

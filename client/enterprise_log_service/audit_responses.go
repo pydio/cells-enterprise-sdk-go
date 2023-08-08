@@ -104,6 +104,11 @@ func (o *AuditOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the audit o k response
+func (o *AuditOK) Code() int {
+	return 200
+}
+
 func (o *AuditOK) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *AuditUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the audit unauthorized response
+func (o *AuditUnauthorized) Code() int {
+	return 401
+}
+
 func (o *AuditUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *AuditForbidden) IsServerError() bool {
 // IsCode returns true when this audit forbidden response a status code equal to that given
 func (o *AuditForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the audit forbidden response
+func (o *AuditForbidden) Code() int {
+	return 403
 }
 
 func (o *AuditForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *AuditNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the audit not found response
+func (o *AuditNotFound) Code() int {
+	return 404
+}
+
 func (o *AuditNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *AuditInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the audit internal server error response
+func (o *AuditInternalServerError) Code() int {
+	return 500
+}
+
 func (o *AuditInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/audit][%d] auditInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type AuditDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the audit default response
-func (o *AuditDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this audit default response has a 2xx status code
 func (o *AuditDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *AuditDefault) IsServerError() bool {
 // IsCode returns true when this audit default response a status code equal to that given
 func (o *AuditDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the audit default response
+func (o *AuditDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *AuditDefault) Error() string {

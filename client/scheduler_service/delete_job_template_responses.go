@@ -104,6 +104,11 @@ func (o *DeleteJobTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete job template o k response
+func (o *DeleteJobTemplateOK) Code() int {
+	return 200
+}
+
 func (o *DeleteJobTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteJobTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete job template unauthorized response
+func (o *DeleteJobTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteJobTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteJobTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this delete job template forbidden response a status code equal to that given
 func (o *DeleteJobTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete job template forbidden response
+func (o *DeleteJobTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteJobTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteJobTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete job template not found response
+func (o *DeleteJobTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteJobTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteJobTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete job template internal server error response
+func (o *DeleteJobTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteJobTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/jobs/{Name}][%d] deleteJobTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteJobTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete job template default response
-func (o *DeleteJobTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete job template default response has a 2xx status code
 func (o *DeleteJobTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteJobTemplateDefault) IsServerError() bool {
 // IsCode returns true when this delete job template default response a status code equal to that given
 func (o *DeleteJobTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete job template default response
+func (o *DeleteJobTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteJobTemplateDefault) Error() string {

@@ -6569,6 +6569,10 @@
           "type": "boolean",
           "title": "Select all"
         },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
         "Collect": {
           "type": "boolean",
           "title": "Collect results"
@@ -6627,6 +6631,10 @@
           "type": "boolean",
           "title": "Load all objects"
         },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
         "Collect": {
           "type": "boolean",
           "title": "Pass a slice of objects to one action, or trigger all actions in parallel"
@@ -6681,6 +6689,10 @@
         "AutoClean": {
           "type": "boolean",
           "title": "Remove job automatically once it is finished (success only)"
+        },
+        "AutoRestart": {
+          "type": "boolean",
+          "title": "Start task as soon as server is started"
         },
         "AutoStart": {
           "type": "boolean",
@@ -6880,6 +6892,10 @@
           "type": "boolean",
           "title": "Select all files - ignore any other condition"
         },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
         "Collect": {
           "type": "boolean",
           "title": "Whether to trigger one action per node or one action\nwith all nodes as selection"
@@ -7035,6 +7051,10 @@
         "All": {
           "type": "boolean",
           "title": "Select all users"
+        },
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
         },
         "Collect": {
           "type": "boolean",

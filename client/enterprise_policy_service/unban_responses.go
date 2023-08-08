@@ -104,6 +104,11 @@ func (o *UnbanOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the unban o k response
+func (o *UnbanOK) Code() int {
+	return 200
+}
+
 func (o *UnbanOK) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *UnbanUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the unban unauthorized response
+func (o *UnbanUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UnbanUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *UnbanForbidden) IsServerError() bool {
 // IsCode returns true when this unban forbidden response a status code equal to that given
 func (o *UnbanForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the unban forbidden response
+func (o *UnbanForbidden) Code() int {
+	return 403
 }
 
 func (o *UnbanForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *UnbanNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the unban not found response
+func (o *UnbanNotFound) Code() int {
+	return 404
+}
+
 func (o *UnbanNotFound) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *UnbanInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the unban internal server error response
+func (o *UnbanInternalServerError) Code() int {
+	return 500
+}
+
 func (o *UnbanInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type UnbanDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the unban default response
-func (o *UnbanDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this unban default response has a 2xx status code
 func (o *UnbanDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *UnbanDefault) IsServerError() bool {
 // IsCode returns true when this unban default response a status code equal to that given
 func (o *UnbanDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the unban default response
+func (o *UnbanDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *UnbanDefault) Error() string {

@@ -104,6 +104,11 @@ func (o *DeleteJobVersionOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete job version o k response
+func (o *DeleteJobVersionOK) Code() int {
+	return 200
+}
+
 func (o *DeleteJobVersionOK) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/versions/{JobID}/{VersionID}][%d] deleteJobVersionOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteJobVersionUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete job version unauthorized response
+func (o *DeleteJobVersionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteJobVersionUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/versions/{JobID}/{VersionID}][%d] deleteJobVersionUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteJobVersionForbidden) IsServerError() bool {
 // IsCode returns true when this delete job version forbidden response a status code equal to that given
 func (o *DeleteJobVersionForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete job version forbidden response
+func (o *DeleteJobVersionForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteJobVersionForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteJobVersionNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete job version not found response
+func (o *DeleteJobVersionNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteJobVersionNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/versions/{JobID}/{VersionID}][%d] deleteJobVersionNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteJobVersionInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete job version internal server error response
+func (o *DeleteJobVersionInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteJobVersionInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/versions/{JobID}/{VersionID}][%d] deleteJobVersionInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteJobVersionDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete job version default response
-func (o *DeleteJobVersionDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete job version default response has a 2xx status code
 func (o *DeleteJobVersionDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteJobVersionDefault) IsServerError() bool {
 // IsCode returns true when this delete job version default response a status code equal to that given
 func (o *DeleteJobVersionDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete job version default response
+func (o *DeleteJobVersionDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteJobVersionDefault) Error() string {

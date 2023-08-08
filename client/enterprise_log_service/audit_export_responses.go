@@ -104,6 +104,11 @@ func (o *AuditExportOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the audit export o k response
+func (o *AuditExportOK) Code() int {
+	return 200
+}
+
 func (o *AuditExportOK) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *AuditExportUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the audit export unauthorized response
+func (o *AuditExportUnauthorized) Code() int {
+	return 401
+}
+
 func (o *AuditExportUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *AuditExportForbidden) IsServerError() bool {
 // IsCode returns true when this audit export forbidden response a status code equal to that given
 func (o *AuditExportForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the audit export forbidden response
+func (o *AuditExportForbidden) Code() int {
+	return 403
 }
 
 func (o *AuditExportForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *AuditExportNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the audit export not found response
+func (o *AuditExportNotFound) Code() int {
+	return 404
+}
+
 func (o *AuditExportNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *AuditExportInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the audit export internal server error response
+func (o *AuditExportInternalServerError) Code() int {
+	return 500
+}
+
 func (o *AuditExportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/audit/export][%d] auditExportInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type AuditExportDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the audit export default response
-func (o *AuditExportDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this audit export default response has a 2xx status code
 func (o *AuditExportDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *AuditExportDefault) IsServerError() bool {
 // IsCode returns true when this audit export default response a status code equal to that given
 func (o *AuditExportDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the audit export default response
+func (o *AuditExportDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *AuditExportDefault) Error() string {

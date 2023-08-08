@@ -104,6 +104,11 @@ func (o *ListSelectorTemplatesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list selector templates o k response
+func (o *ListSelectorTemplatesOK) Code() int {
+	return 200
+}
+
 func (o *ListSelectorTemplatesOK) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListSelectorTemplatesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list selector templates unauthorized response
+func (o *ListSelectorTemplatesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListSelectorTemplatesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListSelectorTemplatesForbidden) IsServerError() bool {
 // IsCode returns true when this list selector templates forbidden response a status code equal to that given
 func (o *ListSelectorTemplatesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list selector templates forbidden response
+func (o *ListSelectorTemplatesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListSelectorTemplatesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListSelectorTemplatesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list selector templates not found response
+func (o *ListSelectorTemplatesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListSelectorTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListSelectorTemplatesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list selector templates internal server error response
+func (o *ListSelectorTemplatesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListSelectorTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListSelectorTemplatesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list selector templates default response
-func (o *ListSelectorTemplatesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list selector templates default response has a 2xx status code
 func (o *ListSelectorTemplatesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListSelectorTemplatesDefault) IsServerError() bool {
 // IsCode returns true when this list selector templates default response a status code equal to that given
 func (o *ListSelectorTemplatesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list selector templates default response
+func (o *ListSelectorTemplatesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListSelectorTemplatesDefault) Error() string {

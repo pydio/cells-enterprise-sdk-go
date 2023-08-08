@@ -104,6 +104,11 @@ func (o *DeletePolicyOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete policy o k response
+func (o *DeletePolicyOK) Code() int {
+	return 200
+}
+
 func (o *DeletePolicyOK) Error() string {
 	return fmt.Sprintf("[DELETE /policy/{Uuid}][%d] deletePolicyOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeletePolicyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete policy unauthorized response
+func (o *DeletePolicyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeletePolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /policy/{Uuid}][%d] deletePolicyUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeletePolicyForbidden) IsServerError() bool {
 // IsCode returns true when this delete policy forbidden response a status code equal to that given
 func (o *DeletePolicyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete policy forbidden response
+func (o *DeletePolicyForbidden) Code() int {
+	return 403
 }
 
 func (o *DeletePolicyForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeletePolicyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete policy not found response
+func (o *DeletePolicyNotFound) Code() int {
+	return 404
+}
+
 func (o *DeletePolicyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /policy/{Uuid}][%d] deletePolicyNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeletePolicyInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete policy internal server error response
+func (o *DeletePolicyInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeletePolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /policy/{Uuid}][%d] deletePolicyInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeletePolicyDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete policy default response
-func (o *DeletePolicyDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete policy default response has a 2xx status code
 func (o *DeletePolicyDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeletePolicyDefault) IsServerError() bool {
 // IsCode returns true when this delete policy default response a status code equal to that given
 func (o *DeletePolicyDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete policy default response
+func (o *DeletePolicyDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeletePolicyDefault) Error() string {

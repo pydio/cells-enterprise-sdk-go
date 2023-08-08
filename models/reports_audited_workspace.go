@@ -189,6 +189,11 @@ func (m *ReportsAuditedWorkspace) ContextValidate(ctx context.Context, formats s
 func (m *ReportsAuditedWorkspace) contextValidateOwnerUser(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.OwnerUser != nil {
+
+		if swag.IsZero(m.OwnerUser) { // not required
+			return nil
+		}
+
 		if err := m.OwnerUser.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("OwnerUser")
@@ -207,6 +212,11 @@ func (m *ReportsAuditedWorkspace) contextValidateRolesRead(ctx context.Context, 
 	for i := 0; i < len(m.RolesRead); i++ {
 
 		if m.RolesRead[i] != nil {
+
+			if swag.IsZero(m.RolesRead[i]) { // not required
+				return nil
+			}
+
 			if err := m.RolesRead[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RolesRead" + "." + strconv.Itoa(i))
@@ -227,6 +237,11 @@ func (m *ReportsAuditedWorkspace) contextValidateRolesWrite(ctx context.Context,
 	for i := 0; i < len(m.RolesWrite); i++ {
 
 		if m.RolesWrite[i] != nil {
+
+			if swag.IsZero(m.RolesWrite[i]) { // not required
+				return nil
+			}
+
 			if err := m.RolesWrite[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("RolesWrite" + "." + strconv.Itoa(i))
@@ -245,6 +260,11 @@ func (m *ReportsAuditedWorkspace) contextValidateRolesWrite(ctx context.Context,
 func (m *ReportsAuditedWorkspace) contextValidateWorkspace(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Workspace != nil {
+
+		if swag.IsZero(m.Workspace) { // not required
+			return nil
+		}
+
 		if err := m.Workspace.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Workspace")

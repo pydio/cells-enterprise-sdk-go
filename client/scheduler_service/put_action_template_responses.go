@@ -104,6 +104,11 @@ func (o *PutActionTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put action template o k response
+func (o *PutActionTemplateOK) Code() int {
+	return 200
+}
+
 func (o *PutActionTemplateOK) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PutActionTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put action template unauthorized response
+func (o *PutActionTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutActionTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PutActionTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this put action template forbidden response a status code equal to that given
 func (o *PutActionTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put action template forbidden response
+func (o *PutActionTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *PutActionTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PutActionTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put action template not found response
+func (o *PutActionTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *PutActionTemplateNotFound) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PutActionTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put action template internal server error response
+func (o *PutActionTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutActionTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PutActionTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put action template default response
-func (o *PutActionTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put action template default response has a 2xx status code
 func (o *PutActionTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PutActionTemplateDefault) IsServerError() bool {
 // IsCode returns true when this put action template default response a status code equal to that given
 func (o *PutActionTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put action template default response
+func (o *PutActionTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutActionTemplateDefault) Error() string {

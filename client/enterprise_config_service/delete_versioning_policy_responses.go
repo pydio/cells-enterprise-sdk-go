@@ -104,6 +104,11 @@ func (o *DeleteVersioningPolicyOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete versioning policy o k response
+func (o *DeleteVersioningPolicyOK) Code() int {
+	return 200
+}
+
 func (o *DeleteVersioningPolicyOK) Error() string {
 	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteVersioningPolicyUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete versioning policy unauthorized response
+func (o *DeleteVersioningPolicyUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteVersioningPolicyUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteVersioningPolicyForbidden) IsServerError() bool {
 // IsCode returns true when this delete versioning policy forbidden response a status code equal to that given
 func (o *DeleteVersioningPolicyForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete versioning policy forbidden response
+func (o *DeleteVersioningPolicyForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteVersioningPolicyForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteVersioningPolicyNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete versioning policy not found response
+func (o *DeleteVersioningPolicyNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteVersioningPolicyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteVersioningPolicyInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete versioning policy internal server error response
+func (o *DeleteVersioningPolicyInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteVersioningPolicyInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteVersioningPolicyDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete versioning policy default response
-func (o *DeleteVersioningPolicyDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete versioning policy default response has a 2xx status code
 func (o *DeleteVersioningPolicyDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteVersioningPolicyDefault) IsServerError() bool {
 // IsCode returns true when this delete versioning policy default response a status code equal to that given
 func (o *DeleteVersioningPolicyDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete versioning policy default response
+func (o *DeleteVersioningPolicyDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteVersioningPolicyDefault) Error() string {

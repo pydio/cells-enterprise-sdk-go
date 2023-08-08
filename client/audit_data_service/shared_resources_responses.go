@@ -104,6 +104,11 @@ func (o *SharedResourcesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the shared resources o k response
+func (o *SharedResourcesOK) Code() int {
+	return 200
+}
+
 func (o *SharedResourcesOK) Error() string {
 	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *SharedResourcesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the shared resources unauthorized response
+func (o *SharedResourcesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SharedResourcesUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *SharedResourcesForbidden) IsServerError() bool {
 // IsCode returns true when this shared resources forbidden response a status code equal to that given
 func (o *SharedResourcesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the shared resources forbidden response
+func (o *SharedResourcesForbidden) Code() int {
+	return 403
 }
 
 func (o *SharedResourcesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *SharedResourcesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the shared resources not found response
+func (o *SharedResourcesNotFound) Code() int {
+	return 404
+}
+
 func (o *SharedResourcesNotFound) Error() string {
 	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *SharedResourcesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the shared resources internal server error response
+func (o *SharedResourcesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *SharedResourcesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type SharedResourcesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the shared resources default response
-func (o *SharedResourcesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this shared resources default response has a 2xx status code
 func (o *SharedResourcesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *SharedResourcesDefault) IsServerError() bool {
 // IsCode returns true when this shared resources default response a status code equal to that given
 func (o *SharedResourcesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the shared resources default response
+func (o *SharedResourcesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *SharedResourcesDefault) Error() string {

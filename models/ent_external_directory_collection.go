@@ -82,6 +82,11 @@ func (m *EntExternalDirectoryCollection) contextValidateDirectories(ctx context.
 	for i := 0; i < len(m.Directories); i++ {
 
 		if m.Directories[i] != nil {
+
+			if swag.IsZero(m.Directories[i]) { // not required
+				return nil
+			}
+
 			if err := m.Directories[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Directories" + "." + strconv.Itoa(i))

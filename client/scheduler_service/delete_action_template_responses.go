@@ -104,6 +104,11 @@ func (o *DeleteActionTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete action template o k response
+func (o *DeleteActionTemplateOK) Code() int {
+	return 200
+}
+
 func (o *DeleteActionTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteActionTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete action template unauthorized response
+func (o *DeleteActionTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteActionTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteActionTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this delete action template forbidden response a status code equal to that given
 func (o *DeleteActionTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete action template forbidden response
+func (o *DeleteActionTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteActionTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteActionTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete action template not found response
+func (o *DeleteActionTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteActionTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteActionTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete action template internal server error response
+func (o *DeleteActionTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteActionTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteActionTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete action template default response
-func (o *DeleteActionTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete action template default response has a 2xx status code
 func (o *DeleteActionTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteActionTemplateDefault) IsServerError() bool {
 // IsCode returns true when this delete action template default response a status code equal to that given
 func (o *DeleteActionTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete action template default response
+func (o *DeleteActionTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteActionTemplateDefault) Error() string {

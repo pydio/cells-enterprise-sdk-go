@@ -72,6 +72,11 @@ func (m *JobsPutJobResponse) ContextValidate(ctx context.Context, formats strfmt
 func (m *JobsPutJobResponse) contextValidateJob(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Job != nil {
+
+		if swag.IsZero(m.Job) { // not required
+			return nil
+		}
+
 		if err := m.Job.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Job")

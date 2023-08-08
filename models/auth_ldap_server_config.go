@@ -187,6 +187,11 @@ func (m *AuthLdapServerConfig) contextValidateMappingRules(ctx context.Context, 
 	for i := 0; i < len(m.MappingRules); i++ {
 
 		if m.MappingRules[i] != nil {
+
+			if swag.IsZero(m.MappingRules[i]) { // not required
+				return nil
+			}
+
 			if err := m.MappingRules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("MappingRules" + "." + strconv.Itoa(i))
@@ -205,6 +210,11 @@ func (m *AuthLdapServerConfig) contextValidateMappingRules(ctx context.Context, 
 func (m *AuthLdapServerConfig) contextValidateMemberOfMapping(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.MemberOfMapping != nil {
+
+		if swag.IsZero(m.MemberOfMapping) { // not required
+			return nil
+		}
+
 		if err := m.MemberOfMapping.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("MemberOfMapping")
@@ -221,6 +231,11 @@ func (m *AuthLdapServerConfig) contextValidateMemberOfMapping(ctx context.Contex
 func (m *AuthLdapServerConfig) contextValidateUser(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.User != nil {
+
+		if swag.IsZero(m.User) { // not required
+			return nil
+		}
+
 		if err := m.User.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("User")

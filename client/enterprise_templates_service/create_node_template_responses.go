@@ -104,6 +104,11 @@ func (o *CreateNodeTemplateOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the create node template o k response
+func (o *CreateNodeTemplateOK) Code() int {
+	return 200
+}
+
 func (o *CreateNodeTemplateOK) Error() string {
 	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *CreateNodeTemplateUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the create node template unauthorized response
+func (o *CreateNodeTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateNodeTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *CreateNodeTemplateForbidden) IsServerError() bool {
 // IsCode returns true when this create node template forbidden response a status code equal to that given
 func (o *CreateNodeTemplateForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the create node template forbidden response
+func (o *CreateNodeTemplateForbidden) Code() int {
+	return 403
 }
 
 func (o *CreateNodeTemplateForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *CreateNodeTemplateNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the create node template not found response
+func (o *CreateNodeTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateNodeTemplateNotFound) Error() string {
 	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *CreateNodeTemplateInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the create node template internal server error response
+func (o *CreateNodeTemplateInternalServerError) Code() int {
+	return 500
+}
+
 func (o *CreateNodeTemplateInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type CreateNodeTemplateDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the create node template default response
-func (o *CreateNodeTemplateDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this create node template default response has a 2xx status code
 func (o *CreateNodeTemplateDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *CreateNodeTemplateDefault) IsServerError() bool {
 // IsCode returns true when this create node template default response a status code equal to that given
 func (o *CreateNodeTemplateDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the create node template default response
+func (o *CreateNodeTemplateDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *CreateNodeTemplateDefault) Error() string {

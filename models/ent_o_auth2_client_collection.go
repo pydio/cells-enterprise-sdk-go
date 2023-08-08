@@ -82,6 +82,11 @@ func (m *EntOAuth2ClientCollection) contextValidateStaticClients(ctx context.Con
 	for i := 0; i < len(m.StaticClients); i++ {
 
 		if m.StaticClients[i] != nil {
+
+			if swag.IsZero(m.StaticClients[i]) { // not required
+				return nil
+			}
+
 			if err := m.StaticClients[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("staticClients" + "." + strconv.Itoa(i))

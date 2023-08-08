@@ -106,6 +106,11 @@ func (m *AuthOAuth2ConnectorGithubConfig) contextValidateOrgs(ctx context.Contex
 	for i := 0; i < len(m.Orgs); i++ {
 
 		if m.Orgs[i] != nil {
+
+			if swag.IsZero(m.Orgs[i]) { // not required
+				return nil
+			}
+
 			if err := m.Orgs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("orgs" + "." + strconv.Itoa(i))

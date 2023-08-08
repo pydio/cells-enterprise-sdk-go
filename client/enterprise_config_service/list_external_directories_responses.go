@@ -104,6 +104,11 @@ func (o *ListExternalDirectoriesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list external directories o k response
+func (o *ListExternalDirectoriesOK) Code() int {
+	return 200
+}
+
 func (o *ListExternalDirectoriesOK) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListExternalDirectoriesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list external directories unauthorized response
+func (o *ListExternalDirectoriesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListExternalDirectoriesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListExternalDirectoriesForbidden) IsServerError() bool {
 // IsCode returns true when this list external directories forbidden response a status code equal to that given
 func (o *ListExternalDirectoriesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list external directories forbidden response
+func (o *ListExternalDirectoriesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListExternalDirectoriesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListExternalDirectoriesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list external directories not found response
+func (o *ListExternalDirectoriesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListExternalDirectoriesNotFound) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListExternalDirectoriesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list external directories internal server error response
+func (o *ListExternalDirectoriesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListExternalDirectoriesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /config/directories][%d] listExternalDirectoriesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListExternalDirectoriesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list external directories default response
-func (o *ListExternalDirectoriesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list external directories default response has a 2xx status code
 func (o *ListExternalDirectoriesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListExternalDirectoriesDefault) IsServerError() bool {
 // IsCode returns true when this list external directories default response a status code equal to that given
 func (o *ListExternalDirectoriesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list external directories default response
+func (o *ListExternalDirectoriesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListExternalDirectoriesDefault) Error() string {

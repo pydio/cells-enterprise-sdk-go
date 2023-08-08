@@ -104,6 +104,11 @@ func (o *AuditChartDataOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the audit chart data o k response
+func (o *AuditChartDataOK) Code() int {
+	return 200
+}
+
 func (o *AuditChartDataOK) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *AuditChartDataUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the audit chart data unauthorized response
+func (o *AuditChartDataUnauthorized) Code() int {
+	return 401
+}
+
 func (o *AuditChartDataUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *AuditChartDataForbidden) IsServerError() bool {
 // IsCode returns true when this audit chart data forbidden response a status code equal to that given
 func (o *AuditChartDataForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the audit chart data forbidden response
+func (o *AuditChartDataForbidden) Code() int {
+	return 403
 }
 
 func (o *AuditChartDataForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *AuditChartDataNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the audit chart data not found response
+func (o *AuditChartDataNotFound) Code() int {
+	return 404
+}
+
 func (o *AuditChartDataNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *AuditChartDataInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the audit chart data internal server error response
+func (o *AuditChartDataInternalServerError) Code() int {
+	return 500
+}
+
 func (o *AuditChartDataInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type AuditChartDataDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the audit chart data default response
-func (o *AuditChartDataDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this audit chart data default response has a 2xx status code
 func (o *AuditChartDataDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *AuditChartDataDefault) IsServerError() bool {
 // IsCode returns true when this audit chart data default response a status code equal to that given
 func (o *AuditChartDataDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the audit chart data default response
+func (o *AuditChartDataDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *AuditChartDataDefault) Error() string {

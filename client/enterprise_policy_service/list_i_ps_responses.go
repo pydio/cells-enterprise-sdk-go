@@ -104,6 +104,11 @@ func (o *ListIPsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list i ps o k response
+func (o *ListIPsOK) Code() int {
+	return 200
+}
+
 func (o *ListIPsOK) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListIPsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list i ps unauthorized response
+func (o *ListIPsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListIPsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListIPsForbidden) IsServerError() bool {
 // IsCode returns true when this list i ps forbidden response a status code equal to that given
 func (o *ListIPsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list i ps forbidden response
+func (o *ListIPsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListIPsForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListIPsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list i ps not found response
+func (o *ListIPsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListIPsNotFound) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListIPsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list i ps internal server error response
+func (o *ListIPsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListIPsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /policy/iplists/{Name}][%d] listIPsInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListIPsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list i ps default response
-func (o *ListIPsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list i ps default response has a 2xx status code
 func (o *ListIPsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListIPsDefault) IsServerError() bool {
 // IsCode returns true when this list i ps default response a status code equal to that given
 func (o *ListIPsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list i ps default response
+func (o *ListIPsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListIPsDefault) Error() string {

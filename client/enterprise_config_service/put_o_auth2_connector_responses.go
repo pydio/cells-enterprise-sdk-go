@@ -108,6 +108,11 @@ func (o *PutOAuth2ConnectorOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put o auth2 connector o k response
+func (o *PutOAuth2ConnectorOK) Code() int {
+	return 200
+}
+
 func (o *PutOAuth2ConnectorOK) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorOK  %+v", 200, o.Payload)
 }
@@ -170,6 +175,11 @@ func (o *PutOAuth2ConnectorUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put o auth2 connector unauthorized response
+func (o *PutOAuth2ConnectorUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutOAuth2ConnectorUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorUnauthorized ", 401)
 }
@@ -220,6 +230,11 @@ func (o *PutOAuth2ConnectorForbidden) IsServerError() bool {
 // IsCode returns true when this put o auth2 connector forbidden response a status code equal to that given
 func (o *PutOAuth2ConnectorForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put o auth2 connector forbidden response
+func (o *PutOAuth2ConnectorForbidden) Code() int {
+	return 403
 }
 
 func (o *PutOAuth2ConnectorForbidden) Error() string {
@@ -285,6 +300,11 @@ func (o *PutOAuth2ConnectorNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put o auth2 connector not found response
+func (o *PutOAuth2ConnectorNotFound) Code() int {
+	return 404
+}
+
 func (o *PutOAuth2ConnectorNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorNotFound  %+v", 404, o.Payload)
 }
@@ -348,6 +368,11 @@ func (o *PutOAuth2ConnectorInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put o auth2 connector internal server error response
+func (o *PutOAuth2ConnectorInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutOAuth2ConnectorInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /config/oauth2connectors/{id}][%d] putOAuth2ConnectorInternalServerError  %+v", 500, o.Payload)
 }
@@ -390,11 +415,6 @@ type PutOAuth2ConnectorDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put o auth2 connector default response
-func (o *PutOAuth2ConnectorDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put o auth2 connector default response has a 2xx status code
 func (o *PutOAuth2ConnectorDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -418,6 +438,11 @@ func (o *PutOAuth2ConnectorDefault) IsServerError() bool {
 // IsCode returns true when this put o auth2 connector default response a status code equal to that given
 func (o *PutOAuth2ConnectorDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put o auth2 connector default response
+func (o *PutOAuth2ConnectorDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutOAuth2ConnectorDefault) Error() string {
@@ -820,6 +845,11 @@ func (o *PutOAuth2ConnectorBody) ContextValidate(ctx context.Context, formats st
 func (o *PutOAuth2ConnectorBody) contextValidateConfigbitbucket(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configbitbucket != nil {
+
+		if swag.IsZero(o.Configbitbucket) { // not required
+			return nil
+		}
+
 		if err := o.Configbitbucket.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configbitbucket")
@@ -836,6 +866,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigbitbucket(ctx context.Cont
 func (o *PutOAuth2ConnectorBody) contextValidateConfiggithub(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configgithub != nil {
+
+		if swag.IsZero(o.Configgithub) { // not required
+			return nil
+		}
+
 		if err := o.Configgithub.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configgithub")
@@ -852,6 +887,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfiggithub(ctx context.Context
 func (o *PutOAuth2ConnectorBody) contextValidateConfiggitlab(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configgitlab != nil {
+
+		if swag.IsZero(o.Configgitlab) { // not required
+			return nil
+		}
+
 		if err := o.Configgitlab.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configgitlab")
@@ -868,6 +908,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfiggitlab(ctx context.Context
 func (o *PutOAuth2ConnectorBody) contextValidateConfigldap(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configldap != nil {
+
+		if swag.IsZero(o.Configldap) { // not required
+			return nil
+		}
+
 		if err := o.Configldap.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configldap")
@@ -884,6 +929,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigldap(ctx context.Context, 
 func (o *PutOAuth2ConnectorBody) contextValidateConfiglinkedin(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configlinkedin != nil {
+
+		if swag.IsZero(o.Configlinkedin) { // not required
+			return nil
+		}
+
 		if err := o.Configlinkedin.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configlinkedin")
@@ -900,6 +950,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfiglinkedin(ctx context.Conte
 func (o *PutOAuth2ConnectorBody) contextValidateConfigmicrosoft(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configmicrosoft != nil {
+
+		if swag.IsZero(o.Configmicrosoft) { // not required
+			return nil
+		}
+
 		if err := o.Configmicrosoft.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configmicrosoft")
@@ -916,6 +971,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigmicrosoft(ctx context.Cont
 func (o *PutOAuth2ConnectorBody) contextValidateConfigoauth(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configoauth != nil {
+
+		if swag.IsZero(o.Configoauth) { // not required
+			return nil
+		}
+
 		if err := o.Configoauth.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configoauth")
@@ -932,6 +992,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigoauth(ctx context.Context,
 func (o *PutOAuth2ConnectorBody) contextValidateConfigoidc(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configoidc != nil {
+
+		if swag.IsZero(o.Configoidc) { // not required
+			return nil
+		}
+
 		if err := o.Configoidc.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configoidc")
@@ -948,6 +1013,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigoidc(ctx context.Context, 
 func (o *PutOAuth2ConnectorBody) contextValidateConfigpydio(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configpydio != nil {
+
+		if swag.IsZero(o.Configpydio) { // not required
+			return nil
+		}
+
 		if err := o.Configpydio.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configpydio")
@@ -964,6 +1034,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigpydio(ctx context.Context,
 func (o *PutOAuth2ConnectorBody) contextValidateConfigsaml(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Configsaml != nil {
+
+		if swag.IsZero(o.Configsaml) { // not required
+			return nil
+		}
+
 		if err := o.Configsaml.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "configsaml")
@@ -982,6 +1057,11 @@ func (o *PutOAuth2ConnectorBody) contextValidateMappingRules(ctx context.Context
 	for i := 0; i < len(o.MappingRules); i++ {
 
 		if o.MappingRules[i] != nil {
+
+			if swag.IsZero(o.MappingRules[i]) { // not required
+				return nil
+			}
+
 			if err := o.MappingRules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "mappingRules" + "." + strconv.Itoa(i))

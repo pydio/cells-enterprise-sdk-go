@@ -78,6 +78,11 @@ func (m *CertLicenseStatsResponse) ContextValidate(ctx context.Context, formats 
 func (m *CertLicenseStatsResponse) contextValidateLicense(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.License != nil {
+
+		if swag.IsZero(m.License) { // not required
+			return nil
+		}
+
 		if err := m.License.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("License")

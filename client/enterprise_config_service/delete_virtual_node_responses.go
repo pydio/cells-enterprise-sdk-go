@@ -104,6 +104,11 @@ func (o *DeleteVirtualNodeOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete virtual node o k response
+func (o *DeleteVirtualNodeOK) Code() int {
+	return 200
+}
+
 func (o *DeleteVirtualNodeOK) Error() string {
 	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteVirtualNodeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete virtual node unauthorized response
+func (o *DeleteVirtualNodeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteVirtualNodeUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteVirtualNodeForbidden) IsServerError() bool {
 // IsCode returns true when this delete virtual node forbidden response a status code equal to that given
 func (o *DeleteVirtualNodeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete virtual node forbidden response
+func (o *DeleteVirtualNodeForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteVirtualNodeForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteVirtualNodeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete virtual node not found response
+func (o *DeleteVirtualNodeNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteVirtualNodeNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteVirtualNodeInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete virtual node internal server error response
+func (o *DeleteVirtualNodeInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteVirtualNodeInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteVirtualNodeDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete virtual node default response
-func (o *DeleteVirtualNodeDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete virtual node default response has a 2xx status code
 func (o *DeleteVirtualNodeDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteVirtualNodeDefault) IsServerError() bool {
 // IsCode returns true when this delete virtual node default response a status code equal to that given
 func (o *DeleteVirtualNodeDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete virtual node default response
+func (o *DeleteVirtualNodeDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteVirtualNodeDefault) Error() string {

@@ -104,6 +104,11 @@ func (o *ImpersonatePersonalAccessTokenOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the impersonate personal access token o k response
+func (o *ImpersonatePersonalAccessTokenOK) Code() int {
+	return 200
+}
+
 func (o *ImpersonatePersonalAccessTokenOK) Error() string {
 	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ImpersonatePersonalAccessTokenUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the impersonate personal access token unauthorized response
+func (o *ImpersonatePersonalAccessTokenUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ImpersonatePersonalAccessTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ImpersonatePersonalAccessTokenForbidden) IsServerError() bool {
 // IsCode returns true when this impersonate personal access token forbidden response a status code equal to that given
 func (o *ImpersonatePersonalAccessTokenForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the impersonate personal access token forbidden response
+func (o *ImpersonatePersonalAccessTokenForbidden) Code() int {
+	return 403
 }
 
 func (o *ImpersonatePersonalAccessTokenForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ImpersonatePersonalAccessTokenNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the impersonate personal access token not found response
+func (o *ImpersonatePersonalAccessTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *ImpersonatePersonalAccessTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ImpersonatePersonalAccessTokenInternalServerError) IsCode(code int) boo
 	return code == 500
 }
 
+// Code gets the status code for the impersonate personal access token internal server error response
+func (o *ImpersonatePersonalAccessTokenInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ImpersonatePersonalAccessTokenInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ImpersonatePersonalAccessTokenDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the impersonate personal access token default response
-func (o *ImpersonatePersonalAccessTokenDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this impersonate personal access token default response has a 2xx status code
 func (o *ImpersonatePersonalAccessTokenDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ImpersonatePersonalAccessTokenDefault) IsServerError() bool {
 // IsCode returns true when this impersonate personal access token default response a status code equal to that given
 func (o *ImpersonatePersonalAccessTokenDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the impersonate personal access token default response
+func (o *ImpersonatePersonalAccessTokenDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ImpersonatePersonalAccessTokenDefault) Error() string {

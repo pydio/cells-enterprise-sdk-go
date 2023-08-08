@@ -104,6 +104,11 @@ func (o *DeleteJobOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the delete job o k response
+func (o *DeleteJobOK) Code() int {
+	return 200
+}
+
 func (o *DeleteJobOK) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *DeleteJobUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the delete job unauthorized response
+func (o *DeleteJobUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteJobUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *DeleteJobForbidden) IsServerError() bool {
 // IsCode returns true when this delete job forbidden response a status code equal to that given
 func (o *DeleteJobForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the delete job forbidden response
+func (o *DeleteJobForbidden) Code() int {
+	return 403
 }
 
 func (o *DeleteJobForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *DeleteJobNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the delete job not found response
+func (o *DeleteJobNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteJobNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *DeleteJobInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the delete job internal server error response
+func (o *DeleteJobInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteJobInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type DeleteJobDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the delete job default response
-func (o *DeleteJobDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this delete job default response has a 2xx status code
 func (o *DeleteJobDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *DeleteJobDefault) IsServerError() bool {
 // IsCode returns true when this delete job default response a status code equal to that given
 func (o *DeleteJobDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the delete job default response
+func (o *DeleteJobDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *DeleteJobDefault) Error() string {

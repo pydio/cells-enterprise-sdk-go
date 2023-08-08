@@ -108,6 +108,11 @@ func (o *PutVirtualNodeOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put virtual node o k response
+func (o *PutVirtualNodeOK) Code() int {
+	return 200
+}
+
 func (o *PutVirtualNodeOK) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK  %+v", 200, o.Payload)
 }
@@ -170,6 +175,11 @@ func (o *PutVirtualNodeUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put virtual node unauthorized response
+func (o *PutVirtualNodeUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutVirtualNodeUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeUnauthorized ", 401)
 }
@@ -220,6 +230,11 @@ func (o *PutVirtualNodeForbidden) IsServerError() bool {
 // IsCode returns true when this put virtual node forbidden response a status code equal to that given
 func (o *PutVirtualNodeForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put virtual node forbidden response
+func (o *PutVirtualNodeForbidden) Code() int {
+	return 403
 }
 
 func (o *PutVirtualNodeForbidden) Error() string {
@@ -285,6 +300,11 @@ func (o *PutVirtualNodeNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put virtual node not found response
+func (o *PutVirtualNodeNotFound) Code() int {
+	return 404
+}
+
 func (o *PutVirtualNodeNotFound) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeNotFound  %+v", 404, o.Payload)
 }
@@ -348,6 +368,11 @@ func (o *PutVirtualNodeInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put virtual node internal server error response
+func (o *PutVirtualNodeInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutVirtualNodeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeInternalServerError  %+v", 500, o.Payload)
 }
@@ -390,11 +415,6 @@ type PutVirtualNodeDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put virtual node default response
-func (o *PutVirtualNodeDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put virtual node default response has a 2xx status code
 func (o *PutVirtualNodeDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -418,6 +438,11 @@ func (o *PutVirtualNodeDefault) IsServerError() bool {
 // IsCode returns true when this put virtual node default response a status code equal to that given
 func (o *PutVirtualNodeDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put virtual node default response
+func (o *PutVirtualNodeDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutVirtualNodeDefault) Error() string {
@@ -600,6 +625,11 @@ func (o *PutVirtualNodeBody) contextValidateAppearsIn(ctx context.Context, forma
 	for i := 0; i < len(o.AppearsIn); i++ {
 
 		if o.AppearsIn[i] != nil {
+
+			if swag.IsZero(o.AppearsIn[i]) { // not required
+				return nil
+			}
+
 			if err := o.AppearsIn[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "AppearsIn" + "." + strconv.Itoa(i))
@@ -620,6 +650,11 @@ func (o *PutVirtualNodeBody) contextValidateCommits(ctx context.Context, formats
 	for i := 0; i < len(o.Commits); i++ {
 
 		if o.Commits[i] != nil {
+
+			if swag.IsZero(o.Commits[i]) { // not required
+				return nil
+			}
+
 			if err := o.Commits[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("body" + "." + "Commits" + "." + strconv.Itoa(i))
@@ -638,6 +673,11 @@ func (o *PutVirtualNodeBody) contextValidateCommits(ctx context.Context, formats
 func (o *PutVirtualNodeBody) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Type != nil {
+
+		if swag.IsZero(o.Type) { // not required
+			return nil
+		}
+
 		if err := o.Type.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "Type")

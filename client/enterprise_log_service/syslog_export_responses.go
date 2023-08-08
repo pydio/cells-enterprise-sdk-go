@@ -104,6 +104,11 @@ func (o *SyslogExportOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the syslog export o k response
+func (o *SyslogExportOK) Code() int {
+	return 200
+}
+
 func (o *SyslogExportOK) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *SyslogExportUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the syslog export unauthorized response
+func (o *SyslogExportUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SyslogExportUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *SyslogExportForbidden) IsServerError() bool {
 // IsCode returns true when this syslog export forbidden response a status code equal to that given
 func (o *SyslogExportForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the syslog export forbidden response
+func (o *SyslogExportForbidden) Code() int {
+	return 403
 }
 
 func (o *SyslogExportForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *SyslogExportNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the syslog export not found response
+func (o *SyslogExportNotFound) Code() int {
+	return 404
+}
+
 func (o *SyslogExportNotFound) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *SyslogExportInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the syslog export internal server error response
+func (o *SyslogExportInternalServerError) Code() int {
+	return 500
+}
+
 func (o *SyslogExportInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type SyslogExportDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the syslog export default response
-func (o *SyslogExportDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this syslog export default response has a 2xx status code
 func (o *SyslogExportDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *SyslogExportDefault) IsServerError() bool {
 // IsCode returns true when this syslog export default response a status code equal to that given
 func (o *SyslogExportDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the syslog export default response
+func (o *SyslogExportDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *SyslogExportDefault) Error() string {

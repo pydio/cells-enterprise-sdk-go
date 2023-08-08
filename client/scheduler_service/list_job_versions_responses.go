@@ -106,6 +106,11 @@ func (o *ListJobVersionsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list job versions o k response
+func (o *ListJobVersionsOK) Code() int {
+	return 200
+}
+
 func (o *ListJobVersionsOK) Error() string {
 	return fmt.Sprintf("[POST /scheduler/versions/{JobID}][%d] listJobVersionsOK  %+v", 200, o.Payload)
 }
@@ -168,6 +173,11 @@ func (o *ListJobVersionsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list job versions unauthorized response
+func (o *ListJobVersionsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListJobVersionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /scheduler/versions/{JobID}][%d] listJobVersionsUnauthorized ", 401)
 }
@@ -218,6 +228,11 @@ func (o *ListJobVersionsForbidden) IsServerError() bool {
 // IsCode returns true when this list job versions forbidden response a status code equal to that given
 func (o *ListJobVersionsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list job versions forbidden response
+func (o *ListJobVersionsForbidden) Code() int {
+	return 403
 }
 
 func (o *ListJobVersionsForbidden) Error() string {
@@ -283,6 +298,11 @@ func (o *ListJobVersionsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list job versions not found response
+func (o *ListJobVersionsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListJobVersionsNotFound) Error() string {
 	return fmt.Sprintf("[POST /scheduler/versions/{JobID}][%d] listJobVersionsNotFound  %+v", 404, o.Payload)
 }
@@ -346,6 +366,11 @@ func (o *ListJobVersionsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list job versions internal server error response
+func (o *ListJobVersionsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListJobVersionsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /scheduler/versions/{JobID}][%d] listJobVersionsInternalServerError  %+v", 500, o.Payload)
 }
@@ -388,11 +413,6 @@ type ListJobVersionsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list job versions default response
-func (o *ListJobVersionsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list job versions default response has a 2xx status code
 func (o *ListJobVersionsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -416,6 +436,11 @@ func (o *ListJobVersionsDefault) IsServerError() bool {
 // IsCode returns true when this list job versions default response a status code equal to that given
 func (o *ListJobVersionsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list job versions default response
+func (o *ListJobVersionsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListJobVersionsDefault) Error() string {

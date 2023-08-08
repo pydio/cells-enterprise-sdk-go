@@ -107,6 +107,11 @@ func (o *PutExternalDirectoryOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put external directory o k response
+func (o *PutExternalDirectoryOK) Code() int {
+	return 200
+}
+
 func (o *PutExternalDirectoryOK) Error() string {
 	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryOK  %+v", 200, o.Payload)
 }
@@ -169,6 +174,11 @@ func (o *PutExternalDirectoryUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put external directory unauthorized response
+func (o *PutExternalDirectoryUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutExternalDirectoryUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryUnauthorized ", 401)
 }
@@ -219,6 +229,11 @@ func (o *PutExternalDirectoryForbidden) IsServerError() bool {
 // IsCode returns true when this put external directory forbidden response a status code equal to that given
 func (o *PutExternalDirectoryForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put external directory forbidden response
+func (o *PutExternalDirectoryForbidden) Code() int {
+	return 403
 }
 
 func (o *PutExternalDirectoryForbidden) Error() string {
@@ -284,6 +299,11 @@ func (o *PutExternalDirectoryNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put external directory not found response
+func (o *PutExternalDirectoryNotFound) Code() int {
+	return 404
+}
+
 func (o *PutExternalDirectoryNotFound) Error() string {
 	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryNotFound  %+v", 404, o.Payload)
 }
@@ -347,6 +367,11 @@ func (o *PutExternalDirectoryInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put external directory internal server error response
+func (o *PutExternalDirectoryInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutExternalDirectoryInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryInternalServerError  %+v", 500, o.Payload)
 }
@@ -389,11 +414,6 @@ type PutExternalDirectoryDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put external directory default response
-func (o *PutExternalDirectoryDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put external directory default response has a 2xx status code
 func (o *PutExternalDirectoryDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -417,6 +437,11 @@ func (o *PutExternalDirectoryDefault) IsServerError() bool {
 // IsCode returns true when this put external directory default response a status code equal to that given
 func (o *PutExternalDirectoryDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put external directory default response
+func (o *PutExternalDirectoryDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutExternalDirectoryDefault) Error() string {
@@ -503,6 +528,11 @@ func (o *PutExternalDirectoryBody) ContextValidate(ctx context.Context, formats 
 func (o *PutExternalDirectoryBody) contextValidateConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if o.Config != nil {
+
+		if swag.IsZero(o.Config) { // not required
+			return nil
+		}
+
 		if err := o.Config.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("body" + "." + "Config")

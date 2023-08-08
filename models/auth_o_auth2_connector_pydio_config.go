@@ -82,6 +82,11 @@ func (m *AuthOAuth2ConnectorPydioConfig) contextValidatePydioconnectors(ctx cont
 	for i := 0; i < len(m.Pydioconnectors); i++ {
 
 		if m.Pydioconnectors[i] != nil {
+
+			if swag.IsZero(m.Pydioconnectors[i]) { // not required
+				return nil
+			}
+
 			if err := m.Pydioconnectors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("pydioconnectors" + "." + strconv.Itoa(i))

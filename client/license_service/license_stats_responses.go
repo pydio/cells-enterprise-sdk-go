@@ -104,6 +104,11 @@ func (o *LicenseStatsOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the license stats o k response
+func (o *LicenseStatsOK) Code() int {
+	return 200
+}
+
 func (o *LicenseStatsOK) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *LicenseStatsUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the license stats unauthorized response
+func (o *LicenseStatsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *LicenseStatsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *LicenseStatsForbidden) IsServerError() bool {
 // IsCode returns true when this license stats forbidden response a status code equal to that given
 func (o *LicenseStatsForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the license stats forbidden response
+func (o *LicenseStatsForbidden) Code() int {
+	return 403
 }
 
 func (o *LicenseStatsForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *LicenseStatsNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the license stats not found response
+func (o *LicenseStatsNotFound) Code() int {
+	return 404
+}
+
 func (o *LicenseStatsNotFound) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *LicenseStatsInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the license stats internal server error response
+func (o *LicenseStatsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *LicenseStatsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type LicenseStatsDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the license stats default response
-func (o *LicenseStatsDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this license stats default response has a 2xx status code
 func (o *LicenseStatsDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *LicenseStatsDefault) IsServerError() bool {
 // IsCode returns true when this license stats default response a status code equal to that given
 func (o *LicenseStatsDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the license stats default response
+func (o *LicenseStatsDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *LicenseStatsDefault) Error() string {

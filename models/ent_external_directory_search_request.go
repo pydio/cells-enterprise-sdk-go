@@ -108,6 +108,11 @@ func (m *EntExternalDirectorySearchRequest) ContextValidate(ctx context.Context,
 func (m *EntExternalDirectorySearchRequest) contextValidateConfig(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Config != nil {
+
+		if swag.IsZero(m.Config) { // not required
+			return nil
+		}
+
 		if err := m.Config.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Config")
@@ -124,6 +129,11 @@ func (m *EntExternalDirectorySearchRequest) contextValidateConfig(ctx context.Co
 func (m *EntExternalDirectorySearchRequest) contextValidateFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Filter != nil {
+
+		if swag.IsZero(m.Filter) { // not required
+			return nil
+		}
+
 		if err := m.Filter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("Filter")

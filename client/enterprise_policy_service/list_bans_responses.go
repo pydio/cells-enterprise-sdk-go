@@ -104,6 +104,11 @@ func (o *ListBansOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list bans o k response
+func (o *ListBansOK) Code() int {
+	return 200
+}
+
 func (o *ListBansOK) Error() string {
 	return fmt.Sprintf("[GET /policy/ipbans][%d] listBansOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListBansUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list bans unauthorized response
+func (o *ListBansUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListBansUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /policy/ipbans][%d] listBansUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListBansForbidden) IsServerError() bool {
 // IsCode returns true when this list bans forbidden response a status code equal to that given
 func (o *ListBansForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list bans forbidden response
+func (o *ListBansForbidden) Code() int {
+	return 403
 }
 
 func (o *ListBansForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListBansNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list bans not found response
+func (o *ListBansNotFound) Code() int {
+	return 404
+}
+
 func (o *ListBansNotFound) Error() string {
 	return fmt.Sprintf("[GET /policy/ipbans][%d] listBansNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListBansInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list bans internal server error response
+func (o *ListBansInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListBansInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /policy/ipbans][%d] listBansInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListBansDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list bans default response
-func (o *ListBansDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list bans default response has a 2xx status code
 func (o *ListBansDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListBansDefault) IsServerError() bool {
 // IsCode returns true when this list bans default response a status code equal to that given
 func (o *ListBansDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list bans default response
+func (o *ListBansDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListBansDefault) Error() string {

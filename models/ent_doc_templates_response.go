@@ -85,6 +85,11 @@ func (m *EntDocTemplatesResponse) contextValidateDocs(ctx context.Context, forma
 	for i := 0; i < len(m.Docs); i++ {
 
 		if m.Docs[i] != nil {
+
+			if swag.IsZero(m.Docs[i]) { // not required
+				return nil
+			}
+
 			if err := m.Docs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("Docs" + "." + strconv.Itoa(i))

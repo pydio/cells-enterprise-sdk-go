@@ -104,6 +104,11 @@ func (o *PutJobOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the put job o k response
+func (o *PutJobOK) Code() int {
+	return 200
+}
+
 func (o *PutJobOK) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/jobs][%d] putJobOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *PutJobUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the put job unauthorized response
+func (o *PutJobUnauthorized) Code() int {
+	return 401
+}
+
 func (o *PutJobUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/jobs][%d] putJobUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *PutJobForbidden) IsServerError() bool {
 // IsCode returns true when this put job forbidden response a status code equal to that given
 func (o *PutJobForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the put job forbidden response
+func (o *PutJobForbidden) Code() int {
+	return 403
 }
 
 func (o *PutJobForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *PutJobNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the put job not found response
+func (o *PutJobNotFound) Code() int {
+	return 404
+}
+
 func (o *PutJobNotFound) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/jobs][%d] putJobNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *PutJobInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the put job internal server error response
+func (o *PutJobInternalServerError) Code() int {
+	return 500
+}
+
 func (o *PutJobInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /scheduler/jobs][%d] putJobInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type PutJobDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the put job default response
-func (o *PutJobDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this put job default response has a 2xx status code
 func (o *PutJobDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *PutJobDefault) IsServerError() bool {
 // IsCode returns true when this put job default response a status code equal to that given
 func (o *PutJobDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the put job default response
+func (o *PutJobDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *PutJobDefault) Error() string {

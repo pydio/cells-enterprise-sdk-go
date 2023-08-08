@@ -104,6 +104,11 @@ func (o *RevokePersonalAccessTokenOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the revoke personal access token o k response
+func (o *RevokePersonalAccessTokenOK) Code() int {
+	return 200
+}
+
 func (o *RevokePersonalAccessTokenOK) Error() string {
 	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *RevokePersonalAccessTokenUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the revoke personal access token unauthorized response
+func (o *RevokePersonalAccessTokenUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RevokePersonalAccessTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *RevokePersonalAccessTokenForbidden) IsServerError() bool {
 // IsCode returns true when this revoke personal access token forbidden response a status code equal to that given
 func (o *RevokePersonalAccessTokenForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the revoke personal access token forbidden response
+func (o *RevokePersonalAccessTokenForbidden) Code() int {
+	return 403
 }
 
 func (o *RevokePersonalAccessTokenForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *RevokePersonalAccessTokenNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the revoke personal access token not found response
+func (o *RevokePersonalAccessTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *RevokePersonalAccessTokenNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *RevokePersonalAccessTokenInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the revoke personal access token internal server error response
+func (o *RevokePersonalAccessTokenInternalServerError) Code() int {
+	return 500
+}
+
 func (o *RevokePersonalAccessTokenInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type RevokePersonalAccessTokenDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the revoke personal access token default response
-func (o *RevokePersonalAccessTokenDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this revoke personal access token default response has a 2xx status code
 func (o *RevokePersonalAccessTokenDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *RevokePersonalAccessTokenDefault) IsServerError() bool {
 // IsCode returns true when this revoke personal access token default response a status code equal to that given
 func (o *RevokePersonalAccessTokenDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the revoke personal access token default response
+func (o *RevokePersonalAccessTokenDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *RevokePersonalAccessTokenDefault) Error() string {

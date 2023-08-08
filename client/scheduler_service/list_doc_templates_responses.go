@@ -104,6 +104,11 @@ func (o *ListDocTemplatesOK) IsCode(code int) bool {
 	return code == 200
 }
 
+// Code gets the status code for the list doc templates o k response
+func (o *ListDocTemplatesOK) Code() int {
+	return 200
+}
+
 func (o *ListDocTemplatesOK) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK  %+v", 200, o.Payload)
 }
@@ -166,6 +171,11 @@ func (o *ListDocTemplatesUnauthorized) IsCode(code int) bool {
 	return code == 401
 }
 
+// Code gets the status code for the list doc templates unauthorized response
+func (o *ListDocTemplatesUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListDocTemplatesUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesUnauthorized ", 401)
 }
@@ -216,6 +226,11 @@ func (o *ListDocTemplatesForbidden) IsServerError() bool {
 // IsCode returns true when this list doc templates forbidden response a status code equal to that given
 func (o *ListDocTemplatesForbidden) IsCode(code int) bool {
 	return code == 403
+}
+
+// Code gets the status code for the list doc templates forbidden response
+func (o *ListDocTemplatesForbidden) Code() int {
+	return 403
 }
 
 func (o *ListDocTemplatesForbidden) Error() string {
@@ -281,6 +296,11 @@ func (o *ListDocTemplatesNotFound) IsCode(code int) bool {
 	return code == 404
 }
 
+// Code gets the status code for the list doc templates not found response
+func (o *ListDocTemplatesNotFound) Code() int {
+	return 404
+}
+
 func (o *ListDocTemplatesNotFound) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesNotFound  %+v", 404, o.Payload)
 }
@@ -344,6 +364,11 @@ func (o *ListDocTemplatesInternalServerError) IsCode(code int) bool {
 	return code == 500
 }
 
+// Code gets the status code for the list doc templates internal server error response
+func (o *ListDocTemplatesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ListDocTemplatesInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesInternalServerError  %+v", 500, o.Payload)
 }
@@ -386,11 +411,6 @@ type ListDocTemplatesDefault struct {
 	Payload *models.RPCStatus
 }
 
-// Code gets the status code for the list doc templates default response
-func (o *ListDocTemplatesDefault) Code() int {
-	return o._statusCode
-}
-
 // IsSuccess returns true when this list doc templates default response has a 2xx status code
 func (o *ListDocTemplatesDefault) IsSuccess() bool {
 	return o._statusCode/100 == 2
@@ -414,6 +434,11 @@ func (o *ListDocTemplatesDefault) IsServerError() bool {
 // IsCode returns true when this list doc templates default response a status code equal to that given
 func (o *ListDocTemplatesDefault) IsCode(code int) bool {
 	return o._statusCode == code
+}
+
+// Code gets the status code for the list doc templates default response
+func (o *ListDocTemplatesDefault) Code() int {
+	return o._statusCode
 }
 
 func (o *ListDocTemplatesDefault) Error() string {

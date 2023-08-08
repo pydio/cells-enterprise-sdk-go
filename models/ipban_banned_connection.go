@@ -88,6 +88,11 @@ func (m *IpbanBannedConnection) contextValidateHistory(ctx context.Context, form
 	for i := 0; i < len(m.History); i++ {
 
 		if m.History[i] != nil {
+
+			if swag.IsZero(m.History[i]) { // not required
+				return nil
+			}
+
 			if err := m.History[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("History" + "." + strconv.Itoa(i))
