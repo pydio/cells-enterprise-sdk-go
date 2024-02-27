@@ -493,6 +493,9 @@ type PutOAuth2ConnectorBody struct {
 	// configmicrosoft
 	Configmicrosoft *models.AuthOAuth2ConnectorMicrosoftConfig `json:"configmicrosoft,omitempty"`
 
+	// configmock
+	Configmock *models.AuthOAuth2ConnectorMockConfig `json:"configmock,omitempty"`
+
 	// configoauth
 	Configoauth *models.AuthOAuth2ConnectorOAuthConfig `json:"configoauth,omitempty"`
 
@@ -543,6 +546,10 @@ func (o *PutOAuth2ConnectorBody) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := o.validateConfigmicrosoft(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.validateConfigmock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -686,6 +693,25 @@ func (o *PutOAuth2ConnectorBody) validateConfigmicrosoft(formats strfmt.Registry
 	return nil
 }
 
+func (o *PutOAuth2ConnectorBody) validateConfigmock(formats strfmt.Registry) error {
+	if swag.IsZero(o.Configmock) { // not required
+		return nil
+	}
+
+	if o.Configmock != nil {
+		if err := o.Configmock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configmock")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configmock")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (o *PutOAuth2ConnectorBody) validateConfigoauth(formats strfmt.Registry) error {
 	if swag.IsZero(o.Configoauth) { // not required
 		return nil
@@ -813,6 +839,10 @@ func (o *PutOAuth2ConnectorBody) ContextValidate(ctx context.Context, formats st
 	}
 
 	if err := o.contextValidateConfigmicrosoft(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := o.contextValidateConfigmock(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -960,6 +990,27 @@ func (o *PutOAuth2ConnectorBody) contextValidateConfigmicrosoft(ctx context.Cont
 				return ve.ValidateName("body" + "." + "configmicrosoft")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("body" + "." + "configmicrosoft")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (o *PutOAuth2ConnectorBody) contextValidateConfigmock(ctx context.Context, formats strfmt.Registry) error {
+
+	if o.Configmock != nil {
+
+		if swag.IsZero(o.Configmock) { // not required
+			return nil
+		}
+
+		if err := o.Configmock.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("body" + "." + "configmock")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("body" + "." + "configmock")
 			}
 			return err
 		}

@@ -1164,6 +1164,9 @@
                 "configmicrosoft": {
                   "$ref": "#/definitions/authOAuth2ConnectorMicrosoftConfig"
                 },
+                "configmock": {
+                  "$ref": "#/definitions/authOAuth2ConnectorMockConfig"
+                },
                 "configoauth": {
                   "$ref": "#/definitions/authOAuth2ConnectorOAuthConfig"
                 },
@@ -1775,6 +1778,11 @@
           {
             "type": "boolean",
             "name": "configoauth.useBrokenAuthHeaderProvider",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "name": "configmock.jsonIdentity",
             "in": "query"
           },
           {
@@ -4749,6 +4757,9 @@
         "configmicrosoft": {
           "$ref": "#/definitions/authOAuth2ConnectorMicrosoftConfig"
         },
+        "configmock": {
+          "$ref": "#/definitions/authOAuth2ConnectorMockConfig"
+        },
         "configoauth": {
           "$ref": "#/definitions/authOAuth2ConnectorOAuthConfig"
         },
@@ -4903,6 +4914,14 @@
         },
         "useGroupsAsWhitelist": {
           "type": "boolean"
+        }
+      }
+    },
+    "authOAuth2ConnectorMockConfig": {
+      "type": "object",
+      "properties": {
+        "jsonIdentity": {
+          "type": "string"
         }
       }
     },
@@ -6313,9 +6332,21 @@
             "$ref": "#/definitions/jobsAction"
           }
         },
+        "ChatEventFilter": {
+          "title": "Filter values from ChatEvent",
+          "$ref": "#/definitions/jobsChatEventFilter"
+        },
         "ContextMetaFilter": {
           "title": "Metadata policy-based filter",
           "$ref": "#/definitions/jobsContextMetaFilter"
+        },
+        "DataFilter": {
+          "title": "Filter values from JsonBody",
+          "$ref": "#/definitions/jobsDataSelector"
+        },
+        "DataSelector": {
+          "title": "Collect/select values from JsonBody",
+          "$ref": "#/definitions/jobsDataSelector"
         },
         "DataSourceFilter": {
           "title": "DataSource objects filter",
@@ -6531,6 +6562,23 @@
         }
       }
     },
+    "jobsChatEventFilter": {
+      "type": "object",
+      "properties": {
+        "Description": {
+          "type": "string",
+          "title": "Selector additional description"
+        },
+        "Label": {
+          "type": "string",
+          "title": "Selector custom label"
+        },
+        "Query": {
+          "title": "Query used to compute output object or list of objects",
+          "$ref": "#/definitions/serviceQuery"
+        }
+      }
+    },
     "jobsContextMetaFilter": {
       "type": "object",
       "title": "PolicyContextFilter can be used to filter request metadata",
@@ -6560,6 +6608,39 @@
         "RequestMeta",
         "ContextUser"
       ]
+    },
+    "jobsDataSelector": {
+      "type": "object",
+      "properties": {
+        "ClearInput": {
+          "type": "boolean",
+          "title": "Clear previous selection"
+        },
+        "Collect": {
+          "type": "boolean",
+          "title": "Collect results"
+        },
+        "Description": {
+          "type": "string",
+          "title": "Selector additional description"
+        },
+        "FanOutInput": {
+          "type": "boolean",
+          "title": "Ignore query and just fan out input.LastOutput.JsonBody"
+        },
+        "Label": {
+          "type": "string",
+          "title": "Selector custom label"
+        },
+        "Query": {
+          "title": "Query used to compute output object or list of objects",
+          "$ref": "#/definitions/serviceQuery"
+        },
+        "Timeout": {
+          "type": "string",
+          "title": "Optional Timeout for this selector"
+        }
+      }
     },
     "jobsDataSourceSelector": {
       "type": "object",
@@ -6655,6 +6736,10 @@
           "title": "Serialized search query",
           "$ref": "#/definitions/serviceQuery"
         },
+        "Range": {
+          "title": "Handle ranges",
+          "$ref": "#/definitions/jobsSelectorRange"
+        },
         "Timeout": {
           "type": "string",
           "title": "Optional Timeout for this selector"
@@ -6697,6 +6782,10 @@
         "AutoStart": {
           "type": "boolean",
           "title": "Start task as soon as job is inserted"
+        },
+        "ChatEventFilter": {
+          "title": "Filter values from ChatEvent",
+          "$ref": "#/definitions/jobsChatEventFilter"
         },
         "ContextMetaFilter": {
           "title": "Event Context Filter",
@@ -6760,6 +6849,13 @@
         "MergeAction": {
           "title": "Collect chain of actions into a merged output",
           "$ref": "#/definitions/jobsAction"
+        },
+        "Metadata": {
+          "description": "Additional user-defined metadata, can be used for icon, documentation, pre-requisites, etc.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "ModifiedAt": {
           "type": "integer",
@@ -6923,6 +7019,10 @@
           "title": "Query to apply to select users (or filter a given node passed by event)",
           "$ref": "#/definitions/serviceQuery"
         },
+        "Range": {
+          "title": "Handle ranges",
+          "$ref": "#/definitions/jobsSelectorRange"
+        },
         "Timeout": {
           "type": "string",
           "title": "Optional Timeout for this selector"
@@ -6955,6 +7055,27 @@
         "Iso8601Schedule": {
           "description": "ISO 8601 Description of the scheduling for instance \"R2/2015-06-04T19:25:16.828696-07:00/PT4S\"\nwhere first part is the number of repetitions (if 0, infinite repetition), \nsecond part the starting date and last part, the duration between 2 occurrences.",
           "type": "string"
+        }
+      }
+    },
+    "jobsSelectorRange": {
+      "type": "object",
+      "properties": {
+        "Limit": {
+          "type": "string",
+          "title": "Limit number of results - use string to allow templating"
+        },
+        "Offset": {
+          "type": "string",
+          "title": "Start offset - use string to allow templating"
+        },
+        "OrderBy": {
+          "type": "string",
+          "title": "OrderBy a given field of the object"
+        },
+        "OrderDir": {
+          "type": "string",
+          "title": "Order direction (asc/desc)"
         }
       }
     },
@@ -7180,6 +7301,10 @@
         "SpanUuid": {
           "type": "string",
           "title": "Span Info"
+        },
+        "TransferSize": {
+          "type": "string",
+          "format": "int64"
         },
         "Ts": {
           "type": "integer",
@@ -7414,7 +7539,7 @@
           "type": "string"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": {}
     },
     "reportsAuditedWorkspace": {
       "type": "object",
@@ -7715,6 +7840,12 @@
         },
         "ResourcePolicyQuery": {
           "$ref": "#/definitions/serviceResourcePolicyQuery"
+        },
+        "SortDesc": {
+          "type": "boolean"
+        },
+        "SortField": {
+          "type": "string"
         },
         "SubQueries": {
           "type": "array",

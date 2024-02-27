@@ -31,6 +31,9 @@ type JobsJob struct {
 	// Start task as soon as job is inserted
 	AutoStart bool `json:"AutoStart,omitempty"`
 
+	// Filter values from ChatEvent
+	ChatEventFilter *JobsChatEventFilter `json:"ChatEventFilter,omitempty"`
+
 	// Event Context Filter
 	ContextMetaFilter *JobsContextMetaFilter `json:"ContextMetaFilter,omitempty"`
 
@@ -72,6 +75,9 @@ type JobsJob struct {
 	// Collect chain of actions into a merged output
 	MergeAction *JobsAction `json:"MergeAction,omitempty"`
 
+	// Additional user-defined metadata, can be used for icon, documentation, pre-requisites, etc.
+	Metadata map[string]string `json:"Metadata,omitempty"`
+
 	// Timestamp for modification time
 	ModifiedAt int32 `json:"ModifiedAt,omitempty"`
 
@@ -111,6 +117,10 @@ func (m *JobsJob) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateActions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateChatEventFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -185,6 +195,25 @@ func (m *JobsJob) validateActions(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *JobsJob) validateChatEventFilter(formats strfmt.Registry) error {
+	if swag.IsZero(m.ChatEventFilter) { // not required
+		return nil
+	}
+
+	if m.ChatEventFilter != nil {
+		if err := m.ChatEventFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ChatEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ChatEventFilter")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -435,6 +464,10 @@ func (m *JobsJob) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateChatEventFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateContextMetaFilter(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -505,6 +538,27 @@ func (m *JobsJob) contextValidateActions(ctx context.Context, formats strfmt.Reg
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *JobsJob) contextValidateChatEventFilter(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ChatEventFilter != nil {
+
+		if swag.IsZero(m.ChatEventFilter) { // not required
+			return nil
+		}
+
+		if err := m.ChatEventFilter.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ChatEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ChatEventFilter")
+			}
+			return err
+		}
 	}
 
 	return nil
