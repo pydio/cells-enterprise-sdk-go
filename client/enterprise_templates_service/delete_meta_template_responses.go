@@ -6,6 +6,7 @@ package enterprise_templates_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *DeleteMetaTemplateReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewDeleteMetaTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewDeleteMetaTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewDeleteMetaTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewDeleteMetaTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewDeleteMetaTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *DeleteMetaTemplateOK) Code() int {
 }
 
 func (o *DeleteMetaTemplateOK) Error() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateOK %s", 200, payload)
 }
 
 func (o *DeleteMetaTemplateOK) String() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateOK %s", 200, payload)
 }
 
 func (o *DeleteMetaTemplateOK) GetPayload() *models.EntDeleteMetaTemplateResponse {
@@ -124,266 +103,6 @@ func (o *DeleteMetaTemplateOK) GetPayload() *models.EntDeleteMetaTemplateRespons
 func (o *DeleteMetaTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntDeleteMetaTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteMetaTemplateUnauthorized creates a DeleteMetaTemplateUnauthorized with default headers values
-func NewDeleteMetaTemplateUnauthorized() *DeleteMetaTemplateUnauthorized {
-	return &DeleteMetaTemplateUnauthorized{}
-}
-
-/*
-DeleteMetaTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type DeleteMetaTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this delete meta template unauthorized response has a 2xx status code
-func (o *DeleteMetaTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete meta template unauthorized response has a 3xx status code
-func (o *DeleteMetaTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete meta template unauthorized response has a 4xx status code
-func (o *DeleteMetaTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete meta template unauthorized response has a 5xx status code
-func (o *DeleteMetaTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete meta template unauthorized response a status code equal to that given
-func (o *DeleteMetaTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the delete meta template unauthorized response
-func (o *DeleteMetaTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *DeleteMetaTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateUnauthorized ", 401)
-}
-
-func (o *DeleteMetaTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateUnauthorized ", 401)
-}
-
-func (o *DeleteMetaTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewDeleteMetaTemplateForbidden creates a DeleteMetaTemplateForbidden with default headers values
-func NewDeleteMetaTemplateForbidden() *DeleteMetaTemplateForbidden {
-	return &DeleteMetaTemplateForbidden{}
-}
-
-/*
-DeleteMetaTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type DeleteMetaTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete meta template forbidden response has a 2xx status code
-func (o *DeleteMetaTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete meta template forbidden response has a 3xx status code
-func (o *DeleteMetaTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete meta template forbidden response has a 4xx status code
-func (o *DeleteMetaTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete meta template forbidden response has a 5xx status code
-func (o *DeleteMetaTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete meta template forbidden response a status code equal to that given
-func (o *DeleteMetaTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the delete meta template forbidden response
-func (o *DeleteMetaTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *DeleteMetaTemplateForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteMetaTemplateForbidden) String() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteMetaTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteMetaTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteMetaTemplateNotFound creates a DeleteMetaTemplateNotFound with default headers values
-func NewDeleteMetaTemplateNotFound() *DeleteMetaTemplateNotFound {
-	return &DeleteMetaTemplateNotFound{}
-}
-
-/*
-DeleteMetaTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type DeleteMetaTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete meta template not found response has a 2xx status code
-func (o *DeleteMetaTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete meta template not found response has a 3xx status code
-func (o *DeleteMetaTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete meta template not found response has a 4xx status code
-func (o *DeleteMetaTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete meta template not found response has a 5xx status code
-func (o *DeleteMetaTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete meta template not found response a status code equal to that given
-func (o *DeleteMetaTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the delete meta template not found response
-func (o *DeleteMetaTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *DeleteMetaTemplateNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteMetaTemplateNotFound) String() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteMetaTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteMetaTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteMetaTemplateInternalServerError creates a DeleteMetaTemplateInternalServerError with default headers values
-func NewDeleteMetaTemplateInternalServerError() *DeleteMetaTemplateInternalServerError {
-	return &DeleteMetaTemplateInternalServerError{}
-}
-
-/*
-DeleteMetaTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type DeleteMetaTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete meta template internal server error response has a 2xx status code
-func (o *DeleteMetaTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete meta template internal server error response has a 3xx status code
-func (o *DeleteMetaTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete meta template internal server error response has a 4xx status code
-func (o *DeleteMetaTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this delete meta template internal server error response has a 5xx status code
-func (o *DeleteMetaTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this delete meta template internal server error response a status code equal to that given
-func (o *DeleteMetaTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the delete meta template internal server error response
-func (o *DeleteMetaTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *DeleteMetaTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteMetaTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] deleteMetaTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteMetaTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteMetaTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *DeleteMetaTemplateDefault) Code() int {
 }
 
 func (o *DeleteMetaTemplateDefault) Error() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] DeleteMetaTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] DeleteMetaTemplate default %s", o._statusCode, payload)
 }
 
 func (o *DeleteMetaTemplateDefault) String() string {
-	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] DeleteMetaTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /templates/meta/{TemplateUuid}][%d] DeleteMetaTemplate default %s", o._statusCode, payload)
 }
 
 func (o *DeleteMetaTemplateDefault) GetPayload() *models.RPCStatus {

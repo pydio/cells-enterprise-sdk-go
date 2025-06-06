@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListJobTemplatesReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListJobTemplatesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListJobTemplatesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListJobTemplatesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListJobTemplatesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListJobTemplatesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListJobTemplatesOK) Code() int {
 }
 
 func (o *ListJobTemplatesOK) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK %s", 200, payload)
 }
 
 func (o *ListJobTemplatesOK) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesOK %s", 200, payload)
 }
 
 func (o *ListJobTemplatesOK) GetPayload() *models.EntListJobTemplatesResponse {
@@ -124,266 +103,6 @@ func (o *ListJobTemplatesOK) GetPayload() *models.EntListJobTemplatesResponse {
 func (o *ListJobTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntListJobTemplatesResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListJobTemplatesUnauthorized creates a ListJobTemplatesUnauthorized with default headers values
-func NewListJobTemplatesUnauthorized() *ListJobTemplatesUnauthorized {
-	return &ListJobTemplatesUnauthorized{}
-}
-
-/*
-ListJobTemplatesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListJobTemplatesUnauthorized struct {
-}
-
-// IsSuccess returns true when this list job templates unauthorized response has a 2xx status code
-func (o *ListJobTemplatesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list job templates unauthorized response has a 3xx status code
-func (o *ListJobTemplatesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list job templates unauthorized response has a 4xx status code
-func (o *ListJobTemplatesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list job templates unauthorized response has a 5xx status code
-func (o *ListJobTemplatesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list job templates unauthorized response a status code equal to that given
-func (o *ListJobTemplatesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list job templates unauthorized response
-func (o *ListJobTemplatesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListJobTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesUnauthorized ", 401)
-}
-
-func (o *ListJobTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesUnauthorized ", 401)
-}
-
-func (o *ListJobTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListJobTemplatesForbidden creates a ListJobTemplatesForbidden with default headers values
-func NewListJobTemplatesForbidden() *ListJobTemplatesForbidden {
-	return &ListJobTemplatesForbidden{}
-}
-
-/*
-ListJobTemplatesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListJobTemplatesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list job templates forbidden response has a 2xx status code
-func (o *ListJobTemplatesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list job templates forbidden response has a 3xx status code
-func (o *ListJobTemplatesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list job templates forbidden response has a 4xx status code
-func (o *ListJobTemplatesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list job templates forbidden response has a 5xx status code
-func (o *ListJobTemplatesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list job templates forbidden response a status code equal to that given
-func (o *ListJobTemplatesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list job templates forbidden response
-func (o *ListJobTemplatesForbidden) Code() int {
-	return 403
-}
-
-func (o *ListJobTemplatesForbidden) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListJobTemplatesForbidden) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListJobTemplatesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListJobTemplatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListJobTemplatesNotFound creates a ListJobTemplatesNotFound with default headers values
-func NewListJobTemplatesNotFound() *ListJobTemplatesNotFound {
-	return &ListJobTemplatesNotFound{}
-}
-
-/*
-ListJobTemplatesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListJobTemplatesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list job templates not found response has a 2xx status code
-func (o *ListJobTemplatesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list job templates not found response has a 3xx status code
-func (o *ListJobTemplatesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list job templates not found response has a 4xx status code
-func (o *ListJobTemplatesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list job templates not found response has a 5xx status code
-func (o *ListJobTemplatesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list job templates not found response a status code equal to that given
-func (o *ListJobTemplatesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list job templates not found response
-func (o *ListJobTemplatesNotFound) Code() int {
-	return 404
-}
-
-func (o *ListJobTemplatesNotFound) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListJobTemplatesNotFound) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListJobTemplatesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListJobTemplatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListJobTemplatesInternalServerError creates a ListJobTemplatesInternalServerError with default headers values
-func NewListJobTemplatesInternalServerError() *ListJobTemplatesInternalServerError {
-	return &ListJobTemplatesInternalServerError{}
-}
-
-/*
-ListJobTemplatesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListJobTemplatesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list job templates internal server error response has a 2xx status code
-func (o *ListJobTemplatesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list job templates internal server error response has a 3xx status code
-func (o *ListJobTemplatesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list job templates internal server error response has a 4xx status code
-func (o *ListJobTemplatesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list job templates internal server error response has a 5xx status code
-func (o *ListJobTemplatesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list job templates internal server error response a status code equal to that given
-func (o *ListJobTemplatesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list job templates internal server error response
-func (o *ListJobTemplatesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListJobTemplatesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListJobTemplatesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] listJobTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListJobTemplatesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListJobTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListJobTemplatesDefault) Code() int {
 }
 
 func (o *ListJobTemplatesDefault) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] ListJobTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] ListJobTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListJobTemplatesDefault) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] ListJobTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/jobs][%d] ListJobTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListJobTemplatesDefault) GetPayload() *models.RPCStatus {

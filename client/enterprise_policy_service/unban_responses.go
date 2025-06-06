@@ -6,6 +6,7 @@ package enterprise_policy_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *UnbanReader) ReadResponse(response runtime.ClientResponse, consumer run
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewUnbanUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewUnbanForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewUnbanNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewUnbanInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewUnbanDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *UnbanOK) Code() int {
 }
 
 func (o *UnbanOK) Error() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK %s", 200, payload)
 }
 
 func (o *UnbanOK) String() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanOK %s", 200, payload)
 }
 
 func (o *UnbanOK) GetPayload() *models.IpbanUnbanResponse {
@@ -124,266 +103,6 @@ func (o *UnbanOK) GetPayload() *models.IpbanUnbanResponse {
 func (o *UnbanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IpbanUnbanResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUnbanUnauthorized creates a UnbanUnauthorized with default headers values
-func NewUnbanUnauthorized() *UnbanUnauthorized {
-	return &UnbanUnauthorized{}
-}
-
-/*
-UnbanUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type UnbanUnauthorized struct {
-}
-
-// IsSuccess returns true when this unban unauthorized response has a 2xx status code
-func (o *UnbanUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this unban unauthorized response has a 3xx status code
-func (o *UnbanUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this unban unauthorized response has a 4xx status code
-func (o *UnbanUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this unban unauthorized response has a 5xx status code
-func (o *UnbanUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this unban unauthorized response a status code equal to that given
-func (o *UnbanUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the unban unauthorized response
-func (o *UnbanUnauthorized) Code() int {
-	return 401
-}
-
-func (o *UnbanUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanUnauthorized ", 401)
-}
-
-func (o *UnbanUnauthorized) String() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanUnauthorized ", 401)
-}
-
-func (o *UnbanUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewUnbanForbidden creates a UnbanForbidden with default headers values
-func NewUnbanForbidden() *UnbanForbidden {
-	return &UnbanForbidden{}
-}
-
-/*
-UnbanForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type UnbanForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this unban forbidden response has a 2xx status code
-func (o *UnbanForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this unban forbidden response has a 3xx status code
-func (o *UnbanForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this unban forbidden response has a 4xx status code
-func (o *UnbanForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this unban forbidden response has a 5xx status code
-func (o *UnbanForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this unban forbidden response a status code equal to that given
-func (o *UnbanForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the unban forbidden response
-func (o *UnbanForbidden) Code() int {
-	return 403
-}
-
-func (o *UnbanForbidden) Error() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanForbidden  %+v", 403, o.Payload)
-}
-
-func (o *UnbanForbidden) String() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanForbidden  %+v", 403, o.Payload)
-}
-
-func (o *UnbanForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *UnbanForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUnbanNotFound creates a UnbanNotFound with default headers values
-func NewUnbanNotFound() *UnbanNotFound {
-	return &UnbanNotFound{}
-}
-
-/*
-UnbanNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type UnbanNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this unban not found response has a 2xx status code
-func (o *UnbanNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this unban not found response has a 3xx status code
-func (o *UnbanNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this unban not found response has a 4xx status code
-func (o *UnbanNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this unban not found response has a 5xx status code
-func (o *UnbanNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this unban not found response a status code equal to that given
-func (o *UnbanNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the unban not found response
-func (o *UnbanNotFound) Code() int {
-	return 404
-}
-
-func (o *UnbanNotFound) Error() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanNotFound  %+v", 404, o.Payload)
-}
-
-func (o *UnbanNotFound) String() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanNotFound  %+v", 404, o.Payload)
-}
-
-func (o *UnbanNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *UnbanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUnbanInternalServerError creates a UnbanInternalServerError with default headers values
-func NewUnbanInternalServerError() *UnbanInternalServerError {
-	return &UnbanInternalServerError{}
-}
-
-/*
-UnbanInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type UnbanInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this unban internal server error response has a 2xx status code
-func (o *UnbanInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this unban internal server error response has a 3xx status code
-func (o *UnbanInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this unban internal server error response has a 4xx status code
-func (o *UnbanInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this unban internal server error response has a 5xx status code
-func (o *UnbanInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this unban internal server error response a status code equal to that given
-func (o *UnbanInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the unban internal server error response
-func (o *UnbanInternalServerError) Code() int {
-	return 500
-}
-
-func (o *UnbanInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *UnbanInternalServerError) String() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] unbanInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *UnbanInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *UnbanInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *UnbanDefault) Code() int {
 }
 
 func (o *UnbanDefault) Error() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] Unban default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /policy/ipbans][%d] Unban default %s", o._statusCode, payload)
 }
 
 func (o *UnbanDefault) String() string {
-	return fmt.Sprintf("[POST /policy/ipbans][%d] Unban default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /policy/ipbans][%d] Unban default %s", o._statusCode, payload)
 }
 
 func (o *UnbanDefault) GetPayload() *models.RPCStatus {

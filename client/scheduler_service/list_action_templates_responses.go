@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListActionTemplatesReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListActionTemplatesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListActionTemplatesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListActionTemplatesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListActionTemplatesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListActionTemplatesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListActionTemplatesOK) Code() int {
 }
 
 func (o *ListActionTemplatesOK) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesOK %s", 200, payload)
 }
 
 func (o *ListActionTemplatesOK) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesOK %s", 200, payload)
 }
 
 func (o *ListActionTemplatesOK) GetPayload() *models.EntListActionTemplatesResponse {
@@ -124,266 +103,6 @@ func (o *ListActionTemplatesOK) GetPayload() *models.EntListActionTemplatesRespo
 func (o *ListActionTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntListActionTemplatesResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListActionTemplatesUnauthorized creates a ListActionTemplatesUnauthorized with default headers values
-func NewListActionTemplatesUnauthorized() *ListActionTemplatesUnauthorized {
-	return &ListActionTemplatesUnauthorized{}
-}
-
-/*
-ListActionTemplatesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListActionTemplatesUnauthorized struct {
-}
-
-// IsSuccess returns true when this list action templates unauthorized response has a 2xx status code
-func (o *ListActionTemplatesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list action templates unauthorized response has a 3xx status code
-func (o *ListActionTemplatesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list action templates unauthorized response has a 4xx status code
-func (o *ListActionTemplatesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list action templates unauthorized response has a 5xx status code
-func (o *ListActionTemplatesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list action templates unauthorized response a status code equal to that given
-func (o *ListActionTemplatesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list action templates unauthorized response
-func (o *ListActionTemplatesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListActionTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesUnauthorized ", 401)
-}
-
-func (o *ListActionTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesUnauthorized ", 401)
-}
-
-func (o *ListActionTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListActionTemplatesForbidden creates a ListActionTemplatesForbidden with default headers values
-func NewListActionTemplatesForbidden() *ListActionTemplatesForbidden {
-	return &ListActionTemplatesForbidden{}
-}
-
-/*
-ListActionTemplatesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListActionTemplatesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list action templates forbidden response has a 2xx status code
-func (o *ListActionTemplatesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list action templates forbidden response has a 3xx status code
-func (o *ListActionTemplatesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list action templates forbidden response has a 4xx status code
-func (o *ListActionTemplatesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list action templates forbidden response has a 5xx status code
-func (o *ListActionTemplatesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list action templates forbidden response a status code equal to that given
-func (o *ListActionTemplatesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list action templates forbidden response
-func (o *ListActionTemplatesForbidden) Code() int {
-	return 403
-}
-
-func (o *ListActionTemplatesForbidden) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListActionTemplatesForbidden) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListActionTemplatesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListActionTemplatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListActionTemplatesNotFound creates a ListActionTemplatesNotFound with default headers values
-func NewListActionTemplatesNotFound() *ListActionTemplatesNotFound {
-	return &ListActionTemplatesNotFound{}
-}
-
-/*
-ListActionTemplatesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListActionTemplatesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list action templates not found response has a 2xx status code
-func (o *ListActionTemplatesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list action templates not found response has a 3xx status code
-func (o *ListActionTemplatesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list action templates not found response has a 4xx status code
-func (o *ListActionTemplatesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list action templates not found response has a 5xx status code
-func (o *ListActionTemplatesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list action templates not found response a status code equal to that given
-func (o *ListActionTemplatesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list action templates not found response
-func (o *ListActionTemplatesNotFound) Code() int {
-	return 404
-}
-
-func (o *ListActionTemplatesNotFound) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListActionTemplatesNotFound) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListActionTemplatesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListActionTemplatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListActionTemplatesInternalServerError creates a ListActionTemplatesInternalServerError with default headers values
-func NewListActionTemplatesInternalServerError() *ListActionTemplatesInternalServerError {
-	return &ListActionTemplatesInternalServerError{}
-}
-
-/*
-ListActionTemplatesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListActionTemplatesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list action templates internal server error response has a 2xx status code
-func (o *ListActionTemplatesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list action templates internal server error response has a 3xx status code
-func (o *ListActionTemplatesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list action templates internal server error response has a 4xx status code
-func (o *ListActionTemplatesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list action templates internal server error response has a 5xx status code
-func (o *ListActionTemplatesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list action templates internal server error response a status code equal to that given
-func (o *ListActionTemplatesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list action templates internal server error response
-func (o *ListActionTemplatesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListActionTemplatesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListActionTemplatesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] listActionTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListActionTemplatesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListActionTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListActionTemplatesDefault) Code() int {
 }
 
 func (o *ListActionTemplatesDefault) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] ListActionTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] ListActionTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListActionTemplatesDefault) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] ListActionTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/actions][%d] ListActionTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListActionTemplatesDefault) GetPayload() *models.RPCStatus {

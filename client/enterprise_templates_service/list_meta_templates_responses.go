@@ -6,6 +6,7 @@ package enterprise_templates_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListMetaTemplatesReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListMetaTemplatesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListMetaTemplatesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListMetaTemplatesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListMetaTemplatesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListMetaTemplatesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListMetaTemplatesOK) Code() int {
 }
 
 func (o *ListMetaTemplatesOK) Error() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesOK %s", 200, payload)
 }
 
 func (o *ListMetaTemplatesOK) String() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesOK %s", 200, payload)
 }
 
 func (o *ListMetaTemplatesOK) GetPayload() *models.EntListMetaTemplateResponse {
@@ -124,266 +103,6 @@ func (o *ListMetaTemplatesOK) GetPayload() *models.EntListMetaTemplateResponse {
 func (o *ListMetaTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntListMetaTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListMetaTemplatesUnauthorized creates a ListMetaTemplatesUnauthorized with default headers values
-func NewListMetaTemplatesUnauthorized() *ListMetaTemplatesUnauthorized {
-	return &ListMetaTemplatesUnauthorized{}
-}
-
-/*
-ListMetaTemplatesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListMetaTemplatesUnauthorized struct {
-}
-
-// IsSuccess returns true when this list meta templates unauthorized response has a 2xx status code
-func (o *ListMetaTemplatesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list meta templates unauthorized response has a 3xx status code
-func (o *ListMetaTemplatesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list meta templates unauthorized response has a 4xx status code
-func (o *ListMetaTemplatesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list meta templates unauthorized response has a 5xx status code
-func (o *ListMetaTemplatesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list meta templates unauthorized response a status code equal to that given
-func (o *ListMetaTemplatesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list meta templates unauthorized response
-func (o *ListMetaTemplatesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListMetaTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesUnauthorized ", 401)
-}
-
-func (o *ListMetaTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesUnauthorized ", 401)
-}
-
-func (o *ListMetaTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListMetaTemplatesForbidden creates a ListMetaTemplatesForbidden with default headers values
-func NewListMetaTemplatesForbidden() *ListMetaTemplatesForbidden {
-	return &ListMetaTemplatesForbidden{}
-}
-
-/*
-ListMetaTemplatesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListMetaTemplatesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list meta templates forbidden response has a 2xx status code
-func (o *ListMetaTemplatesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list meta templates forbidden response has a 3xx status code
-func (o *ListMetaTemplatesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list meta templates forbidden response has a 4xx status code
-func (o *ListMetaTemplatesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list meta templates forbidden response has a 5xx status code
-func (o *ListMetaTemplatesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list meta templates forbidden response a status code equal to that given
-func (o *ListMetaTemplatesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list meta templates forbidden response
-func (o *ListMetaTemplatesForbidden) Code() int {
-	return 403
-}
-
-func (o *ListMetaTemplatesForbidden) Error() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListMetaTemplatesForbidden) String() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListMetaTemplatesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListMetaTemplatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListMetaTemplatesNotFound creates a ListMetaTemplatesNotFound with default headers values
-func NewListMetaTemplatesNotFound() *ListMetaTemplatesNotFound {
-	return &ListMetaTemplatesNotFound{}
-}
-
-/*
-ListMetaTemplatesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListMetaTemplatesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list meta templates not found response has a 2xx status code
-func (o *ListMetaTemplatesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list meta templates not found response has a 3xx status code
-func (o *ListMetaTemplatesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list meta templates not found response has a 4xx status code
-func (o *ListMetaTemplatesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list meta templates not found response has a 5xx status code
-func (o *ListMetaTemplatesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list meta templates not found response a status code equal to that given
-func (o *ListMetaTemplatesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list meta templates not found response
-func (o *ListMetaTemplatesNotFound) Code() int {
-	return 404
-}
-
-func (o *ListMetaTemplatesNotFound) Error() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListMetaTemplatesNotFound) String() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListMetaTemplatesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListMetaTemplatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListMetaTemplatesInternalServerError creates a ListMetaTemplatesInternalServerError with default headers values
-func NewListMetaTemplatesInternalServerError() *ListMetaTemplatesInternalServerError {
-	return &ListMetaTemplatesInternalServerError{}
-}
-
-/*
-ListMetaTemplatesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListMetaTemplatesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list meta templates internal server error response has a 2xx status code
-func (o *ListMetaTemplatesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list meta templates internal server error response has a 3xx status code
-func (o *ListMetaTemplatesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list meta templates internal server error response has a 4xx status code
-func (o *ListMetaTemplatesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list meta templates internal server error response has a 5xx status code
-func (o *ListMetaTemplatesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list meta templates internal server error response a status code equal to that given
-func (o *ListMetaTemplatesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list meta templates internal server error response
-func (o *ListMetaTemplatesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListMetaTemplatesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListMetaTemplatesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] listMetaTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListMetaTemplatesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListMetaTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListMetaTemplatesDefault) Code() int {
 }
 
 func (o *ListMetaTemplatesDefault) Error() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] ListMetaTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates/meta][%d] ListMetaTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListMetaTemplatesDefault) String() string {
-	return fmt.Sprintf("[GET /templates/meta][%d] ListMetaTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /templates/meta][%d] ListMetaTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListMetaTemplatesDefault) GetPayload() *models.RPCStatus {

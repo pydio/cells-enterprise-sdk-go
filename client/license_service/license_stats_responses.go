@@ -6,6 +6,7 @@ package license_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *LicenseStatsReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewLicenseStatsUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewLicenseStatsForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewLicenseStatsNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewLicenseStatsInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewLicenseStatsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *LicenseStatsOK) Code() int {
 }
 
 func (o *LicenseStatsOK) Error() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK %s", 200, payload)
 }
 
 func (o *LicenseStatsOK) String() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsOK %s", 200, payload)
 }
 
 func (o *LicenseStatsOK) GetPayload() *models.CertLicenseStatsResponse {
@@ -124,266 +103,6 @@ func (o *LicenseStatsOK) GetPayload() *models.CertLicenseStatsResponse {
 func (o *LicenseStatsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CertLicenseStatsResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewLicenseStatsUnauthorized creates a LicenseStatsUnauthorized with default headers values
-func NewLicenseStatsUnauthorized() *LicenseStatsUnauthorized {
-	return &LicenseStatsUnauthorized{}
-}
-
-/*
-LicenseStatsUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type LicenseStatsUnauthorized struct {
-}
-
-// IsSuccess returns true when this license stats unauthorized response has a 2xx status code
-func (o *LicenseStatsUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this license stats unauthorized response has a 3xx status code
-func (o *LicenseStatsUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this license stats unauthorized response has a 4xx status code
-func (o *LicenseStatsUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this license stats unauthorized response has a 5xx status code
-func (o *LicenseStatsUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this license stats unauthorized response a status code equal to that given
-func (o *LicenseStatsUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the license stats unauthorized response
-func (o *LicenseStatsUnauthorized) Code() int {
-	return 401
-}
-
-func (o *LicenseStatsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsUnauthorized ", 401)
-}
-
-func (o *LicenseStatsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsUnauthorized ", 401)
-}
-
-func (o *LicenseStatsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewLicenseStatsForbidden creates a LicenseStatsForbidden with default headers values
-func NewLicenseStatsForbidden() *LicenseStatsForbidden {
-	return &LicenseStatsForbidden{}
-}
-
-/*
-LicenseStatsForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type LicenseStatsForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this license stats forbidden response has a 2xx status code
-func (o *LicenseStatsForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this license stats forbidden response has a 3xx status code
-func (o *LicenseStatsForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this license stats forbidden response has a 4xx status code
-func (o *LicenseStatsForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this license stats forbidden response has a 5xx status code
-func (o *LicenseStatsForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this license stats forbidden response a status code equal to that given
-func (o *LicenseStatsForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the license stats forbidden response
-func (o *LicenseStatsForbidden) Code() int {
-	return 403
-}
-
-func (o *LicenseStatsForbidden) Error() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *LicenseStatsForbidden) String() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *LicenseStatsForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *LicenseStatsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewLicenseStatsNotFound creates a LicenseStatsNotFound with default headers values
-func NewLicenseStatsNotFound() *LicenseStatsNotFound {
-	return &LicenseStatsNotFound{}
-}
-
-/*
-LicenseStatsNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type LicenseStatsNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this license stats not found response has a 2xx status code
-func (o *LicenseStatsNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this license stats not found response has a 3xx status code
-func (o *LicenseStatsNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this license stats not found response has a 4xx status code
-func (o *LicenseStatsNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this license stats not found response has a 5xx status code
-func (o *LicenseStatsNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this license stats not found response a status code equal to that given
-func (o *LicenseStatsNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the license stats not found response
-func (o *LicenseStatsNotFound) Code() int {
-	return 404
-}
-
-func (o *LicenseStatsNotFound) Error() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *LicenseStatsNotFound) String() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *LicenseStatsNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *LicenseStatsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewLicenseStatsInternalServerError creates a LicenseStatsInternalServerError with default headers values
-func NewLicenseStatsInternalServerError() *LicenseStatsInternalServerError {
-	return &LicenseStatsInternalServerError{}
-}
-
-/*
-LicenseStatsInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type LicenseStatsInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this license stats internal server error response has a 2xx status code
-func (o *LicenseStatsInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this license stats internal server error response has a 3xx status code
-func (o *LicenseStatsInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this license stats internal server error response has a 4xx status code
-func (o *LicenseStatsInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this license stats internal server error response has a 5xx status code
-func (o *LicenseStatsInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this license stats internal server error response a status code equal to that given
-func (o *LicenseStatsInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the license stats internal server error response
-func (o *LicenseStatsInternalServerError) Code() int {
-	return 500
-}
-
-func (o *LicenseStatsInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *LicenseStatsInternalServerError) String() string {
-	return fmt.Sprintf("[GET /license/stats][%d] licenseStatsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *LicenseStatsInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *LicenseStatsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *LicenseStatsDefault) Code() int {
 }
 
 func (o *LicenseStatsDefault) Error() string {
-	return fmt.Sprintf("[GET /license/stats][%d] LicenseStats default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /license/stats][%d] LicenseStats default %s", o._statusCode, payload)
 }
 
 func (o *LicenseStatsDefault) String() string {
-	return fmt.Sprintf("[GET /license/stats][%d] LicenseStats default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /license/stats][%d] LicenseStats default %s", o._statusCode, payload)
 }
 
 func (o *LicenseStatsDefault) GetPayload() *models.RPCStatus {

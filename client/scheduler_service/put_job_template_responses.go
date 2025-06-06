@@ -7,6 +7,7 @@ package scheduler_service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -32,30 +33,6 @@ func (o *PutJobTemplateReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutJobTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutJobTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutJobTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutJobTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutJobTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -113,11 +90,13 @@ func (o *PutJobTemplateOK) Code() int {
 }
 
 func (o *PutJobTemplateOK) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateOK %s", 200, payload)
 }
 
 func (o *PutJobTemplateOK) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateOK %s", 200, payload)
 }
 
 func (o *PutJobTemplateOK) GetPayload() *models.EntPutJobTemplateResponse {
@@ -127,266 +106,6 @@ func (o *PutJobTemplateOK) GetPayload() *models.EntPutJobTemplateResponse {
 func (o *PutJobTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPutJobTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutJobTemplateUnauthorized creates a PutJobTemplateUnauthorized with default headers values
-func NewPutJobTemplateUnauthorized() *PutJobTemplateUnauthorized {
-	return &PutJobTemplateUnauthorized{}
-}
-
-/*
-PutJobTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutJobTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this put job template unauthorized response has a 2xx status code
-func (o *PutJobTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put job template unauthorized response has a 3xx status code
-func (o *PutJobTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put job template unauthorized response has a 4xx status code
-func (o *PutJobTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put job template unauthorized response has a 5xx status code
-func (o *PutJobTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put job template unauthorized response a status code equal to that given
-func (o *PutJobTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put job template unauthorized response
-func (o *PutJobTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutJobTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateUnauthorized ", 401)
-}
-
-func (o *PutJobTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateUnauthorized ", 401)
-}
-
-func (o *PutJobTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutJobTemplateForbidden creates a PutJobTemplateForbidden with default headers values
-func NewPutJobTemplateForbidden() *PutJobTemplateForbidden {
-	return &PutJobTemplateForbidden{}
-}
-
-/*
-PutJobTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutJobTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put job template forbidden response has a 2xx status code
-func (o *PutJobTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put job template forbidden response has a 3xx status code
-func (o *PutJobTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put job template forbidden response has a 4xx status code
-func (o *PutJobTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put job template forbidden response has a 5xx status code
-func (o *PutJobTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put job template forbidden response a status code equal to that given
-func (o *PutJobTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put job template forbidden response
-func (o *PutJobTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *PutJobTemplateForbidden) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutJobTemplateForbidden) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutJobTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutJobTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutJobTemplateNotFound creates a PutJobTemplateNotFound with default headers values
-func NewPutJobTemplateNotFound() *PutJobTemplateNotFound {
-	return &PutJobTemplateNotFound{}
-}
-
-/*
-PutJobTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutJobTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put job template not found response has a 2xx status code
-func (o *PutJobTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put job template not found response has a 3xx status code
-func (o *PutJobTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put job template not found response has a 4xx status code
-func (o *PutJobTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put job template not found response has a 5xx status code
-func (o *PutJobTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put job template not found response a status code equal to that given
-func (o *PutJobTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put job template not found response
-func (o *PutJobTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *PutJobTemplateNotFound) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutJobTemplateNotFound) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutJobTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutJobTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutJobTemplateInternalServerError creates a PutJobTemplateInternalServerError with default headers values
-func NewPutJobTemplateInternalServerError() *PutJobTemplateInternalServerError {
-	return &PutJobTemplateInternalServerError{}
-}
-
-/*
-PutJobTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutJobTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put job template internal server error response has a 2xx status code
-func (o *PutJobTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put job template internal server error response has a 3xx status code
-func (o *PutJobTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put job template internal server error response has a 4xx status code
-func (o *PutJobTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put job template internal server error response has a 5xx status code
-func (o *PutJobTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put job template internal server error response a status code equal to that given
-func (o *PutJobTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put job template internal server error response
-func (o *PutJobTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutJobTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutJobTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] putJobTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutJobTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutJobTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -445,11 +164,13 @@ func (o *PutJobTemplateDefault) Code() int {
 }
 
 func (o *PutJobTemplateDefault) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] PutJobTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] PutJobTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutJobTemplateDefault) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] PutJobTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/jobs/{Name}][%d] PutJobTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutJobTemplateDefault) GetPayload() *models.RPCStatus {

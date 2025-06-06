@@ -6,6 +6,7 @@ package license_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *PutLicenseInfoReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutLicenseInfoUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutLicenseInfoForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutLicenseInfoNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutLicenseInfoInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutLicenseInfoDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *PutLicenseInfoOK) Code() int {
 }
 
 func (o *PutLicenseInfoOK) Error() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoOK %s", 200, payload)
 }
 
 func (o *PutLicenseInfoOK) String() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoOK %s", 200, payload)
 }
 
 func (o *PutLicenseInfoOK) GetPayload() *models.CertPutLicenseInfoResponse {
@@ -124,266 +103,6 @@ func (o *PutLicenseInfoOK) GetPayload() *models.CertPutLicenseInfoResponse {
 func (o *PutLicenseInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CertPutLicenseInfoResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutLicenseInfoUnauthorized creates a PutLicenseInfoUnauthorized with default headers values
-func NewPutLicenseInfoUnauthorized() *PutLicenseInfoUnauthorized {
-	return &PutLicenseInfoUnauthorized{}
-}
-
-/*
-PutLicenseInfoUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutLicenseInfoUnauthorized struct {
-}
-
-// IsSuccess returns true when this put license info unauthorized response has a 2xx status code
-func (o *PutLicenseInfoUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put license info unauthorized response has a 3xx status code
-func (o *PutLicenseInfoUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put license info unauthorized response has a 4xx status code
-func (o *PutLicenseInfoUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put license info unauthorized response has a 5xx status code
-func (o *PutLicenseInfoUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put license info unauthorized response a status code equal to that given
-func (o *PutLicenseInfoUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put license info unauthorized response
-func (o *PutLicenseInfoUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutLicenseInfoUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoUnauthorized ", 401)
-}
-
-func (o *PutLicenseInfoUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoUnauthorized ", 401)
-}
-
-func (o *PutLicenseInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutLicenseInfoForbidden creates a PutLicenseInfoForbidden with default headers values
-func NewPutLicenseInfoForbidden() *PutLicenseInfoForbidden {
-	return &PutLicenseInfoForbidden{}
-}
-
-/*
-PutLicenseInfoForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutLicenseInfoForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put license info forbidden response has a 2xx status code
-func (o *PutLicenseInfoForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put license info forbidden response has a 3xx status code
-func (o *PutLicenseInfoForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put license info forbidden response has a 4xx status code
-func (o *PutLicenseInfoForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put license info forbidden response has a 5xx status code
-func (o *PutLicenseInfoForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put license info forbidden response a status code equal to that given
-func (o *PutLicenseInfoForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put license info forbidden response
-func (o *PutLicenseInfoForbidden) Code() int {
-	return 403
-}
-
-func (o *PutLicenseInfoForbidden) Error() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutLicenseInfoForbidden) String() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutLicenseInfoForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutLicenseInfoForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutLicenseInfoNotFound creates a PutLicenseInfoNotFound with default headers values
-func NewPutLicenseInfoNotFound() *PutLicenseInfoNotFound {
-	return &PutLicenseInfoNotFound{}
-}
-
-/*
-PutLicenseInfoNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutLicenseInfoNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put license info not found response has a 2xx status code
-func (o *PutLicenseInfoNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put license info not found response has a 3xx status code
-func (o *PutLicenseInfoNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put license info not found response has a 4xx status code
-func (o *PutLicenseInfoNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put license info not found response has a 5xx status code
-func (o *PutLicenseInfoNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put license info not found response a status code equal to that given
-func (o *PutLicenseInfoNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put license info not found response
-func (o *PutLicenseInfoNotFound) Code() int {
-	return 404
-}
-
-func (o *PutLicenseInfoNotFound) Error() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutLicenseInfoNotFound) String() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutLicenseInfoNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutLicenseInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutLicenseInfoInternalServerError creates a PutLicenseInfoInternalServerError with default headers values
-func NewPutLicenseInfoInternalServerError() *PutLicenseInfoInternalServerError {
-	return &PutLicenseInfoInternalServerError{}
-}
-
-/*
-PutLicenseInfoInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutLicenseInfoInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put license info internal server error response has a 2xx status code
-func (o *PutLicenseInfoInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put license info internal server error response has a 3xx status code
-func (o *PutLicenseInfoInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put license info internal server error response has a 4xx status code
-func (o *PutLicenseInfoInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put license info internal server error response has a 5xx status code
-func (o *PutLicenseInfoInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put license info internal server error response a status code equal to that given
-func (o *PutLicenseInfoInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put license info internal server error response
-func (o *PutLicenseInfoInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutLicenseInfoInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutLicenseInfoInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /license/update][%d] putLicenseInfoInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutLicenseInfoInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutLicenseInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *PutLicenseInfoDefault) Code() int {
 }
 
 func (o *PutLicenseInfoDefault) Error() string {
-	return fmt.Sprintf("[PUT /license/update][%d] PutLicenseInfo default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /license/update][%d] PutLicenseInfo default %s", o._statusCode, payload)
 }
 
 func (o *PutLicenseInfoDefault) String() string {
-	return fmt.Sprintf("[PUT /license/update][%d] PutLicenseInfo default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /license/update][%d] PutLicenseInfo default %s", o._statusCode, payload)
 }
 
 func (o *PutLicenseInfoDefault) GetPayload() *models.RPCStatus {

@@ -6,6 +6,7 @@ package enterprise_policy_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *PutPolicyReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutPolicyUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutPolicyForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutPolicyNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutPolicyInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutPolicyDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *PutPolicyOK) Code() int {
 }
 
 func (o *PutPolicyOK) Error() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /policy][%d] putPolicyOK %s", 200, payload)
 }
 
 func (o *PutPolicyOK) String() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /policy][%d] putPolicyOK %s", 200, payload)
 }
 
 func (o *PutPolicyOK) GetPayload() *models.IdmPolicyGroup {
@@ -124,266 +103,6 @@ func (o *PutPolicyOK) GetPayload() *models.IdmPolicyGroup {
 func (o *PutPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IdmPolicyGroup)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutPolicyUnauthorized creates a PutPolicyUnauthorized with default headers values
-func NewPutPolicyUnauthorized() *PutPolicyUnauthorized {
-	return &PutPolicyUnauthorized{}
-}
-
-/*
-PutPolicyUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutPolicyUnauthorized struct {
-}
-
-// IsSuccess returns true when this put policy unauthorized response has a 2xx status code
-func (o *PutPolicyUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put policy unauthorized response has a 3xx status code
-func (o *PutPolicyUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put policy unauthorized response has a 4xx status code
-func (o *PutPolicyUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put policy unauthorized response has a 5xx status code
-func (o *PutPolicyUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put policy unauthorized response a status code equal to that given
-func (o *PutPolicyUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put policy unauthorized response
-func (o *PutPolicyUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutPolicyUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyUnauthorized ", 401)
-}
-
-func (o *PutPolicyUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyUnauthorized ", 401)
-}
-
-func (o *PutPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutPolicyForbidden creates a PutPolicyForbidden with default headers values
-func NewPutPolicyForbidden() *PutPolicyForbidden {
-	return &PutPolicyForbidden{}
-}
-
-/*
-PutPolicyForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutPolicyForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put policy forbidden response has a 2xx status code
-func (o *PutPolicyForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put policy forbidden response has a 3xx status code
-func (o *PutPolicyForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put policy forbidden response has a 4xx status code
-func (o *PutPolicyForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put policy forbidden response has a 5xx status code
-func (o *PutPolicyForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put policy forbidden response a status code equal to that given
-func (o *PutPolicyForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put policy forbidden response
-func (o *PutPolicyForbidden) Code() int {
-	return 403
-}
-
-func (o *PutPolicyForbidden) Error() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutPolicyForbidden) String() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutPolicyForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutPolicyNotFound creates a PutPolicyNotFound with default headers values
-func NewPutPolicyNotFound() *PutPolicyNotFound {
-	return &PutPolicyNotFound{}
-}
-
-/*
-PutPolicyNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutPolicyNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put policy not found response has a 2xx status code
-func (o *PutPolicyNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put policy not found response has a 3xx status code
-func (o *PutPolicyNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put policy not found response has a 4xx status code
-func (o *PutPolicyNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put policy not found response has a 5xx status code
-func (o *PutPolicyNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put policy not found response a status code equal to that given
-func (o *PutPolicyNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put policy not found response
-func (o *PutPolicyNotFound) Code() int {
-	return 404
-}
-
-func (o *PutPolicyNotFound) Error() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutPolicyNotFound) String() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutPolicyNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutPolicyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutPolicyInternalServerError creates a PutPolicyInternalServerError with default headers values
-func NewPutPolicyInternalServerError() *PutPolicyInternalServerError {
-	return &PutPolicyInternalServerError{}
-}
-
-/*
-PutPolicyInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutPolicyInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put policy internal server error response has a 2xx status code
-func (o *PutPolicyInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put policy internal server error response has a 3xx status code
-func (o *PutPolicyInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put policy internal server error response has a 4xx status code
-func (o *PutPolicyInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put policy internal server error response has a 5xx status code
-func (o *PutPolicyInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put policy internal server error response a status code equal to that given
-func (o *PutPolicyInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put policy internal server error response
-func (o *PutPolicyInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutPolicyInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutPolicyInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /policy][%d] putPolicyInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutPolicyInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *PutPolicyDefault) Code() int {
 }
 
 func (o *PutPolicyDefault) Error() string {
-	return fmt.Sprintf("[PUT /policy][%d] PutPolicy default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /policy][%d] PutPolicy default %s", o._statusCode, payload)
 }
 
 func (o *PutPolicyDefault) String() string {
-	return fmt.Sprintf("[PUT /policy][%d] PutPolicy default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /policy][%d] PutPolicy default %s", o._statusCode, payload)
 }
 
 func (o *PutPolicyDefault) GetPayload() *models.RPCStatus {

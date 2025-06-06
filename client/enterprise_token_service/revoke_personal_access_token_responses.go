@@ -6,6 +6,7 @@ package enterprise_token_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *RevokePersonalAccessTokenReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewRevokePersonalAccessTokenUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewRevokePersonalAccessTokenForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewRevokePersonalAccessTokenNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewRevokePersonalAccessTokenInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewRevokePersonalAccessTokenDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *RevokePersonalAccessTokenOK) Code() int {
 }
 
 func (o *RevokePersonalAccessTokenOK) Error() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenOK %s", 200, payload)
 }
 
 func (o *RevokePersonalAccessTokenOK) String() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenOK %s", 200, payload)
 }
 
 func (o *RevokePersonalAccessTokenOK) GetPayload() *models.RestRevokeResponse {
@@ -124,266 +103,6 @@ func (o *RevokePersonalAccessTokenOK) GetPayload() *models.RestRevokeResponse {
 func (o *RevokePersonalAccessTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestRevokeResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRevokePersonalAccessTokenUnauthorized creates a RevokePersonalAccessTokenUnauthorized with default headers values
-func NewRevokePersonalAccessTokenUnauthorized() *RevokePersonalAccessTokenUnauthorized {
-	return &RevokePersonalAccessTokenUnauthorized{}
-}
-
-/*
-RevokePersonalAccessTokenUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type RevokePersonalAccessTokenUnauthorized struct {
-}
-
-// IsSuccess returns true when this revoke personal access token unauthorized response has a 2xx status code
-func (o *RevokePersonalAccessTokenUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this revoke personal access token unauthorized response has a 3xx status code
-func (o *RevokePersonalAccessTokenUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this revoke personal access token unauthorized response has a 4xx status code
-func (o *RevokePersonalAccessTokenUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this revoke personal access token unauthorized response has a 5xx status code
-func (o *RevokePersonalAccessTokenUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this revoke personal access token unauthorized response a status code equal to that given
-func (o *RevokePersonalAccessTokenUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the revoke personal access token unauthorized response
-func (o *RevokePersonalAccessTokenUnauthorized) Code() int {
-	return 401
-}
-
-func (o *RevokePersonalAccessTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenUnauthorized ", 401)
-}
-
-func (o *RevokePersonalAccessTokenUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenUnauthorized ", 401)
-}
-
-func (o *RevokePersonalAccessTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewRevokePersonalAccessTokenForbidden creates a RevokePersonalAccessTokenForbidden with default headers values
-func NewRevokePersonalAccessTokenForbidden() *RevokePersonalAccessTokenForbidden {
-	return &RevokePersonalAccessTokenForbidden{}
-}
-
-/*
-RevokePersonalAccessTokenForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type RevokePersonalAccessTokenForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this revoke personal access token forbidden response has a 2xx status code
-func (o *RevokePersonalAccessTokenForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this revoke personal access token forbidden response has a 3xx status code
-func (o *RevokePersonalAccessTokenForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this revoke personal access token forbidden response has a 4xx status code
-func (o *RevokePersonalAccessTokenForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this revoke personal access token forbidden response has a 5xx status code
-func (o *RevokePersonalAccessTokenForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this revoke personal access token forbidden response a status code equal to that given
-func (o *RevokePersonalAccessTokenForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the revoke personal access token forbidden response
-func (o *RevokePersonalAccessTokenForbidden) Code() int {
-	return 403
-}
-
-func (o *RevokePersonalAccessTokenForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenForbidden  %+v", 403, o.Payload)
-}
-
-func (o *RevokePersonalAccessTokenForbidden) String() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenForbidden  %+v", 403, o.Payload)
-}
-
-func (o *RevokePersonalAccessTokenForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *RevokePersonalAccessTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRevokePersonalAccessTokenNotFound creates a RevokePersonalAccessTokenNotFound with default headers values
-func NewRevokePersonalAccessTokenNotFound() *RevokePersonalAccessTokenNotFound {
-	return &RevokePersonalAccessTokenNotFound{}
-}
-
-/*
-RevokePersonalAccessTokenNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type RevokePersonalAccessTokenNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this revoke personal access token not found response has a 2xx status code
-func (o *RevokePersonalAccessTokenNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this revoke personal access token not found response has a 3xx status code
-func (o *RevokePersonalAccessTokenNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this revoke personal access token not found response has a 4xx status code
-func (o *RevokePersonalAccessTokenNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this revoke personal access token not found response has a 5xx status code
-func (o *RevokePersonalAccessTokenNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this revoke personal access token not found response a status code equal to that given
-func (o *RevokePersonalAccessTokenNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the revoke personal access token not found response
-func (o *RevokePersonalAccessTokenNotFound) Code() int {
-	return 404
-}
-
-func (o *RevokePersonalAccessTokenNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenNotFound  %+v", 404, o.Payload)
-}
-
-func (o *RevokePersonalAccessTokenNotFound) String() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenNotFound  %+v", 404, o.Payload)
-}
-
-func (o *RevokePersonalAccessTokenNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *RevokePersonalAccessTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRevokePersonalAccessTokenInternalServerError creates a RevokePersonalAccessTokenInternalServerError with default headers values
-func NewRevokePersonalAccessTokenInternalServerError() *RevokePersonalAccessTokenInternalServerError {
-	return &RevokePersonalAccessTokenInternalServerError{}
-}
-
-/*
-RevokePersonalAccessTokenInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type RevokePersonalAccessTokenInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this revoke personal access token internal server error response has a 2xx status code
-func (o *RevokePersonalAccessTokenInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this revoke personal access token internal server error response has a 3xx status code
-func (o *RevokePersonalAccessTokenInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this revoke personal access token internal server error response has a 4xx status code
-func (o *RevokePersonalAccessTokenInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this revoke personal access token internal server error response has a 5xx status code
-func (o *RevokePersonalAccessTokenInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this revoke personal access token internal server error response a status code equal to that given
-func (o *RevokePersonalAccessTokenInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the revoke personal access token internal server error response
-func (o *RevokePersonalAccessTokenInternalServerError) Code() int {
-	return 500
-}
-
-func (o *RevokePersonalAccessTokenInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *RevokePersonalAccessTokenInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] revokePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *RevokePersonalAccessTokenInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *RevokePersonalAccessTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *RevokePersonalAccessTokenDefault) Code() int {
 }
 
 func (o *RevokePersonalAccessTokenDefault) Error() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] RevokePersonalAccessToken default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] RevokePersonalAccessToken default %s", o._statusCode, payload)
 }
 
 func (o *RevokePersonalAccessTokenDefault) String() string {
-	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] RevokePersonalAccessToken default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /auth/tokens/{TokenId}][%d] RevokePersonalAccessToken default %s", o._statusCode, payload)
 }
 
 func (o *RevokePersonalAccessTokenDefault) GetPayload() *models.RPCStatus {

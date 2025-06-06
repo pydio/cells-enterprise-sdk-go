@@ -6,6 +6,7 @@ package enterprise_token_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ImpersonatePersonalAccessTokenReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewImpersonatePersonalAccessTokenUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewImpersonatePersonalAccessTokenForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewImpersonatePersonalAccessTokenNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewImpersonatePersonalAccessTokenInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewImpersonatePersonalAccessTokenDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ImpersonatePersonalAccessTokenOK) Code() int {
 }
 
 func (o *ImpersonatePersonalAccessTokenOK) Error() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenOK %s", 200, payload)
 }
 
 func (o *ImpersonatePersonalAccessTokenOK) String() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenOK %s", 200, payload)
 }
 
 func (o *ImpersonatePersonalAccessTokenOK) GetPayload() *models.EntPersonalAccessTokenResponse {
@@ -124,266 +103,6 @@ func (o *ImpersonatePersonalAccessTokenOK) GetPayload() *models.EntPersonalAcces
 func (o *ImpersonatePersonalAccessTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPersonalAccessTokenResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewImpersonatePersonalAccessTokenUnauthorized creates a ImpersonatePersonalAccessTokenUnauthorized with default headers values
-func NewImpersonatePersonalAccessTokenUnauthorized() *ImpersonatePersonalAccessTokenUnauthorized {
-	return &ImpersonatePersonalAccessTokenUnauthorized{}
-}
-
-/*
-ImpersonatePersonalAccessTokenUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ImpersonatePersonalAccessTokenUnauthorized struct {
-}
-
-// IsSuccess returns true when this impersonate personal access token unauthorized response has a 2xx status code
-func (o *ImpersonatePersonalAccessTokenUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this impersonate personal access token unauthorized response has a 3xx status code
-func (o *ImpersonatePersonalAccessTokenUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this impersonate personal access token unauthorized response has a 4xx status code
-func (o *ImpersonatePersonalAccessTokenUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this impersonate personal access token unauthorized response has a 5xx status code
-func (o *ImpersonatePersonalAccessTokenUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this impersonate personal access token unauthorized response a status code equal to that given
-func (o *ImpersonatePersonalAccessTokenUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the impersonate personal access token unauthorized response
-func (o *ImpersonatePersonalAccessTokenUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ImpersonatePersonalAccessTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenUnauthorized ", 401)
-}
-
-func (o *ImpersonatePersonalAccessTokenUnauthorized) String() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenUnauthorized ", 401)
-}
-
-func (o *ImpersonatePersonalAccessTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewImpersonatePersonalAccessTokenForbidden creates a ImpersonatePersonalAccessTokenForbidden with default headers values
-func NewImpersonatePersonalAccessTokenForbidden() *ImpersonatePersonalAccessTokenForbidden {
-	return &ImpersonatePersonalAccessTokenForbidden{}
-}
-
-/*
-ImpersonatePersonalAccessTokenForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ImpersonatePersonalAccessTokenForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this impersonate personal access token forbidden response has a 2xx status code
-func (o *ImpersonatePersonalAccessTokenForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this impersonate personal access token forbidden response has a 3xx status code
-func (o *ImpersonatePersonalAccessTokenForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this impersonate personal access token forbidden response has a 4xx status code
-func (o *ImpersonatePersonalAccessTokenForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this impersonate personal access token forbidden response has a 5xx status code
-func (o *ImpersonatePersonalAccessTokenForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this impersonate personal access token forbidden response a status code equal to that given
-func (o *ImpersonatePersonalAccessTokenForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the impersonate personal access token forbidden response
-func (o *ImpersonatePersonalAccessTokenForbidden) Code() int {
-	return 403
-}
-
-func (o *ImpersonatePersonalAccessTokenForbidden) Error() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ImpersonatePersonalAccessTokenForbidden) String() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ImpersonatePersonalAccessTokenForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ImpersonatePersonalAccessTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewImpersonatePersonalAccessTokenNotFound creates a ImpersonatePersonalAccessTokenNotFound with default headers values
-func NewImpersonatePersonalAccessTokenNotFound() *ImpersonatePersonalAccessTokenNotFound {
-	return &ImpersonatePersonalAccessTokenNotFound{}
-}
-
-/*
-ImpersonatePersonalAccessTokenNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ImpersonatePersonalAccessTokenNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this impersonate personal access token not found response has a 2xx status code
-func (o *ImpersonatePersonalAccessTokenNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this impersonate personal access token not found response has a 3xx status code
-func (o *ImpersonatePersonalAccessTokenNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this impersonate personal access token not found response has a 4xx status code
-func (o *ImpersonatePersonalAccessTokenNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this impersonate personal access token not found response has a 5xx status code
-func (o *ImpersonatePersonalAccessTokenNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this impersonate personal access token not found response a status code equal to that given
-func (o *ImpersonatePersonalAccessTokenNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the impersonate personal access token not found response
-func (o *ImpersonatePersonalAccessTokenNotFound) Code() int {
-	return 404
-}
-
-func (o *ImpersonatePersonalAccessTokenNotFound) Error() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ImpersonatePersonalAccessTokenNotFound) String() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ImpersonatePersonalAccessTokenNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ImpersonatePersonalAccessTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewImpersonatePersonalAccessTokenInternalServerError creates a ImpersonatePersonalAccessTokenInternalServerError with default headers values
-func NewImpersonatePersonalAccessTokenInternalServerError() *ImpersonatePersonalAccessTokenInternalServerError {
-	return &ImpersonatePersonalAccessTokenInternalServerError{}
-}
-
-/*
-ImpersonatePersonalAccessTokenInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ImpersonatePersonalAccessTokenInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this impersonate personal access token internal server error response has a 2xx status code
-func (o *ImpersonatePersonalAccessTokenInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this impersonate personal access token internal server error response has a 3xx status code
-func (o *ImpersonatePersonalAccessTokenInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this impersonate personal access token internal server error response has a 4xx status code
-func (o *ImpersonatePersonalAccessTokenInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this impersonate personal access token internal server error response has a 5xx status code
-func (o *ImpersonatePersonalAccessTokenInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this impersonate personal access token internal server error response a status code equal to that given
-func (o *ImpersonatePersonalAccessTokenInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the impersonate personal access token internal server error response
-func (o *ImpersonatePersonalAccessTokenInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ImpersonatePersonalAccessTokenInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ImpersonatePersonalAccessTokenInternalServerError) String() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] impersonatePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ImpersonatePersonalAccessTokenInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ImpersonatePersonalAccessTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ImpersonatePersonalAccessTokenDefault) Code() int {
 }
 
 func (o *ImpersonatePersonalAccessTokenDefault) Error() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] ImpersonatePersonalAccessToken default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/impersonate][%d] ImpersonatePersonalAccessToken default %s", o._statusCode, payload)
 }
 
 func (o *ImpersonatePersonalAccessTokenDefault) String() string {
-	return fmt.Sprintf("[POST /auth/token/impersonate][%d] ImpersonatePersonalAccessToken default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/impersonate][%d] ImpersonatePersonalAccessToken default %s", o._statusCode, payload)
 }
 
 func (o *ImpersonatePersonalAccessTokenDefault) GetPayload() *models.RPCStatus {

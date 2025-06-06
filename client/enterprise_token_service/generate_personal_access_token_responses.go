@@ -6,6 +6,7 @@ package enterprise_token_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *GeneratePersonalAccessTokenReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewGeneratePersonalAccessTokenUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewGeneratePersonalAccessTokenForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewGeneratePersonalAccessTokenNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewGeneratePersonalAccessTokenInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewGeneratePersonalAccessTokenDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *GeneratePersonalAccessTokenOK) Code() int {
 }
 
 func (o *GeneratePersonalAccessTokenOK) Error() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenOK %s", 200, payload)
 }
 
 func (o *GeneratePersonalAccessTokenOK) String() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenOK %s", 200, payload)
 }
 
 func (o *GeneratePersonalAccessTokenOK) GetPayload() *models.EntPersonalAccessTokenResponse {
@@ -124,266 +103,6 @@ func (o *GeneratePersonalAccessTokenOK) GetPayload() *models.EntPersonalAccessTo
 func (o *GeneratePersonalAccessTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPersonalAccessTokenResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGeneratePersonalAccessTokenUnauthorized creates a GeneratePersonalAccessTokenUnauthorized with default headers values
-func NewGeneratePersonalAccessTokenUnauthorized() *GeneratePersonalAccessTokenUnauthorized {
-	return &GeneratePersonalAccessTokenUnauthorized{}
-}
-
-/*
-GeneratePersonalAccessTokenUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type GeneratePersonalAccessTokenUnauthorized struct {
-}
-
-// IsSuccess returns true when this generate personal access token unauthorized response has a 2xx status code
-func (o *GeneratePersonalAccessTokenUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this generate personal access token unauthorized response has a 3xx status code
-func (o *GeneratePersonalAccessTokenUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this generate personal access token unauthorized response has a 4xx status code
-func (o *GeneratePersonalAccessTokenUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this generate personal access token unauthorized response has a 5xx status code
-func (o *GeneratePersonalAccessTokenUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this generate personal access token unauthorized response a status code equal to that given
-func (o *GeneratePersonalAccessTokenUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the generate personal access token unauthorized response
-func (o *GeneratePersonalAccessTokenUnauthorized) Code() int {
-	return 401
-}
-
-func (o *GeneratePersonalAccessTokenUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenUnauthorized ", 401)
-}
-
-func (o *GeneratePersonalAccessTokenUnauthorized) String() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenUnauthorized ", 401)
-}
-
-func (o *GeneratePersonalAccessTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewGeneratePersonalAccessTokenForbidden creates a GeneratePersonalAccessTokenForbidden with default headers values
-func NewGeneratePersonalAccessTokenForbidden() *GeneratePersonalAccessTokenForbidden {
-	return &GeneratePersonalAccessTokenForbidden{}
-}
-
-/*
-GeneratePersonalAccessTokenForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type GeneratePersonalAccessTokenForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this generate personal access token forbidden response has a 2xx status code
-func (o *GeneratePersonalAccessTokenForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this generate personal access token forbidden response has a 3xx status code
-func (o *GeneratePersonalAccessTokenForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this generate personal access token forbidden response has a 4xx status code
-func (o *GeneratePersonalAccessTokenForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this generate personal access token forbidden response has a 5xx status code
-func (o *GeneratePersonalAccessTokenForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this generate personal access token forbidden response a status code equal to that given
-func (o *GeneratePersonalAccessTokenForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the generate personal access token forbidden response
-func (o *GeneratePersonalAccessTokenForbidden) Code() int {
-	return 403
-}
-
-func (o *GeneratePersonalAccessTokenForbidden) Error() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenForbidden  %+v", 403, o.Payload)
-}
-
-func (o *GeneratePersonalAccessTokenForbidden) String() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenForbidden  %+v", 403, o.Payload)
-}
-
-func (o *GeneratePersonalAccessTokenForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *GeneratePersonalAccessTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGeneratePersonalAccessTokenNotFound creates a GeneratePersonalAccessTokenNotFound with default headers values
-func NewGeneratePersonalAccessTokenNotFound() *GeneratePersonalAccessTokenNotFound {
-	return &GeneratePersonalAccessTokenNotFound{}
-}
-
-/*
-GeneratePersonalAccessTokenNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type GeneratePersonalAccessTokenNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this generate personal access token not found response has a 2xx status code
-func (o *GeneratePersonalAccessTokenNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this generate personal access token not found response has a 3xx status code
-func (o *GeneratePersonalAccessTokenNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this generate personal access token not found response has a 4xx status code
-func (o *GeneratePersonalAccessTokenNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this generate personal access token not found response has a 5xx status code
-func (o *GeneratePersonalAccessTokenNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this generate personal access token not found response a status code equal to that given
-func (o *GeneratePersonalAccessTokenNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the generate personal access token not found response
-func (o *GeneratePersonalAccessTokenNotFound) Code() int {
-	return 404
-}
-
-func (o *GeneratePersonalAccessTokenNotFound) Error() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GeneratePersonalAccessTokenNotFound) String() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenNotFound  %+v", 404, o.Payload)
-}
-
-func (o *GeneratePersonalAccessTokenNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *GeneratePersonalAccessTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGeneratePersonalAccessTokenInternalServerError creates a GeneratePersonalAccessTokenInternalServerError with default headers values
-func NewGeneratePersonalAccessTokenInternalServerError() *GeneratePersonalAccessTokenInternalServerError {
-	return &GeneratePersonalAccessTokenInternalServerError{}
-}
-
-/*
-GeneratePersonalAccessTokenInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type GeneratePersonalAccessTokenInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this generate personal access token internal server error response has a 2xx status code
-func (o *GeneratePersonalAccessTokenInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this generate personal access token internal server error response has a 3xx status code
-func (o *GeneratePersonalAccessTokenInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this generate personal access token internal server error response has a 4xx status code
-func (o *GeneratePersonalAccessTokenInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this generate personal access token internal server error response has a 5xx status code
-func (o *GeneratePersonalAccessTokenInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this generate personal access token internal server error response a status code equal to that given
-func (o *GeneratePersonalAccessTokenInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the generate personal access token internal server error response
-func (o *GeneratePersonalAccessTokenInternalServerError) Code() int {
-	return 500
-}
-
-func (o *GeneratePersonalAccessTokenInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *GeneratePersonalAccessTokenInternalServerError) String() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] generatePersonalAccessTokenInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *GeneratePersonalAccessTokenInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *GeneratePersonalAccessTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *GeneratePersonalAccessTokenDefault) Code() int {
 }
 
 func (o *GeneratePersonalAccessTokenDefault) Error() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] GeneratePersonalAccessToken default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/personal][%d] GeneratePersonalAccessToken default %s", o._statusCode, payload)
 }
 
 func (o *GeneratePersonalAccessTokenDefault) String() string {
-	return fmt.Sprintf("[POST /auth/token/personal][%d] GeneratePersonalAccessToken default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /auth/token/personal][%d] GeneratePersonalAccessToken default %s", o._statusCode, payload)
 }
 
 func (o *GeneratePersonalAccessTokenDefault) GetPayload() *models.RPCStatus {
