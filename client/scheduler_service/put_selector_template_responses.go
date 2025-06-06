@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *PutSelectorTemplateReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutSelectorTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutSelectorTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutSelectorTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutSelectorTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutSelectorTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *PutSelectorTemplateOK) Code() int {
 }
 
 func (o *PutSelectorTemplateOK) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateOK %s", 200, payload)
 }
 
 func (o *PutSelectorTemplateOK) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateOK %s", 200, payload)
 }
 
 func (o *PutSelectorTemplateOK) GetPayload() *models.EntPutSelectorTemplateResponse {
@@ -124,266 +103,6 @@ func (o *PutSelectorTemplateOK) GetPayload() *models.EntPutSelectorTemplateRespo
 func (o *PutSelectorTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPutSelectorTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutSelectorTemplateUnauthorized creates a PutSelectorTemplateUnauthorized with default headers values
-func NewPutSelectorTemplateUnauthorized() *PutSelectorTemplateUnauthorized {
-	return &PutSelectorTemplateUnauthorized{}
-}
-
-/*
-PutSelectorTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutSelectorTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this put selector template unauthorized response has a 2xx status code
-func (o *PutSelectorTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put selector template unauthorized response has a 3xx status code
-func (o *PutSelectorTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put selector template unauthorized response has a 4xx status code
-func (o *PutSelectorTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put selector template unauthorized response has a 5xx status code
-func (o *PutSelectorTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put selector template unauthorized response a status code equal to that given
-func (o *PutSelectorTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put selector template unauthorized response
-func (o *PutSelectorTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutSelectorTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateUnauthorized ", 401)
-}
-
-func (o *PutSelectorTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateUnauthorized ", 401)
-}
-
-func (o *PutSelectorTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutSelectorTemplateForbidden creates a PutSelectorTemplateForbidden with default headers values
-func NewPutSelectorTemplateForbidden() *PutSelectorTemplateForbidden {
-	return &PutSelectorTemplateForbidden{}
-}
-
-/*
-PutSelectorTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutSelectorTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put selector template forbidden response has a 2xx status code
-func (o *PutSelectorTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put selector template forbidden response has a 3xx status code
-func (o *PutSelectorTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put selector template forbidden response has a 4xx status code
-func (o *PutSelectorTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put selector template forbidden response has a 5xx status code
-func (o *PutSelectorTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put selector template forbidden response a status code equal to that given
-func (o *PutSelectorTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put selector template forbidden response
-func (o *PutSelectorTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *PutSelectorTemplateForbidden) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutSelectorTemplateForbidden) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutSelectorTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutSelectorTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutSelectorTemplateNotFound creates a PutSelectorTemplateNotFound with default headers values
-func NewPutSelectorTemplateNotFound() *PutSelectorTemplateNotFound {
-	return &PutSelectorTemplateNotFound{}
-}
-
-/*
-PutSelectorTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutSelectorTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put selector template not found response has a 2xx status code
-func (o *PutSelectorTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put selector template not found response has a 3xx status code
-func (o *PutSelectorTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put selector template not found response has a 4xx status code
-func (o *PutSelectorTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put selector template not found response has a 5xx status code
-func (o *PutSelectorTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put selector template not found response a status code equal to that given
-func (o *PutSelectorTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put selector template not found response
-func (o *PutSelectorTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *PutSelectorTemplateNotFound) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutSelectorTemplateNotFound) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutSelectorTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutSelectorTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutSelectorTemplateInternalServerError creates a PutSelectorTemplateInternalServerError with default headers values
-func NewPutSelectorTemplateInternalServerError() *PutSelectorTemplateInternalServerError {
-	return &PutSelectorTemplateInternalServerError{}
-}
-
-/*
-PutSelectorTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutSelectorTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put selector template internal server error response has a 2xx status code
-func (o *PutSelectorTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put selector template internal server error response has a 3xx status code
-func (o *PutSelectorTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put selector template internal server error response has a 4xx status code
-func (o *PutSelectorTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put selector template internal server error response has a 5xx status code
-func (o *PutSelectorTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put selector template internal server error response a status code equal to that given
-func (o *PutSelectorTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put selector template internal server error response
-func (o *PutSelectorTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutSelectorTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutSelectorTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] putSelectorTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutSelectorTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutSelectorTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *PutSelectorTemplateDefault) Code() int {
 }
 
 func (o *PutSelectorTemplateDefault) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] PutSelectorTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] PutSelectorTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutSelectorTemplateDefault) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] PutSelectorTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/selectors][%d] PutSelectorTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutSelectorTemplateDefault) GetPayload() *models.RPCStatus {

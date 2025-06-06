@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *DeleteJobReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewDeleteJobUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewDeleteJobForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewDeleteJobNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewDeleteJobInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewDeleteJobDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *DeleteJobOK) Code() int {
 }
 
 func (o *DeleteJobOK) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobOK %s", 200, payload)
 }
 
 func (o *DeleteJobOK) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobOK %s", 200, payload)
 }
 
 func (o *DeleteJobOK) GetPayload() *models.JobsDeleteJobResponse {
@@ -124,266 +103,6 @@ func (o *DeleteJobOK) GetPayload() *models.JobsDeleteJobResponse {
 func (o *DeleteJobOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.JobsDeleteJobResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteJobUnauthorized creates a DeleteJobUnauthorized with default headers values
-func NewDeleteJobUnauthorized() *DeleteJobUnauthorized {
-	return &DeleteJobUnauthorized{}
-}
-
-/*
-DeleteJobUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type DeleteJobUnauthorized struct {
-}
-
-// IsSuccess returns true when this delete job unauthorized response has a 2xx status code
-func (o *DeleteJobUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete job unauthorized response has a 3xx status code
-func (o *DeleteJobUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete job unauthorized response has a 4xx status code
-func (o *DeleteJobUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete job unauthorized response has a 5xx status code
-func (o *DeleteJobUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete job unauthorized response a status code equal to that given
-func (o *DeleteJobUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the delete job unauthorized response
-func (o *DeleteJobUnauthorized) Code() int {
-	return 401
-}
-
-func (o *DeleteJobUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobUnauthorized ", 401)
-}
-
-func (o *DeleteJobUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobUnauthorized ", 401)
-}
-
-func (o *DeleteJobUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewDeleteJobForbidden creates a DeleteJobForbidden with default headers values
-func NewDeleteJobForbidden() *DeleteJobForbidden {
-	return &DeleteJobForbidden{}
-}
-
-/*
-DeleteJobForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type DeleteJobForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete job forbidden response has a 2xx status code
-func (o *DeleteJobForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete job forbidden response has a 3xx status code
-func (o *DeleteJobForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete job forbidden response has a 4xx status code
-func (o *DeleteJobForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete job forbidden response has a 5xx status code
-func (o *DeleteJobForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete job forbidden response a status code equal to that given
-func (o *DeleteJobForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the delete job forbidden response
-func (o *DeleteJobForbidden) Code() int {
-	return 403
-}
-
-func (o *DeleteJobForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteJobForbidden) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteJobForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteJobForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteJobNotFound creates a DeleteJobNotFound with default headers values
-func NewDeleteJobNotFound() *DeleteJobNotFound {
-	return &DeleteJobNotFound{}
-}
-
-/*
-DeleteJobNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type DeleteJobNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete job not found response has a 2xx status code
-func (o *DeleteJobNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete job not found response has a 3xx status code
-func (o *DeleteJobNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete job not found response has a 4xx status code
-func (o *DeleteJobNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete job not found response has a 5xx status code
-func (o *DeleteJobNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete job not found response a status code equal to that given
-func (o *DeleteJobNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the delete job not found response
-func (o *DeleteJobNotFound) Code() int {
-	return 404
-}
-
-func (o *DeleteJobNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteJobNotFound) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteJobNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteJobNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteJobInternalServerError creates a DeleteJobInternalServerError with default headers values
-func NewDeleteJobInternalServerError() *DeleteJobInternalServerError {
-	return &DeleteJobInternalServerError{}
-}
-
-/*
-DeleteJobInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type DeleteJobInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete job internal server error response has a 2xx status code
-func (o *DeleteJobInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete job internal server error response has a 3xx status code
-func (o *DeleteJobInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete job internal server error response has a 4xx status code
-func (o *DeleteJobInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this delete job internal server error response has a 5xx status code
-func (o *DeleteJobInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this delete job internal server error response a status code equal to that given
-func (o *DeleteJobInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the delete job internal server error response
-func (o *DeleteJobInternalServerError) Code() int {
-	return 500
-}
-
-func (o *DeleteJobInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteJobInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] deleteJobInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteJobInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteJobInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *DeleteJobDefault) Code() int {
 }
 
 func (o *DeleteJobDefault) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] DeleteJob default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] DeleteJob default %s", o._statusCode, payload)
 }
 
 func (o *DeleteJobDefault) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] DeleteJob default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/jobs/{JobID}][%d] DeleteJob default %s", o._statusCode, payload)
 }
 
 func (o *DeleteJobDefault) GetPayload() *models.RPCStatus {

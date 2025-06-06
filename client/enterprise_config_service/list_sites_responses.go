@@ -6,6 +6,7 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListSitesReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListSitesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListSitesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListSitesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListSitesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListSitesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListSitesOK) Code() int {
 }
 
 func (o *ListSitesOK) Error() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK %s", 200, payload)
 }
 
 func (o *ListSitesOK) String() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites][%d] listSitesOK %s", 200, payload)
 }
 
 func (o *ListSitesOK) GetPayload() *models.EntListSitesResponse {
@@ -124,266 +103,6 @@ func (o *ListSitesOK) GetPayload() *models.EntListSitesResponse {
 func (o *ListSitesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntListSitesResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListSitesUnauthorized creates a ListSitesUnauthorized with default headers values
-func NewListSitesUnauthorized() *ListSitesUnauthorized {
-	return &ListSitesUnauthorized{}
-}
-
-/*
-ListSitesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListSitesUnauthorized struct {
-}
-
-// IsSuccess returns true when this list sites unauthorized response has a 2xx status code
-func (o *ListSitesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list sites unauthorized response has a 3xx status code
-func (o *ListSitesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list sites unauthorized response has a 4xx status code
-func (o *ListSitesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list sites unauthorized response has a 5xx status code
-func (o *ListSitesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list sites unauthorized response a status code equal to that given
-func (o *ListSitesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list sites unauthorized response
-func (o *ListSitesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListSitesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesUnauthorized ", 401)
-}
-
-func (o *ListSitesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesUnauthorized ", 401)
-}
-
-func (o *ListSitesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListSitesForbidden creates a ListSitesForbidden with default headers values
-func NewListSitesForbidden() *ListSitesForbidden {
-	return &ListSitesForbidden{}
-}
-
-/*
-ListSitesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListSitesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list sites forbidden response has a 2xx status code
-func (o *ListSitesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list sites forbidden response has a 3xx status code
-func (o *ListSitesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list sites forbidden response has a 4xx status code
-func (o *ListSitesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list sites forbidden response has a 5xx status code
-func (o *ListSitesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list sites forbidden response a status code equal to that given
-func (o *ListSitesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list sites forbidden response
-func (o *ListSitesForbidden) Code() int {
-	return 403
-}
-
-func (o *ListSitesForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListSitesForbidden) String() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListSitesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListSitesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListSitesNotFound creates a ListSitesNotFound with default headers values
-func NewListSitesNotFound() *ListSitesNotFound {
-	return &ListSitesNotFound{}
-}
-
-/*
-ListSitesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListSitesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list sites not found response has a 2xx status code
-func (o *ListSitesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list sites not found response has a 3xx status code
-func (o *ListSitesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list sites not found response has a 4xx status code
-func (o *ListSitesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list sites not found response has a 5xx status code
-func (o *ListSitesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list sites not found response a status code equal to that given
-func (o *ListSitesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list sites not found response
-func (o *ListSitesNotFound) Code() int {
-	return 404
-}
-
-func (o *ListSitesNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListSitesNotFound) String() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListSitesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListSitesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListSitesInternalServerError creates a ListSitesInternalServerError with default headers values
-func NewListSitesInternalServerError() *ListSitesInternalServerError {
-	return &ListSitesInternalServerError{}
-}
-
-/*
-ListSitesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListSitesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list sites internal server error response has a 2xx status code
-func (o *ListSitesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list sites internal server error response has a 3xx status code
-func (o *ListSitesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list sites internal server error response has a 4xx status code
-func (o *ListSitesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list sites internal server error response has a 5xx status code
-func (o *ListSitesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list sites internal server error response a status code equal to that given
-func (o *ListSitesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list sites internal server error response
-func (o *ListSitesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListSitesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListSitesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/sites][%d] listSitesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListSitesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListSitesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListSitesDefault) Code() int {
 }
 
 func (o *ListSitesDefault) Error() string {
-	return fmt.Sprintf("[GET /config/sites][%d] ListSites default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites][%d] ListSites default %s", o._statusCode, payload)
 }
 
 func (o *ListSitesDefault) String() string {
-	return fmt.Sprintf("[GET /config/sites][%d] ListSites default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/sites][%d] ListSites default %s", o._statusCode, payload)
 }
 
 func (o *ListSitesDefault) GetPayload() *models.RPCStatus {

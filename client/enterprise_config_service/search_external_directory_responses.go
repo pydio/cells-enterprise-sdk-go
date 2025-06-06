@@ -6,6 +6,7 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *SearchExternalDirectoryReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewSearchExternalDirectoryUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewSearchExternalDirectoryForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewSearchExternalDirectoryNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewSearchExternalDirectoryInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewSearchExternalDirectoryDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *SearchExternalDirectoryOK) Code() int {
 }
 
 func (o *SearchExternalDirectoryOK) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryOK %s", 200, payload)
 }
 
 func (o *SearchExternalDirectoryOK) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryOK %s", 200, payload)
 }
 
 func (o *SearchExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryTestResponse {
@@ -124,266 +103,6 @@ func (o *SearchExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryTes
 func (o *SearchExternalDirectoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntExternalDirectoryTestResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSearchExternalDirectoryUnauthorized creates a SearchExternalDirectoryUnauthorized with default headers values
-func NewSearchExternalDirectoryUnauthorized() *SearchExternalDirectoryUnauthorized {
-	return &SearchExternalDirectoryUnauthorized{}
-}
-
-/*
-SearchExternalDirectoryUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type SearchExternalDirectoryUnauthorized struct {
-}
-
-// IsSuccess returns true when this search external directory unauthorized response has a 2xx status code
-func (o *SearchExternalDirectoryUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this search external directory unauthorized response has a 3xx status code
-func (o *SearchExternalDirectoryUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this search external directory unauthorized response has a 4xx status code
-func (o *SearchExternalDirectoryUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this search external directory unauthorized response has a 5xx status code
-func (o *SearchExternalDirectoryUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this search external directory unauthorized response a status code equal to that given
-func (o *SearchExternalDirectoryUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the search external directory unauthorized response
-func (o *SearchExternalDirectoryUnauthorized) Code() int {
-	return 401
-}
-
-func (o *SearchExternalDirectoryUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryUnauthorized ", 401)
-}
-
-func (o *SearchExternalDirectoryUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryUnauthorized ", 401)
-}
-
-func (o *SearchExternalDirectoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewSearchExternalDirectoryForbidden creates a SearchExternalDirectoryForbidden with default headers values
-func NewSearchExternalDirectoryForbidden() *SearchExternalDirectoryForbidden {
-	return &SearchExternalDirectoryForbidden{}
-}
-
-/*
-SearchExternalDirectoryForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type SearchExternalDirectoryForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this search external directory forbidden response has a 2xx status code
-func (o *SearchExternalDirectoryForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this search external directory forbidden response has a 3xx status code
-func (o *SearchExternalDirectoryForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this search external directory forbidden response has a 4xx status code
-func (o *SearchExternalDirectoryForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this search external directory forbidden response has a 5xx status code
-func (o *SearchExternalDirectoryForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this search external directory forbidden response a status code equal to that given
-func (o *SearchExternalDirectoryForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the search external directory forbidden response
-func (o *SearchExternalDirectoryForbidden) Code() int {
-	return 403
-}
-
-func (o *SearchExternalDirectoryForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryForbidden  %+v", 403, o.Payload)
-}
-
-func (o *SearchExternalDirectoryForbidden) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryForbidden  %+v", 403, o.Payload)
-}
-
-func (o *SearchExternalDirectoryForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SearchExternalDirectoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSearchExternalDirectoryNotFound creates a SearchExternalDirectoryNotFound with default headers values
-func NewSearchExternalDirectoryNotFound() *SearchExternalDirectoryNotFound {
-	return &SearchExternalDirectoryNotFound{}
-}
-
-/*
-SearchExternalDirectoryNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type SearchExternalDirectoryNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this search external directory not found response has a 2xx status code
-func (o *SearchExternalDirectoryNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this search external directory not found response has a 3xx status code
-func (o *SearchExternalDirectoryNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this search external directory not found response has a 4xx status code
-func (o *SearchExternalDirectoryNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this search external directory not found response has a 5xx status code
-func (o *SearchExternalDirectoryNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this search external directory not found response a status code equal to that given
-func (o *SearchExternalDirectoryNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the search external directory not found response
-func (o *SearchExternalDirectoryNotFound) Code() int {
-	return 404
-}
-
-func (o *SearchExternalDirectoryNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryNotFound  %+v", 404, o.Payload)
-}
-
-func (o *SearchExternalDirectoryNotFound) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryNotFound  %+v", 404, o.Payload)
-}
-
-func (o *SearchExternalDirectoryNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SearchExternalDirectoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSearchExternalDirectoryInternalServerError creates a SearchExternalDirectoryInternalServerError with default headers values
-func NewSearchExternalDirectoryInternalServerError() *SearchExternalDirectoryInternalServerError {
-	return &SearchExternalDirectoryInternalServerError{}
-}
-
-/*
-SearchExternalDirectoryInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type SearchExternalDirectoryInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this search external directory internal server error response has a 2xx status code
-func (o *SearchExternalDirectoryInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this search external directory internal server error response has a 3xx status code
-func (o *SearchExternalDirectoryInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this search external directory internal server error response has a 4xx status code
-func (o *SearchExternalDirectoryInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this search external directory internal server error response has a 5xx status code
-func (o *SearchExternalDirectoryInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this search external directory internal server error response a status code equal to that given
-func (o *SearchExternalDirectoryInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the search external directory internal server error response
-func (o *SearchExternalDirectoryInternalServerError) Code() int {
-	return 500
-}
-
-func (o *SearchExternalDirectoryInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *SearchExternalDirectoryInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] searchExternalDirectoryInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *SearchExternalDirectoryInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SearchExternalDirectoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *SearchExternalDirectoryDefault) Code() int {
 }
 
 func (o *SearchExternalDirectoryDefault) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] SearchExternalDirectory default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/search][%d] SearchExternalDirectory default %s", o._statusCode, payload)
 }
 
 func (o *SearchExternalDirectoryDefault) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/search][%d] SearchExternalDirectory default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/search][%d] SearchExternalDirectory default %s", o._statusCode, payload)
 }
 
 func (o *SearchExternalDirectoryDefault) GetPayload() *models.RPCStatus {

@@ -7,6 +7,7 @@ package enterprise_config_service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"strconv"
@@ -33,30 +34,6 @@ func (o *PutVirtualNodeReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutVirtualNodeUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutVirtualNodeForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutVirtualNodeNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutVirtualNodeInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutVirtualNodeDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -114,11 +91,13 @@ func (o *PutVirtualNodeOK) Code() int {
 }
 
 func (o *PutVirtualNodeOK) Error() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK %s", 200, payload)
 }
 
 func (o *PutVirtualNodeOK) String() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeOK %s", 200, payload)
 }
 
 func (o *PutVirtualNodeOK) GetPayload() *models.TreeNode {
@@ -128,266 +107,6 @@ func (o *PutVirtualNodeOK) GetPayload() *models.TreeNode {
 func (o *PutVirtualNodeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TreeNode)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutVirtualNodeUnauthorized creates a PutVirtualNodeUnauthorized with default headers values
-func NewPutVirtualNodeUnauthorized() *PutVirtualNodeUnauthorized {
-	return &PutVirtualNodeUnauthorized{}
-}
-
-/*
-PutVirtualNodeUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutVirtualNodeUnauthorized struct {
-}
-
-// IsSuccess returns true when this put virtual node unauthorized response has a 2xx status code
-func (o *PutVirtualNodeUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put virtual node unauthorized response has a 3xx status code
-func (o *PutVirtualNodeUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put virtual node unauthorized response has a 4xx status code
-func (o *PutVirtualNodeUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put virtual node unauthorized response has a 5xx status code
-func (o *PutVirtualNodeUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put virtual node unauthorized response a status code equal to that given
-func (o *PutVirtualNodeUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put virtual node unauthorized response
-func (o *PutVirtualNodeUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutVirtualNodeUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeUnauthorized ", 401)
-}
-
-func (o *PutVirtualNodeUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeUnauthorized ", 401)
-}
-
-func (o *PutVirtualNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutVirtualNodeForbidden creates a PutVirtualNodeForbidden with default headers values
-func NewPutVirtualNodeForbidden() *PutVirtualNodeForbidden {
-	return &PutVirtualNodeForbidden{}
-}
-
-/*
-PutVirtualNodeForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutVirtualNodeForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put virtual node forbidden response has a 2xx status code
-func (o *PutVirtualNodeForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put virtual node forbidden response has a 3xx status code
-func (o *PutVirtualNodeForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put virtual node forbidden response has a 4xx status code
-func (o *PutVirtualNodeForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put virtual node forbidden response has a 5xx status code
-func (o *PutVirtualNodeForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put virtual node forbidden response a status code equal to that given
-func (o *PutVirtualNodeForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put virtual node forbidden response
-func (o *PutVirtualNodeForbidden) Code() int {
-	return 403
-}
-
-func (o *PutVirtualNodeForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutVirtualNodeForbidden) String() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutVirtualNodeForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutVirtualNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutVirtualNodeNotFound creates a PutVirtualNodeNotFound with default headers values
-func NewPutVirtualNodeNotFound() *PutVirtualNodeNotFound {
-	return &PutVirtualNodeNotFound{}
-}
-
-/*
-PutVirtualNodeNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutVirtualNodeNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put virtual node not found response has a 2xx status code
-func (o *PutVirtualNodeNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put virtual node not found response has a 3xx status code
-func (o *PutVirtualNodeNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put virtual node not found response has a 4xx status code
-func (o *PutVirtualNodeNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put virtual node not found response has a 5xx status code
-func (o *PutVirtualNodeNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put virtual node not found response a status code equal to that given
-func (o *PutVirtualNodeNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put virtual node not found response
-func (o *PutVirtualNodeNotFound) Code() int {
-	return 404
-}
-
-func (o *PutVirtualNodeNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutVirtualNodeNotFound) String() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutVirtualNodeNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutVirtualNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutVirtualNodeInternalServerError creates a PutVirtualNodeInternalServerError with default headers values
-func NewPutVirtualNodeInternalServerError() *PutVirtualNodeInternalServerError {
-	return &PutVirtualNodeInternalServerError{}
-}
-
-/*
-PutVirtualNodeInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutVirtualNodeInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put virtual node internal server error response has a 2xx status code
-func (o *PutVirtualNodeInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put virtual node internal server error response has a 3xx status code
-func (o *PutVirtualNodeInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put virtual node internal server error response has a 4xx status code
-func (o *PutVirtualNodeInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put virtual node internal server error response has a 5xx status code
-func (o *PutVirtualNodeInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put virtual node internal server error response a status code equal to that given
-func (o *PutVirtualNodeInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put virtual node internal server error response
-func (o *PutVirtualNodeInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutVirtualNodeInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutVirtualNodeInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] putVirtualNodeInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutVirtualNodeInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutVirtualNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -446,11 +165,13 @@ func (o *PutVirtualNodeDefault) Code() int {
 }
 
 func (o *PutVirtualNodeDefault) Error() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] PutVirtualNode default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] PutVirtualNode default %s", o._statusCode, payload)
 }
 
 func (o *PutVirtualNodeDefault) String() string {
-	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] PutVirtualNode default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/virtualnodes/{Uuid}][%d] PutVirtualNode default %s", o._statusCode, payload)
 }
 
 func (o *PutVirtualNodeDefault) GetPayload() *models.RPCStatus {

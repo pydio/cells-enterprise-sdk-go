@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ExecutePlaygroundCodeReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewExecutePlaygroundCodeUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewExecutePlaygroundCodeForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewExecutePlaygroundCodeNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewExecutePlaygroundCodeInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewExecutePlaygroundCodeDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ExecutePlaygroundCodeOK) Code() int {
 }
 
 func (o *ExecutePlaygroundCodeOK) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeOK %s", 200, payload)
 }
 
 func (o *ExecutePlaygroundCodeOK) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeOK %s", 200, payload)
 }
 
 func (o *ExecutePlaygroundCodeOK) GetPayload() *models.EntPlaygroundResponse {
@@ -124,266 +103,6 @@ func (o *ExecutePlaygroundCodeOK) GetPayload() *models.EntPlaygroundResponse {
 func (o *ExecutePlaygroundCodeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPlaygroundResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewExecutePlaygroundCodeUnauthorized creates a ExecutePlaygroundCodeUnauthorized with default headers values
-func NewExecutePlaygroundCodeUnauthorized() *ExecutePlaygroundCodeUnauthorized {
-	return &ExecutePlaygroundCodeUnauthorized{}
-}
-
-/*
-ExecutePlaygroundCodeUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ExecutePlaygroundCodeUnauthorized struct {
-}
-
-// IsSuccess returns true when this execute playground code unauthorized response has a 2xx status code
-func (o *ExecutePlaygroundCodeUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this execute playground code unauthorized response has a 3xx status code
-func (o *ExecutePlaygroundCodeUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this execute playground code unauthorized response has a 4xx status code
-func (o *ExecutePlaygroundCodeUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this execute playground code unauthorized response has a 5xx status code
-func (o *ExecutePlaygroundCodeUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this execute playground code unauthorized response a status code equal to that given
-func (o *ExecutePlaygroundCodeUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the execute playground code unauthorized response
-func (o *ExecutePlaygroundCodeUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ExecutePlaygroundCodeUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeUnauthorized ", 401)
-}
-
-func (o *ExecutePlaygroundCodeUnauthorized) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeUnauthorized ", 401)
-}
-
-func (o *ExecutePlaygroundCodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewExecutePlaygroundCodeForbidden creates a ExecutePlaygroundCodeForbidden with default headers values
-func NewExecutePlaygroundCodeForbidden() *ExecutePlaygroundCodeForbidden {
-	return &ExecutePlaygroundCodeForbidden{}
-}
-
-/*
-ExecutePlaygroundCodeForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ExecutePlaygroundCodeForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this execute playground code forbidden response has a 2xx status code
-func (o *ExecutePlaygroundCodeForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this execute playground code forbidden response has a 3xx status code
-func (o *ExecutePlaygroundCodeForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this execute playground code forbidden response has a 4xx status code
-func (o *ExecutePlaygroundCodeForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this execute playground code forbidden response has a 5xx status code
-func (o *ExecutePlaygroundCodeForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this execute playground code forbidden response a status code equal to that given
-func (o *ExecutePlaygroundCodeForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the execute playground code forbidden response
-func (o *ExecutePlaygroundCodeForbidden) Code() int {
-	return 403
-}
-
-func (o *ExecutePlaygroundCodeForbidden) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ExecutePlaygroundCodeForbidden) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ExecutePlaygroundCodeForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ExecutePlaygroundCodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewExecutePlaygroundCodeNotFound creates a ExecutePlaygroundCodeNotFound with default headers values
-func NewExecutePlaygroundCodeNotFound() *ExecutePlaygroundCodeNotFound {
-	return &ExecutePlaygroundCodeNotFound{}
-}
-
-/*
-ExecutePlaygroundCodeNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ExecutePlaygroundCodeNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this execute playground code not found response has a 2xx status code
-func (o *ExecutePlaygroundCodeNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this execute playground code not found response has a 3xx status code
-func (o *ExecutePlaygroundCodeNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this execute playground code not found response has a 4xx status code
-func (o *ExecutePlaygroundCodeNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this execute playground code not found response has a 5xx status code
-func (o *ExecutePlaygroundCodeNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this execute playground code not found response a status code equal to that given
-func (o *ExecutePlaygroundCodeNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the execute playground code not found response
-func (o *ExecutePlaygroundCodeNotFound) Code() int {
-	return 404
-}
-
-func (o *ExecutePlaygroundCodeNotFound) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ExecutePlaygroundCodeNotFound) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ExecutePlaygroundCodeNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ExecutePlaygroundCodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewExecutePlaygroundCodeInternalServerError creates a ExecutePlaygroundCodeInternalServerError with default headers values
-func NewExecutePlaygroundCodeInternalServerError() *ExecutePlaygroundCodeInternalServerError {
-	return &ExecutePlaygroundCodeInternalServerError{}
-}
-
-/*
-ExecutePlaygroundCodeInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ExecutePlaygroundCodeInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this execute playground code internal server error response has a 2xx status code
-func (o *ExecutePlaygroundCodeInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this execute playground code internal server error response has a 3xx status code
-func (o *ExecutePlaygroundCodeInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this execute playground code internal server error response has a 4xx status code
-func (o *ExecutePlaygroundCodeInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this execute playground code internal server error response has a 5xx status code
-func (o *ExecutePlaygroundCodeInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this execute playground code internal server error response a status code equal to that given
-func (o *ExecutePlaygroundCodeInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the execute playground code internal server error response
-func (o *ExecutePlaygroundCodeInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ExecutePlaygroundCodeInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ExecutePlaygroundCodeInternalServerError) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] executePlaygroundCodeInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ExecutePlaygroundCodeInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ExecutePlaygroundCodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ExecutePlaygroundCodeDefault) Code() int {
 }
 
 func (o *ExecutePlaygroundCodeDefault) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] ExecutePlaygroundCode default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] ExecutePlaygroundCode default %s", o._statusCode, payload)
 }
 
 func (o *ExecutePlaygroundCodeDefault) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] ExecutePlaygroundCode default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/playground][%d] ExecutePlaygroundCode default %s", o._statusCode, payload)
 }
 
 func (o *ExecutePlaygroundCodeDefault) GetPayload() *models.RPCStatus {

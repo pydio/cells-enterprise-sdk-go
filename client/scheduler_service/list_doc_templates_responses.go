@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListDocTemplatesReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListDocTemplatesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListDocTemplatesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListDocTemplatesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListDocTemplatesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListDocTemplatesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListDocTemplatesOK) Code() int {
 }
 
 func (o *ListDocTemplatesOK) Error() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK %s", 200, payload)
 }
 
 func (o *ListDocTemplatesOK) String() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesOK %s", 200, payload)
 }
 
 func (o *ListDocTemplatesOK) GetPayload() *models.EntDocTemplatesResponse {
@@ -124,266 +103,6 @@ func (o *ListDocTemplatesOK) GetPayload() *models.EntDocTemplatesResponse {
 func (o *ListDocTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntDocTemplatesResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListDocTemplatesUnauthorized creates a ListDocTemplatesUnauthorized with default headers values
-func NewListDocTemplatesUnauthorized() *ListDocTemplatesUnauthorized {
-	return &ListDocTemplatesUnauthorized{}
-}
-
-/*
-ListDocTemplatesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListDocTemplatesUnauthorized struct {
-}
-
-// IsSuccess returns true when this list doc templates unauthorized response has a 2xx status code
-func (o *ListDocTemplatesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list doc templates unauthorized response has a 3xx status code
-func (o *ListDocTemplatesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list doc templates unauthorized response has a 4xx status code
-func (o *ListDocTemplatesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list doc templates unauthorized response has a 5xx status code
-func (o *ListDocTemplatesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list doc templates unauthorized response a status code equal to that given
-func (o *ListDocTemplatesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list doc templates unauthorized response
-func (o *ListDocTemplatesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListDocTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesUnauthorized ", 401)
-}
-
-func (o *ListDocTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesUnauthorized ", 401)
-}
-
-func (o *ListDocTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListDocTemplatesForbidden creates a ListDocTemplatesForbidden with default headers values
-func NewListDocTemplatesForbidden() *ListDocTemplatesForbidden {
-	return &ListDocTemplatesForbidden{}
-}
-
-/*
-ListDocTemplatesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListDocTemplatesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list doc templates forbidden response has a 2xx status code
-func (o *ListDocTemplatesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list doc templates forbidden response has a 3xx status code
-func (o *ListDocTemplatesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list doc templates forbidden response has a 4xx status code
-func (o *ListDocTemplatesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list doc templates forbidden response has a 5xx status code
-func (o *ListDocTemplatesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list doc templates forbidden response a status code equal to that given
-func (o *ListDocTemplatesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list doc templates forbidden response
-func (o *ListDocTemplatesForbidden) Code() int {
-	return 403
-}
-
-func (o *ListDocTemplatesForbidden) Error() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListDocTemplatesForbidden) String() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListDocTemplatesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListDocTemplatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListDocTemplatesNotFound creates a ListDocTemplatesNotFound with default headers values
-func NewListDocTemplatesNotFound() *ListDocTemplatesNotFound {
-	return &ListDocTemplatesNotFound{}
-}
-
-/*
-ListDocTemplatesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListDocTemplatesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list doc templates not found response has a 2xx status code
-func (o *ListDocTemplatesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list doc templates not found response has a 3xx status code
-func (o *ListDocTemplatesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list doc templates not found response has a 4xx status code
-func (o *ListDocTemplatesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list doc templates not found response has a 5xx status code
-func (o *ListDocTemplatesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list doc templates not found response a status code equal to that given
-func (o *ListDocTemplatesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list doc templates not found response
-func (o *ListDocTemplatesNotFound) Code() int {
-	return 404
-}
-
-func (o *ListDocTemplatesNotFound) Error() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListDocTemplatesNotFound) String() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListDocTemplatesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListDocTemplatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListDocTemplatesInternalServerError creates a ListDocTemplatesInternalServerError with default headers values
-func NewListDocTemplatesInternalServerError() *ListDocTemplatesInternalServerError {
-	return &ListDocTemplatesInternalServerError{}
-}
-
-/*
-ListDocTemplatesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListDocTemplatesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list doc templates internal server error response has a 2xx status code
-func (o *ListDocTemplatesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list doc templates internal server error response has a 3xx status code
-func (o *ListDocTemplatesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list doc templates internal server error response has a 4xx status code
-func (o *ListDocTemplatesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list doc templates internal server error response has a 5xx status code
-func (o *ListDocTemplatesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list doc templates internal server error response a status code equal to that given
-func (o *ListDocTemplatesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list doc templates internal server error response
-func (o *ListDocTemplatesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListDocTemplatesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListDocTemplatesInternalServerError) String() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] listDocTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListDocTemplatesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListDocTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListDocTemplatesDefault) Code() int {
 }
 
 func (o *ListDocTemplatesDefault) Error() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] ListDocTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] ListDocTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListDocTemplatesDefault) String() string {
-	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] ListDocTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /scheduler/templates/docs/{Type}][%d] ListDocTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListDocTemplatesDefault) GetPayload() *models.RPCStatus {

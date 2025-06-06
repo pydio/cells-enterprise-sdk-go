@@ -6,6 +6,7 @@ package enterprise_log_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *AuditChartDataReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewAuditChartDataUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewAuditChartDataForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewAuditChartDataNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewAuditChartDataInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewAuditChartDataDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *AuditChartDataOK) Code() int {
 }
 
 func (o *AuditChartDataOK) Error() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK %s", 200, payload)
 }
 
 func (o *AuditChartDataOK) String() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataOK %s", 200, payload)
 }
 
 func (o *AuditChartDataOK) GetPayload() *models.RestTimeRangeResultCollection {
@@ -124,266 +103,6 @@ func (o *AuditChartDataOK) GetPayload() *models.RestTimeRangeResultCollection {
 func (o *AuditChartDataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestTimeRangeResultCollection)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewAuditChartDataUnauthorized creates a AuditChartDataUnauthorized with default headers values
-func NewAuditChartDataUnauthorized() *AuditChartDataUnauthorized {
-	return &AuditChartDataUnauthorized{}
-}
-
-/*
-AuditChartDataUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type AuditChartDataUnauthorized struct {
-}
-
-// IsSuccess returns true when this audit chart data unauthorized response has a 2xx status code
-func (o *AuditChartDataUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this audit chart data unauthorized response has a 3xx status code
-func (o *AuditChartDataUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this audit chart data unauthorized response has a 4xx status code
-func (o *AuditChartDataUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this audit chart data unauthorized response has a 5xx status code
-func (o *AuditChartDataUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this audit chart data unauthorized response a status code equal to that given
-func (o *AuditChartDataUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the audit chart data unauthorized response
-func (o *AuditChartDataUnauthorized) Code() int {
-	return 401
-}
-
-func (o *AuditChartDataUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataUnauthorized ", 401)
-}
-
-func (o *AuditChartDataUnauthorized) String() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataUnauthorized ", 401)
-}
-
-func (o *AuditChartDataUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewAuditChartDataForbidden creates a AuditChartDataForbidden with default headers values
-func NewAuditChartDataForbidden() *AuditChartDataForbidden {
-	return &AuditChartDataForbidden{}
-}
-
-/*
-AuditChartDataForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type AuditChartDataForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this audit chart data forbidden response has a 2xx status code
-func (o *AuditChartDataForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this audit chart data forbidden response has a 3xx status code
-func (o *AuditChartDataForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this audit chart data forbidden response has a 4xx status code
-func (o *AuditChartDataForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this audit chart data forbidden response has a 5xx status code
-func (o *AuditChartDataForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this audit chart data forbidden response a status code equal to that given
-func (o *AuditChartDataForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the audit chart data forbidden response
-func (o *AuditChartDataForbidden) Code() int {
-	return 403
-}
-
-func (o *AuditChartDataForbidden) Error() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataForbidden  %+v", 403, o.Payload)
-}
-
-func (o *AuditChartDataForbidden) String() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataForbidden  %+v", 403, o.Payload)
-}
-
-func (o *AuditChartDataForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *AuditChartDataForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewAuditChartDataNotFound creates a AuditChartDataNotFound with default headers values
-func NewAuditChartDataNotFound() *AuditChartDataNotFound {
-	return &AuditChartDataNotFound{}
-}
-
-/*
-AuditChartDataNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type AuditChartDataNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this audit chart data not found response has a 2xx status code
-func (o *AuditChartDataNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this audit chart data not found response has a 3xx status code
-func (o *AuditChartDataNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this audit chart data not found response has a 4xx status code
-func (o *AuditChartDataNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this audit chart data not found response has a 5xx status code
-func (o *AuditChartDataNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this audit chart data not found response a status code equal to that given
-func (o *AuditChartDataNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the audit chart data not found response
-func (o *AuditChartDataNotFound) Code() int {
-	return 404
-}
-
-func (o *AuditChartDataNotFound) Error() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataNotFound  %+v", 404, o.Payload)
-}
-
-func (o *AuditChartDataNotFound) String() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataNotFound  %+v", 404, o.Payload)
-}
-
-func (o *AuditChartDataNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *AuditChartDataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewAuditChartDataInternalServerError creates a AuditChartDataInternalServerError with default headers values
-func NewAuditChartDataInternalServerError() *AuditChartDataInternalServerError {
-	return &AuditChartDataInternalServerError{}
-}
-
-/*
-AuditChartDataInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type AuditChartDataInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this audit chart data internal server error response has a 2xx status code
-func (o *AuditChartDataInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this audit chart data internal server error response has a 3xx status code
-func (o *AuditChartDataInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this audit chart data internal server error response has a 4xx status code
-func (o *AuditChartDataInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this audit chart data internal server error response has a 5xx status code
-func (o *AuditChartDataInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this audit chart data internal server error response a status code equal to that given
-func (o *AuditChartDataInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the audit chart data internal server error response
-func (o *AuditChartDataInternalServerError) Code() int {
-	return 500
-}
-
-func (o *AuditChartDataInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *AuditChartDataInternalServerError) String() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] auditChartDataInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *AuditChartDataInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *AuditChartDataInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *AuditChartDataDefault) Code() int {
 }
 
 func (o *AuditChartDataDefault) Error() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] AuditChartData default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] AuditChartData default %s", o._statusCode, payload)
 }
 
 func (o *AuditChartDataDefault) String() string {
-	return fmt.Sprintf("[POST /log/audit/chartdata][%d] AuditChartData default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/audit/chartdata][%d] AuditChartData default %s", o._statusCode, payload)
 }
 
 func (o *AuditChartDataDefault) GetPayload() *models.RPCStatus {

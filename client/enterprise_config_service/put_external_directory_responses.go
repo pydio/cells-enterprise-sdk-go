@@ -7,6 +7,7 @@ package enterprise_config_service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -32,30 +33,6 @@ func (o *PutExternalDirectoryReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutExternalDirectoryUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutExternalDirectoryForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutExternalDirectoryNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutExternalDirectoryInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutExternalDirectoryDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -113,11 +90,13 @@ func (o *PutExternalDirectoryOK) Code() int {
 }
 
 func (o *PutExternalDirectoryOK) Error() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryOK %s", 200, payload)
 }
 
 func (o *PutExternalDirectoryOK) String() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryOK %s", 200, payload)
 }
 
 func (o *PutExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryResponse {
@@ -127,266 +106,6 @@ func (o *PutExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryRespon
 func (o *PutExternalDirectoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntExternalDirectoryResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutExternalDirectoryUnauthorized creates a PutExternalDirectoryUnauthorized with default headers values
-func NewPutExternalDirectoryUnauthorized() *PutExternalDirectoryUnauthorized {
-	return &PutExternalDirectoryUnauthorized{}
-}
-
-/*
-PutExternalDirectoryUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutExternalDirectoryUnauthorized struct {
-}
-
-// IsSuccess returns true when this put external directory unauthorized response has a 2xx status code
-func (o *PutExternalDirectoryUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put external directory unauthorized response has a 3xx status code
-func (o *PutExternalDirectoryUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put external directory unauthorized response has a 4xx status code
-func (o *PutExternalDirectoryUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put external directory unauthorized response has a 5xx status code
-func (o *PutExternalDirectoryUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put external directory unauthorized response a status code equal to that given
-func (o *PutExternalDirectoryUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put external directory unauthorized response
-func (o *PutExternalDirectoryUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutExternalDirectoryUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryUnauthorized ", 401)
-}
-
-func (o *PutExternalDirectoryUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryUnauthorized ", 401)
-}
-
-func (o *PutExternalDirectoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutExternalDirectoryForbidden creates a PutExternalDirectoryForbidden with default headers values
-func NewPutExternalDirectoryForbidden() *PutExternalDirectoryForbidden {
-	return &PutExternalDirectoryForbidden{}
-}
-
-/*
-PutExternalDirectoryForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutExternalDirectoryForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put external directory forbidden response has a 2xx status code
-func (o *PutExternalDirectoryForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put external directory forbidden response has a 3xx status code
-func (o *PutExternalDirectoryForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put external directory forbidden response has a 4xx status code
-func (o *PutExternalDirectoryForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put external directory forbidden response has a 5xx status code
-func (o *PutExternalDirectoryForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put external directory forbidden response a status code equal to that given
-func (o *PutExternalDirectoryForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put external directory forbidden response
-func (o *PutExternalDirectoryForbidden) Code() int {
-	return 403
-}
-
-func (o *PutExternalDirectoryForbidden) Error() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutExternalDirectoryForbidden) String() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutExternalDirectoryForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutExternalDirectoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutExternalDirectoryNotFound creates a PutExternalDirectoryNotFound with default headers values
-func NewPutExternalDirectoryNotFound() *PutExternalDirectoryNotFound {
-	return &PutExternalDirectoryNotFound{}
-}
-
-/*
-PutExternalDirectoryNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutExternalDirectoryNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put external directory not found response has a 2xx status code
-func (o *PutExternalDirectoryNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put external directory not found response has a 3xx status code
-func (o *PutExternalDirectoryNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put external directory not found response has a 4xx status code
-func (o *PutExternalDirectoryNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put external directory not found response has a 5xx status code
-func (o *PutExternalDirectoryNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put external directory not found response a status code equal to that given
-func (o *PutExternalDirectoryNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put external directory not found response
-func (o *PutExternalDirectoryNotFound) Code() int {
-	return 404
-}
-
-func (o *PutExternalDirectoryNotFound) Error() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutExternalDirectoryNotFound) String() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutExternalDirectoryNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutExternalDirectoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutExternalDirectoryInternalServerError creates a PutExternalDirectoryInternalServerError with default headers values
-func NewPutExternalDirectoryInternalServerError() *PutExternalDirectoryInternalServerError {
-	return &PutExternalDirectoryInternalServerError{}
-}
-
-/*
-PutExternalDirectoryInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutExternalDirectoryInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put external directory internal server error response has a 2xx status code
-func (o *PutExternalDirectoryInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put external directory internal server error response has a 3xx status code
-func (o *PutExternalDirectoryInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put external directory internal server error response has a 4xx status code
-func (o *PutExternalDirectoryInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put external directory internal server error response has a 5xx status code
-func (o *PutExternalDirectoryInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put external directory internal server error response a status code equal to that given
-func (o *PutExternalDirectoryInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put external directory internal server error response
-func (o *PutExternalDirectoryInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutExternalDirectoryInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutExternalDirectoryInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] putExternalDirectoryInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutExternalDirectoryInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutExternalDirectoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -445,11 +164,13 @@ func (o *PutExternalDirectoryDefault) Code() int {
 }
 
 func (o *PutExternalDirectoryDefault) Error() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] PutExternalDirectory default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] PutExternalDirectory default %s", o._statusCode, payload)
 }
 
 func (o *PutExternalDirectoryDefault) String() string {
-	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] PutExternalDirectory default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /config/directories/{ConfigId}][%d] PutExternalDirectory default %s", o._statusCode, payload)
 }
 
 func (o *PutExternalDirectoryDefault) GetPayload() *models.RPCStatus {
