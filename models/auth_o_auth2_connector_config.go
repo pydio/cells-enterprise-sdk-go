@@ -37,6 +37,9 @@ type AuthOAuth2ConnectorConfig struct {
 	// configmicrosoft
 	Configmicrosoft *AuthOAuth2ConnectorMicrosoftConfig `json:"configmicrosoft,omitempty"`
 
+	// configmock
+	Configmock *AuthOAuth2ConnectorMockConfig `json:"configmock,omitempty"`
+
 	// configoauth
 	Configoauth *AuthOAuth2ConnectorOAuthConfig `json:"configoauth,omitempty"`
 
@@ -90,6 +93,10 @@ func (m *AuthOAuth2ConnectorConfig) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateConfigmicrosoft(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateConfigmock(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -233,6 +240,25 @@ func (m *AuthOAuth2ConnectorConfig) validateConfigmicrosoft(formats strfmt.Regis
 	return nil
 }
 
+func (m *AuthOAuth2ConnectorConfig) validateConfigmock(formats strfmt.Registry) error {
+	if swag.IsZero(m.Configmock) { // not required
+		return nil
+	}
+
+	if m.Configmock != nil {
+		if err := m.Configmock.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("configmock")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configmock")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *AuthOAuth2ConnectorConfig) validateConfigoauth(formats strfmt.Registry) error {
 	if swag.IsZero(m.Configoauth) { // not required
 		return nil
@@ -360,6 +386,10 @@ func (m *AuthOAuth2ConnectorConfig) ContextValidate(ctx context.Context, formats
 	}
 
 	if err := m.contextValidateConfigmicrosoft(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateConfigmock(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -507,6 +537,27 @@ func (m *AuthOAuth2ConnectorConfig) contextValidateConfigmicrosoft(ctx context.C
 				return ve.ValidateName("configmicrosoft")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("configmicrosoft")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AuthOAuth2ConnectorConfig) contextValidateConfigmock(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Configmock != nil {
+
+		if swag.IsZero(m.Configmock) { // not required
+			return nil
+		}
+
+		if err := m.Configmock.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("configmock")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("configmock")
 			}
 			return err
 		}

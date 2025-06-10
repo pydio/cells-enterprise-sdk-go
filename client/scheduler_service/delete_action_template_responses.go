@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *DeleteActionTemplateReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewDeleteActionTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewDeleteActionTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewDeleteActionTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewDeleteActionTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewDeleteActionTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *DeleteActionTemplateOK) Code() int {
 }
 
 func (o *DeleteActionTemplateOK) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateOK %s", 200, payload)
 }
 
 func (o *DeleteActionTemplateOK) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateOK %s", 200, payload)
 }
 
 func (o *DeleteActionTemplateOK) GetPayload() *models.EntDeleteActionTemplateResponse {
@@ -124,266 +103,6 @@ func (o *DeleteActionTemplateOK) GetPayload() *models.EntDeleteActionTemplateRes
 func (o *DeleteActionTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntDeleteActionTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteActionTemplateUnauthorized creates a DeleteActionTemplateUnauthorized with default headers values
-func NewDeleteActionTemplateUnauthorized() *DeleteActionTemplateUnauthorized {
-	return &DeleteActionTemplateUnauthorized{}
-}
-
-/*
-DeleteActionTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type DeleteActionTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this delete action template unauthorized response has a 2xx status code
-func (o *DeleteActionTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete action template unauthorized response has a 3xx status code
-func (o *DeleteActionTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete action template unauthorized response has a 4xx status code
-func (o *DeleteActionTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete action template unauthorized response has a 5xx status code
-func (o *DeleteActionTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete action template unauthorized response a status code equal to that given
-func (o *DeleteActionTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the delete action template unauthorized response
-func (o *DeleteActionTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *DeleteActionTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateUnauthorized ", 401)
-}
-
-func (o *DeleteActionTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateUnauthorized ", 401)
-}
-
-func (o *DeleteActionTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewDeleteActionTemplateForbidden creates a DeleteActionTemplateForbidden with default headers values
-func NewDeleteActionTemplateForbidden() *DeleteActionTemplateForbidden {
-	return &DeleteActionTemplateForbidden{}
-}
-
-/*
-DeleteActionTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type DeleteActionTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete action template forbidden response has a 2xx status code
-func (o *DeleteActionTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete action template forbidden response has a 3xx status code
-func (o *DeleteActionTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete action template forbidden response has a 4xx status code
-func (o *DeleteActionTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete action template forbidden response has a 5xx status code
-func (o *DeleteActionTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete action template forbidden response a status code equal to that given
-func (o *DeleteActionTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the delete action template forbidden response
-func (o *DeleteActionTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *DeleteActionTemplateForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteActionTemplateForbidden) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteActionTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteActionTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteActionTemplateNotFound creates a DeleteActionTemplateNotFound with default headers values
-func NewDeleteActionTemplateNotFound() *DeleteActionTemplateNotFound {
-	return &DeleteActionTemplateNotFound{}
-}
-
-/*
-DeleteActionTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type DeleteActionTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete action template not found response has a 2xx status code
-func (o *DeleteActionTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete action template not found response has a 3xx status code
-func (o *DeleteActionTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete action template not found response has a 4xx status code
-func (o *DeleteActionTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete action template not found response has a 5xx status code
-func (o *DeleteActionTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete action template not found response a status code equal to that given
-func (o *DeleteActionTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the delete action template not found response
-func (o *DeleteActionTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *DeleteActionTemplateNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteActionTemplateNotFound) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteActionTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteActionTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteActionTemplateInternalServerError creates a DeleteActionTemplateInternalServerError with default headers values
-func NewDeleteActionTemplateInternalServerError() *DeleteActionTemplateInternalServerError {
-	return &DeleteActionTemplateInternalServerError{}
-}
-
-/*
-DeleteActionTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type DeleteActionTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete action template internal server error response has a 2xx status code
-func (o *DeleteActionTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete action template internal server error response has a 3xx status code
-func (o *DeleteActionTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete action template internal server error response has a 4xx status code
-func (o *DeleteActionTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this delete action template internal server error response has a 5xx status code
-func (o *DeleteActionTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this delete action template internal server error response a status code equal to that given
-func (o *DeleteActionTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the delete action template internal server error response
-func (o *DeleteActionTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *DeleteActionTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteActionTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] deleteActionTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteActionTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteActionTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *DeleteActionTemplateDefault) Code() int {
 }
 
 func (o *DeleteActionTemplateDefault) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] DeleteActionTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] DeleteActionTemplate default %s", o._statusCode, payload)
 }
 
 func (o *DeleteActionTemplateDefault) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] DeleteActionTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/actions/{TemplateName}][%d] DeleteActionTemplate default %s", o._statusCode, payload)
 }
 
 func (o *DeleteActionTemplateDefault) GetPayload() *models.RPCStatus {

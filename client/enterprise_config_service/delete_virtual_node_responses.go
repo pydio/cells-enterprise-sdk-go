@@ -6,6 +6,7 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *DeleteVirtualNodeReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewDeleteVirtualNodeUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewDeleteVirtualNodeForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewDeleteVirtualNodeNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewDeleteVirtualNodeInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewDeleteVirtualNodeDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *DeleteVirtualNodeOK) Code() int {
 }
 
 func (o *DeleteVirtualNodeOK) Error() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeOK %s", 200, payload)
 }
 
 func (o *DeleteVirtualNodeOK) String() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeOK %s", 200, payload)
 }
 
 func (o *DeleteVirtualNodeOK) GetPayload() *models.EntDeleteVirtualNodeResponse {
@@ -124,266 +103,6 @@ func (o *DeleteVirtualNodeOK) GetPayload() *models.EntDeleteVirtualNodeResponse 
 func (o *DeleteVirtualNodeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntDeleteVirtualNodeResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVirtualNodeUnauthorized creates a DeleteVirtualNodeUnauthorized with default headers values
-func NewDeleteVirtualNodeUnauthorized() *DeleteVirtualNodeUnauthorized {
-	return &DeleteVirtualNodeUnauthorized{}
-}
-
-/*
-DeleteVirtualNodeUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type DeleteVirtualNodeUnauthorized struct {
-}
-
-// IsSuccess returns true when this delete virtual node unauthorized response has a 2xx status code
-func (o *DeleteVirtualNodeUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete virtual node unauthorized response has a 3xx status code
-func (o *DeleteVirtualNodeUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete virtual node unauthorized response has a 4xx status code
-func (o *DeleteVirtualNodeUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete virtual node unauthorized response has a 5xx status code
-func (o *DeleteVirtualNodeUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete virtual node unauthorized response a status code equal to that given
-func (o *DeleteVirtualNodeUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the delete virtual node unauthorized response
-func (o *DeleteVirtualNodeUnauthorized) Code() int {
-	return 401
-}
-
-func (o *DeleteVirtualNodeUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeUnauthorized ", 401)
-}
-
-func (o *DeleteVirtualNodeUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeUnauthorized ", 401)
-}
-
-func (o *DeleteVirtualNodeUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewDeleteVirtualNodeForbidden creates a DeleteVirtualNodeForbidden with default headers values
-func NewDeleteVirtualNodeForbidden() *DeleteVirtualNodeForbidden {
-	return &DeleteVirtualNodeForbidden{}
-}
-
-/*
-DeleteVirtualNodeForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type DeleteVirtualNodeForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete virtual node forbidden response has a 2xx status code
-func (o *DeleteVirtualNodeForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete virtual node forbidden response has a 3xx status code
-func (o *DeleteVirtualNodeForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete virtual node forbidden response has a 4xx status code
-func (o *DeleteVirtualNodeForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete virtual node forbidden response has a 5xx status code
-func (o *DeleteVirtualNodeForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete virtual node forbidden response a status code equal to that given
-func (o *DeleteVirtualNodeForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the delete virtual node forbidden response
-func (o *DeleteVirtualNodeForbidden) Code() int {
-	return 403
-}
-
-func (o *DeleteVirtualNodeForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteVirtualNodeForbidden) String() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteVirtualNodeForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteVirtualNodeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVirtualNodeNotFound creates a DeleteVirtualNodeNotFound with default headers values
-func NewDeleteVirtualNodeNotFound() *DeleteVirtualNodeNotFound {
-	return &DeleteVirtualNodeNotFound{}
-}
-
-/*
-DeleteVirtualNodeNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type DeleteVirtualNodeNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete virtual node not found response has a 2xx status code
-func (o *DeleteVirtualNodeNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete virtual node not found response has a 3xx status code
-func (o *DeleteVirtualNodeNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete virtual node not found response has a 4xx status code
-func (o *DeleteVirtualNodeNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete virtual node not found response has a 5xx status code
-func (o *DeleteVirtualNodeNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete virtual node not found response a status code equal to that given
-func (o *DeleteVirtualNodeNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the delete virtual node not found response
-func (o *DeleteVirtualNodeNotFound) Code() int {
-	return 404
-}
-
-func (o *DeleteVirtualNodeNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteVirtualNodeNotFound) String() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteVirtualNodeNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteVirtualNodeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVirtualNodeInternalServerError creates a DeleteVirtualNodeInternalServerError with default headers values
-func NewDeleteVirtualNodeInternalServerError() *DeleteVirtualNodeInternalServerError {
-	return &DeleteVirtualNodeInternalServerError{}
-}
-
-/*
-DeleteVirtualNodeInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type DeleteVirtualNodeInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete virtual node internal server error response has a 2xx status code
-func (o *DeleteVirtualNodeInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete virtual node internal server error response has a 3xx status code
-func (o *DeleteVirtualNodeInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete virtual node internal server error response has a 4xx status code
-func (o *DeleteVirtualNodeInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this delete virtual node internal server error response has a 5xx status code
-func (o *DeleteVirtualNodeInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this delete virtual node internal server error response a status code equal to that given
-func (o *DeleteVirtualNodeInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the delete virtual node internal server error response
-func (o *DeleteVirtualNodeInternalServerError) Code() int {
-	return 500
-}
-
-func (o *DeleteVirtualNodeInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteVirtualNodeInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] deleteVirtualNodeInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteVirtualNodeInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteVirtualNodeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *DeleteVirtualNodeDefault) Code() int {
 }
 
 func (o *DeleteVirtualNodeDefault) Error() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] DeleteVirtualNode default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] DeleteVirtualNode default %s", o._statusCode, payload)
 }
 
 func (o *DeleteVirtualNodeDefault) String() string {
-	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] DeleteVirtualNode default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/virtualnodes/{Uuid}][%d] DeleteVirtualNode default %s", o._statusCode, payload)
 }
 
 func (o *DeleteVirtualNodeDefault) GetPayload() *models.RPCStatus {

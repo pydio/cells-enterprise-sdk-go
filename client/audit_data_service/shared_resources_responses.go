@@ -6,6 +6,7 @@ package audit_data_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *SharedResourcesReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewSharedResourcesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewSharedResourcesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewSharedResourcesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewSharedResourcesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewSharedResourcesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *SharedResourcesOK) Code() int {
 }
 
 func (o *SharedResourcesOK) Error() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesOK %s", 200, payload)
 }
 
 func (o *SharedResourcesOK) String() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesOK %s", 200, payload)
 }
 
 func (o *SharedResourcesOK) GetPayload() *models.ReportsSharedResourcesResponse {
@@ -124,266 +103,6 @@ func (o *SharedResourcesOK) GetPayload() *models.ReportsSharedResourcesResponse 
 func (o *SharedResourcesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ReportsSharedResourcesResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSharedResourcesUnauthorized creates a SharedResourcesUnauthorized with default headers values
-func NewSharedResourcesUnauthorized() *SharedResourcesUnauthorized {
-	return &SharedResourcesUnauthorized{}
-}
-
-/*
-SharedResourcesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type SharedResourcesUnauthorized struct {
-}
-
-// IsSuccess returns true when this shared resources unauthorized response has a 2xx status code
-func (o *SharedResourcesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this shared resources unauthorized response has a 3xx status code
-func (o *SharedResourcesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this shared resources unauthorized response has a 4xx status code
-func (o *SharedResourcesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this shared resources unauthorized response has a 5xx status code
-func (o *SharedResourcesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this shared resources unauthorized response a status code equal to that given
-func (o *SharedResourcesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the shared resources unauthorized response
-func (o *SharedResourcesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *SharedResourcesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesUnauthorized ", 401)
-}
-
-func (o *SharedResourcesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesUnauthorized ", 401)
-}
-
-func (o *SharedResourcesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewSharedResourcesForbidden creates a SharedResourcesForbidden with default headers values
-func NewSharedResourcesForbidden() *SharedResourcesForbidden {
-	return &SharedResourcesForbidden{}
-}
-
-/*
-SharedResourcesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type SharedResourcesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this shared resources forbidden response has a 2xx status code
-func (o *SharedResourcesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this shared resources forbidden response has a 3xx status code
-func (o *SharedResourcesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this shared resources forbidden response has a 4xx status code
-func (o *SharedResourcesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this shared resources forbidden response has a 5xx status code
-func (o *SharedResourcesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this shared resources forbidden response a status code equal to that given
-func (o *SharedResourcesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the shared resources forbidden response
-func (o *SharedResourcesForbidden) Code() int {
-	return 403
-}
-
-func (o *SharedResourcesForbidden) Error() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *SharedResourcesForbidden) String() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *SharedResourcesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SharedResourcesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSharedResourcesNotFound creates a SharedResourcesNotFound with default headers values
-func NewSharedResourcesNotFound() *SharedResourcesNotFound {
-	return &SharedResourcesNotFound{}
-}
-
-/*
-SharedResourcesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type SharedResourcesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this shared resources not found response has a 2xx status code
-func (o *SharedResourcesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this shared resources not found response has a 3xx status code
-func (o *SharedResourcesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this shared resources not found response has a 4xx status code
-func (o *SharedResourcesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this shared resources not found response has a 5xx status code
-func (o *SharedResourcesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this shared resources not found response a status code equal to that given
-func (o *SharedResourcesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the shared resources not found response
-func (o *SharedResourcesNotFound) Code() int {
-	return 404
-}
-
-func (o *SharedResourcesNotFound) Error() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *SharedResourcesNotFound) String() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *SharedResourcesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SharedResourcesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSharedResourcesInternalServerError creates a SharedResourcesInternalServerError with default headers values
-func NewSharedResourcesInternalServerError() *SharedResourcesInternalServerError {
-	return &SharedResourcesInternalServerError{}
-}
-
-/*
-SharedResourcesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type SharedResourcesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this shared resources internal server error response has a 2xx status code
-func (o *SharedResourcesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this shared resources internal server error response has a 3xx status code
-func (o *SharedResourcesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this shared resources internal server error response has a 4xx status code
-func (o *SharedResourcesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this shared resources internal server error response has a 5xx status code
-func (o *SharedResourcesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this shared resources internal server error response a status code equal to that given
-func (o *SharedResourcesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the shared resources internal server error response
-func (o *SharedResourcesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *SharedResourcesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *SharedResourcesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] sharedResourcesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *SharedResourcesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SharedResourcesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *SharedResourcesDefault) Code() int {
 }
 
 func (o *SharedResourcesDefault) Error() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] SharedResources default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /audit/data/shares][%d] SharedResources default %s", o._statusCode, payload)
 }
 
 func (o *SharedResourcesDefault) String() string {
-	return fmt.Sprintf("[POST /audit/data/shares][%d] SharedResources default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /audit/data/shares][%d] SharedResources default %s", o._statusCode, payload)
 }
 
 func (o *SharedResourcesDefault) GetPayload() *models.RPCStatus {

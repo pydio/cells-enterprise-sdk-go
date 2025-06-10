@@ -6,6 +6,7 @@ package enterprise_templates_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *CreateNodeTemplateReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewCreateNodeTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewCreateNodeTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewCreateNodeTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewCreateNodeTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewCreateNodeTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *CreateNodeTemplateOK) Code() int {
 }
 
 func (o *CreateNodeTemplateOK) Error() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateOK %s", 200, payload)
 }
 
 func (o *CreateNodeTemplateOK) String() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateOK %s", 200, payload)
 }
 
 func (o *CreateNodeTemplateOK) GetPayload() *models.EntCreateNodeTemplateResponse {
@@ -124,266 +103,6 @@ func (o *CreateNodeTemplateOK) GetPayload() *models.EntCreateNodeTemplateRespons
 func (o *CreateNodeTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntCreateNodeTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateNodeTemplateUnauthorized creates a CreateNodeTemplateUnauthorized with default headers values
-func NewCreateNodeTemplateUnauthorized() *CreateNodeTemplateUnauthorized {
-	return &CreateNodeTemplateUnauthorized{}
-}
-
-/*
-CreateNodeTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type CreateNodeTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this create node template unauthorized response has a 2xx status code
-func (o *CreateNodeTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create node template unauthorized response has a 3xx status code
-func (o *CreateNodeTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create node template unauthorized response has a 4xx status code
-func (o *CreateNodeTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this create node template unauthorized response has a 5xx status code
-func (o *CreateNodeTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this create node template unauthorized response a status code equal to that given
-func (o *CreateNodeTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the create node template unauthorized response
-func (o *CreateNodeTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *CreateNodeTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateUnauthorized ", 401)
-}
-
-func (o *CreateNodeTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateUnauthorized ", 401)
-}
-
-func (o *CreateNodeTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewCreateNodeTemplateForbidden creates a CreateNodeTemplateForbidden with default headers values
-func NewCreateNodeTemplateForbidden() *CreateNodeTemplateForbidden {
-	return &CreateNodeTemplateForbidden{}
-}
-
-/*
-CreateNodeTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type CreateNodeTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this create node template forbidden response has a 2xx status code
-func (o *CreateNodeTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create node template forbidden response has a 3xx status code
-func (o *CreateNodeTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create node template forbidden response has a 4xx status code
-func (o *CreateNodeTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this create node template forbidden response has a 5xx status code
-func (o *CreateNodeTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this create node template forbidden response a status code equal to that given
-func (o *CreateNodeTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the create node template forbidden response
-func (o *CreateNodeTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *CreateNodeTemplateForbidden) Error() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *CreateNodeTemplateForbidden) String() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *CreateNodeTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *CreateNodeTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateNodeTemplateNotFound creates a CreateNodeTemplateNotFound with default headers values
-func NewCreateNodeTemplateNotFound() *CreateNodeTemplateNotFound {
-	return &CreateNodeTemplateNotFound{}
-}
-
-/*
-CreateNodeTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type CreateNodeTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this create node template not found response has a 2xx status code
-func (o *CreateNodeTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create node template not found response has a 3xx status code
-func (o *CreateNodeTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create node template not found response has a 4xx status code
-func (o *CreateNodeTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this create node template not found response has a 5xx status code
-func (o *CreateNodeTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this create node template not found response a status code equal to that given
-func (o *CreateNodeTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the create node template not found response
-func (o *CreateNodeTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *CreateNodeTemplateNotFound) Error() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *CreateNodeTemplateNotFound) String() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *CreateNodeTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *CreateNodeTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateNodeTemplateInternalServerError creates a CreateNodeTemplateInternalServerError with default headers values
-func NewCreateNodeTemplateInternalServerError() *CreateNodeTemplateInternalServerError {
-	return &CreateNodeTemplateInternalServerError{}
-}
-
-/*
-CreateNodeTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type CreateNodeTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this create node template internal server error response has a 2xx status code
-func (o *CreateNodeTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create node template internal server error response has a 3xx status code
-func (o *CreateNodeTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create node template internal server error response has a 4xx status code
-func (o *CreateNodeTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this create node template internal server error response has a 5xx status code
-func (o *CreateNodeTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this create node template internal server error response a status code equal to that given
-func (o *CreateNodeTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the create node template internal server error response
-func (o *CreateNodeTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *CreateNodeTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *CreateNodeTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[POST /templates/node][%d] createNodeTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *CreateNodeTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *CreateNodeTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *CreateNodeTemplateDefault) Code() int {
 }
 
 func (o *CreateNodeTemplateDefault) Error() string {
-	return fmt.Sprintf("[POST /templates/node][%d] CreateNodeTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /templates/node][%d] CreateNodeTemplate default %s", o._statusCode, payload)
 }
 
 func (o *CreateNodeTemplateDefault) String() string {
-	return fmt.Sprintf("[POST /templates/node][%d] CreateNodeTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /templates/node][%d] CreateNodeTemplate default %s", o._statusCode, payload)
 }
 
 func (o *CreateNodeTemplateDefault) GetPayload() *models.RPCStatus {

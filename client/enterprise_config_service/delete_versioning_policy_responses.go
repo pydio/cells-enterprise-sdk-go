@@ -6,6 +6,7 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *DeleteVersioningPolicyReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewDeleteVersioningPolicyUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewDeleteVersioningPolicyForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewDeleteVersioningPolicyNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewDeleteVersioningPolicyInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewDeleteVersioningPolicyDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *DeleteVersioningPolicyOK) Code() int {
 }
 
 func (o *DeleteVersioningPolicyOK) Error() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyOK %s", 200, payload)
 }
 
 func (o *DeleteVersioningPolicyOK) String() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyOK %s", 200, payload)
 }
 
 func (o *DeleteVersioningPolicyOK) GetPayload() *models.EntDeleteVersioningPolicyResponse {
@@ -124,266 +103,6 @@ func (o *DeleteVersioningPolicyOK) GetPayload() *models.EntDeleteVersioningPolic
 func (o *DeleteVersioningPolicyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntDeleteVersioningPolicyResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVersioningPolicyUnauthorized creates a DeleteVersioningPolicyUnauthorized with default headers values
-func NewDeleteVersioningPolicyUnauthorized() *DeleteVersioningPolicyUnauthorized {
-	return &DeleteVersioningPolicyUnauthorized{}
-}
-
-/*
-DeleteVersioningPolicyUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type DeleteVersioningPolicyUnauthorized struct {
-}
-
-// IsSuccess returns true when this delete versioning policy unauthorized response has a 2xx status code
-func (o *DeleteVersioningPolicyUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete versioning policy unauthorized response has a 3xx status code
-func (o *DeleteVersioningPolicyUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete versioning policy unauthorized response has a 4xx status code
-func (o *DeleteVersioningPolicyUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete versioning policy unauthorized response has a 5xx status code
-func (o *DeleteVersioningPolicyUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete versioning policy unauthorized response a status code equal to that given
-func (o *DeleteVersioningPolicyUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the delete versioning policy unauthorized response
-func (o *DeleteVersioningPolicyUnauthorized) Code() int {
-	return 401
-}
-
-func (o *DeleteVersioningPolicyUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyUnauthorized ", 401)
-}
-
-func (o *DeleteVersioningPolicyUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyUnauthorized ", 401)
-}
-
-func (o *DeleteVersioningPolicyUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewDeleteVersioningPolicyForbidden creates a DeleteVersioningPolicyForbidden with default headers values
-func NewDeleteVersioningPolicyForbidden() *DeleteVersioningPolicyForbidden {
-	return &DeleteVersioningPolicyForbidden{}
-}
-
-/*
-DeleteVersioningPolicyForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type DeleteVersioningPolicyForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete versioning policy forbidden response has a 2xx status code
-func (o *DeleteVersioningPolicyForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete versioning policy forbidden response has a 3xx status code
-func (o *DeleteVersioningPolicyForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete versioning policy forbidden response has a 4xx status code
-func (o *DeleteVersioningPolicyForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete versioning policy forbidden response has a 5xx status code
-func (o *DeleteVersioningPolicyForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete versioning policy forbidden response a status code equal to that given
-func (o *DeleteVersioningPolicyForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the delete versioning policy forbidden response
-func (o *DeleteVersioningPolicyForbidden) Code() int {
-	return 403
-}
-
-func (o *DeleteVersioningPolicyForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteVersioningPolicyForbidden) String() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteVersioningPolicyForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteVersioningPolicyForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVersioningPolicyNotFound creates a DeleteVersioningPolicyNotFound with default headers values
-func NewDeleteVersioningPolicyNotFound() *DeleteVersioningPolicyNotFound {
-	return &DeleteVersioningPolicyNotFound{}
-}
-
-/*
-DeleteVersioningPolicyNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type DeleteVersioningPolicyNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete versioning policy not found response has a 2xx status code
-func (o *DeleteVersioningPolicyNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete versioning policy not found response has a 3xx status code
-func (o *DeleteVersioningPolicyNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete versioning policy not found response has a 4xx status code
-func (o *DeleteVersioningPolicyNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete versioning policy not found response has a 5xx status code
-func (o *DeleteVersioningPolicyNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete versioning policy not found response a status code equal to that given
-func (o *DeleteVersioningPolicyNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the delete versioning policy not found response
-func (o *DeleteVersioningPolicyNotFound) Code() int {
-	return 404
-}
-
-func (o *DeleteVersioningPolicyNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteVersioningPolicyNotFound) String() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteVersioningPolicyNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteVersioningPolicyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteVersioningPolicyInternalServerError creates a DeleteVersioningPolicyInternalServerError with default headers values
-func NewDeleteVersioningPolicyInternalServerError() *DeleteVersioningPolicyInternalServerError {
-	return &DeleteVersioningPolicyInternalServerError{}
-}
-
-/*
-DeleteVersioningPolicyInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type DeleteVersioningPolicyInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete versioning policy internal server error response has a 2xx status code
-func (o *DeleteVersioningPolicyInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete versioning policy internal server error response has a 3xx status code
-func (o *DeleteVersioningPolicyInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete versioning policy internal server error response has a 4xx status code
-func (o *DeleteVersioningPolicyInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this delete versioning policy internal server error response has a 5xx status code
-func (o *DeleteVersioningPolicyInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this delete versioning policy internal server error response a status code equal to that given
-func (o *DeleteVersioningPolicyInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the delete versioning policy internal server error response
-func (o *DeleteVersioningPolicyInternalServerError) Code() int {
-	return 500
-}
-
-func (o *DeleteVersioningPolicyInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteVersioningPolicyInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] deleteVersioningPolicyInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteVersioningPolicyInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteVersioningPolicyInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *DeleteVersioningPolicyDefault) Code() int {
 }
 
 func (o *DeleteVersioningPolicyDefault) Error() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] DeleteVersioningPolicy default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] DeleteVersioningPolicy default %s", o._statusCode, payload)
 }
 
 func (o *DeleteVersioningPolicyDefault) String() string {
-	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] DeleteVersioningPolicy default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /config/versioning/{Uuid}][%d] DeleteVersioningPolicy default %s", o._statusCode, payload)
 }
 
 func (o *DeleteVersioningPolicyDefault) GetPayload() *models.RPCStatus {

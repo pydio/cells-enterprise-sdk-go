@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListSelectorTemplatesReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListSelectorTemplatesUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListSelectorTemplatesForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListSelectorTemplatesNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListSelectorTemplatesInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListSelectorTemplatesDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListSelectorTemplatesOK) Code() int {
 }
 
 func (o *ListSelectorTemplatesOK) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesOK %s", 200, payload)
 }
 
 func (o *ListSelectorTemplatesOK) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesOK %s", 200, payload)
 }
 
 func (o *ListSelectorTemplatesOK) GetPayload() *models.EntListSelectorTemplatesResponse {
@@ -124,266 +103,6 @@ func (o *ListSelectorTemplatesOK) GetPayload() *models.EntListSelectorTemplatesR
 func (o *ListSelectorTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntListSelectorTemplatesResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListSelectorTemplatesUnauthorized creates a ListSelectorTemplatesUnauthorized with default headers values
-func NewListSelectorTemplatesUnauthorized() *ListSelectorTemplatesUnauthorized {
-	return &ListSelectorTemplatesUnauthorized{}
-}
-
-/*
-ListSelectorTemplatesUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListSelectorTemplatesUnauthorized struct {
-}
-
-// IsSuccess returns true when this list selector templates unauthorized response has a 2xx status code
-func (o *ListSelectorTemplatesUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list selector templates unauthorized response has a 3xx status code
-func (o *ListSelectorTemplatesUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list selector templates unauthorized response has a 4xx status code
-func (o *ListSelectorTemplatesUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list selector templates unauthorized response has a 5xx status code
-func (o *ListSelectorTemplatesUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list selector templates unauthorized response a status code equal to that given
-func (o *ListSelectorTemplatesUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list selector templates unauthorized response
-func (o *ListSelectorTemplatesUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListSelectorTemplatesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesUnauthorized ", 401)
-}
-
-func (o *ListSelectorTemplatesUnauthorized) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesUnauthorized ", 401)
-}
-
-func (o *ListSelectorTemplatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListSelectorTemplatesForbidden creates a ListSelectorTemplatesForbidden with default headers values
-func NewListSelectorTemplatesForbidden() *ListSelectorTemplatesForbidden {
-	return &ListSelectorTemplatesForbidden{}
-}
-
-/*
-ListSelectorTemplatesForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListSelectorTemplatesForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list selector templates forbidden response has a 2xx status code
-func (o *ListSelectorTemplatesForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list selector templates forbidden response has a 3xx status code
-func (o *ListSelectorTemplatesForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list selector templates forbidden response has a 4xx status code
-func (o *ListSelectorTemplatesForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list selector templates forbidden response has a 5xx status code
-func (o *ListSelectorTemplatesForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list selector templates forbidden response a status code equal to that given
-func (o *ListSelectorTemplatesForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list selector templates forbidden response
-func (o *ListSelectorTemplatesForbidden) Code() int {
-	return 403
-}
-
-func (o *ListSelectorTemplatesForbidden) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListSelectorTemplatesForbidden) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListSelectorTemplatesForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListSelectorTemplatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListSelectorTemplatesNotFound creates a ListSelectorTemplatesNotFound with default headers values
-func NewListSelectorTemplatesNotFound() *ListSelectorTemplatesNotFound {
-	return &ListSelectorTemplatesNotFound{}
-}
-
-/*
-ListSelectorTemplatesNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListSelectorTemplatesNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list selector templates not found response has a 2xx status code
-func (o *ListSelectorTemplatesNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list selector templates not found response has a 3xx status code
-func (o *ListSelectorTemplatesNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list selector templates not found response has a 4xx status code
-func (o *ListSelectorTemplatesNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list selector templates not found response has a 5xx status code
-func (o *ListSelectorTemplatesNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list selector templates not found response a status code equal to that given
-func (o *ListSelectorTemplatesNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list selector templates not found response
-func (o *ListSelectorTemplatesNotFound) Code() int {
-	return 404
-}
-
-func (o *ListSelectorTemplatesNotFound) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListSelectorTemplatesNotFound) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListSelectorTemplatesNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListSelectorTemplatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListSelectorTemplatesInternalServerError creates a ListSelectorTemplatesInternalServerError with default headers values
-func NewListSelectorTemplatesInternalServerError() *ListSelectorTemplatesInternalServerError {
-	return &ListSelectorTemplatesInternalServerError{}
-}
-
-/*
-ListSelectorTemplatesInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListSelectorTemplatesInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list selector templates internal server error response has a 2xx status code
-func (o *ListSelectorTemplatesInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list selector templates internal server error response has a 3xx status code
-func (o *ListSelectorTemplatesInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list selector templates internal server error response has a 4xx status code
-func (o *ListSelectorTemplatesInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list selector templates internal server error response has a 5xx status code
-func (o *ListSelectorTemplatesInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list selector templates internal server error response a status code equal to that given
-func (o *ListSelectorTemplatesInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list selector templates internal server error response
-func (o *ListSelectorTemplatesInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListSelectorTemplatesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListSelectorTemplatesInternalServerError) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] listSelectorTemplatesInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListSelectorTemplatesInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListSelectorTemplatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListSelectorTemplatesDefault) Code() int {
 }
 
 func (o *ListSelectorTemplatesDefault) Error() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] ListSelectorTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] ListSelectorTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListSelectorTemplatesDefault) String() string {
-	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] ListSelectorTemplates default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/templates/selectors][%d] ListSelectorTemplates default %s", o._statusCode, payload)
 }
 
 func (o *ListSelectorTemplatesDefault) GetPayload() *models.RPCStatus {

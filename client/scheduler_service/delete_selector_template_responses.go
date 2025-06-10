@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *DeleteSelectorTemplateReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewDeleteSelectorTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewDeleteSelectorTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewDeleteSelectorTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewDeleteSelectorTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewDeleteSelectorTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *DeleteSelectorTemplateOK) Code() int {
 }
 
 func (o *DeleteSelectorTemplateOK) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateOK %s", 200, payload)
 }
 
 func (o *DeleteSelectorTemplateOK) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateOK %s", 200, payload)
 }
 
 func (o *DeleteSelectorTemplateOK) GetPayload() *models.EntDeleteSelectorTemplateResponse {
@@ -124,266 +103,6 @@ func (o *DeleteSelectorTemplateOK) GetPayload() *models.EntDeleteSelectorTemplat
 func (o *DeleteSelectorTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntDeleteSelectorTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteSelectorTemplateUnauthorized creates a DeleteSelectorTemplateUnauthorized with default headers values
-func NewDeleteSelectorTemplateUnauthorized() *DeleteSelectorTemplateUnauthorized {
-	return &DeleteSelectorTemplateUnauthorized{}
-}
-
-/*
-DeleteSelectorTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type DeleteSelectorTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this delete selector template unauthorized response has a 2xx status code
-func (o *DeleteSelectorTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete selector template unauthorized response has a 3xx status code
-func (o *DeleteSelectorTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete selector template unauthorized response has a 4xx status code
-func (o *DeleteSelectorTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete selector template unauthorized response has a 5xx status code
-func (o *DeleteSelectorTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete selector template unauthorized response a status code equal to that given
-func (o *DeleteSelectorTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the delete selector template unauthorized response
-func (o *DeleteSelectorTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *DeleteSelectorTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateUnauthorized ", 401)
-}
-
-func (o *DeleteSelectorTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateUnauthorized ", 401)
-}
-
-func (o *DeleteSelectorTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewDeleteSelectorTemplateForbidden creates a DeleteSelectorTemplateForbidden with default headers values
-func NewDeleteSelectorTemplateForbidden() *DeleteSelectorTemplateForbidden {
-	return &DeleteSelectorTemplateForbidden{}
-}
-
-/*
-DeleteSelectorTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type DeleteSelectorTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete selector template forbidden response has a 2xx status code
-func (o *DeleteSelectorTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete selector template forbidden response has a 3xx status code
-func (o *DeleteSelectorTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete selector template forbidden response has a 4xx status code
-func (o *DeleteSelectorTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete selector template forbidden response has a 5xx status code
-func (o *DeleteSelectorTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete selector template forbidden response a status code equal to that given
-func (o *DeleteSelectorTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the delete selector template forbidden response
-func (o *DeleteSelectorTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *DeleteSelectorTemplateForbidden) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteSelectorTemplateForbidden) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *DeleteSelectorTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteSelectorTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteSelectorTemplateNotFound creates a DeleteSelectorTemplateNotFound with default headers values
-func NewDeleteSelectorTemplateNotFound() *DeleteSelectorTemplateNotFound {
-	return &DeleteSelectorTemplateNotFound{}
-}
-
-/*
-DeleteSelectorTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type DeleteSelectorTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete selector template not found response has a 2xx status code
-func (o *DeleteSelectorTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete selector template not found response has a 3xx status code
-func (o *DeleteSelectorTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete selector template not found response has a 4xx status code
-func (o *DeleteSelectorTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete selector template not found response has a 5xx status code
-func (o *DeleteSelectorTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete selector template not found response a status code equal to that given
-func (o *DeleteSelectorTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the delete selector template not found response
-func (o *DeleteSelectorTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *DeleteSelectorTemplateNotFound) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteSelectorTemplateNotFound) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *DeleteSelectorTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteSelectorTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteSelectorTemplateInternalServerError creates a DeleteSelectorTemplateInternalServerError with default headers values
-func NewDeleteSelectorTemplateInternalServerError() *DeleteSelectorTemplateInternalServerError {
-	return &DeleteSelectorTemplateInternalServerError{}
-}
-
-/*
-DeleteSelectorTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type DeleteSelectorTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this delete selector template internal server error response has a 2xx status code
-func (o *DeleteSelectorTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete selector template internal server error response has a 3xx status code
-func (o *DeleteSelectorTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete selector template internal server error response has a 4xx status code
-func (o *DeleteSelectorTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this delete selector template internal server error response has a 5xx status code
-func (o *DeleteSelectorTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this delete selector template internal server error response a status code equal to that given
-func (o *DeleteSelectorTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the delete selector template internal server error response
-func (o *DeleteSelectorTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *DeleteSelectorTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteSelectorTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] deleteSelectorTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *DeleteSelectorTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *DeleteSelectorTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *DeleteSelectorTemplateDefault) Code() int {
 }
 
 func (o *DeleteSelectorTemplateDefault) Error() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] DeleteSelectorTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] DeleteSelectorTemplate default %s", o._statusCode, payload)
 }
 
 func (o *DeleteSelectorTemplateDefault) String() string {
-	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] DeleteSelectorTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[DELETE /scheduler/templates/selectors/{TemplateName}][%d] DeleteSelectorTemplate default %s", o._statusCode, payload)
 }
 
 func (o *DeleteSelectorTemplateDefault) GetPayload() *models.RPCStatus {

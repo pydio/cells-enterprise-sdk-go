@@ -262,6 +262,9 @@ type DeleteOAuth2ConnectorParams struct {
 	// ConfigmicrosoftUseGroupsAsWhitelist.
 	ConfigmicrosoftUseGroupsAsWhitelist *bool
 
+	// ConfigmockJSONIdentity.
+	ConfigmockJSONIdentity *string
+
 	// ConfigoauthAuthorizeURL.
 	ConfigoauthAuthorizeURL *string
 
@@ -1128,6 +1131,17 @@ func (o *DeleteOAuth2ConnectorParams) WithConfigmicrosoftUseGroupsAsWhitelist(co
 // SetConfigmicrosoftUseGroupsAsWhitelist adds the configmicrosoftUseGroupsAsWhitelist to the delete o auth2 connector params
 func (o *DeleteOAuth2ConnectorParams) SetConfigmicrosoftUseGroupsAsWhitelist(configmicrosoftUseGroupsAsWhitelist *bool) {
 	o.ConfigmicrosoftUseGroupsAsWhitelist = configmicrosoftUseGroupsAsWhitelist
+}
+
+// WithConfigmockJSONIdentity adds the configmockJSONIdentity to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) WithConfigmockJSONIdentity(configmockJSONIdentity *string) *DeleteOAuth2ConnectorParams {
+	o.SetConfigmockJSONIdentity(configmockJSONIdentity)
+	return o
+}
+
+// SetConfigmockJSONIdentity adds the configmockJsonIdentity to the delete o auth2 connector params
+func (o *DeleteOAuth2ConnectorParams) SetConfigmockJSONIdentity(configmockJSONIdentity *string) {
+	o.ConfigmockJSONIdentity = configmockJSONIdentity
 }
 
 // WithConfigoauthAuthorizeURL adds the configoauthAuthorizeURL to the delete o auth2 connector params
@@ -2598,6 +2612,23 @@ func (o *DeleteOAuth2ConnectorParams) WriteToRequest(r runtime.ClientRequest, re
 		if qConfigmicrosoftUseGroupsAsWhitelist != "" {
 
 			if err := r.SetQueryParam("configmicrosoft.useGroupsAsWhitelist", qConfigmicrosoftUseGroupsAsWhitelist); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigmockJSONIdentity != nil {
+
+		// query param configmock.jsonIdentity
+		var qrConfigmockJSONIdentity string
+
+		if o.ConfigmockJSONIdentity != nil {
+			qrConfigmockJSONIdentity = *o.ConfigmockJSONIdentity
+		}
+		qConfigmockJSONIdentity := qrConfigmockJSONIdentity
+		if qConfigmockJSONIdentity != "" {
+
+			if err := r.SetQueryParam("configmock.jsonIdentity", qConfigmockJSONIdentity); err != nil {
 				return err
 			}
 		}

@@ -34,8 +34,17 @@ type JobsAction struct {
 	// in parallel
 	ChainedActions []*JobsAction `json:"ChainedActions"`
 
+	// Filter values from ChatEvent
+	ChatEventFilter *JobsChatEventFilter `json:"ChatEventFilter,omitempty"`
+
 	// Metadata policy-based filter
 	ContextMetaFilter *JobsContextMetaFilter `json:"ContextMetaFilter,omitempty"`
+
+	// Filter values from JsonBody
+	DataFilter *JobsDataSelector `json:"DataFilter,omitempty"`
+
+	// Collect/select values from JsonBody
+	DataSelector *JobsDataSelector `json:"DataSelector,omitempty"`
 
 	// DataSource objects filter
 	DataSourceFilter *JobsDataSourceSelector `json:"DataSourceFilter,omitempty"`
@@ -99,7 +108,19 @@ func (m *JobsAction) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateChatEventFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateContextMetaFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDataFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDataSelector(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -198,6 +219,25 @@ func (m *JobsAction) validateChainedActions(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *JobsAction) validateChatEventFilter(formats strfmt.Registry) error {
+	if swag.IsZero(m.ChatEventFilter) { // not required
+		return nil
+	}
+
+	if m.ChatEventFilter != nil {
+		if err := m.ChatEventFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ChatEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ChatEventFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *JobsAction) validateContextMetaFilter(formats strfmt.Registry) error {
 	if swag.IsZero(m.ContextMetaFilter) { // not required
 		return nil
@@ -209,6 +249,44 @@ func (m *JobsAction) validateContextMetaFilter(formats strfmt.Registry) error {
 				return ve.ValidateName("ContextMetaFilter")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("ContextMetaFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsAction) validateDataFilter(formats strfmt.Registry) error {
+	if swag.IsZero(m.DataFilter) { // not required
+		return nil
+	}
+
+	if m.DataFilter != nil {
+		if err := m.DataFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DataFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsAction) validateDataSelector(formats strfmt.Registry) error {
+	if swag.IsZero(m.DataSelector) { // not required
+		return nil
+	}
+
+	if m.DataSelector != nil {
+		if err := m.DataSelector.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DataSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSelector")
 			}
 			return err
 		}
@@ -445,7 +523,19 @@ func (m *JobsAction) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateChatEventFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateContextMetaFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDataFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDataSelector(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -545,6 +635,27 @@ func (m *JobsAction) contextValidateChainedActions(ctx context.Context, formats 
 	return nil
 }
 
+func (m *JobsAction) contextValidateChatEventFilter(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ChatEventFilter != nil {
+
+		if swag.IsZero(m.ChatEventFilter) { // not required
+			return nil
+		}
+
+		if err := m.ChatEventFilter.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ChatEventFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ChatEventFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *JobsAction) contextValidateContextMetaFilter(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.ContextMetaFilter != nil {
@@ -558,6 +669,48 @@ func (m *JobsAction) contextValidateContextMetaFilter(ctx context.Context, forma
 				return ve.ValidateName("ContextMetaFilter")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("ContextMetaFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsAction) contextValidateDataFilter(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DataFilter != nil {
+
+		if swag.IsZero(m.DataFilter) { // not required
+			return nil
+		}
+
+		if err := m.DataFilter.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DataFilter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataFilter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *JobsAction) contextValidateDataSelector(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DataSelector != nil {
+
+		if swag.IsZero(m.DataSelector) { // not required
+			return nil
+		}
+
+		if err := m.DataSelector.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("DataSelector")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("DataSelector")
 			}
 			return err
 		}

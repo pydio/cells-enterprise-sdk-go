@@ -7,6 +7,7 @@ package scheduler_service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -31,30 +32,6 @@ func (o *TriggerHookReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewTriggerHookUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewTriggerHookForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewTriggerHookNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewTriggerHookInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewTriggerHookDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -112,11 +89,13 @@ func (o *TriggerHookOK) Code() int {
 }
 
 func (o *TriggerHookOK) Error() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookOK %s", 200, payload)
 }
 
 func (o *TriggerHookOK) String() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookOK %s", 200, payload)
 }
 
 func (o *TriggerHookOK) GetPayload() *models.EntJobHookResponse {
@@ -126,266 +105,6 @@ func (o *TriggerHookOK) GetPayload() *models.EntJobHookResponse {
 func (o *TriggerHookOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntJobHookResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewTriggerHookUnauthorized creates a TriggerHookUnauthorized with default headers values
-func NewTriggerHookUnauthorized() *TriggerHookUnauthorized {
-	return &TriggerHookUnauthorized{}
-}
-
-/*
-TriggerHookUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type TriggerHookUnauthorized struct {
-}
-
-// IsSuccess returns true when this trigger hook unauthorized response has a 2xx status code
-func (o *TriggerHookUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this trigger hook unauthorized response has a 3xx status code
-func (o *TriggerHookUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this trigger hook unauthorized response has a 4xx status code
-func (o *TriggerHookUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this trigger hook unauthorized response has a 5xx status code
-func (o *TriggerHookUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this trigger hook unauthorized response a status code equal to that given
-func (o *TriggerHookUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the trigger hook unauthorized response
-func (o *TriggerHookUnauthorized) Code() int {
-	return 401
-}
-
-func (o *TriggerHookUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookUnauthorized ", 401)
-}
-
-func (o *TriggerHookUnauthorized) String() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookUnauthorized ", 401)
-}
-
-func (o *TriggerHookUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewTriggerHookForbidden creates a TriggerHookForbidden with default headers values
-func NewTriggerHookForbidden() *TriggerHookForbidden {
-	return &TriggerHookForbidden{}
-}
-
-/*
-TriggerHookForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type TriggerHookForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this trigger hook forbidden response has a 2xx status code
-func (o *TriggerHookForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this trigger hook forbidden response has a 3xx status code
-func (o *TriggerHookForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this trigger hook forbidden response has a 4xx status code
-func (o *TriggerHookForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this trigger hook forbidden response has a 5xx status code
-func (o *TriggerHookForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this trigger hook forbidden response a status code equal to that given
-func (o *TriggerHookForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the trigger hook forbidden response
-func (o *TriggerHookForbidden) Code() int {
-	return 403
-}
-
-func (o *TriggerHookForbidden) Error() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookForbidden  %+v", 403, o.Payload)
-}
-
-func (o *TriggerHookForbidden) String() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookForbidden  %+v", 403, o.Payload)
-}
-
-func (o *TriggerHookForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *TriggerHookForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewTriggerHookNotFound creates a TriggerHookNotFound with default headers values
-func NewTriggerHookNotFound() *TriggerHookNotFound {
-	return &TriggerHookNotFound{}
-}
-
-/*
-TriggerHookNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type TriggerHookNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this trigger hook not found response has a 2xx status code
-func (o *TriggerHookNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this trigger hook not found response has a 3xx status code
-func (o *TriggerHookNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this trigger hook not found response has a 4xx status code
-func (o *TriggerHookNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this trigger hook not found response has a 5xx status code
-func (o *TriggerHookNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this trigger hook not found response a status code equal to that given
-func (o *TriggerHookNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the trigger hook not found response
-func (o *TriggerHookNotFound) Code() int {
-	return 404
-}
-
-func (o *TriggerHookNotFound) Error() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookNotFound  %+v", 404, o.Payload)
-}
-
-func (o *TriggerHookNotFound) String() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookNotFound  %+v", 404, o.Payload)
-}
-
-func (o *TriggerHookNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *TriggerHookNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewTriggerHookInternalServerError creates a TriggerHookInternalServerError with default headers values
-func NewTriggerHookInternalServerError() *TriggerHookInternalServerError {
-	return &TriggerHookInternalServerError{}
-}
-
-/*
-TriggerHookInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type TriggerHookInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this trigger hook internal server error response has a 2xx status code
-func (o *TriggerHookInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this trigger hook internal server error response has a 3xx status code
-func (o *TriggerHookInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this trigger hook internal server error response has a 4xx status code
-func (o *TriggerHookInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this trigger hook internal server error response has a 5xx status code
-func (o *TriggerHookInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this trigger hook internal server error response a status code equal to that given
-func (o *TriggerHookInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the trigger hook internal server error response
-func (o *TriggerHookInternalServerError) Code() int {
-	return 500
-}
-
-func (o *TriggerHookInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *TriggerHookInternalServerError) String() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] triggerHookInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *TriggerHookInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *TriggerHookInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -444,11 +163,13 @@ func (o *TriggerHookDefault) Code() int {
 }
 
 func (o *TriggerHookDefault) Error() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] TriggerHook default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] TriggerHook default %s", o._statusCode, payload)
 }
 
 func (o *TriggerHookDefault) String() string {
-	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] TriggerHook default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /scheduler/hooks/{HookSlug}][%d] TriggerHook default %s", o._statusCode, payload)
 }
 
 func (o *TriggerHookDefault) GetPayload() *models.RPCStatus {

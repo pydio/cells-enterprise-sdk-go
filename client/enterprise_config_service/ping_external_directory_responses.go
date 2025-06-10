@@ -6,6 +6,7 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *PingExternalDirectoryReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPingExternalDirectoryUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPingExternalDirectoryForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPingExternalDirectoryNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPingExternalDirectoryInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPingExternalDirectoryDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *PingExternalDirectoryOK) Code() int {
 }
 
 func (o *PingExternalDirectoryOK) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryOK %s", 200, payload)
 }
 
 func (o *PingExternalDirectoryOK) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryOK %s", 200, payload)
 }
 
 func (o *PingExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryTestResponse {
@@ -124,266 +103,6 @@ func (o *PingExternalDirectoryOK) GetPayload() *models.EntExternalDirectoryTestR
 func (o *PingExternalDirectoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntExternalDirectoryTestResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPingExternalDirectoryUnauthorized creates a PingExternalDirectoryUnauthorized with default headers values
-func NewPingExternalDirectoryUnauthorized() *PingExternalDirectoryUnauthorized {
-	return &PingExternalDirectoryUnauthorized{}
-}
-
-/*
-PingExternalDirectoryUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PingExternalDirectoryUnauthorized struct {
-}
-
-// IsSuccess returns true when this ping external directory unauthorized response has a 2xx status code
-func (o *PingExternalDirectoryUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this ping external directory unauthorized response has a 3xx status code
-func (o *PingExternalDirectoryUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this ping external directory unauthorized response has a 4xx status code
-func (o *PingExternalDirectoryUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this ping external directory unauthorized response has a 5xx status code
-func (o *PingExternalDirectoryUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this ping external directory unauthorized response a status code equal to that given
-func (o *PingExternalDirectoryUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the ping external directory unauthorized response
-func (o *PingExternalDirectoryUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PingExternalDirectoryUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryUnauthorized ", 401)
-}
-
-func (o *PingExternalDirectoryUnauthorized) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryUnauthorized ", 401)
-}
-
-func (o *PingExternalDirectoryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPingExternalDirectoryForbidden creates a PingExternalDirectoryForbidden with default headers values
-func NewPingExternalDirectoryForbidden() *PingExternalDirectoryForbidden {
-	return &PingExternalDirectoryForbidden{}
-}
-
-/*
-PingExternalDirectoryForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PingExternalDirectoryForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this ping external directory forbidden response has a 2xx status code
-func (o *PingExternalDirectoryForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this ping external directory forbidden response has a 3xx status code
-func (o *PingExternalDirectoryForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this ping external directory forbidden response has a 4xx status code
-func (o *PingExternalDirectoryForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this ping external directory forbidden response has a 5xx status code
-func (o *PingExternalDirectoryForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this ping external directory forbidden response a status code equal to that given
-func (o *PingExternalDirectoryForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the ping external directory forbidden response
-func (o *PingExternalDirectoryForbidden) Code() int {
-	return 403
-}
-
-func (o *PingExternalDirectoryForbidden) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PingExternalDirectoryForbidden) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PingExternalDirectoryForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PingExternalDirectoryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPingExternalDirectoryNotFound creates a PingExternalDirectoryNotFound with default headers values
-func NewPingExternalDirectoryNotFound() *PingExternalDirectoryNotFound {
-	return &PingExternalDirectoryNotFound{}
-}
-
-/*
-PingExternalDirectoryNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PingExternalDirectoryNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this ping external directory not found response has a 2xx status code
-func (o *PingExternalDirectoryNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this ping external directory not found response has a 3xx status code
-func (o *PingExternalDirectoryNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this ping external directory not found response has a 4xx status code
-func (o *PingExternalDirectoryNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this ping external directory not found response has a 5xx status code
-func (o *PingExternalDirectoryNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this ping external directory not found response a status code equal to that given
-func (o *PingExternalDirectoryNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the ping external directory not found response
-func (o *PingExternalDirectoryNotFound) Code() int {
-	return 404
-}
-
-func (o *PingExternalDirectoryNotFound) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PingExternalDirectoryNotFound) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PingExternalDirectoryNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PingExternalDirectoryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPingExternalDirectoryInternalServerError creates a PingExternalDirectoryInternalServerError with default headers values
-func NewPingExternalDirectoryInternalServerError() *PingExternalDirectoryInternalServerError {
-	return &PingExternalDirectoryInternalServerError{}
-}
-
-/*
-PingExternalDirectoryInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PingExternalDirectoryInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this ping external directory internal server error response has a 2xx status code
-func (o *PingExternalDirectoryInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this ping external directory internal server error response has a 3xx status code
-func (o *PingExternalDirectoryInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this ping external directory internal server error response has a 4xx status code
-func (o *PingExternalDirectoryInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this ping external directory internal server error response has a 5xx status code
-func (o *PingExternalDirectoryInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this ping external directory internal server error response a status code equal to that given
-func (o *PingExternalDirectoryInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the ping external directory internal server error response
-func (o *PingExternalDirectoryInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PingExternalDirectoryInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PingExternalDirectoryInternalServerError) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] pingExternalDirectoryInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PingExternalDirectoryInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PingExternalDirectoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *PingExternalDirectoryDefault) Code() int {
 }
 
 func (o *PingExternalDirectoryDefault) Error() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] PingExternalDirectory default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/ping][%d] PingExternalDirectory default %s", o._statusCode, payload)
 }
 
 func (o *PingExternalDirectoryDefault) String() string {
-	return fmt.Sprintf("[POST /config/directories-test/ping][%d] PingExternalDirectory default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /config/directories-test/ping][%d] PingExternalDirectory default %s", o._statusCode, payload)
 }
 
 func (o *PingExternalDirectoryDefault) GetPayload() *models.RPCStatus {

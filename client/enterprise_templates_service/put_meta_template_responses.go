@@ -6,6 +6,7 @@ package enterprise_templates_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *PutMetaTemplateReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutMetaTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutMetaTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutMetaTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutMetaTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutMetaTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *PutMetaTemplateOK) Code() int {
 }
 
 func (o *PutMetaTemplateOK) Error() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateOK %s", 200, payload)
 }
 
 func (o *PutMetaTemplateOK) String() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateOK %s", 200, payload)
 }
 
 func (o *PutMetaTemplateOK) GetPayload() *models.EntPutMetaTemplateResponse {
@@ -124,266 +103,6 @@ func (o *PutMetaTemplateOK) GetPayload() *models.EntPutMetaTemplateResponse {
 func (o *PutMetaTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPutMetaTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutMetaTemplateUnauthorized creates a PutMetaTemplateUnauthorized with default headers values
-func NewPutMetaTemplateUnauthorized() *PutMetaTemplateUnauthorized {
-	return &PutMetaTemplateUnauthorized{}
-}
-
-/*
-PutMetaTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutMetaTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this put meta template unauthorized response has a 2xx status code
-func (o *PutMetaTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put meta template unauthorized response has a 3xx status code
-func (o *PutMetaTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put meta template unauthorized response has a 4xx status code
-func (o *PutMetaTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put meta template unauthorized response has a 5xx status code
-func (o *PutMetaTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put meta template unauthorized response a status code equal to that given
-func (o *PutMetaTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put meta template unauthorized response
-func (o *PutMetaTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutMetaTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateUnauthorized ", 401)
-}
-
-func (o *PutMetaTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateUnauthorized ", 401)
-}
-
-func (o *PutMetaTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutMetaTemplateForbidden creates a PutMetaTemplateForbidden with default headers values
-func NewPutMetaTemplateForbidden() *PutMetaTemplateForbidden {
-	return &PutMetaTemplateForbidden{}
-}
-
-/*
-PutMetaTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutMetaTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put meta template forbidden response has a 2xx status code
-func (o *PutMetaTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put meta template forbidden response has a 3xx status code
-func (o *PutMetaTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put meta template forbidden response has a 4xx status code
-func (o *PutMetaTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put meta template forbidden response has a 5xx status code
-func (o *PutMetaTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put meta template forbidden response a status code equal to that given
-func (o *PutMetaTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put meta template forbidden response
-func (o *PutMetaTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *PutMetaTemplateForbidden) Error() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutMetaTemplateForbidden) String() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutMetaTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutMetaTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutMetaTemplateNotFound creates a PutMetaTemplateNotFound with default headers values
-func NewPutMetaTemplateNotFound() *PutMetaTemplateNotFound {
-	return &PutMetaTemplateNotFound{}
-}
-
-/*
-PutMetaTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutMetaTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put meta template not found response has a 2xx status code
-func (o *PutMetaTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put meta template not found response has a 3xx status code
-func (o *PutMetaTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put meta template not found response has a 4xx status code
-func (o *PutMetaTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put meta template not found response has a 5xx status code
-func (o *PutMetaTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put meta template not found response a status code equal to that given
-func (o *PutMetaTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put meta template not found response
-func (o *PutMetaTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *PutMetaTemplateNotFound) Error() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutMetaTemplateNotFound) String() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutMetaTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutMetaTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutMetaTemplateInternalServerError creates a PutMetaTemplateInternalServerError with default headers values
-func NewPutMetaTemplateInternalServerError() *PutMetaTemplateInternalServerError {
-	return &PutMetaTemplateInternalServerError{}
-}
-
-/*
-PutMetaTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutMetaTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put meta template internal server error response has a 2xx status code
-func (o *PutMetaTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put meta template internal server error response has a 3xx status code
-func (o *PutMetaTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put meta template internal server error response has a 4xx status code
-func (o *PutMetaTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put meta template internal server error response has a 5xx status code
-func (o *PutMetaTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put meta template internal server error response a status code equal to that given
-func (o *PutMetaTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put meta template internal server error response
-func (o *PutMetaTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutMetaTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutMetaTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] putMetaTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutMetaTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutMetaTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *PutMetaTemplateDefault) Code() int {
 }
 
 func (o *PutMetaTemplateDefault) Error() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] PutMetaTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /templates/meta][%d] PutMetaTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutMetaTemplateDefault) String() string {
-	return fmt.Sprintf("[PUT /templates/meta][%d] PutMetaTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /templates/meta][%d] PutMetaTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutMetaTemplateDefault) GetPayload() *models.RPCStatus {

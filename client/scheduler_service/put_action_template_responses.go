@@ -6,6 +6,7 @@ package scheduler_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *PutActionTemplateReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewPutActionTemplateUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewPutActionTemplateForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewPutActionTemplateNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewPutActionTemplateInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewPutActionTemplateDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *PutActionTemplateOK) Code() int {
 }
 
 func (o *PutActionTemplateOK) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateOK %s", 200, payload)
 }
 
 func (o *PutActionTemplateOK) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateOK %s", 200, payload)
 }
 
 func (o *PutActionTemplateOK) GetPayload() *models.EntPutActionTemplateResponse {
@@ -124,266 +103,6 @@ func (o *PutActionTemplateOK) GetPayload() *models.EntPutActionTemplateResponse 
 func (o *PutActionTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntPutActionTemplateResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutActionTemplateUnauthorized creates a PutActionTemplateUnauthorized with default headers values
-func NewPutActionTemplateUnauthorized() *PutActionTemplateUnauthorized {
-	return &PutActionTemplateUnauthorized{}
-}
-
-/*
-PutActionTemplateUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type PutActionTemplateUnauthorized struct {
-}
-
-// IsSuccess returns true when this put action template unauthorized response has a 2xx status code
-func (o *PutActionTemplateUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put action template unauthorized response has a 3xx status code
-func (o *PutActionTemplateUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put action template unauthorized response has a 4xx status code
-func (o *PutActionTemplateUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put action template unauthorized response has a 5xx status code
-func (o *PutActionTemplateUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put action template unauthorized response a status code equal to that given
-func (o *PutActionTemplateUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the put action template unauthorized response
-func (o *PutActionTemplateUnauthorized) Code() int {
-	return 401
-}
-
-func (o *PutActionTemplateUnauthorized) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateUnauthorized ", 401)
-}
-
-func (o *PutActionTemplateUnauthorized) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateUnauthorized ", 401)
-}
-
-func (o *PutActionTemplateUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewPutActionTemplateForbidden creates a PutActionTemplateForbidden with default headers values
-func NewPutActionTemplateForbidden() *PutActionTemplateForbidden {
-	return &PutActionTemplateForbidden{}
-}
-
-/*
-PutActionTemplateForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type PutActionTemplateForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put action template forbidden response has a 2xx status code
-func (o *PutActionTemplateForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put action template forbidden response has a 3xx status code
-func (o *PutActionTemplateForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put action template forbidden response has a 4xx status code
-func (o *PutActionTemplateForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put action template forbidden response has a 5xx status code
-func (o *PutActionTemplateForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put action template forbidden response a status code equal to that given
-func (o *PutActionTemplateForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the put action template forbidden response
-func (o *PutActionTemplateForbidden) Code() int {
-	return 403
-}
-
-func (o *PutActionTemplateForbidden) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutActionTemplateForbidden) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateForbidden  %+v", 403, o.Payload)
-}
-
-func (o *PutActionTemplateForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutActionTemplateForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutActionTemplateNotFound creates a PutActionTemplateNotFound with default headers values
-func NewPutActionTemplateNotFound() *PutActionTemplateNotFound {
-	return &PutActionTemplateNotFound{}
-}
-
-/*
-PutActionTemplateNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type PutActionTemplateNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put action template not found response has a 2xx status code
-func (o *PutActionTemplateNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put action template not found response has a 3xx status code
-func (o *PutActionTemplateNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put action template not found response has a 4xx status code
-func (o *PutActionTemplateNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this put action template not found response has a 5xx status code
-func (o *PutActionTemplateNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this put action template not found response a status code equal to that given
-func (o *PutActionTemplateNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the put action template not found response
-func (o *PutActionTemplateNotFound) Code() int {
-	return 404
-}
-
-func (o *PutActionTemplateNotFound) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutActionTemplateNotFound) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateNotFound  %+v", 404, o.Payload)
-}
-
-func (o *PutActionTemplateNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutActionTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewPutActionTemplateInternalServerError creates a PutActionTemplateInternalServerError with default headers values
-func NewPutActionTemplateInternalServerError() *PutActionTemplateInternalServerError {
-	return &PutActionTemplateInternalServerError{}
-}
-
-/*
-PutActionTemplateInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type PutActionTemplateInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this put action template internal server error response has a 2xx status code
-func (o *PutActionTemplateInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this put action template internal server error response has a 3xx status code
-func (o *PutActionTemplateInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this put action template internal server error response has a 4xx status code
-func (o *PutActionTemplateInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this put action template internal server error response has a 5xx status code
-func (o *PutActionTemplateInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this put action template internal server error response a status code equal to that given
-func (o *PutActionTemplateInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the put action template internal server error response
-func (o *PutActionTemplateInternalServerError) Code() int {
-	return 500
-}
-
-func (o *PutActionTemplateInternalServerError) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutActionTemplateInternalServerError) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] putActionTemplateInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *PutActionTemplateInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *PutActionTemplateInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *PutActionTemplateDefault) Code() int {
 }
 
 func (o *PutActionTemplateDefault) Error() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] PutActionTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] PutActionTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutActionTemplateDefault) String() string {
-	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] PutActionTemplate default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PUT /scheduler/templates/actions][%d] PutActionTemplate default %s", o._statusCode, payload)
 }
 
 func (o *PutActionTemplateDefault) GetPayload() *models.RPCStatus {

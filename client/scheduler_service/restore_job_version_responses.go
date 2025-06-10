@@ -7,6 +7,7 @@ package scheduler_service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -31,30 +32,6 @@ func (o *RestoreJobVersionReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewRestoreJobVersionUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewRestoreJobVersionForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewRestoreJobVersionNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewRestoreJobVersionInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewRestoreJobVersionDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -112,11 +89,13 @@ func (o *RestoreJobVersionOK) Code() int {
 }
 
 func (o *RestoreJobVersionOK) Error() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionOK %s", 200, payload)
 }
 
 func (o *RestoreJobVersionOK) String() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionOK %s", 200, payload)
 }
 
 func (o *RestoreJobVersionOK) GetPayload() *models.EntRestoreJobVersionResponse {
@@ -126,266 +105,6 @@ func (o *RestoreJobVersionOK) GetPayload() *models.EntRestoreJobVersionResponse 
 func (o *RestoreJobVersionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntRestoreJobVersionResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRestoreJobVersionUnauthorized creates a RestoreJobVersionUnauthorized with default headers values
-func NewRestoreJobVersionUnauthorized() *RestoreJobVersionUnauthorized {
-	return &RestoreJobVersionUnauthorized{}
-}
-
-/*
-RestoreJobVersionUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type RestoreJobVersionUnauthorized struct {
-}
-
-// IsSuccess returns true when this restore job version unauthorized response has a 2xx status code
-func (o *RestoreJobVersionUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this restore job version unauthorized response has a 3xx status code
-func (o *RestoreJobVersionUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this restore job version unauthorized response has a 4xx status code
-func (o *RestoreJobVersionUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this restore job version unauthorized response has a 5xx status code
-func (o *RestoreJobVersionUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this restore job version unauthorized response a status code equal to that given
-func (o *RestoreJobVersionUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the restore job version unauthorized response
-func (o *RestoreJobVersionUnauthorized) Code() int {
-	return 401
-}
-
-func (o *RestoreJobVersionUnauthorized) Error() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionUnauthorized ", 401)
-}
-
-func (o *RestoreJobVersionUnauthorized) String() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionUnauthorized ", 401)
-}
-
-func (o *RestoreJobVersionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewRestoreJobVersionForbidden creates a RestoreJobVersionForbidden with default headers values
-func NewRestoreJobVersionForbidden() *RestoreJobVersionForbidden {
-	return &RestoreJobVersionForbidden{}
-}
-
-/*
-RestoreJobVersionForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type RestoreJobVersionForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this restore job version forbidden response has a 2xx status code
-func (o *RestoreJobVersionForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this restore job version forbidden response has a 3xx status code
-func (o *RestoreJobVersionForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this restore job version forbidden response has a 4xx status code
-func (o *RestoreJobVersionForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this restore job version forbidden response has a 5xx status code
-func (o *RestoreJobVersionForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this restore job version forbidden response a status code equal to that given
-func (o *RestoreJobVersionForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the restore job version forbidden response
-func (o *RestoreJobVersionForbidden) Code() int {
-	return 403
-}
-
-func (o *RestoreJobVersionForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionForbidden  %+v", 403, o.Payload)
-}
-
-func (o *RestoreJobVersionForbidden) String() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionForbidden  %+v", 403, o.Payload)
-}
-
-func (o *RestoreJobVersionForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *RestoreJobVersionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRestoreJobVersionNotFound creates a RestoreJobVersionNotFound with default headers values
-func NewRestoreJobVersionNotFound() *RestoreJobVersionNotFound {
-	return &RestoreJobVersionNotFound{}
-}
-
-/*
-RestoreJobVersionNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type RestoreJobVersionNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this restore job version not found response has a 2xx status code
-func (o *RestoreJobVersionNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this restore job version not found response has a 3xx status code
-func (o *RestoreJobVersionNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this restore job version not found response has a 4xx status code
-func (o *RestoreJobVersionNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this restore job version not found response has a 5xx status code
-func (o *RestoreJobVersionNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this restore job version not found response a status code equal to that given
-func (o *RestoreJobVersionNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the restore job version not found response
-func (o *RestoreJobVersionNotFound) Code() int {
-	return 404
-}
-
-func (o *RestoreJobVersionNotFound) Error() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionNotFound  %+v", 404, o.Payload)
-}
-
-func (o *RestoreJobVersionNotFound) String() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionNotFound  %+v", 404, o.Payload)
-}
-
-func (o *RestoreJobVersionNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *RestoreJobVersionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRestoreJobVersionInternalServerError creates a RestoreJobVersionInternalServerError with default headers values
-func NewRestoreJobVersionInternalServerError() *RestoreJobVersionInternalServerError {
-	return &RestoreJobVersionInternalServerError{}
-}
-
-/*
-RestoreJobVersionInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type RestoreJobVersionInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this restore job version internal server error response has a 2xx status code
-func (o *RestoreJobVersionInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this restore job version internal server error response has a 3xx status code
-func (o *RestoreJobVersionInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this restore job version internal server error response has a 4xx status code
-func (o *RestoreJobVersionInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this restore job version internal server error response has a 5xx status code
-func (o *RestoreJobVersionInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this restore job version internal server error response a status code equal to that given
-func (o *RestoreJobVersionInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the restore job version internal server error response
-func (o *RestoreJobVersionInternalServerError) Code() int {
-	return 500
-}
-
-func (o *RestoreJobVersionInternalServerError) Error() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *RestoreJobVersionInternalServerError) String() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] restoreJobVersionInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *RestoreJobVersionInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *RestoreJobVersionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -444,11 +163,13 @@ func (o *RestoreJobVersionDefault) Code() int {
 }
 
 func (o *RestoreJobVersionDefault) Error() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] RestoreJobVersion default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] RestoreJobVersion default %s", o._statusCode, payload)
 }
 
 func (o *RestoreJobVersionDefault) String() string {
-	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] RestoreJobVersion default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[PATCH /scheduler/versions/{JobID}/{VersionID}][%d] RestoreJobVersion default %s", o._statusCode, payload)
 }
 
 func (o *RestoreJobVersionDefault) GetPayload() *models.RPCStatus {

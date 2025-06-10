@@ -6,6 +6,7 @@ package audit_data_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListReportsReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListReportsUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListReportsForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListReportsNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListReportsInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListReportsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListReportsOK) Code() int {
 }
 
 func (o *ListReportsOK) Error() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsOK %s", 200, payload)
 }
 
 func (o *ListReportsOK) String() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsOK %s", 200, payload)
 }
 
 func (o *ListReportsOK) GetPayload() *models.ReportsListReportsResponse {
@@ -124,266 +103,6 @@ func (o *ListReportsOK) GetPayload() *models.ReportsListReportsResponse {
 func (o *ListReportsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ReportsListReportsResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListReportsUnauthorized creates a ListReportsUnauthorized with default headers values
-func NewListReportsUnauthorized() *ListReportsUnauthorized {
-	return &ListReportsUnauthorized{}
-}
-
-/*
-ListReportsUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListReportsUnauthorized struct {
-}
-
-// IsSuccess returns true when this list reports unauthorized response has a 2xx status code
-func (o *ListReportsUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list reports unauthorized response has a 3xx status code
-func (o *ListReportsUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list reports unauthorized response has a 4xx status code
-func (o *ListReportsUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list reports unauthorized response has a 5xx status code
-func (o *ListReportsUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list reports unauthorized response a status code equal to that given
-func (o *ListReportsUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list reports unauthorized response
-func (o *ListReportsUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListReportsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsUnauthorized ", 401)
-}
-
-func (o *ListReportsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsUnauthorized ", 401)
-}
-
-func (o *ListReportsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListReportsForbidden creates a ListReportsForbidden with default headers values
-func NewListReportsForbidden() *ListReportsForbidden {
-	return &ListReportsForbidden{}
-}
-
-/*
-ListReportsForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListReportsForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list reports forbidden response has a 2xx status code
-func (o *ListReportsForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list reports forbidden response has a 3xx status code
-func (o *ListReportsForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list reports forbidden response has a 4xx status code
-func (o *ListReportsForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list reports forbidden response has a 5xx status code
-func (o *ListReportsForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list reports forbidden response a status code equal to that given
-func (o *ListReportsForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list reports forbidden response
-func (o *ListReportsForbidden) Code() int {
-	return 403
-}
-
-func (o *ListReportsForbidden) Error() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListReportsForbidden) String() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListReportsForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListReportsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListReportsNotFound creates a ListReportsNotFound with default headers values
-func NewListReportsNotFound() *ListReportsNotFound {
-	return &ListReportsNotFound{}
-}
-
-/*
-ListReportsNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListReportsNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list reports not found response has a 2xx status code
-func (o *ListReportsNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list reports not found response has a 3xx status code
-func (o *ListReportsNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list reports not found response has a 4xx status code
-func (o *ListReportsNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list reports not found response has a 5xx status code
-func (o *ListReportsNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list reports not found response a status code equal to that given
-func (o *ListReportsNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list reports not found response
-func (o *ListReportsNotFound) Code() int {
-	return 404
-}
-
-func (o *ListReportsNotFound) Error() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListReportsNotFound) String() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListReportsNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListReportsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListReportsInternalServerError creates a ListReportsInternalServerError with default headers values
-func NewListReportsInternalServerError() *ListReportsInternalServerError {
-	return &ListReportsInternalServerError{}
-}
-
-/*
-ListReportsInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListReportsInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list reports internal server error response has a 2xx status code
-func (o *ListReportsInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list reports internal server error response has a 3xx status code
-func (o *ListReportsInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list reports internal server error response has a 4xx status code
-func (o *ListReportsInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list reports internal server error response has a 5xx status code
-func (o *ListReportsInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list reports internal server error response a status code equal to that given
-func (o *ListReportsInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list reports internal server error response
-func (o *ListReportsInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListReportsInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListReportsInternalServerError) String() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] listReportsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListReportsInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListReportsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListReportsDefault) Code() int {
 }
 
 func (o *ListReportsDefault) Error() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] ListReports default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /audit/data/reports][%d] ListReports default %s", o._statusCode, payload)
 }
 
 func (o *ListReportsDefault) String() string {
-	return fmt.Sprintf("[GET /audit/data/reports][%d] ListReports default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /audit/data/reports][%d] ListReports default %s", o._statusCode, payload)
 }
 
 func (o *ListReportsDefault) GetPayload() *models.RPCStatus {

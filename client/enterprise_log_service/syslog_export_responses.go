@@ -6,6 +6,7 @@ package enterprise_log_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *SyslogExportReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewSyslogExportUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewSyslogExportForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewSyslogExportNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewSyslogExportInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewSyslogExportDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *SyslogExportOK) Code() int {
 }
 
 func (o *SyslogExportOK) Error() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK %s", 200, payload)
 }
 
 func (o *SyslogExportOK) String() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportOK %s", 200, payload)
 }
 
 func (o *SyslogExportOK) GetPayload() *models.RestLogMessageCollection {
@@ -124,266 +103,6 @@ func (o *SyslogExportOK) GetPayload() *models.RestLogMessageCollection {
 func (o *SyslogExportOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RestLogMessageCollection)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSyslogExportUnauthorized creates a SyslogExportUnauthorized with default headers values
-func NewSyslogExportUnauthorized() *SyslogExportUnauthorized {
-	return &SyslogExportUnauthorized{}
-}
-
-/*
-SyslogExportUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type SyslogExportUnauthorized struct {
-}
-
-// IsSuccess returns true when this syslog export unauthorized response has a 2xx status code
-func (o *SyslogExportUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this syslog export unauthorized response has a 3xx status code
-func (o *SyslogExportUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this syslog export unauthorized response has a 4xx status code
-func (o *SyslogExportUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this syslog export unauthorized response has a 5xx status code
-func (o *SyslogExportUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this syslog export unauthorized response a status code equal to that given
-func (o *SyslogExportUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the syslog export unauthorized response
-func (o *SyslogExportUnauthorized) Code() int {
-	return 401
-}
-
-func (o *SyslogExportUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportUnauthorized ", 401)
-}
-
-func (o *SyslogExportUnauthorized) String() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportUnauthorized ", 401)
-}
-
-func (o *SyslogExportUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewSyslogExportForbidden creates a SyslogExportForbidden with default headers values
-func NewSyslogExportForbidden() *SyslogExportForbidden {
-	return &SyslogExportForbidden{}
-}
-
-/*
-SyslogExportForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type SyslogExportForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this syslog export forbidden response has a 2xx status code
-func (o *SyslogExportForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this syslog export forbidden response has a 3xx status code
-func (o *SyslogExportForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this syslog export forbidden response has a 4xx status code
-func (o *SyslogExportForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this syslog export forbidden response has a 5xx status code
-func (o *SyslogExportForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this syslog export forbidden response a status code equal to that given
-func (o *SyslogExportForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the syslog export forbidden response
-func (o *SyslogExportForbidden) Code() int {
-	return 403
-}
-
-func (o *SyslogExportForbidden) Error() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportForbidden  %+v", 403, o.Payload)
-}
-
-func (o *SyslogExportForbidden) String() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportForbidden  %+v", 403, o.Payload)
-}
-
-func (o *SyslogExportForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SyslogExportForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSyslogExportNotFound creates a SyslogExportNotFound with default headers values
-func NewSyslogExportNotFound() *SyslogExportNotFound {
-	return &SyslogExportNotFound{}
-}
-
-/*
-SyslogExportNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type SyslogExportNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this syslog export not found response has a 2xx status code
-func (o *SyslogExportNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this syslog export not found response has a 3xx status code
-func (o *SyslogExportNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this syslog export not found response has a 4xx status code
-func (o *SyslogExportNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this syslog export not found response has a 5xx status code
-func (o *SyslogExportNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this syslog export not found response a status code equal to that given
-func (o *SyslogExportNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the syslog export not found response
-func (o *SyslogExportNotFound) Code() int {
-	return 404
-}
-
-func (o *SyslogExportNotFound) Error() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportNotFound  %+v", 404, o.Payload)
-}
-
-func (o *SyslogExportNotFound) String() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportNotFound  %+v", 404, o.Payload)
-}
-
-func (o *SyslogExportNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SyslogExportNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSyslogExportInternalServerError creates a SyslogExportInternalServerError with default headers values
-func NewSyslogExportInternalServerError() *SyslogExportInternalServerError {
-	return &SyslogExportInternalServerError{}
-}
-
-/*
-SyslogExportInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type SyslogExportInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this syslog export internal server error response has a 2xx status code
-func (o *SyslogExportInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this syslog export internal server error response has a 3xx status code
-func (o *SyslogExportInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this syslog export internal server error response has a 4xx status code
-func (o *SyslogExportInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this syslog export internal server error response has a 5xx status code
-func (o *SyslogExportInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this syslog export internal server error response a status code equal to that given
-func (o *SyslogExportInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the syslog export internal server error response
-func (o *SyslogExportInternalServerError) Code() int {
-	return 500
-}
-
-func (o *SyslogExportInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *SyslogExportInternalServerError) String() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] syslogExportInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *SyslogExportInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *SyslogExportInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *SyslogExportDefault) Code() int {
 }
 
 func (o *SyslogExportDefault) Error() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] SyslogExport default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/sys/export][%d] SyslogExport default %s", o._statusCode, payload)
 }
 
 func (o *SyslogExportDefault) String() string {
-	return fmt.Sprintf("[POST /log/sys/export][%d] SyslogExport default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[POST /log/sys/export][%d] SyslogExport default %s", o._statusCode, payload)
 }
 
 func (o *SyslogExportDefault) GetPayload() *models.RPCStatus {

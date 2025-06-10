@@ -6,6 +6,7 @@ package enterprise_config_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *ListOAuth2ClientsReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewListOAuth2ClientsUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewListOAuth2ClientsForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewListOAuth2ClientsNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewListOAuth2ClientsInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewListOAuth2ClientsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *ListOAuth2ClientsOK) Code() int {
 }
 
 func (o *ListOAuth2ClientsOK) Error() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsOK %s", 200, payload)
 }
 
 func (o *ListOAuth2ClientsOK) String() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsOK %s", 200, payload)
 }
 
 func (o *ListOAuth2ClientsOK) GetPayload() *models.EntOAuth2ClientCollection {
@@ -124,266 +103,6 @@ func (o *ListOAuth2ClientsOK) GetPayload() *models.EntOAuth2ClientCollection {
 func (o *ListOAuth2ClientsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntOAuth2ClientCollection)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListOAuth2ClientsUnauthorized creates a ListOAuth2ClientsUnauthorized with default headers values
-func NewListOAuth2ClientsUnauthorized() *ListOAuth2ClientsUnauthorized {
-	return &ListOAuth2ClientsUnauthorized{}
-}
-
-/*
-ListOAuth2ClientsUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type ListOAuth2ClientsUnauthorized struct {
-}
-
-// IsSuccess returns true when this list o auth2 clients unauthorized response has a 2xx status code
-func (o *ListOAuth2ClientsUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list o auth2 clients unauthorized response has a 3xx status code
-func (o *ListOAuth2ClientsUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list o auth2 clients unauthorized response has a 4xx status code
-func (o *ListOAuth2ClientsUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list o auth2 clients unauthorized response has a 5xx status code
-func (o *ListOAuth2ClientsUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list o auth2 clients unauthorized response a status code equal to that given
-func (o *ListOAuth2ClientsUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the list o auth2 clients unauthorized response
-func (o *ListOAuth2ClientsUnauthorized) Code() int {
-	return 401
-}
-
-func (o *ListOAuth2ClientsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsUnauthorized ", 401)
-}
-
-func (o *ListOAuth2ClientsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsUnauthorized ", 401)
-}
-
-func (o *ListOAuth2ClientsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewListOAuth2ClientsForbidden creates a ListOAuth2ClientsForbidden with default headers values
-func NewListOAuth2ClientsForbidden() *ListOAuth2ClientsForbidden {
-	return &ListOAuth2ClientsForbidden{}
-}
-
-/*
-ListOAuth2ClientsForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type ListOAuth2ClientsForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list o auth2 clients forbidden response has a 2xx status code
-func (o *ListOAuth2ClientsForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list o auth2 clients forbidden response has a 3xx status code
-func (o *ListOAuth2ClientsForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list o auth2 clients forbidden response has a 4xx status code
-func (o *ListOAuth2ClientsForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list o auth2 clients forbidden response has a 5xx status code
-func (o *ListOAuth2ClientsForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list o auth2 clients forbidden response a status code equal to that given
-func (o *ListOAuth2ClientsForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the list o auth2 clients forbidden response
-func (o *ListOAuth2ClientsForbidden) Code() int {
-	return 403
-}
-
-func (o *ListOAuth2ClientsForbidden) Error() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListOAuth2ClientsForbidden) String() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *ListOAuth2ClientsForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListOAuth2ClientsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListOAuth2ClientsNotFound creates a ListOAuth2ClientsNotFound with default headers values
-func NewListOAuth2ClientsNotFound() *ListOAuth2ClientsNotFound {
-	return &ListOAuth2ClientsNotFound{}
-}
-
-/*
-ListOAuth2ClientsNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type ListOAuth2ClientsNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list o auth2 clients not found response has a 2xx status code
-func (o *ListOAuth2ClientsNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list o auth2 clients not found response has a 3xx status code
-func (o *ListOAuth2ClientsNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list o auth2 clients not found response has a 4xx status code
-func (o *ListOAuth2ClientsNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this list o auth2 clients not found response has a 5xx status code
-func (o *ListOAuth2ClientsNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this list o auth2 clients not found response a status code equal to that given
-func (o *ListOAuth2ClientsNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the list o auth2 clients not found response
-func (o *ListOAuth2ClientsNotFound) Code() int {
-	return 404
-}
-
-func (o *ListOAuth2ClientsNotFound) Error() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListOAuth2ClientsNotFound) String() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *ListOAuth2ClientsNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListOAuth2ClientsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewListOAuth2ClientsInternalServerError creates a ListOAuth2ClientsInternalServerError with default headers values
-func NewListOAuth2ClientsInternalServerError() *ListOAuth2ClientsInternalServerError {
-	return &ListOAuth2ClientsInternalServerError{}
-}
-
-/*
-ListOAuth2ClientsInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type ListOAuth2ClientsInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this list o auth2 clients internal server error response has a 2xx status code
-func (o *ListOAuth2ClientsInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this list o auth2 clients internal server error response has a 3xx status code
-func (o *ListOAuth2ClientsInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this list o auth2 clients internal server error response has a 4xx status code
-func (o *ListOAuth2ClientsInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this list o auth2 clients internal server error response has a 5xx status code
-func (o *ListOAuth2ClientsInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this list o auth2 clients internal server error response a status code equal to that given
-func (o *ListOAuth2ClientsInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the list o auth2 clients internal server error response
-func (o *ListOAuth2ClientsInternalServerError) Code() int {
-	return 500
-}
-
-func (o *ListOAuth2ClientsInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListOAuth2ClientsInternalServerError) String() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] listOAuth2ClientsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *ListOAuth2ClientsInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *ListOAuth2ClientsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *ListOAuth2ClientsDefault) Code() int {
 }
 
 func (o *ListOAuth2ClientsDefault) Error() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] ListOAuth2Clients default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/oauth2clients][%d] ListOAuth2Clients default %s", o._statusCode, payload)
 }
 
 func (o *ListOAuth2ClientsDefault) String() string {
-	return fmt.Sprintf("[GET /config/oauth2clients][%d] ListOAuth2Clients default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /config/oauth2clients][%d] ListOAuth2Clients default %s", o._statusCode, payload)
 }
 
 func (o *ListOAuth2ClientsDefault) GetPayload() *models.RPCStatus {

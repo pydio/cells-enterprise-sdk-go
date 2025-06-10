@@ -6,6 +6,7 @@ package enterprise_frontend_service
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 
@@ -29,30 +30,6 @@ func (o *FrontLoginConnectorsReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewFrontLoginConnectorsUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 403:
-		result := NewFrontLoginConnectorsForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 404:
-		result := NewFrontLoginConnectorsNotFound()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
-	case 500:
-		result := NewFrontLoginConnectorsInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		result := NewFrontLoginConnectorsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -110,11 +87,13 @@ func (o *FrontLoginConnectorsOK) Code() int {
 }
 
 func (o *FrontLoginConnectorsOK) Error() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsOK %s", 200, payload)
 }
 
 func (o *FrontLoginConnectorsOK) String() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsOK  %+v", 200, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsOK %s", 200, payload)
 }
 
 func (o *FrontLoginConnectorsOK) GetPayload() *models.EntFrontLoginConnectorsResponse {
@@ -124,266 +103,6 @@ func (o *FrontLoginConnectorsOK) GetPayload() *models.EntFrontLoginConnectorsRes
 func (o *FrontLoginConnectorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.EntFrontLoginConnectorsResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewFrontLoginConnectorsUnauthorized creates a FrontLoginConnectorsUnauthorized with default headers values
-func NewFrontLoginConnectorsUnauthorized() *FrontLoginConnectorsUnauthorized {
-	return &FrontLoginConnectorsUnauthorized{}
-}
-
-/*
-FrontLoginConnectorsUnauthorized describes a response with status code 401, with default header values.
-
-User is not authenticated
-*/
-type FrontLoginConnectorsUnauthorized struct {
-}
-
-// IsSuccess returns true when this front login connectors unauthorized response has a 2xx status code
-func (o *FrontLoginConnectorsUnauthorized) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this front login connectors unauthorized response has a 3xx status code
-func (o *FrontLoginConnectorsUnauthorized) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this front login connectors unauthorized response has a 4xx status code
-func (o *FrontLoginConnectorsUnauthorized) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this front login connectors unauthorized response has a 5xx status code
-func (o *FrontLoginConnectorsUnauthorized) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this front login connectors unauthorized response a status code equal to that given
-func (o *FrontLoginConnectorsUnauthorized) IsCode(code int) bool {
-	return code == 401
-}
-
-// Code gets the status code for the front login connectors unauthorized response
-func (o *FrontLoginConnectorsUnauthorized) Code() int {
-	return 401
-}
-
-func (o *FrontLoginConnectorsUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsUnauthorized ", 401)
-}
-
-func (o *FrontLoginConnectorsUnauthorized) String() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsUnauthorized ", 401)
-}
-
-func (o *FrontLoginConnectorsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	return nil
-}
-
-// NewFrontLoginConnectorsForbidden creates a FrontLoginConnectorsForbidden with default headers values
-func NewFrontLoginConnectorsForbidden() *FrontLoginConnectorsForbidden {
-	return &FrontLoginConnectorsForbidden{}
-}
-
-/*
-FrontLoginConnectorsForbidden describes a response with status code 403, with default header values.
-
-User has no permission to access this resource
-*/
-type FrontLoginConnectorsForbidden struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this front login connectors forbidden response has a 2xx status code
-func (o *FrontLoginConnectorsForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this front login connectors forbidden response has a 3xx status code
-func (o *FrontLoginConnectorsForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this front login connectors forbidden response has a 4xx status code
-func (o *FrontLoginConnectorsForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this front login connectors forbidden response has a 5xx status code
-func (o *FrontLoginConnectorsForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this front login connectors forbidden response a status code equal to that given
-func (o *FrontLoginConnectorsForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the front login connectors forbidden response
-func (o *FrontLoginConnectorsForbidden) Code() int {
-	return 403
-}
-
-func (o *FrontLoginConnectorsForbidden) Error() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *FrontLoginConnectorsForbidden) String() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsForbidden  %+v", 403, o.Payload)
-}
-
-func (o *FrontLoginConnectorsForbidden) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *FrontLoginConnectorsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewFrontLoginConnectorsNotFound creates a FrontLoginConnectorsNotFound with default headers values
-func NewFrontLoginConnectorsNotFound() *FrontLoginConnectorsNotFound {
-	return &FrontLoginConnectorsNotFound{}
-}
-
-/*
-FrontLoginConnectorsNotFound describes a response with status code 404, with default header values.
-
-Resource does not exist in the system
-*/
-type FrontLoginConnectorsNotFound struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this front login connectors not found response has a 2xx status code
-func (o *FrontLoginConnectorsNotFound) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this front login connectors not found response has a 3xx status code
-func (o *FrontLoginConnectorsNotFound) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this front login connectors not found response has a 4xx status code
-func (o *FrontLoginConnectorsNotFound) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this front login connectors not found response has a 5xx status code
-func (o *FrontLoginConnectorsNotFound) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this front login connectors not found response a status code equal to that given
-func (o *FrontLoginConnectorsNotFound) IsCode(code int) bool {
-	return code == 404
-}
-
-// Code gets the status code for the front login connectors not found response
-func (o *FrontLoginConnectorsNotFound) Code() int {
-	return 404
-}
-
-func (o *FrontLoginConnectorsNotFound) Error() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *FrontLoginConnectorsNotFound) String() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsNotFound  %+v", 404, o.Payload)
-}
-
-func (o *FrontLoginConnectorsNotFound) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *FrontLoginConnectorsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewFrontLoginConnectorsInternalServerError creates a FrontLoginConnectorsInternalServerError with default headers values
-func NewFrontLoginConnectorsInternalServerError() *FrontLoginConnectorsInternalServerError {
-	return &FrontLoginConnectorsInternalServerError{}
-}
-
-/*
-FrontLoginConnectorsInternalServerError describes a response with status code 500, with default header values.
-
-An internal error occurred in the backend
-*/
-type FrontLoginConnectorsInternalServerError struct {
-	Payload *models.RestError
-}
-
-// IsSuccess returns true when this front login connectors internal server error response has a 2xx status code
-func (o *FrontLoginConnectorsInternalServerError) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this front login connectors internal server error response has a 3xx status code
-func (o *FrontLoginConnectorsInternalServerError) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this front login connectors internal server error response has a 4xx status code
-func (o *FrontLoginConnectorsInternalServerError) IsClientError() bool {
-	return false
-}
-
-// IsServerError returns true when this front login connectors internal server error response has a 5xx status code
-func (o *FrontLoginConnectorsInternalServerError) IsServerError() bool {
-	return true
-}
-
-// IsCode returns true when this front login connectors internal server error response a status code equal to that given
-func (o *FrontLoginConnectorsInternalServerError) IsCode(code int) bool {
-	return code == 500
-}
-
-// Code gets the status code for the front login connectors internal server error response
-func (o *FrontLoginConnectorsInternalServerError) Code() int {
-	return 500
-}
-
-func (o *FrontLoginConnectorsInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *FrontLoginConnectorsInternalServerError) String() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] frontLoginConnectorsInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *FrontLoginConnectorsInternalServerError) GetPayload() *models.RestError {
-	return o.Payload
-}
-
-func (o *FrontLoginConnectorsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.RestError)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
@@ -442,11 +161,13 @@ func (o *FrontLoginConnectorsDefault) Code() int {
 }
 
 func (o *FrontLoginConnectorsDefault) Error() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] FrontLoginConnectors default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/login/connectors][%d] FrontLoginConnectors default %s", o._statusCode, payload)
 }
 
 func (o *FrontLoginConnectorsDefault) String() string {
-	return fmt.Sprintf("[GET /frontend/login/connectors][%d] FrontLoginConnectors default  %+v", o._statusCode, o.Payload)
+	payload, _ := json.Marshal(o.Payload)
+	return fmt.Sprintf("[GET /frontend/login/connectors][%d] FrontLoginConnectors default %s", o._statusCode, payload)
 }
 
 func (o *FrontLoginConnectorsDefault) GetPayload() *models.RPCStatus {
