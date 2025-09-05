@@ -4,7 +4,7 @@
 
 For more information, please visit our [developer guide](https://pydio.com/en/docs/developer-guide)
 
-This SDK is generated automatically using [go-swagger](https://github.com/go-swagger/go-swagger) version [v0.31.0](https://github.com/go-swagger/go-swagger/releases/tag/v0.31.0) from the OpenAPI specification of Cells Enterprise Rest API. 
+This SDK is generated automatically using [go-swagger](https://github.com/go-swagger/go-swagger) version [v0.32.3](https://github.com/go-swagger/go-swagger/releases/tag/v0.32.3) from the OpenAPI specification of Cells Enterprise Rest API. 
 
 ## Usage
 
